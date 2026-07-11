@@ -1,0 +1,4 @@
+.agents/
+.codex/
+server.log
+server-error.log
