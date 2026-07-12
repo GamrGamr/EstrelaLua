@@ -1,16 +1,47 @@
 # EstrelaLuaApps
 
-A responsive, dependency-free landing page for EstrelaLuaApps. It can be hosted directly with GitHub Pages.
+This repository contains the official website for **EstrelaLuaApps**, an independent collection of practical Windows desktop applications.
 
-## Preview locally
+The website gives every app one clear home where visitors can:
 
-Open `index.html` directly in a browser, or run any small static server from this folder.
+- Discover what each application is designed to do
+- Compare its main features and system requirements
+- Understand how it handles privacy and local data
+- Open the application's GitHub repository
+- Download the latest official release
 
-## Publish with GitHub Pages
+## Apps featured on the website
 
-1. Push this folder to a GitHub repository.
-2. In the repository, open **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select the `main` branch and `/ (root)`, then save.
+### Allin1APP
 
-The site uses relative asset paths, so it works both at a custom domain and under a GitHub project URL.
+A lightweight Windows app launcher for organizing applications and shortcuts into categories, keeping favourites close, and reducing desktop clutter.
+
+### Foculume
+
+A private, local study timer with customizable focus and rest cycles, an always-on-top compact timer, long breaks, and seven-day statistics.
+
+### MacroAPP
+
+A portable macro recorder and player for capturing keyboard events and mouse clicks, saving reusable macros, and controlling playback with configurable hotkeys.
+
+### Pixevra
+
+A local image utility for converting, resizing, cropping, trimming, creating ICO files, and cleaning up image backgrounds without uploading files anywhere.
+
+## About the project
+
+EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
+
+This repository contains only the public website. Each application's downloads, documentation, release history, and repository link are available from its dedicated page.
+
+## Website structure
+
+- `index.html` - Main EstrelaLuaApps homepage and app collection
+- `apps/` - Dedicated information page for each application
+- `assets/` - Brand artwork, favicons, and official app icons
+- `styles.css` - Shared responsive design and page styling
+- `script.js` - Navigation, scrolling, and reveal interactions
+
+## Hosting
+
+The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
