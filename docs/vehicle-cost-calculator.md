@@ -8,7 +8,7 @@ Open the app from `apps/vehicle-cost-calculator.html` or directly at `tools/vehi
 
 - Optional journey name and notes for saved calculations
 - One-way distance and optional one-way duration in `00h00` format
-- One-way, return, or custom trip multiplier
+- One-way or return journey type
 - Vehicle energy type and consumption
 - Fuel or electricity price
 - Outbound and return tolls
@@ -22,7 +22,7 @@ The distance, duration, tolls, and prices used in a calculation are entered manu
 Total distance:
 
 ```text
-one-way distance × trip multiplier
+one-way distance × 1 for one-way, or × 2 for return
 ```
 
 Fuel or electricity quantity:
@@ -102,7 +102,7 @@ Open `tools/vehicle-cost-calculator/tests.html` through GitHub Pages or a static
 The suite covers:
 
 - Every supported energy type
-- Journey multipliers and `00h00` duration validation
+- One-way and return journeys with `00h00` duration validation
 - Tolls and other manual costs
 - Passenger splitting and numeric validation
 - Field-level validation for missing, malformed, negative, out-of-range, and non-integer values

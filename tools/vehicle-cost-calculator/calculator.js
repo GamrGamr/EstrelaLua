@@ -10,7 +10,7 @@ import {
   makeId,
   parseDuration,
   parseNumber,
-} from "./calculations.js?v=6";
+} from "./calculations.js?v=7";
 import { CalculatorStorage, StorageError } from "./storage.js?v=6";
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -463,10 +463,17 @@ function readCustomCosts() {
   }));
 }
 
+function normaliseDurationField() {
+  const field = $("#manual-duration");
+  const digits = field.value.replace(/\D/g, "").slice(0, 4).padStart(4, "0");
+  field.value = `${digits.slice(0, 2)}h${digits.slice(2)}`;
+  return field.value;
+}
+
 function rawJourneyValues() {
   const multiplier = value("trip-multiplier");
-  const parsedMultiplier = parseNumber(multiplier || 1, { field: "Trip multiplier", fieldId: "trip-multiplier", min: .01, max: 1_000, required: true });
-  const durationSeconds = parseDuration(value("manual-duration")) * parsedMultiplier;
+  const parsedMultiplier = parseNumber(multiplier || 1, { field: "Trip multiplier", fieldId: "trip-multiplier", min: 1, max: 2, required: true, integer: true });
+  const durationSeconds = parseDuration(normaliseDurationField()) * parsedMultiplier;
   return {
     oneWayDistance: value("one-way-distance"),
     tripMultiplier: multiplier, passengerCount: value("passenger-count"),
@@ -573,10 +580,10 @@ function loadJourney(record, useCurrentVehicle = false) {
   const journey = record;
   safeValue("journey-name", journey.name || ""); safeValue("journey-notes", journey.notes || "");
   safeValue("one-way-distance", input.oneWayDistance ?? record.result?.oneWayDistance ?? "");
-  safeValue("trip-multiplier", input.tripMultiplier ?? 1); safeValue("passenger-count", input.passengerCount ?? 1);
-  const loadedMultiplier = Number(input.tripMultiplier) || 1;
+  const loadedMultiplier = Number(input.tripMultiplier) === 2 ? 2 : 1;
+  safeValue("trip-multiplier", loadedMultiplier); safeValue("passenger-count", input.passengerCount ?? 1);
   safeValue("manual-duration", formatDurationInput((input.durationSeconds ?? record.result?.durationSeconds ?? 0) / loadedMultiplier));
-  const type = Number(input.tripMultiplier) === 2 ? "return" : Number(input.tripMultiplier) === 1 ? "one-way" : "custom";
+  const type = loadedMultiplier === 2 ? "return" : "one-way";
   $(`input[name="journeyType"][value="${type}"]`).checked = true;
   safeValue("energy-type", input.energyType || "petrol"); safeValue("fuel-consumption", input.fuelConsumption || "");
   safeValue("electric-consumption", input.electricConsumption || ""); safeValue("fuel-price", input.fuelPrice || ""); safeValue("electricity-price", input.electricityPrice || "");
@@ -605,7 +612,7 @@ function renderJourneys() {
     return;
   }
   container.className = "card-list";
-  container.innerHTML = state.journeys.map((journey) => `<article class="item-card"><h3>${escapeHtml(journey.name || "Untitled journey")}</h3><p>${escapeHtml(journey.vehicleName || "Custom vehicle")} &middot; ${Number(journey.result?.tripMultiplier) === 2 ? "Return" : Number(journey.result?.tripMultiplier) === 1 ? "One-way" : `Multiplier ${formatNumber(journey.result?.tripMultiplier, 2)}`}</p><p>${formatNumber(journey.result?.totalDistance, 1)} km · ${formatCurrency(journey.result?.totalCost, journey.result?.currency || "EUR")} · ${escapeHtml(new Date(journey.updatedAt || journey.createdAt).toLocaleDateString())}</p><div class="item-actions"><button type="button" data-journey-action="open" data-id="${escapeHtml(journey.id)}">Open</button><button type="button" data-journey-action="duplicate" data-id="${escapeHtml(journey.id)}">Duplicate</button><button type="button" data-journey-action="recalculate" data-id="${escapeHtml(journey.id)}">Recalculate current</button><button type="button" data-journey-action="export" data-id="${escapeHtml(journey.id)}">Export</button><button type="button" data-journey-action="delete" data-id="${escapeHtml(journey.id)}">Delete</button></div></article>`).join("");
+  container.innerHTML = state.journeys.map((journey) => `<article class="item-card"><h3>${escapeHtml(journey.name || "Untitled journey")}</h3><p>${escapeHtml(journey.vehicleName || "Custom vehicle")} &middot; ${Number(journey.result?.tripMultiplier) === 2 ? "Return" : "One-way"}</p><p>${formatNumber(journey.result?.totalDistance, 1)} km · ${formatCurrency(journey.result?.totalCost, journey.result?.currency || "EUR")} · ${escapeHtml(new Date(journey.updatedAt || journey.createdAt).toLocaleDateString())}</p><div class="item-actions"><button type="button" data-journey-action="open" data-id="${escapeHtml(journey.id)}">Open</button><button type="button" data-journey-action="duplicate" data-id="${escapeHtml(journey.id)}">Duplicate</button><button type="button" data-journey-action="recalculate" data-id="${escapeHtml(journey.id)}">Recalculate current</button><button type="button" data-journey-action="export" data-id="${escapeHtml(journey.id)}">Export</button><button type="button" data-journey-action="delete" data-id="${escapeHtml(journey.id)}">Delete</button></div></article>`).join("");
 }
 
 async function handleJourneyAction(event) {
@@ -740,9 +747,11 @@ async function loadSettings() {
 function bindEvents() {
   $("#journey-form").addEventListener("submit", calculateForm);
   $$('input[name="journeyType"]').forEach((radio) => radio.addEventListener("change", () => {
-    if (radio.checked && radio.value !== "custom") safeValue("trip-multiplier", radio.value === "return" ? 2 : 1);
-    if (radio.checked && radio.value === "custom") $("#trip-multiplier").focus();
+    if (radio.checked) safeValue("trip-multiplier", radio.value === "return" ? 2 : 1);
   }));
+  $("#manual-duration").addEventListener("focus", (event) => requestAnimationFrame(() => event.target.select()));
+  $("#manual-duration").addEventListener("input", (event) => { event.target.value = event.target.value.replace(/\D/g, "").slice(0, 4); });
+  $("#manual-duration").addEventListener("blur", normaliseDurationField);
   $("#energy-type").addEventListener("change", updateEnergyFields);
   $("#consumption-source").addEventListener("change", applyConsumptionSource);
   $("#vehicle-select").addEventListener("change", () => { const vehicle = activeVehicle(); if (vehicle) useVehicle(vehicle); });

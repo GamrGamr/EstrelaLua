@@ -59,7 +59,7 @@ export function parseDuration(value, { field = "Duration", fieldId = "manual-dur
 
 export function formatDurationInput(seconds) {
   const totalMinutes = Math.max(0, Math.round((Number(seconds) || 0) / 60));
-  if (!totalMinutes) return "";
+  if (!totalMinutes) return "00h00";
   const hours = Math.floor(totalMinutes / 60);
   const minutes = Math.round(totalMinutes % 60);
   return `${String(hours).padStart(2, "0")}h${String(minutes).padStart(2, "0")}`;
@@ -68,7 +68,7 @@ export function formatDurationInput(seconds) {
 export function calculateJourney(input = {}) {
   const energyType = ENERGY_TYPES.includes(input.energyType) ? input.energyType : "petrol";
   const oneWayDistance = parseNumber(input.oneWayDistance, { field: "One-way distance", fieldId: "one-way-distance", min: 0.01, max: 1_000_000, required: true });
-  const tripMultiplier = parseNumber(input.tripMultiplier ?? 1, { field: "Trip multiplier", fieldId: "trip-multiplier", min: 0.01, max: 1_000, required: true });
+  const tripMultiplier = parseNumber(input.tripMultiplier ?? 1, { field: "Trip multiplier", fieldId: "trip-multiplier", min: 1, max: 2, required: true, integer: true });
   const passengerCount = parseNumber(input.passengerCount ?? 1, { field: "Passenger count", fieldId: "passenger-count", min: 1, max: 100_000, required: true, integer: true });
 
   const totalDistance = oneWayDistance * tripMultiplier;
@@ -262,7 +262,7 @@ export function buildJourneySummary(journey, result) {
     "Vehicle Cost Calculator",
     "",
     `Journey: ${journey.name || "Untitled journey"}`,
-    `Journey type: ${result.tripMultiplier === 2 ? "Return" : result.tripMultiplier === 1 ? "One-way" : `Multiplier ${result.tripMultiplier}`}`,
+    `Journey type: ${result.tripMultiplier === 2 ? "Return" : "One-way"}`,
     `Distance: ${formatNumber(result.totalDistance, 2)} km`,
     `Duration: ${formatDuration(result.durationSeconds)}`,
     `Vehicle: ${journey.vehicleName || "Custom vehicle"}`,

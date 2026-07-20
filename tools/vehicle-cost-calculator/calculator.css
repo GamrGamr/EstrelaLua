@@ -115,7 +115,7 @@ button:disabled { cursor: not-allowed; opacity: .45; transform: none !important;
 .inline-message.warning { padding: 10px 12px; color: #744d00; border-radius: 12px; background: #fff3cd; }
 .inline-message.error { padding: 10px 12px; color: #8f2d24; border-radius: 12px; background: #ffe9e5; }
 
-.choice-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.choice-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .choice-card { position: relative; display: block; margin: 0; padding: 13px; border: 1px solid var(--line); border-radius: 14px; background: #fbfefd; cursor: pointer; }
 .choice-card input { position: absolute; width: 1px; height: 1px; min-height: 0; opacity: 0; }
 .choice-card span { display: block; text-align: center; }

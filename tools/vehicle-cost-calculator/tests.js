@@ -1,4 +1,4 @@
-import { ValidationError, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber } from "./calculations.js?v=6";
+import { ValidationError, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber } from "./calculations.js?v=7";
 import { CalculatorStorage } from "./storage.js?v=6";
 
 const results = [];
@@ -20,11 +20,12 @@ await test("Electric calculation", () => { const result = calculateJourney({ ...
 await test("One-way journey", () => close(calculateJourney(base).totalDistance, 100));
 await test("Return journey", () => close(calculateJourney({ ...base, tripMultiplier: 2 }).totalDistance, 200));
 await test("Separate outbound and return tolls", () => { const result = calculateJourney({ ...base, outboundToll: 10, returnToll: 12 }); close(result.totalTolls, 22); });
-await test("Custom multiplier", () => close(calculateJourney({ ...base, tripMultiplier: 1.5 }).totalDistance, 150));
+await test("Unsupported trip multiplier rejected", () => { let threw = false; try { calculateJourney({ ...base, tripMultiplier: 1.5 }); } catch { threw = true; } assert(threw); });
 await test("Duration in 00h00 format", () => close(parseDuration("01h30"), 5400));
 await test("Single-digit hours accepted", () => close(parseDuration("1h05"), 3900));
 await test("Zero duration accepted", () => close(parseDuration("00h00"), 0));
 await test("Saved duration formats for editing", () => assert(formatDurationInput(5400) === "01h30"));
+await test("Empty saved duration displays as 00h00", () => assert(formatDurationInput(0) === "00h00"));
 await test("Invalid duration minutes rejected", () => { let threw = false; try { parseDuration("01h60"); } catch { threw = true; } assert(threw); });
 await test("Plain duration minutes rejected", () => { let threw = false; try { parseDuration("90"); } catch { threw = true; } assert(threw); });
 await test("Parking and ferry", () => close(calculateJourney({ ...base, parkingCost: 8, ferryCost: 12 }).totalCost, 32));

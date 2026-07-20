@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#063852" />
     <title>Vehicle Cost Calculator &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
-    <link rel="stylesheet" href="calculator.css?v=5" />
-    <script type="module" src="calculator.js?v=7"></script>
+    <link rel="stylesheet" href="calculator.css?v=6" />
+    <script type="module" src="calculator.js?v=8"></script>
   </head>
   <body>
     <a class="skip-link" href="#calculator-main">Skip to calculator</a>
@@ -57,7 +57,7 @@
                 <legend>Distance and duration</legend>
                 <div class="field-grid two-columns">
                   <div class="field"><label for="one-way-distance">One-way distance</label><div class="unit-input"><input id="one-way-distance" name="oneWayDistance" inputmode="decimal" autocomplete="off" required aria-required="true" /><span>km</span></div><p class="field-help">Enter a value greater than zero.</p></div>
-                  <div class="field"><label for="manual-duration">One-way duration <span class="optional">Optional</span></label><input id="manual-duration" name="manualDuration" inputmode="text" autocomplete="off" maxlength="7" placeholder="00h00" aria-describedby="duration-format" /><p id="duration-format" class="field-help">Use hours and minutes, for example 01h30.</p></div>
+                  <div class="field"><label for="manual-duration">One-way duration <span class="optional">Optional</span></label><input id="manual-duration" name="manualDuration" inputmode="numeric" autocomplete="off" maxlength="5" value="00h00" pattern="[0-9]{2}h[0-5][0-9]" aria-describedby="duration-format" /><p id="duration-format" class="field-help">Click the field and enter four digits; for example, 0130 becomes 01h30.</p></div>
                 </div>
               </fieldset>
 
@@ -66,10 +66,9 @@
                 <div class="choice-row">
                   <label class="choice-card"><input type="radio" name="journeyType" value="one-way" checked /><span>One-way</span></label>
                   <label class="choice-card"><input type="radio" name="journeyType" value="return" /><span>Return</span></label>
-                  <label class="choice-card"><input type="radio" name="journeyType" value="custom" /><span>Custom</span></label>
                 </div>
-                <div class="field-grid three-columns compact-grid">
-                  <div class="field"><label for="trip-multiplier">Trip multiplier</label><input id="trip-multiplier" name="tripMultiplier" inputmode="decimal" autocomplete="off" value="1" required aria-required="true" /></div>
+                <input id="trip-multiplier" name="tripMultiplier" type="hidden" value="1" />
+                <div class="field-grid two-columns compact-grid">
                   <div class="field"><label for="passenger-count">Passengers</label><input id="passenger-count" name="passengerCount" type="number" min="1" step="1" value="1" required /></div>
                   <div class="field"><label for="journey-name">Journey name <span class="optional">Optional</span></label><input id="journey-name" name="journeyName" maxlength="120" placeholder="Weekend in Porto" /></div>
                 </div>
@@ -103,7 +102,7 @@
             </div>
           </details>
 
-          <details id="costs-section" class="step-card">
+          <details id="costs-section" class="step-card" open>
             <summary><span>03</span><div><strong>Additional costs</strong><small>Tolls, ferry, parking, and anything else.</small></div></summary>
             <div class="step-content">
               <div class="toll-heading"><div><strong>Tolls</strong><span>Enter any road charges for this journey.</span></div></div>
