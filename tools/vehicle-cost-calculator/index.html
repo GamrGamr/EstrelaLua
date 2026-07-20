@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Calculate vehicle journey costs using distance, real consumption, tolls, parking, maintenance, and passenger sharing." />
+    <meta name="theme-color" content="#063852" />
+    <title>Vehicle Cost Calculator &mdash; EstrelaLuaApps</title>
+    <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
+    <link rel="stylesheet" href="calculator.css" />
+    <script type="module" src="calculator.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator-main">Skip to calculator</a>
+
+    <header class="calc-header">
+      <a class="calc-brand" href="../../index.html" aria-label="EstrelaLuaApps home">
+        <img src="../../assets/estrelalua-logo.png" alt="" width="48" height="48" />
+        <span>EstrelaLua<span>Apps</span></span>
+      </a>
+      <nav aria-label="Calculator navigation">
+        <a href="../../apps/vehicle-cost-calculator.html">About this app</a>
+        <a href="../../index.html">Main website</a>
+      </nav>
+    </header>
+
+    <main id="calculator-main">
+      <section class="calc-hero">
+        <div>
+          <p class="kicker">Travel cost calculator &middot; Beta</p>
+          <h1>Plan the route.<br /><em>Know the real cost.</em></h1>
+          <p>Start with a distance, your vehicle&rsquo;s consumption, and an energy price. Add tolls and other costs only when you need them.</p>
+        </div>
+        <div class="mode-card" aria-live="polite">
+          <span class="status-dot" id="provider-dot"></span>
+          <div><strong id="provider-mode">Manual mode</strong><small id="provider-description">No route provider configured. All manual calculations stay in this browser.</small></div>
+        </div>
+      </section>
+
+      <nav class="section-nav" aria-label="Calculator sections">
+        <a href="#route-section">1. Route</a>
+        <a href="#vehicle-section">2. Vehicle</a>
+        <a href="#costs-section">3. Costs</a>
+        <a href="#results-section">4. Results</a>
+        <a href="#vehicles-library">Vehicles</a>
+        <a href="#fillups-section">Fill-ups</a>
+        <a href="#journeys-section">Saved journeys</a>
+        <a href="#settings-section">Settings &amp; data</a>
+      </nav>
+
+      <div class="calculator-layout">
+        <form id="journey-form" class="journey-form" novalidate>
+          <details id="route-section" class="step-card" open>
+            <summary><span>01</span><div><strong>Route</strong><small>Where are you going?</small></div></summary>
+            <div class="step-content">
+              <div class="field full-field">
+                <label for="map-link">Shared map link <span class="optional">Optional</span></label>
+                <div class="input-action">
+                  <input id="map-link" name="mapLink" type="url" inputmode="url" placeholder="Paste a Google Maps, Apple Maps, or Waze link" autocomplete="off" />
+                  <button class="secondary-button" id="import-link" type="button">Import link</button>
+                </div>
+                <p class="field-help">Links are parsed safely without loading or executing their content. Short links may still need manual confirmation.</p>
+                <div id="link-feedback" class="inline-message" role="status" aria-live="polite"></div>
+              </div>
+
+              <div class="field-grid two-columns">
+                <div class="field"><label for="origin">Origin</label><input id="origin" name="origin" type="text" maxlength="300" autocomplete="street-address" placeholder="Lisbon, Portugal" /></div>
+                <div class="field"><label for="destination">Destination</label><input id="destination" name="destination" type="text" maxlength="300" placeholder="Porto, Portugal" /></div>
+              </div>
+              <div class="field">
+                <label for="stops">Intermediate stops <span class="optional">Optional, one per line</span></label>
+                <textarea id="stops" name="stops" rows="2" maxlength="1500" placeholder="Coimbra, Portugal"></textarea>
+              </div>
+
+              <div class="online-route-box">
+                <div>
+                  <strong>Automatic route &amp; toll estimate</strong>
+                  <p id="online-privacy-note">Configure a secure proxy in Settings to enable this. Before an online request, origin, destination, stops, and route options are sent to the selected provider; saved vehicle history is not sent.</p>
+                </div>
+                <button class="secondary-button" id="calculate-route" type="button">Calculate route</button>
+              </div>
+              <div id="route-status" class="inline-message" role="status" aria-live="polite"></div>
+              <div id="route-alternatives" class="route-alternatives" aria-label="Route alternatives"></div>
+
+              <fieldset>
+                <legend>Manual route details</legend>
+                <div class="field-grid three-columns">
+                  <div class="field"><label for="one-way-distance">One-way distance</label><div class="unit-input"><input id="one-way-distance" name="oneWayDistance" inputmode="decimal" required /><span>km</span></div></div>
+                  <div class="field"><label for="manual-duration">One-way duration <span class="optional">Optional</span></label><div class="unit-input"><input id="manual-duration" name="manualDuration" inputmode="numeric" /><span>min</span></div></div>
+                  <div class="field"><label for="additional-km">Additional distance</label><div class="unit-input"><input id="additional-km" name="additionalKilometres" inputmode="decimal" value="0" /><span>km</span></div></div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Journey options</legend>
+                <div class="choice-row">
+                  <label class="choice-card"><input type="radio" name="journeyType" value="one-way" checked /><span>One-way</span></label>
+                  <label class="choice-card"><input type="radio" name="journeyType" value="return" /><span>Return</span></label>
+                  <label class="choice-card"><input type="radio" name="journeyType" value="custom" /><span>Custom</span></label>
+                </div>
+                <div class="field-grid three-columns compact-grid">
+                  <div class="field"><label for="trip-multiplier">Trip multiplier</label><input id="trip-multiplier" name="tripMultiplier" inputmode="decimal" value="1" required /></div>
+                  <div class="field"><label for="passenger-count">Passengers</label><input id="passenger-count" name="passengerCount" type="number" min="1" step="1" value="1" required /></div>
+                  <div class="field"><label for="journey-name">Journey name <span class="optional">Optional</span></label><input id="journey-name" name="journeyName" maxlength="120" placeholder="Weekend in Porto" /></div>
+                </div>
+                <div class="field"><label for="journey-notes">Notes <span class="optional">Optional</span></label><textarea id="journey-notes" name="journeyNotes" rows="2" maxlength="2000"></textarea></div>
+              </fieldset>
+            </div>
+          </details>
+
+          <details id="vehicle-section" class="step-card" open>
+            <summary><span>02</span><div><strong>Vehicle &amp; consumption</strong><small>Use a saved vehicle or enter values quickly.</small></div></summary>
+            <div class="step-content">
+              <div class="saved-selector">
+                <div class="field"><label for="vehicle-select">Saved vehicle</label><select id="vehicle-select"><option value="">Custom vehicle</option></select></div>
+                <button class="secondary-button" id="new-vehicle" type="button">New vehicle</button>
+              </div>
+              <div class="field-grid two-columns">
+                <div class="field"><label for="vehicle-name">Vehicle name</label><input id="vehicle-name" name="vehicleName" maxlength="100" placeholder="My diesel car" /></div>
+                <div class="field"><label for="energy-type">Energy type</label><select id="energy-type" name="energyType"><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="lpg">LPG</option><option value="hybrid">Hybrid</option><option value="plug-in-hybrid">Plug-in hybrid</option><option value="electric">Electric</option></select></div>
+              </div>
+              <div class="field-grid three-columns">
+                <div class="field"><label for="consumption-source">Consumption source</label><select id="consumption-source" name="consumptionSource"><option value="manual">Manual consumption</option><option value="latest">Latest measured</option><option value="latest-three">Latest-three average</option><option value="overall">Overall measured average</option><option value="city">City measured average</option><option value="motorway">Motorway measured average</option><option value="mixed">Mixed measured average</option></select></div>
+                <div class="field fuel-field"><label for="fuel-consumption">Fuel consumption</label><div class="unit-input"><input id="fuel-consumption" name="fuelConsumption" inputmode="decimal" /><span>L/100 km</span></div></div>
+                <div class="field electric-field" hidden><label for="electric-consumption">Electric consumption</label><div class="unit-input"><input id="electric-consumption" name="electricConsumption" inputmode="decimal" /><span>kWh/100 km</span></div></div>
+              </div>
+              <div id="consumption-feedback" class="inline-message" role="status" aria-live="polite"></div>
+              <div class="field-grid three-columns">
+                <div class="field fuel-field"><label for="fuel-price">Fuel price</label><div class="unit-input"><input id="fuel-price" name="fuelPrice" inputmode="decimal" /><span id="fuel-price-unit">EUR/L</span></div></div>
+                <div class="field electric-field" hidden><label for="electricity-price">Electricity price</label><div class="unit-input"><input id="electricity-price" name="electricityPrice" inputmode="decimal" /><span id="electricity-price-unit">EUR/kWh</span></div></div>
+                <div class="field"><label for="maintenance-rate">Maintenance allowance</label><div class="unit-input"><input id="maintenance-rate" name="maintenanceRate" inputmode="decimal" value="0" /><span id="maintenance-unit">EUR/km</span></div></div>
+              </div>
+              <details class="nested-details">
+                <summary>Vehicle information for toll estimates</summary>
+                <div class="field-grid three-columns">
+                  <div class="field"><label for="toll-category">Vehicle category</label><select id="toll-category"><option value="passenger-car">Passenger car</option><option value="motorcycle">Motorcycle</option><option value="van">Van</option><option value="other">Other</option></select></div>
+                  <div class="field"><label for="toll-preference">Toll payment</label><select id="toll-preference"><option value="standard">Cash/card where available</option><option value="transponder">Transponder/pass where available</option><option value="compare">Compare cash and transponder</option></select></div>
+                  <div class="field"><label for="avoid-tolls">Route preference</label><select id="avoid-tolls"><option value="false">Allow toll roads</option><option value="true">Prefer to avoid toll roads</option></select></div>
+                </div>
+                <p class="field-help">Vehicle categories, emissions, and passes affect prices only where the configured provider and local toll system support them.</p>
+              </details>
+            </div>
+          </details>
+
+          <details id="costs-section" class="step-card">
+            <summary><span>03</span><div><strong>Additional costs</strong><small>Tolls, ferry, parking, and anything else.</small></div></summary>
+            <div class="step-content">
+              <div class="toll-heading"><div><strong>Tolls</strong><span id="toll-source-badge" class="source-badge">Toll status unknown</span></div><button class="text-button" id="mark-no-tolls" type="button">Mark as no tolls</button></div>
+              <div class="field-grid two-columns">
+                <div class="field"><label for="outbound-toll">Outbound toll</label><div class="unit-input"><input id="outbound-toll" name="outboundToll" inputmode="decimal" value="0" /><span class="currency-unit">EUR</span></div></div>
+                <div class="field"><label for="return-toll">Return toll</label><div class="unit-input"><input id="return-toll" name="returnToll" inputmode="decimal" value="0" /><span class="currency-unit">EUR</span></div></div>
+              </div>
+              <label class="check-row"><input id="manual-toll-override" type="checkbox" /> Use these values as a manual override of the provider estimate</label>
+              <p id="toll-guidance" class="field-help">No automatic toll value is available. Enter tolls manually or mark the route as having no tolls.</p>
+              <div class="field-grid two-columns">
+                <div class="field"><label for="ferry-cost">Ferry</label><div class="unit-input"><input id="ferry-cost" name="ferryCost" inputmode="decimal" value="0" /><span class="currency-unit">EUR</span></div></div>
+                <div class="field"><label for="parking-cost">Parking</label><div class="unit-input"><input id="parking-cost" name="parkingCost" inputmode="decimal" value="0" /><span class="currency-unit">EUR</span></div></div>
+              </div>
+              <div class="custom-costs-heading"><strong>Custom costs</strong><button class="secondary-button compact-button" id="add-custom-cost" type="button">Add cost</button></div>
+              <div id="custom-costs"></div>
+            </div>
+          </details>
+
+          <div class="calculate-bar">
+            <div><strong>Ready to calculate?</strong><small>Your manual data stays on this device.</small></div>
+            <button class="primary-button" type="submit">Calculate journey</button>
+          </div>
+          <div id="form-errors" class="error-summary" role="alert" aria-live="assertive" hidden></div>
+        </form>
+
+        <aside id="results-section" class="results-card" aria-labelledby="results-title" aria-live="polite">
+          <p class="kicker">Journey result</p>
+          <h2 id="results-title">Your estimate</h2>
+          <div class="total-block"><span>Total journey cost</span><strong id="result-total">&mdash;</strong></div>
+          <div class="result-highlights">
+            <div><span>Per passenger</span><strong id="result-passenger">&mdash;</strong></div>
+            <div><span>Total distance</span><strong id="result-distance">&mdash;</strong></div>
+          </div>
+          <dl id="result-breakdown" class="result-breakdown">
+            <div><dt>Energy</dt><dd>&mdash;</dd></div>
+            <div><dt>Tolls</dt><dd>&mdash;</dd></div>
+            <div><dt>Other costs</dt><dd>&mdash;</dd></div>
+          </dl>
+          <div id="result-assumptions" class="result-assumptions">Enter a route and vehicle values, then calculate.</div>
+          <div class="result-actions">
+            <button id="save-journey" type="button" disabled>Save journey</button>
+            <button id="recalculate-result" type="button" disabled>Recalculate</button>
+            <button id="duplicate-current" type="button" disabled>Duplicate</button>
+            <button id="copy-summary" type="button" disabled>Copy summary</button>
+            <button id="export-summary" type="button" disabled>Export summary</button>
+            <button id="print-result" type="button" disabled>Print</button>
+            <button id="reset-calculator" type="button">Reset</button>
+          </div>
+          <div id="action-status" class="inline-message" role="status" aria-live="polite"></div>
+        </aside>
+      </div>
+
+      <section id="vehicles-library" class="workspace-section">
+        <div class="section-heading"><div><p class="kicker">Local garage</p><h2>Saved vehicles</h2><p>Create, edit, duplicate, archive, or remove profiles stored in this browser.</p></div><button class="primary-button" id="add-vehicle-library" type="button">Add vehicle</button></div>
+        <div id="vehicle-list" class="card-list empty-state">No vehicles saved yet.</div>
+      </section>
+
+      <section id="fillups-section" class="workspace-section">
+        <div class="section-heading"><div><p class="kicker">Real consumption</p><h2>Fill-up history</h2><p>Use two full-tank records, including any partial fills between them, to measure real L/100 km.</p></div></div>
+        <div class="workspace-grid">
+          <form id="fillup-form" class="data-card" novalidate>
+            <h3>Add a fill-up</h3>
+            <div class="field"><label for="fillup-vehicle">Vehicle</label><select id="fillup-vehicle" required><option value="">Choose a saved vehicle</option></select></div>
+            <div class="field-grid two-columns">
+              <div class="field"><label for="fillup-date">Date</label><input id="fillup-date" type="date" required /></div>
+              <div class="field"><label for="fillup-fuel-type">Fuel type</label><select id="fillup-fuel-type"><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="lpg">LPG</option></select></div>
+              <div class="field"><label for="fillup-odometer">Odometer <span class="optional">km</span></label><input id="fillup-odometer" inputmode="decimal" /></div>
+              <div class="field"><label for="fillup-trip-distance">Trip distance <span class="optional">if no odometer</span></label><input id="fillup-trip-distance" inputmode="decimal" /></div>
+              <div class="field"><label for="fillup-litres">Litres added</label><input id="fillup-litres" inputmode="decimal" required /></div>
+              <div class="field"><label for="fillup-price">Price per litre</label><input id="fillup-price" inputmode="decimal" /></div>
+              <div class="field"><label for="fillup-total">Total paid</label><input id="fillup-total" inputmode="decimal" /></div>
+              <div class="field"><label for="fillup-driving">Driving type</label><select id="fillup-driving"><option value="mixed">Mixed</option><option value="city">City</option><option value="motorway">Motorway</option><option value="other">Other</option></select></div>
+            </div>
+            <label class="check-row"><input id="fillup-full" type="checkbox" /> This was a full tank</label>
+            <div class="field"><label for="fillup-notes">Notes <span class="optional">Optional</span></label><textarea id="fillup-notes" rows="2" maxlength="1000"></textarea></div>
+            <button class="primary-button" type="submit">Save fill-up</button>
+            <div id="fillup-status" class="inline-message" role="status" aria-live="polite"></div>
+          </form>
+          <div class="data-card">
+            <h3>Measured consumption</h3>
+            <div id="consumption-stats" class="stats-grid empty-state">Choose a vehicle with fill-up history.</div>
+          </div>
+        </div>
+        <div class="table-wrap"><table><caption>Fill-up records</caption><thead><tr><th>Date</th><th>Vehicle</th><th>Distance</th><th>Litres</th><th>Full tank</th><th>Driving</th><th>Actions</th></tr></thead><tbody id="fillup-table"><tr><td colspan="7">No fill-ups saved.</td></tr></tbody></table></div>
+      </section>
+
+      <section id="journeys-section" class="workspace-section">
+        <div class="section-heading"><div><p class="kicker">Saved snapshots</p><h2>Saved journeys</h2><p>Each record preserves the original values used, even if a vehicle profile changes later.</p></div><button class="secondary-button" id="export-journeys-csv" type="button">Export CSV</button></div>
+        <div id="journey-list" class="card-list empty-state">No journeys saved yet.</div>
+      </section>
+
+      <section id="settings-section" class="workspace-section">
+        <div class="section-heading"><div><p class="kicker">Preferences &amp; data</p><h2>Settings</h2><p>Small preferences use localStorage; structured records use IndexedDB on this browser and device.</p></div></div>
+        <div class="settings-grid">
+          <form id="settings-form" class="data-card">
+            <h3>Calculator preferences</h3>
+            <div class="field-grid two-columns">
+              <div class="field"><label for="currency">Currency</label><input id="currency" maxlength="3" value="EUR" pattern="[A-Za-z]{3}" /></div>
+              <div class="field"><label for="theme">Theme</label><select id="theme"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></div>
+              <div class="field"><label for="route-cache-hours">Route cache expiry</label><div class="unit-input"><input id="route-cache-hours" type="number" min="1" max="168" value="12" /><span>hours</span></div></div>
+            </div>
+            <div class="field"><label for="provider-endpoint">Secure route proxy URL <span class="optional">Optional</span></label><input id="provider-endpoint" type="url" inputmode="url" placeholder="https://your-worker.workers.dev/" /></div>
+            <p class="field-help">Never paste a HERE or other private API key here. This field accepts only the public HTTPS URL of your deployed secure proxy.</p>
+            <div class="button-row"><button class="primary-button" type="submit">Save settings</button><button class="secondary-button" id="clear-route-cache" type="button">Clear route cache</button></div>
+            <div id="settings-status" class="inline-message" role="status" aria-live="polite"></div>
+          </form>
+          <div class="data-card">
+            <h3>Backup &amp; export</h3>
+            <p>Backups include calculator vehicles, fill-ups, journeys, route cache, price history, and preferences. Imported files are validated before anything changes.</p>
+            <div class="data-actions">
+              <button class="secondary-button" id="export-backup" type="button">Export JSON backup</button>
+              <label class="file-button">Import JSON backup<input id="import-backup" type="file" accept="application/json,.json" /></label>
+              <button class="secondary-button" id="export-vehicles-csv" type="button">Export vehicles CSV</button>
+              <button class="secondary-button" id="export-fillups-csv" type="button">Export fill-ups CSV</button>
+            </div>
+          </div>
+          <div class="data-card danger-card">
+            <h3>Delete calculator data</h3>
+            <p>Deletes only Vehicle Cost Calculator records and preferences stored by this browser. It does not affect other EstrelaLua apps, other websites, or exported files.</p>
+            <button class="danger-button" id="delete-all-data" type="button">Delete all local data</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="privacy-card" aria-labelledby="privacy-title">
+        <div><p class="kicker">Privacy</p><h2 id="privacy-title">Your journey data belongs to you.</h2></div>
+        <div>
+          <p>Manual calculations, vehicles, fill-ups, and saved journeys remain in this browser. There are no accounts, analytics, telemetry, advertising, or cloud synchronisation. Clearing browser storage may remove saved information, so export a backup when it matters.</p>
+          <p>When automatic routing is enabled, the calculator visibly warns you before sending origin, destination, stops, and route options to the configured provider. Vehicle history and saved journeys are not sent. The proxy is designed not to retain journey data, while the provider&rsquo;s own privacy terms still apply.</p>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="vehicle-dialog">
+      <form id="vehicle-form" method="dialog" novalidate>
+        <div class="dialog-heading"><div><p class="kicker">Vehicle profile</p><h2 id="vehicle-dialog-title">Add vehicle</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close">&times;</button></div>
+        <input id="profile-id" type="hidden" />
+        <div class="dialog-scroll">
+          <div class="field-grid two-columns">
+            <div class="field"><label for="profile-name">Vehicle name</label><input id="profile-name" maxlength="100" required /></div>
+            <div class="field"><label for="profile-energy">Energy type</label><select id="profile-energy"><option value="petrol">Petrol</option><option value="diesel">Diesel</option><option value="lpg">LPG</option><option value="hybrid">Hybrid</option><option value="plug-in-hybrid">Plug-in hybrid</option><option value="electric">Electric</option></select></div>
+            <div class="field"><label for="profile-make">Make</label><input id="profile-make" maxlength="80" /></div>
+            <div class="field"><label for="profile-model">Model</label><input id="profile-model" maxlength="80" /></div>
+            <div class="field"><label for="profile-year">Year</label><input id="profile-year" type="number" min="1900" max="2100" /></div>
+            <div class="field"><label for="profile-engine">Engine description</label><input id="profile-engine" maxlength="120" /></div>
+            <div class="field"><label for="profile-registration">Registration or nickname</label><input id="profile-registration" maxlength="40" /></div>
+            <div class="field"><label for="profile-consumption">Manual fuel consumption</label><input id="profile-consumption" inputmode="decimal" /></div>
+            <div class="field"><label for="profile-electric-consumption">Manual electric consumption</label><input id="profile-electric-consumption" inputmode="decimal" /></div>
+            <div class="field"><label for="profile-preferred-source">Preferred consumption source</label><select id="profile-preferred-source"><option value="manual">Manual</option><option value="latest">Latest measured</option><option value="latest-three">Latest-three measured</option><option value="overall">Overall measured</option><option value="city">City measured</option><option value="motorway">Motorway measured</option><option value="mixed">Mixed measured</option></select></div>
+            <div class="field"><label for="profile-maintenance">Maintenance cost per km</label><input id="profile-maintenance" inputmode="decimal" /></div>
+            <div class="field"><label for="profile-toll-category">Toll category</label><select id="profile-toll-category"><option value="passenger-car">Passenger car</option><option value="motorcycle">Motorcycle</option><option value="van">Van</option><option value="other">Other</option></select></div>
+            <div class="field"><label for="profile-country">Registration country</label><input id="profile-country" maxlength="60" /></div>
+            <div class="field"><label for="profile-emissions">Emissions category</label><input id="profile-emissions" maxlength="60" placeholder="Euro 6" /></div>
+            <div class="field"><label for="profile-axles">Number of axles</label><input id="profile-axles" type="number" min="1" max="10" value="2" /></div>
+            <div class="field"><label for="profile-passengers">Default passengers</label><input id="profile-passengers" type="number" min="1" step="1" value="1" /></div>
+          </div>
+          <div class="field"><label for="profile-toll-passes">Toll passes or transponders <span class="optional">Comma separated</span></label><input id="profile-toll-passes" maxlength="300" /></div>
+          <div class="field"><label for="profile-notes">Notes</label><textarea id="profile-notes" rows="3" maxlength="2000"></textarea></div>
+          <label class="check-row"><input id="profile-archived" type="checkbox" /> Archive this vehicle</label>
+        </div>
+        <div class="dialog-actions"><button class="secondary-button" type="button" data-close-dialog>Cancel</button><button class="primary-button" type="submit">Save vehicle</button></div>
+        <div id="vehicle-form-status" class="inline-message" role="status" aria-live="polite"></div>
+      </form>
+    </dialog>
+
+    <dialog id="import-dialog">
+      <form method="dialog">
+        <div class="dialog-heading"><div><p class="kicker">Import preview</p><h2>Review this backup</h2></div><button class="icon-button" type="button" data-close-import aria-label="Close">&times;</button></div>
+        <div id="import-preview" class="import-preview"></div>
+        <p>Replace first creates a safety export download, then clears only this calculator&rsquo;s data. Merge keeps existing records and replaces only records with matching IDs.</p>
+        <div class="dialog-actions"><button class="secondary-button" type="button" data-close-import>Cancel</button><button class="secondary-button" id="merge-backup" type="button">Merge</button><button class="danger-button" id="replace-backup" type="button">Replace</button></div>
+      </form>
+    </dialog>
+
+    <template id="custom-cost-template">
+      <div class="custom-cost-row">
+        <div class="field"><label>Cost name</label><input class="custom-cost-name" maxlength="80" placeholder="Airport fee" /></div>
+        <div class="field"><label>Amount</label><div class="unit-input"><input class="custom-cost-amount" inputmode="decimal" /><span class="currency-unit">EUR</span></div></div>
+        <button class="icon-button remove-custom-cost" type="button" aria-label="Remove custom cost">&times;</button>
+      </div>
+    </template>
+
+    <footer class="calc-footer">
+      <span>Vehicle Cost Calculator &middot; EstrelaLuaApps&trade;</span>
+      <a href="../../legal.html">Trademark &amp; copyright</a>
+      <a href="tests.html">Run calculator tests</a>
+    </footer>
+  </body>
+</html>

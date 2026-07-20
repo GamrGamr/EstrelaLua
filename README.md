@@ -32,20 +32,28 @@ A local image utility for converting, resizing, cropping, trimming, creating ICO
 
 A lightweight Windows shutdown scheduler with countdown warnings, limited delay attempts, optional password protection, and local configuration.
 
+### Vehicle Cost Calculator
+
+A browser-based journey calculator for fuel, electricity, tolls, parking, ferries, maintenance, custom costs, and passenger sharing. It supports local vehicle profiles, measured full-tank consumption, saved journey snapshots, and optional online routing through a separately deployed secure proxy.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
 
-This repository contains only the public website. Each application's downloads, documentation, release history, and repository link are available from its dedicated page.
+This repository contains the public website and the browser-based Vehicle Cost Calculator. Each desktop application's downloads, documentation, release history, and repository link are available from its dedicated page. Browser apps open directly from their information page.
 
 ## Website structure
 
 - `index.html` - Main EstrelaLuaApps homepage and app collection
 - `apps/` - Dedicated information page for each application
 - `assets/` - Brand artwork, favicons, and official app icons
+- `tools/vehicle-cost-calculator/` - Browser calculator, modules, tests, and secure-proxy example
+- `docs/vehicle-cost-calculator.md` - Calculator operation, privacy, tests, storage, and provider deployment
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
 
 ## Hosting
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
+
+The Vehicle Cost Calculator works in manual mode without an API. Automatic route and toll estimates require the optional secure proxy described in [`docs/vehicle-cost-calculator.md`](docs/vehicle-cost-calculator.md); no private API credential is stored in this public repository.

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Vehicle Cost Calculator icon</title>
+  <desc id="desc">A coastal road, location pin, and euro calculator symbol</desc>
+  <defs>
+    <linearGradient id="sky" x1="34" y1="26" x2="218" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18b7ba"/>
+      <stop offset="1" stop-color="#087daf"/>
+    </linearGradient>
+    <linearGradient id="road" x1="87" y1="63" x2="156" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity=".94"/>
+      <stop offset="1" stop-color="#d8f5ef"/>
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="236" height="236" rx="58" fill="#063852"/>
+  <path d="M26 169c45-13 70-37 80-73 9-31 31-48 65-51 23-2 43 3 59 14v52c-19-15-38-21-56-17-25 4-35 23-42 53-8 37-29 63-62 80H26z" fill="url(#sky)"/>
+  <path d="M68 224c34-27 52-56 55-87 4-43 25-67 63-73" fill="none" stroke="url(#road)" stroke-width="22" stroke-linecap="round"/>
+  <path d="M77 215c25-24 39-50 41-78 3-37 20-59 52-68" fill="none" stroke="#ffb71b" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 12"/>
+  <path d="M181 40c-18 0-32 14-32 32 0 23 32 52 32 52s32-29 32-52c0-18-14-32-32-32z" fill="#f47b64" stroke="#fff" stroke-width="6"/>
+  <circle cx="181" cy="72" r="10" fill="#fff"/>
+  <rect x="150" y="151" width="78" height="72" rx="18" fill="#fff"/>
+  <rect x="160" y="160" width="58" height="18" rx="7" fill="#e0f7f3"/>
+  <text x="189" y="211" fill="#063852" font-family="Arial, sans-serif" font-size="34" font-weight="800" text-anchor="middle">€</text>
+</svg>

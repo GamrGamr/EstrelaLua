@@ -1,0 +1,939 @@
+import {
+  ValidationError,
+  buildJourneySummary,
+  calculateFillUpConsumption,
+  calculateJourney,
+  formatCurrency,
+  formatDuration,
+  formatNumber,
+  makeId,
+  parseNumber,
+} from "./calculations.js";
+import { CalculatorStorage, StorageError, normaliseRouteCacheKey } from "./storage.js";
+import { parseRouteLink } from "./route-links.js";
+import { ProxyRouteProvider, RouteProviderError, TOLL_LABELS, TOLL_STATES } from "./route-provider.js";
+
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+const storage = new CalculatorStorage();
+const state = {
+  vehicles: [],
+  fillups: [],
+  journeys: [],
+  currentResult: null,
+  currentInput: null,
+  currentJourneyId: null,
+  routeSelection: null,
+  routeChoices: [],
+  tollStatus: TOLL_STATES.UNKNOWN,
+  tollSource: TOLL_LABELS[TOLL_STATES.UNKNOWN],
+  mapSource: "Manual entry",
+  pendingBackup: null,
+  storageAvailable: true,
+};
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
+}
+
+function message(element, text = "", type = "") {
+  element.textContent = text;
+  element.className = `inline-message${type ? ` ${type}` : ""}`;
+}
+
+function safeValue(id, value = "") {
+  const element = $(`#${id}`);
+  if (element) element.value = value ?? "";
+}
+
+function value(id) {
+  return $(`#${id}`)?.value ?? "";
+}
+
+function checked(id) {
+  return Boolean($(`#${id}`)?.checked);
+}
+
+function downloadFile(filename, content, type = "application/octet-stream") {
+  const blob = content instanceof Blob ? content : new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 500);
+}
+
+function csvCell(value) {
+  const text = String(value ?? "");
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function toCsv(rows, columns) {
+  const header = columns.map(([label]) => csvCell(label)).join(",");
+  return `\uFEFF${[header, ...rows.map((row) => columns.map(([, key]) => csvCell(typeof key === "function" ? key(row) : row[key])).join(","))].join("\r\n")}`;
+}
+
+function isoDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function activeVehicle() {
+  return state.vehicles.find((vehicle) => vehicle.id === value("vehicle-select")) || null;
+}
+
+function updateCurrencyLabels() {
+  const currency = value("currency").trim().toUpperCase() || "EUR";
+  $$(".currency-unit").forEach((element) => { element.textContent = currency; });
+  $("#fuel-price-unit").textContent = `${currency}/L`;
+  $("#electricity-price-unit").textContent = `${currency}/kWh`;
+  $("#maintenance-unit").textContent = `${currency}/km`;
+}
+
+function applyTheme(theme) {
+  const dark = theme === "dark" || (theme === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.body.dataset.theme = dark ? "dark" : "light";
+}
+
+function providerEndpoint() {
+  return String(storage.getSetting("providerEndpoint", "") || "").trim();
+}
+
+function updateProviderStatus(status = "idle") {
+  const endpoint = providerEndpoint();
+  const dot = $("#provider-dot");
+  dot.className = `status-dot${status === "working" ? " working" : endpoint ? " online" : ""}`;
+  $("#provider-mode").textContent = status === "working" ? "Contacting route provider" : endpoint ? "Online routing available" : "Manual mode";
+  $("#provider-description").textContent = status === "working"
+    ? "Route locations and options are being sent through the configured secure proxy."
+    : endpoint
+      ? "HERE routing and toll estimates are available through your configured secure proxy."
+      : "No route provider configured. All manual calculations stay in this browser.";
+}
+
+async function reloadData() {
+  if (!state.storageAvailable) return;
+  [state.vehicles, state.fillups, state.journeys] = await Promise.all([
+    storage.getAll("vehicles"), storage.getAll("fillups"), storage.getAll("journeys"),
+  ]);
+  state.vehicles.sort((a, b) => Number(a.archived) - Number(b.archived) || String(a.name).localeCompare(String(b.name)));
+  state.fillups.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+  state.journeys.sort((a, b) => new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0));
+  renderVehicleSelectors();
+  renderVehicleList();
+  renderFillups();
+  renderJourneys();
+}
+
+function renderVehicleSelectors() {
+  const selected = value("vehicle-select");
+  const fillSelected = value("fillup-vehicle");
+  const active = state.vehicles.filter((vehicle) => !vehicle.archived);
+  $("#vehicle-select").innerHTML = `<option value="">Custom vehicle</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
+  $("#fillup-vehicle").innerHTML = `<option value="">Choose a saved vehicle</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
+  if (active.some((vehicle) => vehicle.id === selected)) $("#vehicle-select").value = selected;
+  if (active.some((vehicle) => vehicle.id === fillSelected)) $("#fillup-vehicle").value = fillSelected;
+}
+
+function renderVehicleList() {
+  const container = $("#vehicle-list");
+  if (!state.vehicles.length) {
+    container.className = "card-list empty-state";
+    container.textContent = "No vehicles saved yet.";
+    return;
+  }
+  container.className = "card-list";
+  container.innerHTML = state.vehicles.map((vehicle) => `
+    <article class="item-card${vehicle.archived ? " archived" : ""}">
+      <h3>${escapeHtml(vehicle.name)}</h3>
+      <p>${escapeHtml([vehicle.make, vehicle.model, vehicle.year].filter(Boolean).join(" ") || "Vehicle profile")}</p>
+      <p>${escapeHtml(vehicle.energyType)} &middot; ${formatNumber(vehicle.manualConsumption || vehicle.manualElectricConsumption || 0)} ${vehicle.energyType === "electric" ? "kWh/100 km" : "L/100 km"}${vehicle.archived ? " · Archived" : ""}</p>
+      <div class="item-actions">
+        <button type="button" data-vehicle-action="use" data-id="${escapeHtml(vehicle.id)}">Use</button>
+        <button type="button" data-vehicle-action="edit" data-id="${escapeHtml(vehicle.id)}">Edit</button>
+        <button type="button" data-vehicle-action="duplicate" data-id="${escapeHtml(vehicle.id)}">Duplicate</button>
+        <button type="button" data-vehicle-action="archive" data-id="${escapeHtml(vehicle.id)}">${vehicle.archived ? "Restore" : "Archive"}</button>
+        <button type="button" data-vehicle-action="delete" data-id="${escapeHtml(vehicle.id)}">Delete</button>
+      </div>
+    </article>`).join("");
+}
+
+function vehicleConsumptionStats(vehicleId) {
+  return calculateFillUpConsumption(state.fillups.filter((fill) => fill.vehicleId === vehicleId));
+}
+
+function measuredValue(source, stats) {
+  const values = {
+    latest: stats.latest,
+    "latest-three": stats.latestThree,
+    overall: stats.overall,
+    city: stats.byDrivingType.city,
+    motorway: stats.byDrivingType.motorway,
+    mixed: stats.byDrivingType.mixed,
+  };
+  return values[source] ?? null;
+}
+
+function applyConsumptionSource() {
+  const source = value("consumption-source");
+  const vehicle = activeVehicle();
+  if (source === "manual") {
+    if (vehicle) {
+      safeValue("fuel-consumption", vehicle.manualConsumption || "");
+      safeValue("electric-consumption", vehicle.manualElectricConsumption || "");
+    }
+    message($("#consumption-feedback"), "Manual value selected. You can edit it for this journey.");
+    return;
+  }
+  if (!vehicle) {
+    message($("#consumption-feedback"), "Choose a saved fuel-powered vehicle before using measured consumption.", "warning");
+    return;
+  }
+  const stats = vehicleConsumptionStats(vehicle.id);
+  const measured = measuredValue(source, stats);
+  if (!(measured > 0)) {
+    message($("#consumption-feedback"), stats.message || `No valid ${source.replace("-", " ")} consumption is available.`, "warning");
+    return;
+  }
+  safeValue("fuel-consumption", measured.toFixed(3));
+  message($("#consumption-feedback"), `${source.replace("-", " ")} measured consumption: ${formatNumber(measured, 3)} L/100 km from ${stats.intervals.length} valid interval${stats.intervals.length === 1 ? "" : "s"}.`, "success");
+}
+
+function updateEnergyFields() {
+  const energy = value("energy-type");
+  const showFuel = energy !== "electric";
+  const showElectric = energy === "electric" || energy === "plug-in-hybrid";
+  $$(".fuel-field").forEach((field) => { field.hidden = !showFuel; });
+  $$(".electric-field").forEach((field) => { field.hidden = !showElectric; });
+  if (energy === "electric" && value("consumption-source") !== "manual") {
+    $("#consumption-source").value = "manual";
+    message($("#consumption-feedback"), "Fill-up measurement applies to liquid fuel. Enter electric consumption manually.");
+  }
+  loadRecentPrice();
+}
+
+async function loadRecentPrice() {
+  if (!state.storageAvailable) return;
+  const energy = value("energy-type");
+  const currency = value("currency").toUpperCase() || "EUR";
+  const record = await storage.get("fuelPrices", `price-${energy}-${currency}`).catch(() => null);
+  if (!record?.value) return;
+  if (energy === "electric") {
+    if (!value("electricity-price")) safeValue("electricity-price", record.value);
+  } else if (!value("fuel-price")) safeValue("fuel-price", record.value);
+}
+
+function useVehicle(vehicle) {
+  $("#vehicle-select").value = vehicle?.id || "";
+  safeValue("vehicle-name", vehicle?.name || "");
+  safeValue("energy-type", vehicle?.energyType || "petrol");
+  safeValue("consumption-source", vehicle?.preferredConsumptionSource || "manual");
+  safeValue("fuel-consumption", vehicle?.manualConsumption || "");
+  safeValue("electric-consumption", vehicle?.manualElectricConsumption || "");
+  safeValue("maintenance-rate", vehicle?.maintenanceRate || 0);
+  safeValue("toll-category", vehicle?.tollCategory || "passenger-car");
+  safeValue("passenger-count", vehicle?.defaultPassengerCount || 1);
+  updateEnergyFields();
+  applyConsumptionSource();
+  $("#vehicle-section").open = true;
+}
+
+function profileFromForm(existing = null) {
+  const name = value("profile-name").trim();
+  if (!name) throw new ValidationError("Vehicle name is required.", "Vehicle name");
+  const energyType = value("profile-energy");
+  return {
+    id: value("profile-id") || makeId("vehicle"),
+    name,
+    make: value("profile-make").trim(),
+    model: value("profile-model").trim(),
+    year: value("profile-year") ? parseNumber(value("profile-year"), { field: "Year", min: 1900 }) : "",
+    engineDescription: value("profile-engine").trim(),
+    registration: value("profile-registration").trim(),
+    energyType,
+    manualConsumption: parseNumber(value("profile-consumption"), { field: "Manual fuel consumption" }),
+    manualElectricConsumption: parseNumber(value("profile-electric-consumption"), { field: "Manual electric consumption" }),
+    preferredConsumptionSource: value("profile-preferred-source"),
+    maintenanceRate: parseNumber(value("profile-maintenance"), { field: "Maintenance cost per kilometre" }),
+    tollCategory: value("profile-toll-category"),
+    registrationCountry: value("profile-country").trim(),
+    emissionsCategory: value("profile-emissions").trim(),
+    axleCount: parseNumber(value("profile-axles") || 2, { field: "Number of axles", min: 1, required: true }),
+    tollPasses: value("profile-toll-passes").split(",").map((item) => item.trim()).filter(Boolean),
+    defaultPassengerCount: parseNumber(value("profile-passengers") || 1, { field: "Default passengers", min: 1, required: true }),
+    notes: value("profile-notes").trim(),
+    archived: checked("profile-archived"),
+    createdAt: existing?.createdAt || new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  };
+}
+
+function openVehicleDialog(vehicle = null, duplicate = false) {
+  const copy = vehicle ? structuredClone(vehicle) : null;
+  $("#vehicle-dialog-title").textContent = copy ? duplicate ? "Duplicate vehicle" : "Edit vehicle" : "Add vehicle";
+  safeValue("profile-id", copy && !duplicate ? copy.id : "");
+  safeValue("profile-name", copy ? `${copy.name}${duplicate ? " copy" : ""}` : "");
+  safeValue("profile-make", copy?.make || "");
+  safeValue("profile-model", copy?.model || "");
+  safeValue("profile-year", copy?.year || "");
+  safeValue("profile-engine", copy?.engineDescription || "");
+  safeValue("profile-registration", copy?.registration || "");
+  safeValue("profile-energy", copy?.energyType || "petrol");
+  safeValue("profile-consumption", copy?.manualConsumption || "");
+  safeValue("profile-electric-consumption", copy?.manualElectricConsumption || "");
+  safeValue("profile-preferred-source", copy?.preferredConsumptionSource || "manual");
+  safeValue("profile-maintenance", copy?.maintenanceRate || "");
+  safeValue("profile-toll-category", copy?.tollCategory || "passenger-car");
+  safeValue("profile-country", copy?.registrationCountry || "");
+  safeValue("profile-emissions", copy?.emissionsCategory || "");
+  safeValue("profile-axles", copy?.axleCount || 2);
+  safeValue("profile-passengers", copy?.defaultPassengerCount || 1);
+  safeValue("profile-toll-passes", (copy?.tollPasses || []).join(", "));
+  safeValue("profile-notes", copy?.notes || "");
+  $("#profile-archived").checked = copy?.archived || false;
+  message($("#vehicle-form-status"));
+  $("#vehicle-dialog").showModal();
+  $("#profile-name").focus();
+}
+
+async function saveVehicle(event) {
+  event.preventDefault();
+  try {
+    const existing = state.vehicles.find((vehicle) => vehicle.id === value("profile-id"));
+    const profile = profileFromForm(existing);
+    await storage.put("vehicles", profile);
+    $("#vehicle-dialog").close();
+    await reloadData();
+    useVehicle(profile);
+    message($("#action-status"), `Saved ${profile.name}.`, "success");
+  } catch (error) {
+    message($("#vehicle-form-status"), error.message || "The vehicle could not be saved.", "error");
+  }
+}
+
+async function handleVehicleAction(event) {
+  const button = event.target.closest("[data-vehicle-action]");
+  if (!button) return;
+  const vehicle = state.vehicles.find((item) => item.id === button.dataset.id);
+  if (!vehicle) return;
+  const action = button.dataset.vehicleAction;
+  if (action === "use") {
+    useVehicle(vehicle);
+    $("#vehicle-section").scrollIntoView({ behavior: "smooth" });
+  } else if (action === "edit") openVehicleDialog(vehicle);
+  else if (action === "duplicate") openVehicleDialog(vehicle, true);
+  else if (action === "archive") {
+    await storage.put("vehicles", { ...vehicle, archived: !vehicle.archived, updatedAt: new Date().toISOString() });
+    await reloadData();
+  } else if (action === "delete") {
+    const relatedFills = state.fillups.filter((fill) => fill.vehicleId === vehicle.id);
+    const relatedJourneys = state.journeys.filter((journey) => journey.vehicleId === vehicle.id);
+    const explanation = `Delete “${vehicle.name}”? ${relatedFills.length} fill-up record(s) will also be removed. ${relatedJourneys.length} saved journey snapshot(s) will remain unchanged.`;
+    if (!confirm(explanation)) return;
+    await Promise.all(relatedFills.map((fill) => storage.remove("fillups", fill.id)));
+    await storage.remove("vehicles", vehicle.id);
+    await reloadData();
+  }
+}
+
+function renderFillups() {
+  const table = $("#fillup-table");
+  if (!state.fillups.length) {
+    table.innerHTML = '<tr><td colspan="7">No fill-ups saved.</td></tr>';
+  } else {
+    const names = Object.fromEntries(state.vehicles.map((vehicle) => [vehicle.id, vehicle.name]));
+    table.innerHTML = state.fillups.map((fill) => `<tr>
+      <td>${escapeHtml(fill.date)}</td><td>${escapeHtml(names[fill.vehicleId] || "Deleted vehicle")}</td>
+      <td>${escapeHtml(fill.odometer ? `${formatNumber(fill.odometer)} km odometer` : `${formatNumber(fill.tripDistance)} km trip`)}</td>
+      <td>${formatNumber(fill.litres, 3)} L</td><td>${fill.fullTank ? "Yes" : "No"}</td><td>${escapeHtml(fill.drivingType)}</td>
+      <td><button type="button" data-fillup-delete="${escapeHtml(fill.id)}">Delete</button></td></tr>`).join("");
+  }
+  renderConsumptionStats(value("fillup-vehicle"));
+}
+
+function renderConsumptionStats(vehicleId) {
+  const container = $("#consumption-stats");
+  if (!vehicleId) {
+    container.className = "stats-grid empty-state";
+    container.textContent = "Choose a vehicle with fill-up history.";
+    return;
+  }
+  const stats = vehicleConsumptionStats(vehicleId);
+  if (!stats.intervals.length) {
+    container.className = "stats-grid empty-state";
+    container.textContent = stats.message;
+    return;
+  }
+  const items = [
+    ["Latest", stats.latest], ["Overall weighted", stats.overall], ["Latest three", stats.latestThree],
+    ["City", stats.byDrivingType.city], ["Motorway", stats.byDrivingType.motorway], ["Mixed", stats.byDrivingType.mixed],
+    ["Minimum", stats.minimum], ["Maximum", stats.maximum], ["Valid intervals", stats.intervals.length, ""],
+    ["Date range", `${stats.dateRange.start} to ${stats.dateRange.end}`, ""],
+  ];
+  container.className = "stats-grid";
+  container.innerHTML = items.filter(([, amount]) => amount !== undefined && amount !== null).map(([label, amount, unit = "L/100 km"]) => `<div class="stat"><span>${escapeHtml(label)}</span><strong>${typeof amount === "number" ? formatNumber(amount, 3) : escapeHtml(amount)}${unit ? ` ${unit}` : ""}</strong></div>`).join("");
+}
+
+async function saveFillup(event) {
+  event.preventDefault();
+  try {
+    const vehicleId = value("fillup-vehicle");
+    if (!vehicleId) throw new ValidationError("Choose a saved vehicle.");
+    const odometer = parseNumber(value("fillup-odometer"), { field: "Odometer" });
+    const tripDistance = parseNumber(value("fillup-trip-distance"), { field: "Trip distance" });
+    if (!(odometer > 0 || tripDistance > 0)) throw new ValidationError("Enter an odometer reading or trip distance.");
+    const litres = parseNumber(value("fillup-litres"), { field: "Litres added", min: 0.01, required: true });
+    const pricePerLitre = parseNumber(value("fillup-price"), { field: "Price per litre" });
+    const record = {
+      id: makeId("fillup"), vehicleId, date: value("fillup-date") || isoDate(), odometer, tripDistance, litres,
+      pricePerLitre, totalPaid: parseNumber(value("fillup-total"), { field: "Total paid" }) || litres * pricePerLitre,
+      fullTank: checked("fillup-full"), fuelType: value("fillup-fuel-type"), drivingType: value("fillup-driving"),
+      notes: value("fillup-notes").trim(), createdAt: new Date().toISOString(),
+    };
+    await storage.put("fillups", record);
+    const selectedVehicle = vehicleId;
+    $("#fillup-form").reset();
+    safeValue("fillup-date", isoDate());
+    await reloadData();
+    safeValue("fillup-vehicle", selectedVehicle);
+    renderConsumptionStats(selectedVehicle);
+    message($("#fillup-status"), "Fill-up saved locally.", "success");
+  } catch (error) {
+    message($("#fillup-status"), error.message || "The fill-up could not be saved.", "error");
+  }
+}
+
+async function deleteFillup(id) {
+  if (!confirm("Delete this fill-up record? Measured averages will be recalculated.")) return;
+  await storage.remove("fillups", id);
+  await reloadData();
+  applyConsumptionSource();
+}
+
+function importMapLink() {
+  const parsed = parseRouteLink(value("map-link"));
+  state.mapSource = parsed.provider || "Manual entry";
+  if (!parsed.valid) {
+    message($("#link-feedback"), parsed.warnings?.join(" ") || "This link could not be imported.", "error");
+    return;
+  }
+  if (parsed.origin) safeValue("origin", parsed.origin);
+  if (parsed.destination) safeValue("destination", parsed.destination);
+  if (parsed.stops?.length) safeValue("stops", parsed.stops.join("\n"));
+  const found = [parsed.origin && "origin", parsed.destination && "destination", parsed.stops?.length && `${parsed.stops.length} stop(s)`].filter(Boolean).join(", ");
+  message($("#link-feedback"), `${parsed.provider} detected${found ? `; found ${found}` : ""}. ${parsed.warnings?.join(" ") || "Confirm the imported locations before routing."}`, parsed.warnings?.length ? "warning" : "success");
+}
+
+function getRouteRequest(origin = value("origin"), destination = value("destination"), stops = value("stops").split("\n").map((item) => item.trim()).filter(Boolean)) {
+  const vehicle = activeVehicle();
+  return {
+    origin, destination, stops,
+    avoidTolls: value("avoid-tolls") === "true",
+    alternatives: true,
+    currency: value("currency").trim().toUpperCase() || "EUR",
+    tollPreference: value("toll-preference"),
+    vehicle: {
+      category: value("toll-category"), energyType: value("energy-type"),
+      emissionsCategory: vehicle?.emissionsCategory || "", registrationCountry: vehicle?.registrationCountry || "",
+      axleCount: vehicle?.axleCount || 2, tollPasses: vehicle?.tollPasses || [],
+    },
+  };
+}
+
+async function routeDirection(provider, request) {
+  const cacheKey = normaliseRouteCacheKey(request, provider.getProviderName());
+  const cached = await storage.getRouteCache(cacheKey).catch(() => null);
+  if (cached?.providerResult) return { ...cached.providerResult, cached: true };
+  const result = await provider.calculateRoute(request);
+  await storage.setRouteCache(cacheKey, { providerResult: result }, storage.getSetting("routeCacheHours", 12)).catch(() => {});
+  return result;
+}
+
+async function calculateOnlineRoute() {
+  const endpoint = providerEndpoint();
+  if (!endpoint) {
+    message($("#route-status"), "Automatic routing is not configured. Enter the distance manually or add a secure proxy URL in Settings.", "warning");
+    $("#settings-section").scrollIntoView({ behavior: "smooth" });
+    return;
+  }
+  try {
+    const request = getRouteRequest();
+    if (!request.origin || !request.destination) throw new RouteProviderError("Enter both origin and destination before calculating a route.", "invalid_request");
+    const provider = new ProxyRouteProvider(endpoint);
+    updateProviderStatus("working");
+    $("#calculate-route").disabled = true;
+    message($("#route-status"), "Contacting the external route provider through the secure proxy…", "warning");
+    const outbound = await routeDirection(provider, request);
+    let inbound = null;
+    if (Number(value("trip-multiplier")) === 2) {
+      inbound = await routeDirection(provider, getRouteRequest(request.destination, request.origin, [...request.stops].reverse()));
+    }
+    const choices = outbound.routes.map((route, index) => ({
+      outbound: route,
+      inbound: inbound?.routes[index] || inbound?.routes[0] || null,
+      provider: outbound.provider,
+      cached: Boolean(outbound.cached || inbound?.cached),
+    }));
+    state.routeChoices = choices;
+    renderRouteChoices();
+    applyRouteChoice(0);
+    message($("#route-status"), `${outbound.provider} returned ${choices.length} route option${choices.length === 1 ? "" : "s"}${choices[0].cached ? " from the local cache" : ""}. Review the estimate before calculating.`, "success");
+  } catch (error) {
+    state.tollStatus = TOLL_STATES.PROVIDER_UNAVAILABLE;
+    state.tollSource = TOLL_LABELS[state.tollStatus];
+    updateTollDisplay();
+    message($("#route-status"), error.message || "The route provider is unavailable. Your entries were kept; continue in manual mode.", "error");
+  } finally {
+    $("#calculate-route").disabled = false;
+    updateProviderStatus();
+  }
+}
+
+function routePreview(choice) {
+  try {
+    return calculateJourney({
+      ...rawJourneyValues(),
+      oneWayDistance: choice.outbound.distanceKm,
+      returnDistance: choice.inbound?.distanceKm ?? null,
+      outboundToll: choice.outbound.toll.amount ?? 0,
+      returnToll: choice.inbound?.toll.amount ?? 0,
+    });
+  } catch {
+    return null;
+  }
+}
+
+function renderRouteChoices() {
+  const container = $("#route-alternatives");
+  const previews = state.routeChoices.map(routePreview);
+  const distances = state.routeChoices.map((choice) => choice.outbound.distanceKm + (choice.inbound?.distanceKm || 0));
+  const durations = state.routeChoices.map((choice) => choice.outbound.durationSeconds + (choice.inbound?.durationSeconds || 0));
+  const costs = previews.map((preview) => preview?.totalCost ?? Infinity);
+  const minimum = (values) => Math.min(...values);
+  container.innerHTML = state.routeChoices.map((choice, index) => {
+    const totalDistance = choice.outbound.distanceKm + (choice.inbound?.distanceKm || 0);
+    const duration = choice.outbound.durationSeconds + (choice.inbound?.durationSeconds || 0);
+    const preview = previews[index];
+    const toll = (choice.outbound.toll.amount ?? 0) + (choice.inbound?.toll.amount ?? 0);
+    const tags = [];
+    if (duration === minimum(durations)) tags.push("Fastest");
+    if (totalDistance === minimum(distances)) tags.push("Shortest");
+    if (preview && preview.totalCost === minimum(costs)) tags.push("Lowest cost");
+    if (choice.outbound.toll.state === TOLL_STATES.NO_TOLLS && (!choice.inbound || choice.inbound.toll.state === TOLL_STATES.NO_TOLLS)) tags.push("Toll-free");
+    return `<label class="route-option"><input type="radio" name="route-choice" value="${index}" ${index === 0 ? "checked" : ""} /><span><strong>${escapeHtml(choice.outbound.name)}${tags.length ? ` · ${escapeHtml(tags.join(" · "))}` : ""}</strong><small>${formatNumber(totalDistance || choice.outbound.distanceKm, 1)} km · ${formatDuration(duration || choice.outbound.durationSeconds)} · Tolls ${toll ? formatCurrency(toll, value("currency")) : escapeHtml(choice.outbound.toll.label)}</small></span><strong>${preview ? formatCurrency(preview.totalCost, preview.currency) : "Select"}</strong></label>`;
+  }).join("");
+}
+
+function combinedTollState(choice) {
+  const states = [choice.outbound.toll.state, choice.inbound?.toll.state].filter(Boolean);
+  if (states.some((item) => item === TOLL_STATES.DETECTED_NO_PRICE)) return TOLL_STATES.DETECTED_NO_PRICE;
+  if (states.some((item) => item === TOLL_STATES.UNKNOWN)) return TOLL_STATES.UNKNOWN;
+  if (states.every((item) => item === TOLL_STATES.NO_TOLLS)) return TOLL_STATES.NO_TOLLS;
+  if (states.some((item) => item === TOLL_STATES.PASS_ESTIMATE)) return TOLL_STATES.PASS_ESTIMATE;
+  if (states.some((item) => item === TOLL_STATES.CASH_ESTIMATE)) return TOLL_STATES.CASH_ESTIMATE;
+  return TOLL_STATES.PROVIDER_ESTIMATE;
+}
+
+function applyRouteChoice(index) {
+  const choice = state.routeChoices[index];
+  if (!choice) return;
+  state.routeSelection = structuredClone(choice);
+  safeValue("one-way-distance", choice.outbound.distanceKm.toFixed(3));
+  safeValue("manual-duration", Math.round(choice.outbound.durationSeconds / 60));
+  state.tollStatus = combinedTollState(choice);
+  state.tollSource = `${choice.provider}${choice.cached ? " · cached route" : ""} · ${TOLL_LABELS[state.tollStatus]}`;
+  if (choice.outbound.toll.amount !== null) safeValue("outbound-toll", choice.outbound.toll.amount.toFixed(2));
+  else if (choice.outbound.toll.state === TOLL_STATES.NO_TOLLS) safeValue("outbound-toll", "0");
+  if (choice.inbound?.toll.amount !== null && choice.inbound) safeValue("return-toll", choice.inbound.toll.amount.toFixed(2));
+  else if (choice.inbound?.toll.state === TOLL_STATES.NO_TOLLS) safeValue("return-toll", "0");
+  else if (!choice.inbound) safeValue("return-toll", "0");
+  $("#manual-toll-override").checked = false;
+  updateTollDisplay(choice);
+}
+
+function updateTollDisplay(choice = state.routeSelection) {
+  $("#toll-source-badge").textContent = TOLL_LABELS[state.tollStatus] || state.tollSource;
+  const warnings = [...(choice?.outbound?.toll?.warnings || []), ...(choice?.inbound?.toll?.warnings || [])];
+  const comparisons = [];
+  if (choice?.outbound?.toll?.cashAmount !== null && choice?.outbound?.toll?.cashAmount !== undefined) comparisons.push(`Outbound cash/card: ${formatCurrency(choice.outbound.toll.cashAmount, value("currency"))}`);
+  if (choice?.outbound?.toll?.passAmount !== null && choice?.outbound?.toll?.passAmount !== undefined) comparisons.push(`Outbound pass: ${formatCurrency(choice.outbound.toll.passAmount, value("currency"))}`);
+  let guidance = state.tollSource;
+  if (state.tollStatus === TOLL_STATES.DETECTED_NO_PRICE) guidance = "Tolls were detected on this route, but the routing provider could not supply a price. Enter the toll amount manually.";
+  else if (state.tollStatus === TOLL_STATES.UNKNOWN || state.tollStatus === TOLL_STATES.PROVIDER_UNAVAILABLE) guidance = "No confirmed toll amount is available. Enter tolls manually or mark the route as having no tolls.";
+  else if (state.tollStatus === TOLL_STATES.NO_TOLLS) guidance = "The provider did not detect toll roads on the selected route.";
+  $("#toll-guidance").textContent = [guidance, ...comparisons, ...warnings].filter(Boolean).join(" ");
+}
+
+function readCustomCosts() {
+  return $$(".custom-cost-row").map((row) => ({ name: $(".custom-cost-name", row).value.trim(), amount: $(".custom-cost-amount", row).value }));
+}
+
+function rawJourneyValues() {
+  const multiplier = value("trip-multiplier");
+  const route = state.routeSelection;
+  const durationSeconds = route
+    ? route.outbound.durationSeconds + (route.inbound?.durationSeconds || 0)
+    : parseNumber(value("manual-duration"), { field: "Duration" }) * 60 * parseNumber(multiplier || 1, { field: "Trip multiplier", min: .01, required: true });
+  const tollStatus = checked("manual-toll-override") ? TOLL_STATES.MANUAL_OVERRIDE : state.tollStatus;
+  return {
+    oneWayDistance: value("one-way-distance"), returnDistance: route?.inbound?.distanceKm ?? null,
+    tripMultiplier: multiplier, additionalKilometres: value("additional-km"), passengerCount: value("passenger-count"),
+    durationSeconds, energyType: value("energy-type"), fuelConsumption: value("fuel-consumption"),
+    electricConsumption: value("electric-consumption"), fuelPrice: value("fuel-price"), electricityPrice: value("electricity-price"),
+    outboundToll: value("outbound-toll"), returnToll: value("return-toll"), ferryCost: value("ferry-cost"),
+    parkingCost: value("parking-cost"), maintenanceRate: value("maintenance-rate"), customCosts: readCustomCosts(),
+    currency: value("currency").trim().toUpperCase() || "EUR", tollStatus,
+    tollSource: checked("manual-toll-override") ? TOLL_LABELS[TOLL_STATES.MANUAL_OVERRIDE] : state.tollSource,
+  };
+}
+
+function consumptionSourceLabel() {
+  return $("#consumption-source").selectedOptions[0]?.textContent || "Manual consumption";
+}
+
+function collectJourney() {
+  const raw = rawJourneyValues();
+  const result = calculateJourney(raw);
+  const journey = {
+    name: value("journey-name").trim(), origin: value("origin").trim(), destination: value("destination").trim(),
+    stops: value("stops").split("\n").map((item) => item.trim()).filter(Boolean), mapSource: state.mapSource,
+    notes: value("journey-notes").trim(), vehicleId: value("vehicle-select"), vehicleName: value("vehicle-name").trim() || activeVehicle()?.name || "Custom vehicle",
+    consumptionSource: value("consumption-source"), consumptionSourceLabel: consumptionSourceLabel(),
+    provider: state.routeSelection?.provider || "Manual mode", routeSelection: state.routeSelection ? structuredClone(state.routeSelection) : null,
+    tollSource: result.tollSource,
+  };
+  return { raw, result, journey };
+}
+
+async function rememberPrice(result) {
+  if (!state.storageAvailable) return;
+  const valueToSave = result.energyType === "electric" ? result.electricityPrice : result.fuelPrice;
+  if (!(valueToSave > 0)) return;
+  const id = `price-${result.energyType}-${result.currency}`;
+  const existing = await storage.get("fuelPrices", id).catch(() => null);
+  const history = [{ value: valueToSave, date: new Date().toISOString() }, ...(existing?.history || [])].slice(0, 10);
+  await storage.put("fuelPrices", { id, energyType: result.energyType, currency: result.currency, value: valueToSave, history }).catch(() => {});
+}
+
+function resultRows(result) {
+  const rows = [];
+  if (result.fuelQuantity) rows.push([`Fuel (${formatNumber(result.fuelQuantity)} L)`, result.fuelCost]);
+  if (result.electricQuantity) rows.push([`Electricity (${formatNumber(result.electricQuantity)} kWh)`, result.electricityCost]);
+  rows.push(["Outbound tolls", result.outboundToll], ["Return tolls", result.returnToll], ["Ferry", result.ferryCost], ["Parking", result.parkingCost], ["Maintenance", result.maintenanceCost]);
+  result.customCosts.forEach((item) => rows.push([item.name, item.amount]));
+  rows.push(["Cost per kilometre", result.costPerKilometre]);
+  return rows;
+}
+
+function renderResult(journey, result) {
+  $("#result-total").textContent = formatCurrency(result.totalCost, result.currency);
+  $("#result-passenger").textContent = formatCurrency(result.costPerPassenger, result.currency);
+  $("#result-distance").textContent = `${formatNumber(result.totalDistance, 2)} km`;
+  $("#result-breakdown").innerHTML = resultRows(result).map(([label, amount]) => `<div><dt>${escapeHtml(label)}</dt><dd>${formatCurrency(amount, result.currency)}</dd></div>`).join("");
+  $("#result-assumptions").textContent = `${formatDuration(result.durationSeconds)} · ${journey.vehicleName} · ${journey.consumptionSourceLabel} · ${result.tollSource} · ${result.passengerCount} passenger${result.passengerCount === 1 ? "" : "s"}. Values are estimates based on the entries shown.`;
+  ["save-journey", "recalculate-result", "duplicate-current", "copy-summary", "export-summary", "print-result"].forEach((id) => { $(`#${id}`).disabled = false; });
+}
+
+async function calculateForm(event) {
+  event?.preventDefault();
+  $("#form-errors").hidden = true;
+  $$('[aria-invalid="true"]').forEach((element) => element.removeAttribute("aria-invalid"));
+  try {
+    const { raw, result, journey } = collectJourney();
+    state.currentInput = { raw: structuredClone(raw), journey: structuredClone(journey) };
+    state.currentResult = result;
+    renderResult(journey, result);
+    await rememberPrice(result);
+    message($("#action-status"), "Journey recalculated. Save it if you want to keep this snapshot.", "success");
+    if (matchMedia("(max-width: 820px)").matches) $("#results-section").scrollIntoView({ behavior: "smooth" });
+  } catch (error) {
+    const text = error instanceof ValidationError ? error.message : "The calculation could not be completed. Check the values and try again.";
+    $("#form-errors").textContent = text;
+    $("#form-errors").hidden = false;
+    $("#form-errors").scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+async function saveCurrentJourney() {
+  if (!state.currentResult || !state.currentInput) return;
+  const existing = state.journeys.find((journey) => journey.id === state.currentJourneyId);
+  const now = new Date().toISOString();
+  const record = {
+    id: existing?.id || makeId("journey"), createdAt: existing?.createdAt || now, updatedAt: now,
+    ...structuredClone(state.currentInput.journey), input: structuredClone(state.currentInput.raw), result: structuredClone(state.currentResult),
+  };
+  await storage.put("journeys", record);
+  state.currentJourneyId = record.id;
+  await reloadData();
+  message($("#action-status"), "Journey snapshot saved locally.", "success");
+}
+
+function populateCustomCosts(items = []) {
+  $("#custom-costs").innerHTML = "";
+  items.forEach((item) => addCustomCost(item));
+}
+
+function addCustomCost(item = {}) {
+  const fragment = $("#custom-cost-template").content.cloneNode(true);
+  $(".custom-cost-name", fragment).value = item.name || "";
+  $(".custom-cost-amount", fragment).value = item.amount || "";
+  $(".currency-unit", fragment).textContent = value("currency") || "EUR";
+  $("#custom-costs").append(fragment);
+}
+
+function loadJourney(record, useCurrentVehicle = false) {
+  const input = record.input || {};
+  const journey = record;
+  safeValue("journey-name", journey.name || ""); safeValue("origin", journey.origin || ""); safeValue("destination", journey.destination || "");
+  safeValue("stops", (journey.stops || []).join("\n")); safeValue("journey-notes", journey.notes || "");
+  safeValue("one-way-distance", input.oneWayDistance ?? record.result?.oneWayDistance ?? ""); safeValue("additional-km", input.additionalKilometres ?? 0);
+  safeValue("trip-multiplier", input.tripMultiplier ?? 1); safeValue("passenger-count", input.passengerCount ?? 1);
+  const type = Number(input.tripMultiplier) === 2 ? "return" : Number(input.tripMultiplier) === 1 ? "one-way" : "custom";
+  $(`input[name="journeyType"][value="${type}"]`).checked = true;
+  safeValue("energy-type", input.energyType || "petrol"); safeValue("fuel-consumption", input.fuelConsumption || "");
+  safeValue("electric-consumption", input.electricConsumption || ""); safeValue("fuel-price", input.fuelPrice || ""); safeValue("electricity-price", input.electricityPrice || "");
+  safeValue("outbound-toll", input.outboundToll || 0); safeValue("return-toll", input.returnToll || 0); safeValue("ferry-cost", input.ferryCost || 0); safeValue("parking-cost", input.parkingCost || 0); safeValue("maintenance-rate", input.maintenanceRate || 0);
+  safeValue("vehicle-name", journey.vehicleName || ""); safeValue("consumption-source", journey.consumptionSource || "manual");
+  if (state.vehicles.some((vehicle) => vehicle.id === journey.vehicleId)) safeValue("vehicle-select", journey.vehicleId);
+  populateCustomCosts(input.customCosts || []);
+  state.routeSelection = journey.routeSelection ? structuredClone(journey.routeSelection) : null;
+  state.tollStatus = input.tollStatus || TOLL_STATES.MANUAL;
+  state.tollSource = input.tollSource || TOLL_LABELS[state.tollStatus];
+  state.mapSource = journey.mapSource || "Manual entry";
+  state.currentJourneyId = record.id;
+  updateEnergyFields(); updateTollDisplay();
+  if (useCurrentVehicle && activeVehicle()) useVehicle(activeVehicle());
+  calculateForm();
+  $("#route-section").scrollIntoView({ behavior: "smooth" });
+}
+
+async function duplicateJourney(record) {
+  const now = new Date().toISOString();
+  await storage.put("journeys", { ...structuredClone(record), id: makeId("journey"), name: `${record.name || "Journey"} copy`, createdAt: now, updatedAt: now });
+  await reloadData();
+}
+
+function renderJourneys() {
+  const container = $("#journey-list");
+  if (!state.journeys.length) {
+    container.className = "card-list empty-state";
+    container.textContent = "No journeys saved yet.";
+    return;
+  }
+  container.className = "card-list";
+  container.innerHTML = state.journeys.map((journey) => `<article class="item-card"><h3>${escapeHtml(journey.name || `${journey.origin || "Route"} to ${journey.destination || "destination"}`)}</h3><p>${escapeHtml(journey.origin || "Manual route")} &rarr; ${escapeHtml(journey.destination || "Manual destination")}</p><p>${formatNumber(journey.result?.totalDistance, 1)} km · ${formatCurrency(journey.result?.totalCost, journey.result?.currency || "EUR")} · ${escapeHtml(new Date(journey.updatedAt || journey.createdAt).toLocaleDateString())}</p><div class="item-actions"><button type="button" data-journey-action="open" data-id="${escapeHtml(journey.id)}">Open</button><button type="button" data-journey-action="duplicate" data-id="${escapeHtml(journey.id)}">Duplicate</button><button type="button" data-journey-action="recalculate" data-id="${escapeHtml(journey.id)}">Recalculate current</button><button type="button" data-journey-action="export" data-id="${escapeHtml(journey.id)}">Export</button><button type="button" data-journey-action="delete" data-id="${escapeHtml(journey.id)}">Delete</button></div></article>`).join("");
+}
+
+async function handleJourneyAction(event) {
+  const button = event.target.closest("[data-journey-action]");
+  if (!button) return;
+  const record = state.journeys.find((journey) => journey.id === button.dataset.id);
+  if (!record) return;
+  const action = button.dataset.journeyAction;
+  if (action === "open") loadJourney(record);
+  else if (action === "recalculate") loadJourney(record, true);
+  else if (action === "duplicate") await duplicateJourney(record);
+  else if (action === "export") downloadFile(`${record.name || "journey"}.json`, JSON.stringify(record, null, 2), "application/json");
+  else if (action === "delete" && confirm(`Delete the saved journey “${record.name || "Untitled journey"}”?`)) {
+    await storage.remove("journeys", record.id); await reloadData();
+  }
+}
+
+async function copySummary() {
+  if (!state.currentResult || !state.currentInput) return;
+  const summary = buildJourneySummary(state.currentInput.journey, state.currentResult);
+  try {
+    await navigator.clipboard.writeText(summary);
+    message($("#action-status"), "Summary copied to the clipboard.", "success");
+  } catch {
+    message($("#action-status"), "Clipboard access is unavailable. Use Export summary instead.", "error");
+  }
+}
+
+function exportSummary() {
+  if (!state.currentResult || !state.currentInput) return;
+  downloadFile("vehicle-cost-summary.txt", buildJourneySummary(state.currentInput.journey, state.currentResult), "text/plain;charset=utf-8");
+}
+
+function resetCalculator(force = false) {
+  if (!force && state.currentResult && !confirm("Reset the current calculator form? Saved vehicles, fill-ups, and journeys will not be removed.")) return;
+  $("#journey-form").reset();
+  safeValue("trip-multiplier", 1); safeValue("passenger-count", 1); safeValue("additional-km", 0); safeValue("maintenance-rate", 0);
+  safeValue("outbound-toll", 0); safeValue("return-toll", 0); safeValue("ferry-cost", 0); safeValue("parking-cost", 0);
+  populateCustomCosts();
+  state.currentResult = null; state.currentInput = null; state.currentJourneyId = null; state.routeSelection = null; state.routeChoices = [];
+  state.tollStatus = TOLL_STATES.UNKNOWN; state.tollSource = TOLL_LABELS[state.tollStatus];
+  $("#route-alternatives").innerHTML = ""; updateEnergyFields(); updateTollDisplay();
+  $("#result-total").textContent = "—"; $("#result-passenger").textContent = "—"; $("#result-distance").textContent = "—";
+  $("#result-breakdown").innerHTML = "<div><dt>Energy</dt><dd>—</dd></div><div><dt>Tolls</dt><dd>—</dd></div><div><dt>Other costs</dt><dd>—</dd></div>";
+  $("#result-assumptions").textContent = "Enter a route and vehicle values, then calculate.";
+  ["save-journey", "recalculate-result", "duplicate-current", "copy-summary", "export-summary", "print-result"].forEach((id) => { $(`#${id}`).disabled = true; });
+}
+
+async function saveSettings(event) {
+  event.preventDefault();
+  try {
+    const currency = value("currency").trim().toUpperCase();
+    if (!/^[A-Z]{3}$/.test(currency)) throw new ValidationError("Currency must use a three-letter code such as EUR.");
+    const endpoint = value("provider-endpoint").trim();
+    if (endpoint) new ProxyRouteProvider(endpoint);
+    storage.setSetting("currency", currency); storage.setSetting("theme", value("theme"));
+    storage.setSetting("routeCacheHours", parseNumber(value("route-cache-hours"), { field: "Route cache expiry", min: 1, required: true }));
+    storage.setSetting("providerEndpoint", endpoint);
+    updateCurrencyLabels(); applyTheme(value("theme")); updateProviderStatus();
+    message($("#settings-status"), "Settings saved on this browser.", "success");
+  } catch (error) {
+    message($("#settings-status"), error.message || "Settings could not be saved.", "error");
+  }
+}
+
+async function exportBackup() {
+  const backup = await storage.exportAll();
+  downloadFile(`vehicle-cost-calculator-backup-${isoDate()}.json`, JSON.stringify(backup, null, 2), "application/json");
+  return backup;
+}
+
+async function prepareImport(file) {
+  try {
+    if (!file) return;
+    if (file.size > 5_000_000) throw new StorageError("The backup is larger than the 5 MB safety limit.");
+    const backup = JSON.parse(await file.text());
+    const preview = storage.validateBackup(backup);
+    state.pendingBackup = backup;
+    $("#import-preview").innerHTML = [["Backup version", preview.version], ["Vehicles", preview.vehicles], ["Fill-ups", preview.fillups], ["Journeys", preview.journeys], ["Exported", preview.exportedAt]].map(([label, amount]) => `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(amount)}</strong></div>`).join("");
+    $("#import-dialog").showModal();
+  } catch (error) {
+    message($("#settings-status"), error.message || "The backup could not be read.", "error");
+  } finally {
+    $("#import-backup").value = "";
+  }
+}
+
+async function importBackup(mode) {
+  if (!state.pendingBackup) return;
+  try {
+    if (mode === "replace") await exportBackup();
+    await storage.importAll(state.pendingBackup, mode);
+    state.pendingBackup = null;
+    $("#import-dialog").close();
+    await loadSettings(); await reloadData();
+    message($("#settings-status"), `Backup ${mode === "replace" ? "replaced" : "merged with"} local calculator data.`, "success");
+  } catch (error) {
+    message($("#settings-status"), error.message || "The backup could not be imported.", "error");
+  }
+}
+
+function exportVehiclesCsv() {
+  downloadFile("vehicle-cost-calculator-vehicles.csv", toCsv(state.vehicles, [["Name", "name"], ["Make", "make"], ["Model", "model"], ["Year", "year"], ["Energy type", "energyType"], ["Fuel consumption", "manualConsumption"], ["Electric consumption", "manualElectricConsumption"], ["Maintenance per km", "maintenanceRate"], ["Toll category", "tollCategory"], ["Archived", (row) => row.archived ? "yes" : "no"]]), "text/csv;charset=utf-8");
+}
+
+function exportFillupsCsv() {
+  const names = Object.fromEntries(state.vehicles.map((vehicle) => [vehicle.id, vehicle.name]));
+  downloadFile("vehicle-cost-calculator-fillups.csv", toCsv(state.fillups, [["Vehicle", (row) => names[row.vehicleId] || row.vehicleId], ["Date", "date"], ["Odometer", "odometer"], ["Trip distance", "tripDistance"], ["Litres", "litres"], ["Price per litre", "pricePerLitre"], ["Total paid", "totalPaid"], ["Full tank", (row) => row.fullTank ? "yes" : "no"], ["Fuel type", "fuelType"], ["Driving type", "drivingType"], ["Notes", "notes"]]), "text/csv;charset=utf-8");
+}
+
+function exportJourneysCsv() {
+  downloadFile("vehicle-cost-calculator-journeys.csv", toCsv(state.journeys, [["Date", "updatedAt"], ["Journey", "name"], ["Origin", "origin"], ["Destination", "destination"], ["Vehicle", "vehicleName"], ["Distance km", (row) => row.result?.totalDistance], ["Energy cost", (row) => row.result?.energyCost], ["Tolls", (row) => row.result?.totalTolls], ["Total", (row) => row.result?.totalCost], ["Passengers", (row) => row.result?.passengerCount], ["Per passenger", (row) => row.result?.costPerPassenger], ["Currency", (row) => row.result?.currency], ["Toll source", "tollSource"], ["Notes", "notes"]]), "text/csv;charset=utf-8");
+}
+
+async function deleteAllData() {
+  const warning = "Delete all Vehicle Cost Calculator data from this browser? This removes vehicles, fill-ups, journeys, cached routes, price history, and preferences. Other EstrelaLua data and other websites are not affected. This cannot be undone unless you exported a backup.";
+  if (!confirm(warning)) return;
+  try {
+    await storage.deleteAll();
+    state.vehicles = []; state.fillups = []; state.journeys = [];
+    resetCalculator(true); await storage.open(); await loadSettings(); await reloadData();
+    message($("#settings-status"), "All local Vehicle Cost Calculator data was deleted.", "success");
+  } catch (error) {
+    message($("#settings-status"), error.message || "Local data could not be deleted.", "error");
+  }
+}
+
+async function loadSettings() {
+  safeValue("currency", storage.getSetting("currency", "EUR"));
+  safeValue("theme", storage.getSetting("theme", "light"));
+  safeValue("route-cache-hours", storage.getSetting("routeCacheHours", 12));
+  safeValue("provider-endpoint", storage.getSetting("providerEndpoint", ""));
+  applyTheme(value("theme")); updateCurrencyLabels(); updateProviderStatus();
+}
+
+function bindEvents() {
+  $("#journey-form").addEventListener("submit", calculateForm);
+  $("#import-link").addEventListener("click", importMapLink);
+  $("#calculate-route").addEventListener("click", calculateOnlineRoute);
+  $("#route-alternatives").addEventListener("change", (event) => { if (event.target.name === "route-choice") applyRouteChoice(Number(event.target.value)); });
+  ["origin", "destination", "stops", "one-way-distance"].forEach((id) => $(`#${id}`).addEventListener("input", (event) => {
+    if (!event.isTrusted || !state.routeSelection) return;
+    const retainedTolls = num("outbound-toll") + num("return-toll");
+    state.tollStatus = retainedTolls > 0 ? TOLL_STATES.MANUAL : TOLL_STATES.UNKNOWN;
+    state.tollSource = retainedTolls > 0 ? "Manual value retained after route edit" : TOLL_LABELS[TOLL_STATES.UNKNOWN];
+    $("#manual-toll-override").checked = retainedTolls > 0;
+    state.routeSelection = null; state.routeChoices = []; $("#route-alternatives").innerHTML = "";
+    updateTollDisplay();
+    message($("#route-status"), "The route was edited. Recalculate online or continue with the new manual values.", "warning");
+  }));
+  $$('input[name="journeyType"]').forEach((radio) => radio.addEventListener("change", () => {
+    if (radio.checked && radio.value !== "custom") safeValue("trip-multiplier", radio.value === "return" ? 2 : 1);
+    if (radio.checked && radio.value === "custom") $("#trip-multiplier").focus();
+    state.routeSelection = null; state.routeChoices = []; $("#route-alternatives").innerHTML = "";
+  }));
+  $("#energy-type").addEventListener("change", updateEnergyFields);
+  $("#consumption-source").addEventListener("change", applyConsumptionSource);
+  $("#vehicle-select").addEventListener("change", () => { const vehicle = activeVehicle(); if (vehicle) useVehicle(vehicle); });
+  $("#new-vehicle").addEventListener("click", () => openVehicleDialog());
+  $("#add-vehicle-library").addEventListener("click", () => openVehicleDialog());
+  $("#vehicle-form").addEventListener("submit", saveVehicle);
+  $$('[data-close-dialog]').forEach((button) => button.addEventListener("click", () => $("#vehicle-dialog").close()));
+  $("#vehicle-list").addEventListener("click", handleVehicleAction);
+  $("#fillup-form").addEventListener("submit", saveFillup);
+  $("#fillup-vehicle").addEventListener("change", () => renderConsumptionStats(value("fillup-vehicle")));
+  $("#fillup-table").addEventListener("click", (event) => { const button = event.target.closest("[data-fillup-delete]"); if (button) deleteFillup(button.dataset.fillupDelete); });
+  $("#add-custom-cost").addEventListener("click", () => addCustomCost());
+  $("#custom-costs").addEventListener("click", (event) => { const button = event.target.closest(".remove-custom-cost"); if (button) button.closest(".custom-cost-row").remove(); });
+  $("#outbound-toll").addEventListener("input", () => { state.tollStatus = checked("manual-toll-override") ? TOLL_STATES.MANUAL_OVERRIDE : TOLL_STATES.MANUAL; state.tollSource = TOLL_LABELS[state.tollStatus]; updateTollDisplay(); });
+  $("#return-toll").addEventListener("input", () => { state.tollStatus = checked("manual-toll-override") ? TOLL_STATES.MANUAL_OVERRIDE : TOLL_STATES.MANUAL; state.tollSource = TOLL_LABELS[state.tollStatus]; updateTollDisplay(); });
+  $("#manual-toll-override").addEventListener("change", () => { state.tollStatus = checked("manual-toll-override") ? TOLL_STATES.MANUAL_OVERRIDE : TOLL_STATES.MANUAL; state.tollSource = TOLL_LABELS[state.tollStatus]; updateTollDisplay(); });
+  $("#mark-no-tolls").addEventListener("click", () => { safeValue("outbound-toll", 0); safeValue("return-toll", 0); state.tollStatus = TOLL_STATES.NO_TOLLS; state.tollSource = "Manually marked as no tolls"; $("#manual-toll-override").checked = false; updateTollDisplay(); });
+  $("#save-journey").addEventListener("click", saveCurrentJourney);
+  $("#recalculate-result").addEventListener("click", calculateForm);
+  $("#duplicate-current").addEventListener("click", () => { if (!state.currentInput) return; safeValue("journey-name", `${value("journey-name") || "Journey"} copy`); state.currentJourneyId = null; calculateForm(); });
+  $("#copy-summary").addEventListener("click", copySummary);
+  $("#export-summary").addEventListener("click", exportSummary);
+  $("#print-result").addEventListener("click", () => { try { window.print(); } catch { message($("#action-status"), "Printing is unavailable in this browser.", "error"); } });
+  $("#reset-calculator").addEventListener("click", resetCalculator);
+  $("#journey-list").addEventListener("click", handleJourneyAction);
+  $("#settings-form").addEventListener("submit", saveSettings);
+  $("#currency").addEventListener("input", updateCurrencyLabels);
+  $("#theme").addEventListener("change", () => applyTheme(value("theme")));
+  $("#clear-route-cache").addEventListener("click", async () => { await storage.clearRouteCache(); message($("#settings-status"), "Local route cache cleared.", "success"); });
+  $("#export-backup").addEventListener("click", exportBackup);
+  $("#import-backup").addEventListener("change", (event) => prepareImport(event.target.files[0]));
+  $$('[data-close-import]').forEach((button) => button.addEventListener("click", () => $("#import-dialog").close()));
+  $("#merge-backup").addEventListener("click", () => importBackup("merge"));
+  $("#replace-backup").addEventListener("click", () => importBackup("replace"));
+  $("#export-vehicles-csv").addEventListener("click", exportVehiclesCsv);
+  $("#export-fillups-csv").addEventListener("click", exportFillupsCsv);
+  $("#export-journeys-csv").addEventListener("click", exportJourneysCsv);
+  $("#delete-all-data").addEventListener("click", deleteAllData);
+  window.addEventListener("online", updateProviderStatus); window.addEventListener("offline", updateProviderStatus);
+}
+
+async function initialise() {
+  bindEvents();
+  safeValue("fillup-date", isoDate());
+  try {
+    await storage.open();
+    await loadSettings();
+    await reloadData();
+  } catch (error) {
+    state.storageAvailable = false;
+    message($("#settings-status"), "Browser storage is unavailable. Manual calculations still work, but profiles and journeys cannot be saved.", "error");
+    ["save-journey", "new-vehicle", "add-vehicle-library", "export-backup", "import-backup"].forEach((id) => { const element = $(`#${id}`); if (element) element.disabled = true; });
+  }
+  updateEnergyFields();
+  updateTollDisplay();
+}
+
+initialise();
