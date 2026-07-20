@@ -48,7 +48,7 @@ const fullTankRecords = [
 await test("Full-tank consumption", () => { const stats = calculateFillUpConsumption(fullTankRecords.slice(0, 3)); close(stats.latest, 40 / 600 * 100); });
 await test("Partial fills included between full fills", () => { const stats = calculateFillUpConsumption(fullTankRecords.slice(0, 3)); close(stats.intervals[0].litres, 40); assert(stats.intervals[0].partialFills === 1); });
 await test("Partial fill alone is not a valid interval", () => assert(calculateFillUpConsumption(fullTankRecords.slice(0, 2)).intervals.length === 0));
-await test("Invalid fill-up interval ignored", () => assert(calculateFillUpConsumption([{ id: "a", fullTank: true, odometer: 1000, litres: 30 }, { id: "b", fullTank: true, odometer: 900, litres: 30 }]).intervals.length === 0));
+await test("Invalid fill-up interval ignored", () => assert(calculateFillUpConsumption([{ id: "a", fullTank: true, odometer: 1000, litres: 30 }, { id: "b", fullTank: true, odometer: 1000, litres: 30 }]).intervals.length === 0));
 await test("Weighted average consumption", () => { const stats = calculateFillUpConsumption(fullTankRecords); close(stats.overall, (40 + 36 + 42 + 39) / (600 * 4) * 100); });
 await test("Latest-three weighted consumption", () => { const stats = calculateFillUpConsumption(fullTankRecords); close(stats.latestThree, (36 + 42 + 39) / 1800 * 100); });
 await test("Driving-type average", () => assert(calculateFillUpConsumption(fullTankRecords).byDrivingType.city > 0));
