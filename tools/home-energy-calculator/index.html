@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#063852" />
     <title>Home Energy Calculator &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
-    <link rel="stylesheet" href="calculator.css?v=4" />
-    <script type="module" src="calculator.js?v=4"></script>
+    <link rel="stylesheet" href="calculator.css?v=5" />
+    <script type="module" src="calculator.js?v=5"></script>
   </head>
   <body>
     <a class="skip-link" href="#calculator-main">Skip to calculator</a>
@@ -77,7 +77,7 @@
                 <button id="add-appliance" class="secondary-button" type="button">Add appliance</button>
               </div>
             </div>
-            <p class="panel-intro">Estimate an appliance from its watts and running time, or enter a known monthly kWh total from an energy meter or monitoring app.</p>
+            <p class="panel-intro">Enter the values you know. A measured kWh value is used directly; when it is empty, the calculator estimates from power and running time.</p>
             <div id="appliance-list" class="appliance-list" aria-live="polite"></div>
             <div class="form-actions">
               <div>
@@ -125,17 +125,15 @@
         <div class="appliance-row-heading"><h3>Appliance</h3><button class="remove-appliance" type="button" aria-label="Remove appliance">&times;</button></div>
         <div class="appliance-basics">
           <div class="field name-field"><label>Appliance name</label><input class="appliance-name" autocomplete="off" placeholder="For example, computer" /></div>
-          <div class="field"><label>How do you know its usage?</label><select class="appliance-mode"><option value="estimate">Estimate from power and time</option><option value="known">Enter known monthly kWh</option></select></div>
         </div>
-        <div class="appliance-fields estimate-inputs">
+        <div class="appliance-fields">
           <div class="field"><label>Power</label><div class="unit-input"><input class="appliance-watts" inputmode="decimal" autocomplete="off" placeholder="120" /><span>W</span></div></div>
           <div class="field"><label>Quantity</label><input class="appliance-quantity" inputmode="numeric" autocomplete="off" value="1" /></div>
           <div class="field"><label>Hours per day</label><div class="unit-input"><input class="appliance-hours" inputmode="decimal" autocomplete="off" placeholder="4" /><span>h</span></div></div>
           <div class="field"><label>Days per month</label><div class="unit-input"><input class="appliance-days" inputmode="numeric" autocomplete="off" value="30" /><span>days</span></div></div>
+          <div class="field appliance-known-field"><label>Measured kWh <span>Monthly total</span></label><div class="unit-input"><input class="appliance-known-kwh" inputmode="decimal" autocomplete="off" placeholder="18.5" /><span>kWh</span></div></div>
         </div>
-        <div class="known-inputs" hidden>
-          <div class="field"><label>Known monthly use</label><div class="unit-input"><input class="appliance-known-kwh" inputmode="decimal" autocomplete="off" placeholder="18.5" /><span>kWh</span></div><p class="field-help">Enter the total energy this appliance used during one month.</p></div>
-        </div>
+        <p class="input-choice-note">If measured kWh is filled, it replaces Power, Quantity, Hours, and Days for this appliance.</p>
         <p class="row-estimate">Enter the appliance details to calculate its monthly use.</p>
       </article>
     </template>

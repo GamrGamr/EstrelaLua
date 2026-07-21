@@ -51,8 +51,9 @@ export function calculateHomeEnergy(input = {}) {
   const items = appliances.map((appliance, index) => {
     const position = index + 1;
     const name = String(appliance.name ?? "").trim() || `Appliance ${position}`;
-    const mode = appliance.mode === "known" ? "known" : "estimate";
-    if (mode === "known") {
+    const hasMeasuredKwh = String(appliance.monthlyKwh ?? "").trim() !== "";
+    const mode = hasMeasuredKwh ? "measured" : "estimate";
+    if (hasMeasuredKwh) {
       const monthlyKwh = parseNumber(appliance.monthlyKwh, { field: `${name} monthly use`, fieldId: `appliance-${index}-kwh`, min: 0.01, max: 100000000 });
       const monthlyCost = monthlyKwh * pricePerKwh;
       return {
