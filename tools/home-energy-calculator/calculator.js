@@ -2,11 +2,11 @@ import { ValidationError, calculateHomeEnergy, formatCurrency, formatNumber, san
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-const STORAGE_KEY = "estrelalua-home-energy-v1";
+const STORAGE_KEY = "estrelalua-home-energy-v2";
 let nextRowId = 1;
 let calculateTimer = 0;
 
-const blankAppliance = () => ({ id: String(nextRowId++), name: "", watts: "", quantity: "1", hoursPerDay: "", daysPerMonth: "30", monthlyKwh: "" });
+const blankAppliance = () => ({ id: String(nextRowId++), name: "", watts: "0", quantity: "1", hoursPerDay: "0", daysPerMonth: "0", monthlyKwh: "0" });
 const exampleHome = [
   { name: "Refrigerator", watts: "120", quantity: "1", hoursPerDay: "8", daysPerMonth: "30" },
   { name: "Television", watts: "100", quantity: "1", hoursPerDay: "4", daysPerMonth: "30" },
@@ -24,11 +24,11 @@ function addAppliance(appliance = blankAppliance()) {
     nextRowId = Math.max(nextRowId, numericId + 1);
   }
   $(".appliance-name", row).value = appliance.name ?? "";
-  $(".appliance-watts", row).value = appliance.watts ?? "";
+  $(".appliance-watts", row).value = appliance.watts ?? "0";
   $(".appliance-quantity", row).value = appliance.quantity ?? "1";
-  $(".appliance-hours", row).value = appliance.hoursPerDay ?? "";
-  $(".appliance-days", row).value = appliance.daysPerMonth ?? "30";
-  $(".appliance-known-kwh", row).value = appliance.monthlyKwh ?? "";
+  $(".appliance-hours", row).value = appliance.hoursPerDay ?? "0";
+  $(".appliance-days", row).value = appliance.daysPerMonth ?? "0";
+  $(".appliance-known-kwh", row).value = appliance.monthlyKwh ?? "0";
   $("#appliance-list").append(row);
   syncRowLabels();
   syncMeasuredMode(row);
