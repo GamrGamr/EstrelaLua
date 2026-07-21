@@ -213,6 +213,12 @@ function bindEvents() {
   $("#energy-form").addEventListener("submit", (event) => { event.preventDefault(); saveDraft(); calculate(); });
   $("#add-appliance").addEventListener("click", () => { addAppliance(); saveDraft(); $(".appliance-row:last-child .appliance-name").focus(); });
   $("#load-example").addEventListener("click", () => {
+    $("#price-per-kwh").value = "0.25";
+    $("#energy-iva").value = "0";
+    $("#contracted-power-price").value = "0";
+    $("#contracted-power-iva").value = "0";
+    $("#billing-days").value = "30";
+    $("#fixed-monthly-cost").value = "0";
     $("#appliance-list").replaceChildren();
     exampleHome.forEach((item) => addAppliance({ id: String(nextRowId++), ...item }));
     saveDraft(); calculate();
