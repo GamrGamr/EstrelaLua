@@ -31,6 +31,19 @@ function addAppliance(appliance = blankAppliance()) {
   $(".appliance-known-kwh", row).value = appliance.monthlyKwh ?? "";
   $("#appliance-list").append(row);
   syncRowLabels();
+  syncMeasuredMode(row);
+}
+
+function syncMeasuredMode(row) {
+  const measuredInput = $(".appliance-known-kwh", row);
+  const usesMeasuredKwh = measuredInput.value.trim() !== "";
+  row.classList.toggle("uses-measured-kwh", usesMeasuredKwh);
+  $$(".appliance-watts, .appliance-quantity, .appliance-hours, .appliance-days", row).forEach((input) => {
+    input.disabled = usesMeasuredKwh;
+  });
+  $(".input-choice-note", row).textContent = usesMeasuredKwh
+    ? "Measured kWh is active. Power, Quantity, Hours, and Days are ignored for this appliance."
+    : "Enter measured kWh to use the meter reading instead of Power, Quantity, Hours, and Days.";
 }
 
 function syncRowLabels() {
@@ -227,6 +240,7 @@ function bindEvents() {
     if (!(event.target instanceof HTMLInputElement)) return;
     if (event.target.inputMode === "decimal") event.target.value = sanitiseDecimalInput(event.target.value);
     if (event.target.inputMode === "numeric") event.target.value = sanitiseIntegerInput(event.target.value);
+    if (event.target.classList.contains("appliance-known-kwh")) syncMeasuredMode(event.target.closest(".appliance-row"));
     event.target.removeAttribute("aria-invalid");
     scheduleCalculation();
   });

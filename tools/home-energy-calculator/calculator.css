@@ -57,6 +57,7 @@ input { width: 100%; min-height: 48px; padding: 11px 13px; color: var(--ink); bo
 input:hover { border-color: #94c6bd; }
 input:focus { border-color: var(--ocean); outline: none; box-shadow: 0 0 0 4px rgba(8,125,175,.12); }
 input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(169,54,43,.12); }
+input:disabled { cursor: not-allowed; color: #7b8d91; border-color: #dce7e4; background: #edf3f1; box-shadow: none; }
 .unit-input { position: relative; }
 .unit-input input { padding-right: 54px; font-variant-numeric: tabular-nums; }
 .unit-input #price-per-kwh { padding-right: 76px; }
@@ -88,6 +89,9 @@ input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px 
 .remove-appliance:hover { color: white; border-color: var(--danger); background: var(--danger); }
 .appliance-basics { display: grid; grid-template-columns: 1fr; margin-bottom: 11px; }
 .appliance-fields { display: grid; grid-template-columns: repeat(4, minmax(100px, 1fr)) minmax(140px, 1.25fr); gap: 11px; align-items: end; }
+.estimate-only-field { transition: opacity .2s; }
+.uses-measured-kwh .estimate-only-field { opacity: .45; }
+.uses-measured-kwh .input-choice-note { color: var(--ocean); font-weight: 800; }
 .input-choice-note { margin: 10px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
 .row-estimate { margin: 13px 0 0; color: var(--ocean); font-size: 11px; font-weight: 800; }
 .form-actions { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 25px; padding-top: 21px; border-top: 1px solid var(--line); }

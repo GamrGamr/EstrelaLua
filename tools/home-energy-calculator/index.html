@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#063852" />
     <title>Home Energy Calculator &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
-    <link rel="stylesheet" href="calculator.css?v=6" />
-    <script type="module" src="calculator.js?v=8"></script>
+    <link rel="stylesheet" href="calculator.css?v=7" />
+    <script type="module" src="calculator.js?v=9"></script>
   </head>
   <body>
     <a class="skip-link" href="#calculator-main">Skip to calculator</a>
@@ -139,13 +139,13 @@
           <div class="field name-field"><label>Appliance name</label><input class="appliance-name" autocomplete="off" placeholder="For example, computer" /></div>
         </div>
         <div class="appliance-fields">
-          <div class="field"><label>Power</label><div class="unit-input"><input class="appliance-watts" inputmode="decimal" autocomplete="off" placeholder="120" /><span>W</span></div></div>
-          <div class="field"><label>Quantity</label><input class="appliance-quantity" inputmode="numeric" autocomplete="off" value="1" /></div>
-          <div class="field"><label>Hours per day</label><div class="unit-input"><input class="appliance-hours" inputmode="decimal" autocomplete="off" placeholder="4" /><span>h</span></div></div>
-          <div class="field"><label>Days per month</label><div class="unit-input"><input class="appliance-days" inputmode="numeric" autocomplete="off" value="30" /><span>days</span></div></div>
+          <div class="field estimate-only-field"><label>Power</label><div class="unit-input"><input class="appliance-watts" inputmode="decimal" autocomplete="off" placeholder="120" /><span>W</span></div></div>
+          <div class="field estimate-only-field"><label>Quantity</label><input class="appliance-quantity" inputmode="numeric" autocomplete="off" value="1" /></div>
+          <div class="field estimate-only-field"><label>Hours per day</label><div class="unit-input"><input class="appliance-hours" inputmode="decimal" autocomplete="off" placeholder="4" /><span>h</span></div></div>
+          <div class="field estimate-only-field"><label>Days per month</label><div class="unit-input"><input class="appliance-days" inputmode="numeric" autocomplete="off" value="30" /><span>days</span></div></div>
           <div class="field appliance-known-field"><label>Measured kWh <span>Monthly total</span></label><div class="unit-input"><input class="appliance-known-kwh" inputmode="decimal" autocomplete="off" placeholder="18.5" /><span>kWh</span></div></div>
         </div>
-        <p class="input-choice-note">If measured kWh is filled, it replaces Power, Quantity, Hours, and Days. Those fields may be empty or 0.</p>
+        <p class="input-choice-note">Enter measured kWh to use the meter reading instead of Power, Quantity, Hours, and Days.</p>
         <p class="row-estimate">Enter the appliance details to calculate its monthly use.</p>
       </article>
     </template>
