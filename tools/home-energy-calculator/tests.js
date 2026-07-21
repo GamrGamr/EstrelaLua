@@ -1,0 +1,35 @@
+import { ValidationError, calculateHomeEnergy, formatCurrency, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=1";
+
+const results = [];
+const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
+const closeTo = (actual, expected, tolerance = 0.0001) => assert(Math.abs(actual - expected) <= tolerance, `${actual} is not close to ${expected}`);
+async function test(name, run) {
+  try { await run(); results.push({ name, passed: true }); }
+  catch (error) { results.push({ name, passed: false, error: error.message }); }
+}
+
+const base = { pricePerKwh: "0.25", fixedMonthlyCost: "0", appliances: [{ name: "TV", watts: "100", quantity: "1", hoursPerDay: "4", daysPerMonth: "30" }] };
+
+await test("Single appliance monthly kWh", () => closeTo(calculateHomeEnergy(base).monthlyKwh, 12));
+await test("Single appliance monthly cost", () => closeTo(calculateHomeEnergy(base).monthlyCost, 3));
+await test("Quantity is included", () => closeTo(calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], quantity: "2" }] }).monthlyKwh, 24));
+await test("Multiple appliances are totalled", () => closeTo(calculateHomeEnergy({ ...base, appliances: [...base.appliances, { name: "Lamp", watts: "10", quantity: "2", hoursPerDay: "5", daysPerMonth: "30" }] }).monthlyKwh, 15));
+await test("Fixed monthly charge is included", () => closeTo(calculateHomeEnergy({ ...base, fixedMonthlyCost: "7" }).monthlyCost, 10));
+await test("Annual result is twelve months", () => closeTo(calculateHomeEnergy(base).annualCost, 36));
+await test("Decimal comma is accepted", () => closeTo(calculateHomeEnergy({ ...base, pricePerKwh: "0,25" }).monthlyCost, 3));
+await test("Highest consumer is listed first", () => assert(calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], name: "Small" }, { name: "Large", watts: "1000", quantity: "1", hoursPerDay: "2", daysPerMonth: "30" }] }).items[0].name === "Large"));
+await test("Letters are removed from decimal input", () => assert(sanitiseDecimalInput("abc12,5xyz") === "12,5"));
+await test("Only one decimal separator is kept", () => assert(sanitiseDecimalInput("1.2,3") === "1.23"));
+await test("Integer input removes non-digits", () => assert(sanitiseIntegerInput("12 days") === "12"));
+await test("Missing appliances are rejected", () => { try { calculateHomeEnergy({ pricePerKwh: "0.25", appliances: [] }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
+await test("More than 24 hours is rejected", () => { try { calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], hoursPerDay: "25" }] }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
+await test("More than 31 days is rejected", () => { try { calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], daysPerMonth: "32" }] }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
+await test("Zero power is rejected", () => { try { calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], watts: "0" }] }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
+await test("Non-numeric input is rejected", () => { try { parseNumber("hello", { field: "Value" }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
+await test("Currency is formatted in euros", () => assert(formatCurrency(12.5).includes("12.50")));
+
+const passed = results.filter((result) => result.passed).length;
+document.querySelector("#test-count").textContent = `${results.length} tests`;
+document.querySelector("#passed-count").textContent = `${passed} passed`;
+document.querySelector("#failed-count").textContent = `${results.length - passed} failed`;
+document.querySelector("#test-results").innerHTML = results.map((result) => `<li class="${result.passed ? "pass" : "fail"}"><strong>${result.passed ? "PASS" : "FAIL"}</strong> ${result.name}${result.error ? `<small>${result.error}</small>` : ""}</li>`).join("");

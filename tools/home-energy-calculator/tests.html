@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Energy Calculator tests</title>
+    <link rel="stylesheet" href="calculator.css?v=1" />
+    <style>
+      .test-shell { width: min(850px, calc(100% - 32px)); margin: 50px auto; }
+      .test-summary { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+      .test-summary span { padding: 10px 14px; border-radius: 999px; background: white; border: 1px solid var(--line); font-weight: 800; }
+      .test-list { padding: 0; list-style: none; }
+      .test-list li { margin: 9px 0; padding: 14px 16px; border-radius: 13px; background: white; border-left: 5px solid var(--leaf); }
+      .test-list .fail { border-left-color: var(--danger); }
+      .test-list small { display: block; margin-top: 5px; color: var(--muted); }
+    </style>
+    <script type="module" src="tests.js?v=1"></script>
+  </head>
+  <body>
+    <main class="test-shell">
+      <p class="kicker">Dependency-free browser tests</p>
+      <h1>Home Energy Calculator</h1>
+      <div class="test-summary"><span id="test-count">Running</span><span id="passed-count">&hellip;</span><span id="failed-count">&hellip;</span></div>
+      <ol id="test-results" class="test-list"></ol>
+      <a class="secondary-button" href="index.html">Return to calculator</a>
+    </main>
+  </body>
+</html>

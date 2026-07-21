@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Home Energy Calculator</title>
+  <defs>
+    <linearGradient id="sky" x1="18" y1="15" x2="111" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#18b7ba"/>
+      <stop offset="1" stop-color="#087daf"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="65" y1="43" x2="76" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#ff9f1c"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="#eefcf9"/>
+  <path d="M24 59.5 64 25l40 34.5V105a8 8 0 0 1-8 8H32a8 8 0 0 1-8-8Z" fill="url(#sky)"/>
+  <path d="M16 62 64 20l48 42" fill="none" stroke="#063852" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M69 42 48 75h17l-6 30 25-40H67Z" fill="url(#bolt)" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M32 105h64" stroke="#063852" stroke-width="8" stroke-linecap="round"/>
+</svg>

@@ -1,6 +1,6 @@
 # EstrelaLuaApps
 
-This repository contains the official website for **EstrelaLuaApps**, an independent collection of practical Windows desktop applications.
+This repository contains the official website for **EstrelaLuaApps**, an independent collection of practical Windows desktop applications and browser tools.
 
 The website gives every app one clear home where visitors can:
 
@@ -36,11 +36,15 @@ A lightweight Windows shutdown scheduler with countdown warnings, limited delay 
 
 A fully manual browser-based journey calculator for fuel, electricity, tolls, parking, ferries, maintenance, custom costs, and passenger sharing. It supports local vehicle profiles, measured full-tank consumption, saved journey snapshots, and backups.
 
+### Home Energy Calculator
+
+A private browser-based household electricity calculator. Add appliances with their power, quantity, daily use, and monthly use to estimate kWh and electricity costs by day, month, and year. The household setup is stored only in the current browser.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
 
-This repository contains the public website and the browser-based Vehicle Cost Calculator. Each desktop application's downloads, documentation, release history, and repository link are available from its dedicated page. Browser apps open directly from their information page.
+This repository contains the public website and its browser-based calculators. Each desktop application's downloads, documentation, release history, and repository link are available from its dedicated page. Browser apps open directly from their information page.
 
 ## Website structure
 
@@ -48,6 +52,7 @@ This repository contains the public website and the browser-based Vehicle Cost C
 - `apps/` - Dedicated information page for each application
 - `assets/` - Brand artwork, favicons, and official app icons
 - `tools/vehicle-cost-calculator/` - Browser calculator, calculation and storage modules, and tests
+- `tools/home-energy-calculator/` - Household electricity calculator, calculation module, and tests
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
@@ -56,4 +61,4 @@ This repository contains the public website and the browser-based Vehicle Cost C
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The Vehicle Cost Calculator works entirely in the browser without an API, backend, account, or build step. Users enter distance, duration, tolls, and prices manually; the calculator does not send journey data to external services.
+The browser calculators work entirely in the browser without an API, backend, account, or build step. Users enter values manually, and the calculators do not send calculation data to external services.

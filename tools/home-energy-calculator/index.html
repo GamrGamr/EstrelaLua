@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Estimate household electricity use and cost by appliance, day, month, and year." />
+    <meta name="theme-color" content="#063852" />
+    <title>Home Energy Calculator &mdash; EstrelaLuaApps</title>
+    <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
+    <link rel="stylesheet" href="calculator.css?v=1" />
+    <script type="module" src="calculator.js?v=1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator-main">Skip to calculator</a>
+    <header class="energy-header">
+      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home">
+        <img src="../../assets/estrelalua-logo.png" alt="" width="50" height="50" />
+        <span>EstrelaLua<span>Apps</span></span>
+      </a>
+      <nav aria-label="Calculator navigation">
+        <a href="../../apps.html">All apps</a>
+        <a href="#appliances">Appliances</a>
+        <a href="#results">Results</a>
+      </nav>
+    </header>
+
+    <main id="calculator-main">
+      <section class="energy-hero">
+        <div>
+          <p class="kicker">Household electricity &middot; Manual calculator</p>
+          <h1>Know what powers<br /><em>your monthly bill.</em></h1>
+          <p>Add the appliances you use at home and estimate their electricity consumption and cost. Everything stays in this browser.</p>
+        </div>
+        <div class="hero-mark" aria-hidden="true">
+          <img src="../../assets/home-energy-calculator-icon.svg" alt="" />
+          <span>Private &amp; local</span>
+        </div>
+      </section>
+
+      <div class="calculator-layout">
+        <form id="energy-form" novalidate>
+          <section class="panel tariff-panel" aria-labelledby="tariff-title">
+            <div class="panel-heading">
+              <span class="step-number">01</span>
+              <div><p class="section-kicker">Your tariff</p><h2 id="tariff-title">Electricity price</h2></div>
+            </div>
+            <div class="tariff-grid">
+              <div class="field">
+                <label for="price-per-kwh">Price per kWh</label>
+                <div class="unit-input"><input id="price-per-kwh" inputmode="decimal" autocomplete="off" value="0.25" required /><span>EUR/kWh</span></div>
+                <p class="field-help">Use the energy price shown on your electricity bill.</p>
+              </div>
+              <div class="field">
+                <label for="fixed-monthly-cost">Fixed monthly charge <span>Optional</span></label>
+                <div class="unit-input"><input id="fixed-monthly-cost" inputmode="decimal" autocomplete="off" value="0" /><span>EUR</span></div>
+                <p class="field-help">Add a standing or contracted-power charge if you want it included.</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="appliances" class="panel appliance-panel" aria-labelledby="appliance-title">
+            <div class="panel-heading appliance-heading">
+              <span class="step-number">02</span>
+              <div><p class="section-kicker">Your home</p><h2 id="appliance-title">Appliances</h2></div>
+              <div class="heading-actions">
+                <button id="load-example" class="secondary-button" type="button">Load example</button>
+                <button id="add-appliance" class="secondary-button" type="button">Add appliance</button>
+              </div>
+            </div>
+            <p class="panel-intro">Use the rated power shown in watts on the appliance or its label. For appliances that cycle on and off, enter the estimated number of hours they are actively running.</p>
+            <div id="appliance-list" class="appliance-list" aria-live="polite"></div>
+            <div class="form-actions">
+              <div>
+                <p id="form-message" class="form-message" role="status"></p>
+                <p id="save-status" class="save-status">Changes are saved on this device.</p>
+              </div>
+              <div class="action-buttons">
+                <button id="reset-calculator" class="text-button" type="button">Clear all</button>
+                <button class="primary-button" type="submit">Calculate costs <span aria-hidden="true">&rarr;</span></button>
+              </div>
+            </div>
+          </section>
+        </form>
+
+        <aside id="results" class="results-card" aria-labelledby="results-title" aria-live="polite">
+          <p class="results-kicker">Estimated household total</p>
+          <h2 id="results-title">Monthly cost</h2>
+          <div class="monthly-total"><strong id="monthly-cost">&euro;0.00</strong><span>including the fixed charge</span></div>
+          <div class="result-highlights">
+            <div><span>Monthly use</span><strong id="monthly-kwh">0 kWh</strong></div>
+            <div><span>Average daily cost</span><strong id="daily-cost">&euro;0.00</strong></div>
+            <div><span>Yearly cost</span><strong id="annual-cost">&euro;0.00</strong></div>
+            <div><span>Yearly use</span><strong id="annual-kwh">0 kWh</strong></div>
+          </div>
+          <dl class="result-breakdown">
+            <div><dt>Energy charge</dt><dd id="energy-charge">&euro;0.00</dd></div>
+            <div><dt>Fixed charge</dt><dd id="fixed-charge">&euro;0.00</dd></div>
+            <div><dt>Average daily use</dt><dd id="daily-kwh">0 kWh</dd></div>
+          </dl>
+          <div class="usage-heading"><h3>Biggest energy users</h3><span>per month</span></div>
+          <ol id="usage-list" class="usage-list"><li class="empty-result">Add an appliance to see its share.</li></ol>
+          <p class="estimate-note">These are estimates based on the power and usage you enter. Your electricity bill may also include taxes, fees, tariff periods, and changing prices.</p>
+        </aside>
+      </div>
+
+      <section class="privacy-card">
+        <div><p class="kicker">Privacy by default</p><h2>Your home data<br />stays at home.</h2></div>
+        <p>The calculator runs entirely in your browser. Appliance details and tariff values are stored only on this device so they are ready when you return. No account, server, analytics, or energy-provider connection is used.</p>
+      </section>
+    </main>
+
+    <template id="appliance-template">
+      <article class="appliance-row">
+        <div class="appliance-row-heading"><h3>Appliance</h3><button class="remove-appliance" type="button" aria-label="Remove appliance">&times;</button></div>
+        <div class="appliance-fields">
+          <div class="field name-field"><label>Appliance name</label><input class="appliance-name" autocomplete="off" placeholder="For example, refrigerator" /></div>
+          <div class="field"><label>Power</label><div class="unit-input"><input class="appliance-watts" inputmode="decimal" autocomplete="off" placeholder="120" /><span>W</span></div></div>
+          <div class="field"><label>Quantity</label><input class="appliance-quantity" inputmode="numeric" autocomplete="off" value="1" /></div>
+          <div class="field"><label>Hours per day</label><div class="unit-input"><input class="appliance-hours" inputmode="decimal" autocomplete="off" placeholder="4" /><span>h</span></div></div>
+          <div class="field"><label>Days per month</label><div class="unit-input"><input class="appliance-days" inputmode="numeric" autocomplete="off" value="30" /><span>days</span></div></div>
+        </div>
+        <p class="row-estimate">Enter the appliance details to calculate its monthly use.</p>
+      </article>
+    </template>
+
+    <footer class="energy-footer"><span>EstrelaLuaApps&trade;</span><a href="../../legal.html">Trademark &amp; copyright</a><a href="tests.html">Calculator tests</a></footer>
+  </body>
+</html>

@@ -127,6 +127,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .app-four::before { background: #7cd8d0; }
 .app-five::before { background: #ff8a00; }
 .app-six::before { background: #8fded3; }
+.app-seven::before { background: #ffd166; }
 .app-card-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
 .app-symbol {
   display: grid; place-items: center; width: 72px; height: 72px; flex: 0 0 72px;
@@ -142,6 +143,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .app-four .app-symbol { color: var(--ocean); background: #e3fbf7; }
 .app-five .app-symbol { color: #ff8a00; background: #fff0dc; }
 .app-six .app-symbol { color: var(--ocean); background: #e4fbf7; }
+.app-seven .app-symbol { color: #9a6500; background: #fff4cf; }
 .app-card .app-symbol.has-image { background: transparent; border-radius: 0; box-shadow: none; }
 .app-card .app-symbol.has-image[href]:hover { box-shadow: none; }
 .app-meta { display: flex; align-items: center; gap: 9px; color: #88aab4; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
@@ -200,6 +202,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .pixevra-detail { --detail-accent: #7357ff; --detail-icon: #eef3ff; }
 .halvynox-detail { --detail-accent: #ff8a00; --detail-icon: #fff0dc; }
 .vehicle-cost-detail { --detail-accent: #18b7ba; --detail-icon: #e4fbf7; }
+.home-energy-detail { --detail-accent: #ffd166; --detail-icon: #fff4cf; }
 
 .contact-section { background: var(--sand); }
 .contact-card { display: grid; grid-template-columns: 1.2fr .7fr auto; align-items: center; gap: 55px; padding: 65px; border-radius: 34px; background: rgba(255,255,255,.72); box-shadow: 0 18px 50px rgba(126,87,30,.08); }
