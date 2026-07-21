@@ -58,7 +58,10 @@ input:hover { border-color: #94c6bd; }
 input:focus { border-color: var(--ocean); outline: none; box-shadow: 0 0 0 4px rgba(8,125,175,.12); }
 input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(169,54,43,.12); }
 .unit-input { position: relative; }
-.unit-input input { padding-right: 82px; }
+.unit-input input { padding-right: 54px; font-variant-numeric: tabular-nums; }
+.unit-input #price-per-kwh { padding-right: 76px; }
+.unit-input .appliance-watts, .unit-input .appliance-hours { padding-right: 36px; }
+.unit-input .appliance-days { padding-right: 52px; }
 .unit-input span { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 10px; font-weight: 850; pointer-events: none; }
 .field-help, .panel-intro { color: var(--muted); font-size: 11px; line-height: 1.55; }
 .field-help { margin: 7px 0 0; }
