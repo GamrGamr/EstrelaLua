@@ -119,12 +119,27 @@ function renderResult(result) {
   $("#daily-kwh").textContent = `${formatNumber(result.dailyKwh)} kWh`;
 
   const maximum = Math.max(...result.items.map((item) => item.monthlyKwh), 1);
-  $("#usage-list").innerHTML = result.items.map((item) => {
+  $("#usage-list").innerHTML = result.items.length ? result.items.map((item) => {
     const share = result.monthlyKwh ? (item.monthlyKwh / result.monthlyKwh) * 100 : 0;
     const width = Math.max(3, (item.monthlyKwh / maximum) * 100);
     return `<li><div class="usage-copy"><strong>${escapeHtml(item.name)}</strong><span>${formatNumber(item.monthlyKwh)} kWh · ${formatCurrency(item.monthlyCost)} · ${formatNumber(share, 1)}%</span></div><div class="usage-bar"><span style="width:${width}%"></span></div></li>`;
-  }).join("");
+  }).join("") : '<li class="empty-result">Add an appliance to see its share.</li>';
   updateRowEstimates(result);
+}
+
+function resetResults() {
+  window.clearTimeout(calculateTimer);
+  renderResult({
+    monthlyCost: 0,
+    monthlyKwh: 0,
+    dailyCost: 0,
+    annualCost: 0,
+    annualKwh: 0,
+    monthlyEnergyCost: 0,
+    fixedMonthlyCost: 0,
+    dailyKwh: 0,
+    items: [],
+  });
 }
 
 function escapeHtml(value) {
@@ -163,7 +178,7 @@ function bindEvents() {
     addAppliance();
     try { localStorage.removeItem(STORAGE_KEY); } catch {}
     clearErrors();
-    calculate({ showErrors: false });
+    resetResults();
   });
   $("#appliance-list").addEventListener("click", (event) => {
     const button = event.target.closest(".remove-appliance");
