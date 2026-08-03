@@ -138,10 +138,10 @@ export function calculateHomeEnergy(input = {}) {
   };
 }
 
-export function formatNumber(value, digits = 2) {
-  return new Intl.NumberFormat("en-GB", { maximumFractionDigits: digits }).format(Number(value) || 0);
+export function formatNumber(value, digits = 2, locale = "en-GB") {
+  return new Intl.NumberFormat(locale, { maximumFractionDigits: digits }).format(Number(value) || 0);
 }
 
-export function formatCurrency(value) {
-  return new Intl.NumberFormat("en-IE", { style: "currency", currency: "EUR" }).format(Number(value) || 0);
+export function formatCurrency(value, locale = "en-IE") {
+  return new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(Number(value) || 0);
 }

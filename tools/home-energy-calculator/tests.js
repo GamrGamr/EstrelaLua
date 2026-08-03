@@ -1,4 +1,4 @@
-import { ValidationError, calculateHomeEnergy, formatCurrency, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=8";
+import { ValidationError, calculateHomeEnergy, formatCurrency, formatNumber, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=9";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -50,6 +50,8 @@ await test("Zero days produces zero usage", () => closeTo(calculateHomeEnergy({ 
 await test("Zero measured kWh uses the power and time fields", () => closeTo(calculateHomeEnergy({ ...base, appliances: [{ ...base.appliances[0], monthlyKwh: "0" }] }).monthlyKwh, 12));
 await test("Non-numeric input is rejected", () => { try { parseNumber("hello", { field: "Value" }); } catch (error) { assert(error instanceof ValidationError); return; } throw new Error("Expected validation error"); });
 await test("Currency is formatted in euros", () => assert(formatCurrency(12.5).includes("12.50")));
+await test("Portuguese currency uses a decimal comma", () => assert(formatCurrency(12.5, "pt-PT").includes("12,50")));
+await test("Portuguese numbers use a decimal comma", () => assert(formatNumber(12.5, 2, "pt-PT").includes("12,5")));
 
 const passed = results.filter((result) => result.passed).length;
 document.querySelector("#test-count").textContent = `${results.length} tests`;
