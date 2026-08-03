@@ -1,4 +1,4 @@
-import { destinations, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts } from "./engine.js?v=6";
+import { destinations, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=9";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -68,8 +68,8 @@ function mapsUrl(origin, destination) {
   return `https://www.google.com/maps/dir/?${params}`;
 }
 
-function mapsSearchUrl(stop, destination) {
-  const params = new URLSearchParams({ api: "1", query: `${stop}, ${destination.name}, Portugal`, hl: language === "pt" ? "pt-PT" : "en" });
+function mapsSearchUrl(query) {
+  const params = new URLSearchParams({ api: "1", query: `${query}, Portugal`, hl: language === "pt" ? "pt-PT" : "en" });
   return `https://www.google.com/maps/search/?${params}`;
 }
 
@@ -103,7 +103,7 @@ function renderTrip(destination, updateUrl = true) {
   $("#duration-value").textContent = formatDuration(trip.durationMinutes, language);
   $("#direction-value").textContent = translations[language].directions[trip.direction];
   $("#bearing-value").textContent = `${trip.direction} · ${Math.round(trip.bearing)}°`;
-  $("#stops-list").innerHTML = destination.stops[language].map((stop) => `<li><strong>${stop}</strong><a href="${mapsSearchUrl(stop, destination)}" target="_blank" rel="noopener noreferrer">${t("openInMaps")} <span aria-hidden="true">↗</span></a></li>`).join("");
+  $("#stops-list").innerHTML = stopMapQueries[destination.id].map((mapTarget) => `<li><strong>${mapTarget}</strong><a href="${mapsSearchUrl(mapTarget)}" target="_blank" rel="noopener noreferrer">${t("openInMaps")} <span aria-hidden="true">↗</span></a></li>`).join("");
   $("#maps-link").href = mapsUrl(origin, destination);
   $("#save-trip").textContent = isSaved(origin.id, destination.id) ? t("saved") : t("saveTrip");
   updateMap(origin, destination);
