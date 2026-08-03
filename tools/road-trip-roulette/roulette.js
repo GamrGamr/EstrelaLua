@@ -134,6 +134,7 @@ function saveCurrent() {
 
 function renderSaved() {
   const saved = savedTrips();
+  $("#clear-saved").disabled = saved.length === 0;
   $("#saved-list").innerHTML = saved.length ? saved.map((trip) => {
     const origin = starts.find((item) => item.id === trip.originId);
     const destination = destinations.find((item) => item.id === trip.destinationId);
@@ -154,8 +155,6 @@ function setSavedExpanded(expanded) {
   $("#saved-toggle").setAttribute("aria-expanded", String(expanded));
   updateSavedDisclosure();
 }
-
-function showSaved() { $("#saved-section").hidden = false; setSavedExpanded(true); renderSaved(); $("#saved-section").scrollIntoView({ behavior: "smooth", block: "start" }); }
 
 function restoreFromUrl() {
   const query = new URLSearchParams(location.search);
@@ -182,7 +181,6 @@ function restoreFromUrl() {
 $("#spin-button").addEventListener("click", spin);
 $("#spin-again").addEventListener("click", spin);
 $("#save-trip").addEventListener("click", saveCurrent);
-$("#saved-nav").addEventListener("click", showSaved);
 $("#saved-toggle").addEventListener("click", () => setSavedExpanded($("#saved-toggle").getAttribute("aria-expanded") !== "true"));
 $("#clear-saved").addEventListener("click", () => { try { localStorage.removeItem(SAVED_KEY); } catch {} renderSaved(); });
 $("#saved-list").addEventListener("click", (event) => {
