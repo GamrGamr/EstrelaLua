@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, pickDestination, starts } from "./engine.js?v=4";
+import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, pickDestination, starts } from "./engine.js?v=5";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };

@@ -1,4 +1,4 @@
-import { destinations, districts, estimateTrip, formatDuration, pickDestination, starts } from "./engine.js?v=4";
+import { destinations, districts, estimateTrip, formatDuration, pickDestination, starts } from "./engine.js?v=5";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
