@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=9";
+import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=10";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -14,7 +14,9 @@ test("Every destination has bilingual content and a source", () => assert(destin
 test("Every mini-plan stop has a curated map target", () => assert(destinations.every((item) => stopMapQueries[item.id]?.length === 3 && stopMapQueries[item.id].every(Boolean))));
 test("Portinho da Arrábida uses its exact place target", () => assert(stopMapQueries.arrabida[2] === "Portinho da Arrábida"));
 test("Destination sources include official, independent, and community ideas", () => { const types = new Set(destinations.map((item) => item.sourceType ?? "official")); assert(["official", "independent", "community"].every((type) => types.has(type))); });
-test("Visit Portugal source links follow the selected language", () => { const source = "https://www.visitportugal.com/en/node/135553"; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt/node/135553"); assert(localizeSourceUrl(source, "en") === source); });
+test("Visit Portugal source links use the correct Portuguese locale", () => { const source = "https://www.visitportugal.com/en/node/135553"; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt-pt/node/135553"); assert(localizeSourceUrl(source, "en") === source); });
+test("Destination-specific Portuguese source links are supported", () => { const source = destinations.find((item) => item.id === "arrabida").source; assert(localizeSourceUrl(source, "pt", "arrabida") === "https://www.visitportugal.com/pt-pt/content/serra-da-arrabida-e-estuario-do-sado"); });
+test("Bilingual source objects select an exact language page", () => { const source = destinations.find((item) => item.id === "monsanto").source; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt-pt/regioes-e-localidades/monsanto"); });
 test("Lisbon to Porto straight-line distance is plausible", () => { const distance = haversineKm(lisbon, porto); assert(distance > 260 && distance < 290, distance); });
 test("Porto is north of Lisbon", () => assert(compassDirection(bearingDegrees(lisbon, porto)) === "N"));
 test("Trip estimates exceed straight-line distance", () => assert(estimateTrip(lisbon, porto).distanceKm > haversineKm(lisbon, porto)));

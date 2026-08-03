@@ -1,4 +1,4 @@
-import { destinations, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=9";
+import { destinations, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=10";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -96,7 +96,7 @@ function renderTrip(destination, updateUrl = true) {
   $("#match-reason").textContent = recommendationReason(trip);
   $("#source-type").textContent = `${t("source")} · ${translations[language].sourceTypes[sourceType]}`;
   $("#source-name").textContent = sourceName;
-  $("#source-link").href = localizeSourceUrl(destination.source, language);
+  $("#source-link").href = localizeSourceUrl(destination.source, language, destination.id);
   $("#source-link").setAttribute("aria-label", `${t("source")}: ${sourceName}`);
   $("#route-label").textContent = `${origin.name} → ${destination.name}`;
   $("#distance-value").textContent = `${trip.distanceKm} km`;

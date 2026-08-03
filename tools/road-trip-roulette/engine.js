@@ -157,7 +157,7 @@ export const destinations = [
   { id: "almourol", name: "Castelo de Almourol", lat: 39.4630, lon: -8.3840, terrain: "normal", vibes: ["history", "viewpoint"], emoji: "🏝️", source: "https://www.visitportugal.com/en/node/135553", copy: { en: "A storybook castle on a Tagus island—small trip, maximum atmosphere.", pt: "Um castelo de conto numa ilha do Tejo—viagem curta, ambiente máximo." }, stops: { en: ["Riverside viewpoint", "Castle crossing", "Constância detour"], pt: ["Miradouro ribeirinho", "Travessia para o castelo", "Desvio por Constância"] } },
   { id: "piodao", name: "Piódão", lat: 40.2300, lon: -7.8250, terrain: "mountain", vibes: ["nature", "history", "viewpoint"], emoji: "⛰️", source: "https://www.visitportugal.com/en/NR/exeres/5CE33438-DBF3-490E-B492-F2555775E149", copy: { en: "A slate village folded into the mountains at the end of a gloriously twisty road.", pt: "Uma aldeia de xisto encaixada na serra, no fim de uma estrada deliciosamente sinuosa." }, stops: { en: ["Village lanes", "Mountain lookout", "Local pastry break"], pt: ["Ruelas da aldeia", "Miradouro da serra", "Pausa para doçaria local"] } },
   { id: "serra-estrela", name: "Serra da Estrela", lat: 40.4030, lon: -7.5390, terrain: "mountain", vibes: ["nature", "viewpoint", "food"], emoji: "🏔️", source: "https://www.visitportugal.com/en/content/natural-parks-and-reserves", copy: { en: "High roads, glacial valleys and the biggest-sky feeling in mainland Portugal.", pt: "Estradas de altitude, vales glaciares e a sensação de céu infinito em Portugal continental." }, stops: { en: ["Manteigas valley", "Covão d’Ametade", "Mountain cheese stop"], pt: ["Vale de Manteigas", "Covão d’Ametade", "Paragem para queijo da serra"] } },
-  { id: "monsanto", name: "Monsanto", lat: 40.0400, lon: -7.1120, terrain: "mountain", vibes: ["history", "viewpoint", "nature"], emoji: "🪨", source: "https://www.visitportugal.com/en/NR/exeres/B77EA3D4-DD29-426E-8D4E-752574F6A0D4", copy: { en: "Granite houses squeeze between giant boulders beneath a horizon-wide castle.", pt: "Casas de granito encaixadas entre enormes penedos, sob um castelo com horizonte sem fim." }, stops: { en: ["Boulder lanes", "Castle climb", "Sunset viewpoint"], pt: ["Ruas entre penedos", "Subida ao castelo", "Miradouro ao pôr do sol"] } },
+  { id: "monsanto", name: "Monsanto", lat: 40.0400, lon: -7.1120, terrain: "mountain", vibes: ["history", "viewpoint", "nature"], emoji: "🪨", source: { en: "https://www.visitportugal.com/en/NR/exeres/B77EA3D4-DD29-426E-8D4E-752574F6A0D4", pt: "https://www.visitportugal.com/pt-pt/regioes-e-localidades/monsanto" }, copy: { en: "Granite houses squeeze between giant boulders beneath a horizon-wide castle.", pt: "Casas de granito encaixadas entre enormes penedos, sob um castelo com horizonte sem fim." }, stops: { en: ["Boulder lanes", "Castle climb", "Sunset viewpoint"], pt: ["Ruas entre penedos", "Subida ao castelo", "Miradouro ao pôr do sol"] } },
   { id: "marvao", name: "Marvão", lat: 39.3930, lon: -7.3760, terrain: "mountain", vibes: ["history", "viewpoint", "food"], emoji: "🦅", source: "https://www.visitportugal.com/en/content/villages-and-towns-portugal", copy: { en: "A white hill town balanced above the plains with views that seem to cross borders.", pt: "Uma vila branca equilibrada sobre a planície, com vistas que parecem atravessar fronteiras." }, stops: { en: ["Castle ramparts", "Walled streets", "Chestnut-country snack"], pt: ["Muralhas do castelo", "Ruas fortificadas", "Petisco da terra da castanha"] } },
   { id: "monsaraz", name: "Monsaraz", lat: 38.4430, lon: -7.3810, terrain: "normal", vibes: ["history", "viewpoint", "food"], emoji: "🌅", source: "https://www.visitportugal.com/en/content/villages-and-towns-portugal", copy: { en: "White walls, slow Alentejo streets and a balcony over the enormous Alqueva lake.", pt: "Muralhas brancas, ruas lentas do Alentejo e uma varanda sobre o enorme Alqueva." }, stops: { en: ["Castle viewpoint", "Pottery streets", "Alqueva sunset"], pt: ["Miradouro do castelo", "Ruas da olaria", "Pôr do sol no Alqueva"] } },
   { id: "comporta", name: "Comporta", lat: 38.3800, lon: -8.7860, terrain: "coast", vibes: ["coast", "food", "nature"], emoji: "🌾", source: "https://www.visitportugal.com/en/NR/exeres/E9BACA59-F401-43F3-B3D4-ABBBD7DBFDB5", copy: { en: "Rice fields, wooden walkways and a wide Atlantic beach made for an unhurried day.", pt: "Arrozais, passadiços de madeira e uma praia atlântica perfeita para um dia sem pressa." }, stops: { en: ["Rice-field road", "Village lunch", "Beach sunset"], pt: ["Estrada dos arrozais", "Almoço na aldeia", "Pôr do sol na praia"] } },
@@ -319,10 +319,28 @@ export function formatDuration(minutes, language = "en") {
   return `${hours}h ${String(remainder).padStart(2, "0")}`;
 }
 
-export function localizeSourceUrl(source, language = "en") {
+const portugueseSourceOverrides = {
+  arrabida: "https://www.visitportugal.com/pt-pt/content/serra-da-arrabida-e-estuario-do-sado",
+  piodao: "https://www.visitportugal.com/pt-pt/content/piodao",
+  "serra-estrela": "https://www.visitportugal.com/pt-pt/content/serra-da-estrela",
+  marvao: "https://www.visitportugal.com/pt-pt/content/marvao",
+  monsaraz: "https://www.visitportugal.com/pt-pt/node/132736",
+  milfontes: "https://www.visitportugal.com/pt-pt/regioes-e-localidades/vila-nova-de-milfontes",
+  tavira: "https://www.visitportugal.com/pt-pt/content/tavira",
+  pinhao: "https://www.visitportugal.com/pt-pt/content/pinh%C3%A3o",
+  talasnal: "https://www.visitportugal.com/pt-pt/destinos/centro-de-portugal/195738",
+  ericeira: "https://www.visitportugal.com/pt-pt/content/ericeira",
+  geres: "https://www.visitportugal.com/pt-pt/content/parque-nacional-da-peneda-geres",
+  montesinho: "https://www.visitportugal.com/pt-pt/content/parque-natural-de-montesinho",
+  "castelo-vide-destination": "https://www.visitportugal.com/pt-pt/content/castelo-de-vide",
+};
+
+export function localizeSourceUrl(source, language = "en", destinationId = "") {
+  if (source && typeof source === "object") return source[language] ?? source.en ?? source.pt ?? "";
   if (typeof source !== "string") return source;
-  const locale = language === "pt" ? "pt" : "en";
-  return source.replace(/(visitportugal\.com\/)(?:en|pt)(?=\/|$)/i, `$1${locale}`);
+  if (language === "pt" && portugueseSourceOverrides[destinationId]) return portugueseSourceOverrides[destinationId];
+  const locale = language === "pt" ? "pt-pt" : "en";
+  return source.replace(/(visitportugal\.com\/)(?:en|pt(?:-pt)?)(?=\/|$)/i, `$1${locale}`);
 }
 
 export function findCandidates({ origin, maxDistance, vibe = "surprise" }) {
