@@ -253,6 +253,12 @@ export function formatDuration(minutes, language = "en") {
   return `${hours}h ${String(remainder).padStart(2, "0")}`;
 }
 
+export function localizeSourceUrl(source, language = "en") {
+  if (typeof source !== "string") return source;
+  const locale = language === "pt" ? "pt" : "en";
+  return source.replace(/(visitportugal\.com\/)(?:en|pt)(?=\/|$)/i, `$1${locale}`);
+}
+
 export function findCandidates({ origin, maxDistance, vibe = "surprise" }) {
   const matching = destinations.map((destination) => ({ ...destination, trip: estimateTrip(origin, destination) }))
     .filter((destination) => destination.trip.distanceKm >= 15 && (vibe === "surprise" || destination.vibes.includes(vibe)));

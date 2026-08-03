@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, pickDestination, starts } from "./engine.js?v=5";
+import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, localizeSourceUrl, pickDestination, starts } from "./engine.js?v=6";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -12,6 +12,7 @@ test("Santarém includes Torres Novas and detailed locality choices", () => { co
 test("Expanded destination collection has at least 60 options", () => assert(destinations.length >= 60, destinations.length));
 test("Every destination has bilingual content and a source", () => assert(destinations.every((item) => item.source && item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3)));
 test("Destination sources include official, independent, and community ideas", () => { const types = new Set(destinations.map((item) => item.sourceType ?? "official")); assert(["official", "independent", "community"].every((type) => types.has(type))); });
+test("Visit Portugal source links follow the selected language", () => { const source = "https://www.visitportugal.com/en/node/135553"; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt/node/135553"); assert(localizeSourceUrl(source, "en") === source); });
 test("Lisbon to Porto straight-line distance is plausible", () => { const distance = haversineKm(lisbon, porto); assert(distance > 260 && distance < 290, distance); });
 test("Porto is north of Lisbon", () => assert(compassDirection(bearingDegrees(lisbon, porto)) === "N"));
 test("Trip estimates exceed straight-line distance", () => assert(estimateTrip(lisbon, porto).distanceKm > haversineKm(lisbon, porto)));

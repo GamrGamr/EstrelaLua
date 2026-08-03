@@ -8,7 +8,7 @@
     <title>Road Trip Roulette — EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
     <link rel="stylesheet" href="roulette.css?v=3" />
-    <script type="module" src="roulette.js?v=5"></script>
+    <script type="module" src="roulette.js?v=6"></script>
   </head>
   <body>
     <a class="skip-link" href="#trip-builder" data-i18n="skip">Skip to trip builder</a>
@@ -78,7 +78,7 @@
         </article>
       </section>
 
-      <section id="saved-section" class="saved-shell" hidden><div class="saved-heading"><div><p class="kicker" data-i18n="glovebox">Your glovebox</p><h2 data-i18n="savedAdventures">Saved adventures</h2></div><button id="clear-saved" type="button" data-i18n="clearSaved">Clear saved</button></div><div id="saved-list" class="saved-grid"></div></section>
+      <section id="saved-section" class="saved-shell" hidden><div class="saved-heading"><div><p class="kicker" data-i18n="glovebox">Your glovebox</p><h2 data-i18n="savedAdventures">Saved adventures</h2></div><button id="saved-toggle" class="saved-toggle" type="button" aria-expanded="false" aria-controls="saved-content"><span id="saved-toggle-label">Show saved trips</span><i aria-hidden="true">⌄</i></button></div><div id="saved-content" class="saved-content" hidden><div class="saved-toolbar"><button id="clear-saved" type="button" data-i18n="clearSaved">Clear saved</button></div><div id="saved-list" class="saved-grid"></div></div></section>
 
       <section class="how-shell"><div><p class="kicker" data-i18n="honestByDesign">Honest by design</p><h2 data-i18n="howTitle">A spark, then the real map.</h2></div><div class="how-grid"><article><b>01</b><h3 data-i18n="stepOneTitle">Pick a possibility</h3><p data-i18n="stepOneCopy">The app draws from official tourism, independent travel guides, and community tips that match your range and mood.</p></article><article><b>02</b><h3 data-i18n="stepTwoTitle">See the shape of it</h3><p data-i18n="stepTwoCopy">Distance, duration and direction are approximate, so the surprise works without tracking you.</p></article><article><b>03</b><h3 data-i18n="stepThreeTitle">Open the real road</h3><p data-i18n="stepThreeCopy">When the idea feels right, open Google Maps for the current route and road conditions.</p></article></div></section>
     </main>
