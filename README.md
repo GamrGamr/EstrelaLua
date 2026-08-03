@@ -42,7 +42,7 @@ A private browser-based household electricity calculator. Enter energy and daily
 
 ### Road Trip Roulette
 
-An interactive Portugal road-trip idea generator. Choose a starting city, distance range, and travel mood—or leave the choices to chance—to receive a destination, approximate distance and duration, compass direction, map preview, and three-stop mini itinerary. Trips can be saved locally, shared with a link, or opened in Google Maps for exact road directions.
+An interactive Portugal road-trip idea generator with more than 60 destinations researched across official tourism pages, independent travel guides, and community recommendations. Choose a starting district and locality, distance range, and travel mood—or leave the choices to chance—to receive a sourced destination, approximate distance and duration, compass direction, map preview, and three-stop mini itinerary. Trips can be saved locally, shared with a link, or opened in Google Maps for exact road directions.
 
 ## About the project
 

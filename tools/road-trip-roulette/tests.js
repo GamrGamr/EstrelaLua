@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, districts, estimateTrip, findCandidates, formatDuration, haversineKm, pickDestination, starts } from "./engine.js?v=2";
+import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, pickDestination, starts } from "./engine.js?v=3";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -9,6 +9,9 @@ const porto = starts.find((start) => start.id === "porto");
 test("All 18 mainland districts are available", () => assert(districts.length === 18, districts.length));
 test("Every starting locality belongs to a known district", () => assert(starts.every((start) => districts.some((district) => district.id === start.districtId))));
 test("Santarém includes Torres Novas and detailed locality choices", () => { const localities = starts.filter((start) => start.districtId === "santarem"); assert(localities.length >= 10); assert(localities.some((start) => start.id === "torres-novas")); });
+test("Expanded destination collection has at least 60 options", () => assert(destinations.length >= 60, destinations.length));
+test("Every destination has bilingual content and a source", () => assert(destinations.every((item) => item.source && item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3)));
+test("Destination sources include official, independent, and community ideas", () => { const types = new Set(destinations.map((item) => item.sourceType ?? "official")); assert(["official", "independent", "community"].every((type) => types.has(type))); });
 test("Lisbon to Porto straight-line distance is plausible", () => { const distance = haversineKm(lisbon, porto); assert(distance > 260 && distance < 290, distance); });
 test("Porto is north of Lisbon", () => assert(compassDirection(bearingDegrees(lisbon, porto)) === "N"));
 test("Trip estimates exceed straight-line distance", () => assert(estimateTrip(lisbon, porto).distanceKm > haversineKm(lisbon, porto)));
