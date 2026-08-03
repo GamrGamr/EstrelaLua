@@ -40,6 +40,10 @@ A fully manual browser-based journey calculator for fuel, electricity, tolls, pa
 
 A private browser-based household electricity calculator. Enter energy and daily contracted-power prices, then fill in the appliance values you know. A measured monthly kWh value is used directly; when it is empty, the calculator estimates from power and running time. It calculates energy, contracted-power, and optional fixed costs by day, month, and year while storing the household setup only in the current browser.
 
+### Road Trip Roulette
+
+An interactive Portugal road-trip idea generator. Choose a starting city, distance range, and travel mood—or leave the choices to chance—to receive a destination, approximate distance and duration, compass direction, map preview, and three-stop mini itinerary. Trips can be saved locally, shared with a link, or opened in Google Maps for exact road directions.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
@@ -53,6 +57,7 @@ This repository contains the public website and its browser-based calculators. E
 - `assets/` - Brand artwork, favicons, and official app icons
 - `tools/vehicle-cost-calculator/` - Browser calculator, calculation and storage modules, and tests
 - `tools/home-energy-calculator/` - Household electricity calculator, calculation module, and tests
+- `tools/road-trip-roulette/` - Interactive trip generator, curated destination data, route engine, and browser tests
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
@@ -61,4 +66,4 @@ This repository contains the public website and its browser-based calculators. E
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The browser calculators work entirely in the browser without an API, backend, account, or build step. Users enter values manually, and the calculators do not send calculation data to external services.
+The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions.
