@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=15";
+import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=16";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -41,7 +41,15 @@ test("Trip duration is positive", () => assert(estimateTrip(lisbon, porto).durat
 test("English duration is formatted", () => assert(formatDuration(135, "en") === "2h 15"));
 test("Portuguese duration is formatted", () => assert(formatDuration(60, "pt") === "1h"));
 test("History filter returns matching destinations", () => assert(findCandidates({ origin: lisbon, maxDistance: 180, vibe: "history" }).every((item) => item.vibes.includes("history"))));
-test("Drive-time filter respects the one-way minute limit", () => assert(findCandidates({ origin: lisbon, maxDuration: 90 }).every((item) => item.trip.durationMinutes <= 90)));
+test("Nearby distance band contains only trips up to 90 km", () => assert(findCandidates({ origin: lisbon, minDistance: 0, maxDistance: 90 }).every((item) => item.trip.distanceKm <= 90)));
+test("Day-trip distance band contains only trips over 90 and up to 180 km", () => assert(findCandidates({ origin: lisbon, minDistance: 90, maxDistance: 180 }).every((item) => item.trip.distanceKm > 90 && item.trip.distanceKm <= 180)));
+test("Weekend distance band contains only trips over 180 and up to 360 km", () => assert(findCandidates({ origin: lisbon, minDistance: 180, maxDistance: 360 }).every((item) => item.trip.distanceKm > 180 && item.trip.distanceKm <= 360)));
+test("Nearby time band contains only trips up to 90 minutes", () => assert(findCandidates({ origin: lisbon, minDuration: 0, maxDuration: 90 }).every((item) => item.trip.durationMinutes <= 90)));
+test("Day-trip time band contains only trips over 90 and up to 180 minutes", () => assert(findCandidates({ origin: lisbon, minDuration: 90, maxDuration: 180 }).every((item) => item.trip.durationMinutes > 90 && item.trip.durationMinutes <= 180)));
+test("Weekend time band contains only trips over 180 and up to 360 minutes", () => assert(findCandidates({ origin: lisbon, minDuration: 180, maxDuration: 360 }).every((item) => item.trip.durationMinutes > 180 && item.trip.durationMinutes <= 360)));
+test("Mood fallback stays inside the selected range", () => assert(findCandidates({ origin: lisbon, minDistance: 90, maxDistance: 180, vibe: "coast" }).every((item) => item.trip.distanceKm > 90 && item.trip.distanceKm <= 180)));
+test("Every starting place has trips in all three distance bands", () => assert(starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDistance, maxDistance]) => findCandidates({ origin, minDistance, maxDistance }).length > 0))));
+test("Every starting place has trips in all three time bands", () => assert(starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDuration, maxDuration]) => findCandidates({ origin, minDuration, maxDuration }).length > 0))));
 test("Random picker honours deterministic random", () => { const result = pickDestination({ origin: lisbon, maxDistance: 180, random: () => 0 }); assert(Boolean(result?.id)); });
 test("Excluded destination is avoided when alternatives exist", () => { const first = pickDestination({ origin: lisbon, maxDistance: 180, random: () => 0 }); const second = pickDestination({ origin: lisbon, maxDistance: 180, excludeId: first.id, random: () => 0 }); assert(first.id !== second.id); });
 
