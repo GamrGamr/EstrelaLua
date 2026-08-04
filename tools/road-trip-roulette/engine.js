@@ -702,10 +702,10 @@ export function googleDirectionsUrl(origin, destination, language = "en") {
   return `https://www.google.com/maps/dir/?${params}`;
 }
 
-export function googlePlaceUrl(query, point, language = "en") {
+export function googlePlaceUrl(query, _point, language = "en") {
   const params = new URLSearchParams({
     api: "1",
-    query: `${point.lat},${point.lon}`,
+    query: `${query}, Portugal`,
     hl: language === "pt" ? "pt-PT" : "en",
   });
   return `https://www.google.com/maps/search/?${params}`;
