@@ -9,11 +9,11 @@ const COMPLETED_KEY = "estrelalua-road-trip-completed-v1";
 const translations = {
   en: {
     searchLocality:"Search or choose a place",placesAvailable:"places available",closestMatches:"Closest available matches",useDistrictCapital:"Use district capital",selectedPlace:"Selected",rangeType:"Range type",byDistance:"Distance",byDuration:"Approx. drive time",
-    skip:"Skip to trip builder",allApps:"All apps",savedTrips:"Saved trips",kicker:"Portugal · zero-plan adventures",heroTitle:"Stop planning.",heroEmphasis:"Start wandering.",heroCopy:"Choose the mood. Set your radius. Let the road decide the rest.",noAccount:"No account",noMapKey:"No paid map key",localOnly:"Saved locally",buildKicker:"Build the possibility",builderTitle:"What kind of escape?",builderIntro:"Distances and drive times are useful estimates. Open the route for exact live directions, traffic, tolls, and closures.",startFrom:"Start from",district:"District",locality:"City, town or village",whyThisTrip:"Why this trip",source:"Inspiration source",howFar:"How far?",nearby:"Nearby",dayTrip:"Day trip",weekend:"Weekend",mood:"Pick a mood",surprise:"Surprise",coast:"Coast",nature:"Nature",history:"History",food:"Food",viewpoint:"Viewpoint",spin:"Spin the road",roughRoute:"Your rough route",mapDisclaimer:"A playful visual—not a turn-by-turn map.",todayDetour:"Today’s detour",distance:"Approx. distance",driveTime:"Approx. drive",direction:"Direction",oneWay:"one way",miniPlan:"Your three-stop mini plan",makeItYours:"Make it yours",openInMaps:"Open in Google Maps",spinAgain:"Spin again",saveTrip:"Save trip",saved:"Saved ✓",tripCompleted:"Trip completed",completed:"Completed",openDirections:"Open exact directions",routeNote:"Google Maps provides the exact road route. Check traffic, tolls, weather, access restrictions, and opening times before leaving.",glovebox:"Your glovebox",savedAdventures:"Saved adventures",clearSaved:"Clear saved",openSaved:"Show saved trips",closeSaved:"Hide saved trips",emptySaved:"Nothing saved yet. Spin a trip and keep the ones that feel right.",honestByDesign:"Honest by design",howTitle:"A spark, then the real map.",stepOneTitle:"Pick a possibility",stepOneCopy:"The app draws from official tourism, independent travel guides, and community tips that match your range and mood.",stepTwoTitle:"See the shape of it",stepTwoCopy:"Distance, duration and direction are approximate, so the surprise works without tracking you.",stepThreeTitle:"Open the real road",stepThreeCopy:"When the idea feels right, open Google Maps for the current route and road conditions.",footer:"Made for spontaneous Portuguese roads.",tests:"App tests",from:"From",towards:"towards",sourceTypes:{official:"Official tourism",independent:"Independent guide",community:"Community tip"},directions:{N:"North",NE:"Northeast",E:"East",SE:"Southeast",S:"South",SW:"Southwest",W:"West",NW:"Northwest"}
+    skip:"Skip to trip builder",allApps:"All apps",savedTrips:"Saved trips",kicker:"Portugal · zero-plan adventures",heroTitle:"Stop planning.",heroEmphasis:"Start wandering.",heroCopy:"Choose the mood. Set your radius. Let the road decide the rest.",noAccount:"No account",noMapKey:"No paid map key",localOnly:"Saved locally",buildKicker:"Build the possibility",builderTitle:"What kind of escape?",builderIntro:"Distances and drive times are useful estimates. Open the route for exact live directions, traffic, tolls, and closures.",startFrom:"Start from",district:"District",locality:"City, town or village",whyThisTrip:"Why this trip",source:"Inspiration source",howFar:"How far?",nearby:"Nearby",dayTrip:"Day trip",weekend:"Weekend",mood:"Pick a mood",surprise:"Surprise",coast:"Coast",nature:"Nature",history:"History",food:"Food",viewpoint:"Viewpoint",spin:"Spin the road",roughRoute:"Your rough route",mapDisclaimer:"A playful visual—not a turn-by-turn map.",todayDetour:"Today’s detour",distance:"Approx. distance",driveTime:"Approx. drive",direction:"Direction",oneWay:"one way",miniPlan:"Your three-stop mini plan",makeItYours:"Make it yours",openInMaps:"Open in Google Maps",spinAgain:"Spin again",saveTrip:"Save trip",saved:"Saved ✓",tripCompleted:"Trip completed",completed:"Completed",openDirections:"Open exact directions",routeNote:"Google Maps provides the exact road route. Check traffic, tolls, weather, access restrictions, and opening times before leaving.",glovebox:"Your glovebox",savedAdventures:"Saved adventures",clearSaved:"Clear saved",openSaved:"Show saved trips",closeSaved:"Hide saved trips",emptySaved:"Nothing saved yet. Spin a trip and keep the ones that feel right.",journeyHistory:"Your road history",completedAdventures:"Completed trips",clearCompleted:"Clear completed",openCompleted:"Show completed trips",closeCompleted:"Hide completed trips",emptyCompleted:"No completed trips yet. Mark a detour completed and it will appear here.",completedDestination:"Visited destination",honestByDesign:"Honest by design",howTitle:"A spark, then the real map.",stepOneTitle:"Pick a possibility",stepOneCopy:"The app draws from official tourism, independent travel guides, and community tips that match your range and mood.",stepTwoTitle:"See the shape of it",stepTwoCopy:"Distance, duration and direction are approximate, so the surprise works without tracking you.",stepThreeTitle:"Open the real road",stepThreeCopy:"When the idea feels right, open Google Maps for the current route and road conditions.",footer:"Made for spontaneous Portuguese roads.",tests:"App tests",from:"From",towards:"towards",sourceTypes:{official:"Official tourism",independent:"Independent guide",community:"Community tip"},directions:{N:"North",NE:"Northeast",E:"East",SE:"Southeast",S:"South",SW:"Southwest",W:"West",NW:"Northwest"}
   },
   pt: {
     searchLocality:"Pesquise ou escolha um local",placesAvailable:"locais disponíveis",closestMatches:"Opções com o nome mais próximo",useDistrictCapital:"Usar capital de distrito",selectedPlace:"Selecionado",rangeType:"Tipo de limite",byDistance:"Distância",byDuration:"Tempo aproximado",
-    skip:"Ir para o gerador de viagens",allApps:"Todas as aplicações",savedTrips:"Viagens guardadas",kicker:"Portugal · aventuras sem planos",heroTitle:"Pare de planear.",heroEmphasis:"Comece a explorar.",heroCopy:"Escolha o ambiente. Defina a distância. Deixe a estrada decidir o resto.",noAccount:"Sem conta",noMapKey:"Sem mapas pagos",localOnly:"Guardado localmente",buildKicker:"Crie a possibilidade",builderTitle:"Que tipo de escapadinha?",builderIntro:"As distâncias e os tempos são estimativas úteis. Abra o percurso para obter direções, trânsito, portagens e condicionamentos atuais.",startFrom:"Partida",district:"Distrito",locality:"Cidade, vila ou aldeia",whyThisTrip:"Porquê esta viagem",source:"Fonte de inspiração",howFar:"Até onde?",nearby:"Perto",dayTrip:"Um dia",weekend:"Fim de semana",mood:"Escolha o ambiente",surprise:"Surpresa",coast:"Costa",nature:"Natureza",history:"História",food:"Comida",viewpoint:"Miradouro",spin:"Rodar a estrada",roughRoute:"O seu percurso aproximado",mapDisclaimer:"Uma visualização divertida—não é um mapa de navegação.",todayDetour:"O desvio de hoje",distance:"Distância aproximada",driveTime:"Tempo aproximado",direction:"Direção",oneWay:"só ida",miniPlan:"O seu mini plano de três paragens",makeItYours:"Adapte ao seu gosto",openInMaps:"Abrir no Google Maps",spinAgain:"Rodar novamente",saveTrip:"Guardar viagem",saved:"Guardada ✓",tripCompleted:"Viagem concluída",completed:"Concluída",openDirections:"Abrir direções exatas",routeNote:"O Google Maps fornece o percurso rodoviário exato. Verifique trânsito, portagens, meteorologia, acessos e horários antes de partir.",glovebox:"O seu porta-luvas",savedAdventures:"Aventuras guardadas",clearSaved:"Limpar guardadas",openSaved:"Mostrar viagens guardadas",closeSaved:"Ocultar viagens guardadas",emptySaved:"Ainda não guardou nenhuma viagem. Rode uma sugestão e guarde as que lhe agradarem.",honestByDesign:"Honesta por natureza",howTitle:"Primeiro a ideia, depois o mapa real.",stepOneTitle:"Escolha uma possibilidade",stepOneCopy:"A aplicação sorteia sugestões de turismo oficial, guias de viagem independentes e comunidades que correspondem à distância e ao ambiente pretendidos.",stepTwoTitle:"Veja a forma da viagem",stepTwoCopy:"A distância, duração e direção são aproximadas, por isso a surpresa funciona sem o localizar.",stepThreeTitle:"Abra a estrada real",stepThreeCopy:"Quando a ideia parecer certa, abra o Google Maps para ver o percurso e as condições atuais.",footer:"Feita para estradas portuguesas espontâneas.",tests:"Testes da aplicação",from:"De",towards:"em direção a",sourceTypes:{official:"Turismo oficial",independent:"Guia independente",community:"Sugestão da comunidade"},directions:{N:"Norte",NE:"Nordeste",E:"Este",SE:"Sudeste",S:"Sul",SW:"Sudoeste",W:"Oeste",NW:"Noroeste"}
+    skip:"Ir para o gerador de viagens",allApps:"Todas as aplicações",savedTrips:"Viagens guardadas",kicker:"Portugal · aventuras sem planos",heroTitle:"Pare de planear.",heroEmphasis:"Comece a explorar.",heroCopy:"Escolha o ambiente. Defina a distância. Deixe a estrada decidir o resto.",noAccount:"Sem conta",noMapKey:"Sem mapas pagos",localOnly:"Guardado localmente",buildKicker:"Crie a possibilidade",builderTitle:"Que tipo de escapadinha?",builderIntro:"As distâncias e os tempos são estimativas úteis. Abra o percurso para obter direções, trânsito, portagens e condicionamentos atuais.",startFrom:"Partida",district:"Distrito",locality:"Cidade, vila ou aldeia",whyThisTrip:"Porquê esta viagem",source:"Fonte de inspiração",howFar:"Até onde?",nearby:"Perto",dayTrip:"Um dia",weekend:"Fim de semana",mood:"Escolha o ambiente",surprise:"Surpresa",coast:"Costa",nature:"Natureza",history:"História",food:"Comida",viewpoint:"Miradouro",spin:"Rodar a estrada",roughRoute:"O seu percurso aproximado",mapDisclaimer:"Uma visualização divertida—não é um mapa de navegação.",todayDetour:"O desvio de hoje",distance:"Distância aproximada",driveTime:"Tempo aproximado",direction:"Direção",oneWay:"só ida",miniPlan:"O seu mini plano de três paragens",makeItYours:"Adapte ao seu gosto",openInMaps:"Abrir no Google Maps",spinAgain:"Rodar novamente",saveTrip:"Guardar viagem",saved:"Guardada ✓",tripCompleted:"Viagem concluída",completed:"Concluída",openDirections:"Abrir direções exatas",routeNote:"O Google Maps fornece o percurso rodoviário exato. Verifique trânsito, portagens, meteorologia, acessos e horários antes de partir.",glovebox:"O seu porta-luvas",savedAdventures:"Aventuras guardadas",clearSaved:"Limpar guardadas",openSaved:"Mostrar viagens guardadas",closeSaved:"Ocultar viagens guardadas",emptySaved:"Ainda não guardou nenhuma viagem. Rode uma sugestão e guarde as que lhe agradarem.",journeyHistory:"O seu histórico de estrada",completedAdventures:"Viagens concluídas",clearCompleted:"Limpar concluídas",openCompleted:"Mostrar viagens concluídas",closeCompleted:"Ocultar viagens concluídas",emptyCompleted:"Ainda não concluiu nenhuma viagem. Marque um destino como concluído e aparecerá aqui.",completedDestination:"Destino visitado",honestByDesign:"Honesta por natureza",howTitle:"Primeiro a ideia, depois o mapa real.",stepOneTitle:"Escolha uma possibilidade",stepOneCopy:"A aplicação sorteia sugestões de turismo oficial, guias de viagem independentes e comunidades que correspondem à distância e ao ambiente pretendidos.",stepTwoTitle:"Veja a forma da viagem",stepTwoCopy:"A distância, duração e direção são aproximadas, por isso a surpresa funciona sem o localizar.",stepThreeTitle:"Abra a estrada real",stepThreeCopy:"Quando a ideia parecer certa, abra o Google Maps para ver o percurso e as condições atuais.",footer:"Feita para estradas portuguesas espontâneas.",tests:"Testes da aplicação",from:"De",towards:"em direção a",sourceTypes:{official:"Turismo oficial",independent:"Guia independente",community:"Sugestão da comunidade"},directions:{N:"Norte",NE:"Nordeste",E:"Este",SE:"Sudeste",S:"Sul",SW:"Sudoeste",W:"Oeste",NW:"Noroeste"}
   }
 };
 
@@ -43,7 +43,9 @@ function translatePage() {
   if (currentDestination) renderTrip(currentDestination);
   updateRangeControls();
   renderSaved();
+  renderCompleted();
   updateSavedDisclosure();
+  updateCompletedDisclosure();
   if ($("#start-city-search")) updateLocalitySearch();
 }
 
@@ -261,6 +263,14 @@ function renderSaved() {
   }).join("") : `<p class="empty-saved">${t("emptySaved")}</p>`;
 }
 
+function renderCompleted() {
+  const completed = completedDestinations().map((id) => destinations.find((item) => item.id === id)).filter(Boolean).reverse();
+  $("#clear-completed").disabled = completed.length === 0;
+  $("#completed-list").innerHTML = completed.length ? completed.map((destination) => `
+    <article class="saved-card is-completed"><button type="button" data-completed-destination="${destination.id}"><span>${t("completedDestination")}</span><h3><i class="saved-emoji" aria-hidden="true">${displayEmoji(destination)}</i> ${destination.name}</h3><p><b class="completed-badge">✓ ${t("completed")}</b></p></button></article>
+  `).join("") : `<p class="empty-saved">${t("emptyCompleted")}</p>`;
+}
+
 function updateSavedDisclosure() {
   const expanded = $("#saved-toggle").getAttribute("aria-expanded") === "true";
   $("#saved-content").hidden = !expanded;
@@ -271,6 +281,18 @@ function updateSavedDisclosure() {
 function setSavedExpanded(expanded) {
   $("#saved-toggle").setAttribute("aria-expanded", String(expanded));
   updateSavedDisclosure();
+}
+
+function updateCompletedDisclosure() {
+  const expanded = $("#completed-toggle").getAttribute("aria-expanded") === "true";
+  $("#completed-content").hidden = !expanded;
+  $("#completed-toggle-label").textContent = t(expanded ? "closeCompleted" : "openCompleted");
+  $("#completed-toggle").setAttribute("aria-label", t(expanded ? "closeCompleted" : "openCompleted"));
+}
+
+function setCompletedExpanded(expanded) {
+  $("#completed-toggle").setAttribute("aria-expanded", String(expanded));
+  updateCompletedDisclosure();
 }
 
 function restoreFromUrl() {
@@ -305,9 +327,17 @@ $("#trip-completed").addEventListener("change", (event) => {
   setCompleted(currentDestination.id, event.target.checked);
   updateCompletionState(currentDestination.id);
   renderSaved();
+  renderCompleted();
 });
 $("#saved-toggle").addEventListener("click", () => setSavedExpanded($("#saved-toggle").getAttribute("aria-expanded") !== "true"));
 $("#clear-saved").addEventListener("click", () => { try { localStorage.removeItem(SAVED_KEY); } catch {} renderSaved(); });
+$("#completed-toggle").addEventListener("click", () => setCompletedExpanded($("#completed-toggle").getAttribute("aria-expanded") !== "true"));
+$("#clear-completed").addEventListener("click", () => {
+  try { localStorage.removeItem(COMPLETED_KEY); } catch {}
+  if (currentDestination) updateCompletionState(currentDestination.id);
+  renderSaved();
+  renderCompleted();
+});
 $("#saved-list").addEventListener("click", (event) => {
   const button = event.target.closest("[data-saved-destination]");
   if (!button) return;
@@ -319,6 +349,14 @@ $("#saved-list").addEventListener("click", (event) => {
   updateRangeControls();
   $$("[data-vibe]").forEach((item) => item.setAttribute("aria-pressed", String(item.dataset.vibe === vibe)));
   const destination = destinations.find((item) => item.id === button.dataset.savedDestination); if (destination) renderTrip(destination);
+  $("#trip-result").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+$("#completed-list").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-completed-destination]");
+  if (!button) return;
+  const destination = destinations.find((item) => item.id === button.dataset.completedDestination);
+  if (!destination) return;
+  renderTrip(destination);
   $("#trip-result").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 $("#start-district").addEventListener("change", () => { populateLocalities(""); spin(); });
@@ -335,3 +373,5 @@ populateLocalities();
 translatePage();
 restoreFromUrl();
 renderSaved();
+renderCompleted();
+updateCompletedDisclosure();
