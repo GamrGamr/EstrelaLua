@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, originalSourceLabel, originalSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=18";
+import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, originalSourceLabel, originalSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=19";
 import { buildDestinationGuide, sourceLanguage } from "./guide-data.js?v=3";
 
 const results = [];
@@ -17,7 +17,11 @@ test("Faro includes Sagres and Vila Real de Santo António", () => { const faro 
 test("Locality search ignores accents and letter case", () => assert(normalizePlaceName("SÃO BRÁS") === "sao bras"));
 test("Locality search finds close spellings", () => assert(findStartMatches("faro", "vil real santo antonio", 3).some((start) => start.id === "vila-real-de-santo-antonio")));
 test("Santarém includes Torres Novas and detailed locality choices", () => { const localities = starts.filter((start) => start.districtId === "santarem"); assert(localities.length >= 10); assert(localities.some((start) => start.id === "torres-novas")); });
-test("Expanded destination collection has at least 99 options", () => assert(destinations.length >= 99, destinations.length));
+test("Expanded destination collection has at least 135 options", () => assert(destinations.length >= 135, destinations.length));
+test("Latest expansion adds two destinations in every mainland district", () => { const counts = destinations.filter((item) => item.district).reduce((map, item) => map.set(item.district, (map.get(item.district) ?? 0) + 1), new Map()); assert(districts.every((district) => counts.get(district.name) === 2), JSON.stringify(Object.fromEntries(counts))); });
+test("Latest expansion stops remain close to their destination", () => assert(destinations.filter((item) => item.district).every((item) => stopMapPoints[item.id].every((point) => haversineKm(item, point) <= 30))));
+test("Olhão market anchor is on the waterfront markets", () => { const item = destinations.find((destination) => destination.id === "olhao-destination"); const index = stopMapQueries[item.id].indexOf("Mercados de Olhão"); assert(haversineKm(stopMapPoints[item.id][index], { lat: 37.023919446, lon: -7.840966277 }) < 0.05); });
+test("Alcobaça monastery anchor is on the monastery", () => { const item = destinations.find((destination) => destination.id === "alcobaca-destination"); const index = stopMapQueries[item.id].indexOf("Mosteiro de Alcobaça"); assert(haversineKm(stopMapPoints[item.id][index], { lat: 39.548594, lon: -8.978628 }) < 0.05); });
 test("Destination IDs are unique", () => assert(new Set(destinations.map((item) => item.id)).size === destinations.length));
 test("Every destination has bilingual content and a source", () => assert(destinations.every((item) => item.source && item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3)));
 test("Every destination resolves an HTTPS source in both languages", () => assert(destinations.every((item) => ["en", "pt"].every((language) => localizeSourceUrl(item.source, language, item.id).startsWith("https://")))));

@@ -1,4 +1,4 @@
-import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, normalizePlaceName, originalSourceLabel, originalSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=18";
+import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, normalizePlaceName, originalSourceLabel, originalSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=19";
 import { buildDestinationGuide, sourceLanguage } from "./guide-data.js?v=3";
 
 const $ = (selector, root = document) => root.querySelector(selector);
