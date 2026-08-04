@@ -1,3 +1,5 @@
+import { additionalDestinations, additionalStopMapPoints, additionalStopMapQueries } from "./expanded-destinations.js";
+
 export const districts = [
   { id: "aveiro", name: "Aveiro" },
   { id: "beja", name: "Beja" },
@@ -406,12 +408,15 @@ export const destinations = [
   { id: "estoi", name: "Estoi", lat: 37.0950, lon: -7.8940, terrain: "normal", vibes: ["history", "food", "viewpoint"], emoji: "🌸", source: "https://www.reddit.com/r/portugueses/comments/nt6wtu/actividades_no_algarve/", sourceLabel: "Reddit community", sourceType: "community", copy: { en: "A rococo palace, Roman ruins and old Algarve streets just beyond Faro’s coastal bustle.", pt: "Um palácio rococó, ruínas romanas e ruas antigas do Algarve pouco além do movimento de Faro." }, stops: { en: ["Palace gardens", "Milreu Roman ruins", "Village café"], pt: ["Jardins do palácio", "Ruínas romanas de Milreu", "Café na aldeia"] } },
 ];
 
+destinations.push(...additionalDestinations);
+
 const wikipediaSource = (enTitle, ptTitle = enTitle) => ({
   en: `https://en.wikipedia.org/wiki/${encodeURIComponent(enTitle.replaceAll(" ", "_"))}`,
   pt: `https://pt.wikipedia.org/wiki/${encodeURIComponent(ptTitle.replaceAll(" ", "_"))}`,
 });
 
 const verifiedSourceCorrections = {
+  arrabida: { source: wikipediaSource("Arrábida Natural Park", "Parque Natural da Arrábida"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   sintra: { source: wikipediaSource("Sintra"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   obidos: { source: wikipediaSource("Óbidos"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   nazare: { source: wikipediaSource("Nazaré"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
@@ -432,7 +437,7 @@ const verifiedSourceCorrections = {
   pinhao: { source: wikipediaSource("Pinhão"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   geres: { source: wikipediaSource("Peneda-Gerês National Park", "Parque Nacional da Peneda-Gerês"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   guimaraes: { source: wikipediaSource("Guimarães"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
-  "costa-nova": { source: { en: "https://www.visitportugal.com/en/node/139287", pt: wikipediaSource("Costa Nova do Prado").pt }, sourceLabel: { en: "Visit Portugal", pt: "Wikipédia" }, sourceType: { en: "official", pt: "independent" } },
+  "costa-nova": { source: { en: "https://almaa.pt/en/to-visit/aveiro/costa-nova/", pt: wikipediaSource("Costa Nova do Prado").pt }, sourceLabel: { en: "Almaa", pt: "Wikipédia" }, sourceType: "independent" },
   bucaco: { source: wikipediaSource("Buçaco", "Mata Nacional do Buçaco"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
   sortelha: { source: { en: "https://aldeiashistoricasdeportugal.com/en/aldeia/sortelha/", pt: "https://aldeiashistoricasdeportugal.com/aldeia/sortelha/" }, sourceLabel: { en: "Historical Villages of Portugal", pt: "Aldeias Históricas de Portugal" }, sourceType: "official" },
   "mira-aire": { source: wikipediaSource("Mira de Aire"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
@@ -500,7 +505,7 @@ export const stopMapQueries = {
   milfontes: ["Forte de São Clemente, Vila Nova de Milfontes", "Farol de Vila Nova de Milfontes", "Mercado Municipal de Vila Nova de Milfontes"],
   sagres: ["Fortaleza de Sagres", "Farol do Cabo de São Vicente", "Praia do Beliche"],
   tavira: ["Ponte Romana de Tavira", "Castelo de Tavira", "Quatro Águas, Tavira"],
-  mertola: ["Castelo de Mértola", "Museu de Mértola", "Miradouro de Mértola"],
+  mertola: ["Castelo de Mértola", "Museu de Mértola", "Torre do Relógio de Mértola"],
   arouca: ["Passadiços do Paiva", "Arouca Geopark", "Mosteiro de Arouca"],
   pinhao: ["Miradouro de Casal de Loivos", "Estação Ferroviária do Pinhão", "Cais do Pinhão"],
   geres: ["Barragem da Caniçada", "Lindoso", "Cascata do Arado"],
@@ -529,7 +534,7 @@ export const stopMapQueries = {
   "janeiro-cima": ["Aldeia de Xisto de Janeiro de Cima", "Barca de Janeiro de Cima", "Praia Fluvial de Janeiro de Cima"],
   dornes: ["Torre Pentagonal de Dornes", "Praia Fluvial de Dornes", "Igreja de Nossa Senhora do Pranto, Dornes"],
   constancia: ["Jardim-Horto de Camões, Constância", "Centro Histórico de Constância", "Praia Fluvial de Constância"],
-  "sao-pedro-moel": ["Praia de São Pedro de Moel", "Farol do Penedo da Saudade", "Miradouro do Penedo da Saudade"],
+  "sao-pedro-moel": ["Praia de São Pedro de Moel", "Farol do Penedo da Saudade", "Praia Velha, São Pedro de Moel"],
   "foz-arelho": ["Praia da Foz do Arelho", "Miradouro da Foz do Arelho", "Avenida do Mar, Foz do Arelho"],
   "azenhas-mar": ["Miradouro das Azenhas do Mar", "Azenhas do Mar", "Piscina Oceânica das Azenhas do Mar"],
   ericeira: ["Praia dos Pescadores, Ericeira", "Miradouro Sala das Visitas, Ericeira", "Mercado Municipal da Ericeira"],
@@ -543,17 +548,18 @@ export const stopMapQueries = {
   alte: ["Fonte Pequena, Alte", "Fonte Grande, Alte", "Igreja Matriz de Alte"],
   alcoutim: ["Castelo de Alcoutim", "Cais de Alcoutim", "Igreja Matriz de Alcoutim"],
   "cacela-velha": ["Fortaleza de Cacela Velha", "Igreja Matriz de Cacela Velha", "Praia de Cacela Velha, Fábrica"],
-  ferragudo: ["Praça Rainha Dona Leonor, Ferragudo", "Igreja de São João Baptista, Ferragudo", "Praia Grande, Ferragudo"],
+  ferragudo: ["Praça Rainha Dona Leonor, Ferragudo", "Igreja Matriz de Ferragudo", "Praia Grande, Ferragudo"],
   silves: ["Castelo de Silves", "Sé de Silves", "Mercado Municipal de Silves"],
   salema: ["Praia da Salema", "Forte de Almádena", "Boca do Rio, Budens"],
-  estoi: ["Palácio de Estoi", "Ruínas Romanas de Milreu", "Igreja Matriz de Estoi"]
+  estoi: ["Palácio de Estoi", "Ruínas Romanas de Milreu", "Igreja Matriz de Estoi"],
+  ...additionalStopMapQueries,
 };
 
 export const stopMapPoints = {
   sintra: [{ lat: 38.802900, lon: -9.381700 }, { lat: 38.792412, lon: -9.388669 }, { lat: 38.780904, lon: -9.499416 }],
   arrabida: [{ lat: 38.518680, lon: -9.013865 }, { lat: 38.474654, lon: -8.993450 }, { lat: 38.475355, lon: -8.984360 }],
   obidos: [{ lat: 39.363422, lon: -9.156901 }, { lat: 39.363235, lon: -9.157392 }, { lat: 39.361319, lon: -9.157503 }],
-  nazare: [{ lat: 39.602000, lon: -9.068000 }, { lat: 39.622828, lon: -9.083402 }, { lat: 39.598504, lon: -9.070436 }],
+  nazare: [{ lat: 39.604623, lon: -9.076889 }, { lat: 39.622828, lon: -9.083402 }, { lat: 39.598504, lon: -9.070436 }],
   peniche: [{ lat: 39.359285, lon: -9.408842 }, { lat: 39.365507, lon: -9.341946 }, { lat: 39.360444, lon: -9.380149 }],
   tomar: [{ lat: 39.603594, lon: -8.419928 }, { lat: 39.603601, lon: -8.415034 }, { lat: 39.605837, lon: -8.413149 }],
   almourol: [{ lat: 39.458533, lon: -8.398473 }, { lat: 39.461943, lon: -8.383986 }, { lat: 39.475061, lon: -8.338190 }],
@@ -566,7 +572,7 @@ export const stopMapPoints = {
   milfontes: [{ lat: 37.722740, lon: -8.782879 }, { lat: 37.719422, lon: -8.791006 }, { lat: 37.728926, lon: -8.783427 }],
   sagres: [{ lat: 37.001004, lon: -8.948461 }, { lat: 37.022911, lon: -8.996521 }, { lat: 37.025933, lon: -8.963874 }],
   tavira: [{ lat: 37.126893, lon: -7.649838 }, { lat: 37.125238, lon: -7.651234 }, { lat: 37.116219, lon: -7.628754 }],
-  mertola: [{ lat: 37.638023, lon: -7.664586 }, { lat: 37.640727, lon: -7.661685 }, { lat: 37.638000, lon: -7.663000 }],
+  mertola: [{ lat: 37.638023, lon: -7.664586 }, { lat: 37.640727, lon: -7.661685 }, { lat: 37.637218, lon: -7.662880 }],
   arouca: [{ lat: 40.952840, lon: -8.173703 }, { lat: 40.929152, lon: -8.245796 }, { lat: 40.927885, lon: -8.246566 }],
   pinhao: [{ lat: 41.198534, lon: -7.532138 }, { lat: 41.190499, lon: -7.545095 }, { lat: 41.191000, lon: -7.545000 }],
   geres: [{ lat: 41.652714, lon: -8.231108 }, { lat: 41.866610, lon: -8.199724 }, { lat: 41.723789, lon: -8.129869 }],
@@ -595,7 +601,7 @@ export const stopMapPoints = {
   "janeiro-cima": [{ lat: 40.067390, lon: -7.799660 }, { lat: 40.067000, lon: -7.800000 }, { lat: 40.065947, lon: -7.805174 }],
   dornes: [{ lat: 39.771453, lon: -8.269394 }, { lat: 39.772000, lon: -8.269000 }, { lat: 39.771304, lon: -8.269325 }],
   constancia: [{ lat: 39.474258, lon: -8.339427 }, { lat: 39.475061, lon: -8.338190 }, { lat: 39.475595, lon: -8.341822 }],
-  "sao-pedro-moel": [{ lat: 39.753862, lon: -9.033380 }, { lat: 39.764026, lon: -9.031059 }, { lat: 39.764026, lon: -9.031059 }],
+  "sao-pedro-moel": [{ lat: 39.753862, lon: -9.033380 }, { lat: 39.764026, lon: -9.031059 }, { lat: 39.774764, lon: -9.024570 }],
   "foz-arelho": [{ lat: 39.428936, lon: -9.223806 }, { lat: 39.442052, lon: -9.220406 }, { lat: 39.430660, lon: -9.226287 }],
   "azenhas-mar": [{ lat: 38.839059, lon: -9.463709 }, { lat: 38.840956, lon: -9.461906 }, { lat: 38.840600, lon: -9.462472 }],
   ericeira: [{ lat: 38.964306, lon: -9.418548 }, { lat: 38.962000, lon: -9.417000 }, { lat: 38.962000, lon: -9.417000 }],
@@ -609,10 +615,11 @@ export const stopMapPoints = {
   alte: [{ lat: 37.237639, lon: -8.173229 }, { lat: 37.238592, lon: -8.168576 }, { lat: 37.236311, lon: -8.176762 }],
   alcoutim: [{ lat: 37.470594, lon: -7.471945 }, { lat: 37.472000, lon: -7.472000 }, { lat: 37.471946, lon: -7.471279 }],
   "cacela-velha": [{ lat: 37.157117, lon: -7.545490 }, { lat: 37.157000, lon: -7.546000 }, { lat: 37.150186, lon: -7.553340 }],
-  ferragudo: [{ lat: 37.124775, lon: -8.519685 }, { lat: 37.125000, lon: -8.520000 }, { lat: 37.116436, lon: -8.519729 }],
+  ferragudo: [{ lat: 37.124775, lon: -8.519685 }, { lat: 37.123350, lon: -8.521950 }, { lat: 37.116436, lon: -8.519729 }],
   silves: [{ lat: 37.191055, lon: -8.438359 }, { lat: 37.190034, lon: -8.438562 }, { lat: 37.189000, lon: -8.439000 }],
   salema: [{ lat: 37.065043, lon: -8.824623 }, { lat: 37.066696, lon: -8.804516 }, { lat: 37.066432, lon: -8.810544 }],
   estoi: [{ lat: 37.097111, lon: -7.896496 }, { lat: 37.095167, lon: -7.904026 }, { lat: 37.094267, lon: -7.894888 }],
+  ...additionalStopMapPoints,
 };
 
 const toRadians = (degrees) => degrees * (Math.PI / 180);
@@ -696,19 +703,24 @@ export function googleDirectionsUrl(origin, destination, language = "en") {
 }
 
 export function googlePlaceUrl(query, point, language = "en") {
-  const place = encodeURIComponent(`${query}, Portugal`);
-  return `https://www.google.com/maps/search/${place}/@${point.lat},${point.lon},17z?hl=${language === "pt" ? "pt-PT" : "en"}`;
+  const params = new URLSearchParams({
+    api: "1",
+    query: `${point.lat},${point.lon}`,
+    hl: language === "pt" ? "pt-PT" : "en",
+  });
+  return `https://www.google.com/maps/search/?${params}`;
 }
 
-export function findCandidates({ origin, maxDistance, vibe = "surprise" }) {
+export function findCandidates({ origin, maxDistance = Infinity, maxDuration = Infinity, vibe = "surprise" }) {
   const matching = destinations.map((destination) => ({ ...destination, trip: estimateTrip(origin, destination) }))
     .filter((destination) => destination.trip.distanceKm >= 15 && (vibe === "surprise" || destination.vibes.includes(vibe)));
-  const withinRange = matching.filter((destination) => destination.trip.distanceKm <= maxDistance);
-  return (withinRange.length ? withinRange : matching.sort((a, b) => a.trip.distanceKm - b.trip.distanceKm).slice(0, 5));
+  const withinRange = matching.filter((destination) => destination.trip.distanceKm <= maxDistance && destination.trip.durationMinutes <= maxDuration);
+  const sortByDuration = Number.isFinite(maxDuration) && !Number.isFinite(maxDistance);
+  return (withinRange.length ? withinRange : matching.sort((a, b) => sortByDuration ? a.trip.durationMinutes - b.trip.durationMinutes : a.trip.distanceKm - b.trip.distanceKm).slice(0, 5));
 }
 
-export function pickDestination({ origin, maxDistance, vibe = "surprise", excludeId = "", random = Math.random }) {
-  const candidates = findCandidates({ origin, maxDistance, vibe });
+export function pickDestination({ origin, maxDistance = Infinity, maxDuration = Infinity, vibe = "surprise", excludeId = "", random = Math.random }) {
+  const candidates = findCandidates({ origin, maxDistance, maxDuration, vibe });
   const fresh = candidates.filter((destination) => destination.id !== excludeId);
   const pool = fresh.length ? fresh : candidates;
   return pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];

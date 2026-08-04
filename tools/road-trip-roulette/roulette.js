@@ -1,4 +1,4 @@
-import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=13";
+import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=15";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -7,18 +7,19 @@ const SAVED_KEY = "estrelalua-road-trip-saved-v1";
 
 const translations = {
   en: {
-    searchLocality:"Search or choose a place",placesAvailable:"places available",closestMatches:"Closest available matches",useDistrictCapital:"Use district capital",selectedPlace:"Selected",
+    searchLocality:"Search or choose a place",placesAvailable:"places available",closestMatches:"Closest available matches",useDistrictCapital:"Use district capital",selectedPlace:"Selected",rangeType:"Range type",byDistance:"Distance",byDuration:"Approx. drive time",
     skip:"Skip to trip builder",allApps:"All apps",savedTrips:"Saved trips",kicker:"Portugal · zero-plan adventures",heroTitle:"Stop planning.",heroEmphasis:"Start wandering.",heroCopy:"Choose the mood. Set your radius. Let the road decide the rest.",noAccount:"No account",noMapKey:"No paid map key",localOnly:"Saved locally",buildKicker:"Build the possibility",builderTitle:"What kind of escape?",builderIntro:"Distances and drive times are useful estimates. Open the route for exact live directions, traffic, tolls, and closures.",startFrom:"Start from",district:"District",locality:"City, town or village",whyThisTrip:"Why this trip",source:"Inspiration source",howFar:"How far?",nearby:"Nearby",dayTrip:"Day trip",weekend:"Weekend",mood:"Pick a mood",surprise:"Surprise",coast:"Coast",nature:"Nature",history:"History",food:"Food",viewpoint:"Viewpoint",spin:"Spin the road",roughRoute:"Your rough route",mapDisclaimer:"A playful visual—not a turn-by-turn map.",todayDetour:"Today’s detour",distance:"Approx. distance",driveTime:"Approx. drive",direction:"Direction",oneWay:"one way",miniPlan:"Your three-stop mini plan",makeItYours:"Make it yours",openInMaps:"Open in Google Maps",spinAgain:"Spin again",saveTrip:"Save trip",saved:"Saved ✓",openDirections:"Open exact directions",routeNote:"Google Maps provides the exact road route. Check traffic, tolls, weather, access restrictions, and opening times before leaving.",glovebox:"Your glovebox",savedAdventures:"Saved adventures",clearSaved:"Clear saved",openSaved:"Show saved trips",closeSaved:"Hide saved trips",emptySaved:"Nothing saved yet. Spin a trip and keep the ones that feel right.",honestByDesign:"Honest by design",howTitle:"A spark, then the real map.",stepOneTitle:"Pick a possibility",stepOneCopy:"The app draws from official tourism, independent travel guides, and community tips that match your range and mood.",stepTwoTitle:"See the shape of it",stepTwoCopy:"Distance, duration and direction are approximate, so the surprise works without tracking you.",stepThreeTitle:"Open the real road",stepThreeCopy:"When the idea feels right, open Google Maps for the current route and road conditions.",footer:"Made for spontaneous Portuguese roads.",tests:"App tests",from:"From",towards:"towards",sourceTypes:{official:"Official tourism",independent:"Independent guide",community:"Community tip"},directions:{N:"North",NE:"Northeast",E:"East",SE:"Southeast",S:"South",SW:"Southwest",W:"West",NW:"Northwest"}
   },
   pt: {
-    searchLocality:"Pesquise ou escolha um local",placesAvailable:"locais disponíveis",closestMatches:"Opções com o nome mais próximo",useDistrictCapital:"Usar capital de distrito",selectedPlace:"Selecionado",
+    searchLocality:"Pesquise ou escolha um local",placesAvailable:"locais disponíveis",closestMatches:"Opções com o nome mais próximo",useDistrictCapital:"Usar capital de distrito",selectedPlace:"Selecionado",rangeType:"Tipo de limite",byDistance:"Distância",byDuration:"Tempo aproximado",
     skip:"Ir para o gerador de viagens",allApps:"Todas as aplicações",savedTrips:"Viagens guardadas",kicker:"Portugal · aventuras sem planos",heroTitle:"Pare de planear.",heroEmphasis:"Comece a explorar.",heroCopy:"Escolha o ambiente. Defina a distância. Deixe a estrada decidir o resto.",noAccount:"Sem conta",noMapKey:"Sem mapas pagos",localOnly:"Guardado localmente",buildKicker:"Crie a possibilidade",builderTitle:"Que tipo de escapadinha?",builderIntro:"As distâncias e os tempos são estimativas úteis. Abra o percurso para obter direções, trânsito, portagens e condicionamentos atuais.",startFrom:"Partida",district:"Distrito",locality:"Cidade, vila ou aldeia",whyThisTrip:"Porquê esta viagem",source:"Fonte de inspiração",howFar:"Até onde?",nearby:"Perto",dayTrip:"Um dia",weekend:"Fim de semana",mood:"Escolha o ambiente",surprise:"Surpresa",coast:"Costa",nature:"Natureza",history:"História",food:"Comida",viewpoint:"Miradouro",spin:"Rodar a estrada",roughRoute:"O seu percurso aproximado",mapDisclaimer:"Uma visualização divertida—não é um mapa de navegação.",todayDetour:"O desvio de hoje",distance:"Distância aproximada",driveTime:"Tempo aproximado",direction:"Direção",oneWay:"só ida",miniPlan:"O seu mini plano de três paragens",makeItYours:"Adapte ao seu gosto",openInMaps:"Abrir no Google Maps",spinAgain:"Rodar novamente",saveTrip:"Guardar viagem",saved:"Guardada ✓",openDirections:"Abrir direções exatas",routeNote:"O Google Maps fornece o percurso rodoviário exato. Verifique trânsito, portagens, meteorologia, acessos e horários antes de partir.",glovebox:"O seu porta-luvas",savedAdventures:"Aventuras guardadas",clearSaved:"Limpar guardadas",openSaved:"Mostrar viagens guardadas",closeSaved:"Ocultar viagens guardadas",emptySaved:"Ainda não guardou nenhuma viagem. Rode uma sugestão e guarde as que lhe agradarem.",honestByDesign:"Honesta por natureza",howTitle:"Primeiro a ideia, depois o mapa real.",stepOneTitle:"Escolha uma possibilidade",stepOneCopy:"A aplicação sorteia sugestões de turismo oficial, guias de viagem independentes e comunidades que correspondem à distância e ao ambiente pretendidos.",stepTwoTitle:"Veja a forma da viagem",stepTwoCopy:"A distância, duração e direção são aproximadas, por isso a surpresa funciona sem o localizar.",stepThreeTitle:"Abra a estrada real",stepThreeCopy:"Quando a ideia parecer certa, abra o Google Maps para ver o percurso e as condições atuais.",footer:"Feita para estradas portuguesas espontâneas.",tests:"Testes da aplicação",from:"De",towards:"em direção a",sourceTypes:{official:"Turismo oficial",independent:"Guia independente",community:"Sugestão da comunidade"},directions:{N:"Norte",NE:"Nordeste",E:"Este",SE:"Sudeste",S:"Sul",SW:"Sudoeste",W:"Oeste",NW:"Noroeste"}
   }
 };
 
 let language = "en";
 try { language = localStorage.getItem(LANGUAGE_KEY) === "pt" ? "pt" : "en"; } catch {}
-let maxDistance = 180;
+let rangeMode = "distance";
+let rangeLimit = 180;
 let vibe = "surprise";
 let currentDestination = null;
 let previousDestinationId = "";
@@ -30,9 +31,11 @@ function translatePage() {
   document.title = language === "pt" ? "Roleta de Viagens — EstrelaLuaApps" : "Road Trip Roulette — EstrelaLuaApps";
   $$('[data-i18n]').forEach((element) => { element.textContent = t(element.dataset.i18n); });
   $$('[data-i18n-placeholder]').forEach((element) => { element.placeholder = t(element.dataset.i18nPlaceholder); });
+  $$('[data-i18n-aria-label]').forEach((element) => { element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel)); });
   $$('[data-language]').forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
   try { localStorage.setItem(LANGUAGE_KEY, language); } catch {}
   if (currentDestination) renderTrip(currentDestination);
+  updateRangeControls();
   renderSaved();
   updateSavedDisclosure();
   if ($("#start-city-search")) updateLocalitySearch();
@@ -112,14 +115,33 @@ function mapsSearchUrl(query, point) {
   return googlePlaceUrl(query, point, language);
 }
 
+function rangeArguments() {
+  return rangeMode === "duration" ? { maxDuration: rangeLimit } : { maxDistance: rangeLimit };
+}
+
+function rangeLimitText() {
+  return rangeMode === "duration" ? `${formatDuration(rangeLimit, language)} ${t("oneWay")}` : `${rangeLimit} km`;
+}
+
+function updateRangeControls() {
+  $$('[data-range-mode]').forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.rangeMode === rangeMode)));
+  $$('[data-range]').forEach((button) => {
+    const value = Number(button.dataset.range);
+    button.setAttribute("aria-pressed", String(value === rangeLimit));
+    const label = $('[data-range-label]', button);
+    if (label) label.textContent = rangeMode === "duration" ? `≤ ${formatDuration(value, language)} ${t("oneWay")}` : `≤ ${value} km`;
+  });
+}
+
 function recommendationReason(trip) {
-  const withinRange = trip.distanceKm <= maxDistance;
+  const withinRange = rangeMode === "duration" ? trip.durationMinutes <= rangeLimit : trip.distanceKm <= rangeLimit;
+  const limit = rangeLimitText();
   if (language === "pt") {
-    if (!withinRange) return vibe === "surprise" ? `Uma das opções variadas mais próximas quando nenhuma corresponde ao limite de ${maxDistance} km.` : `Uma das opções de ${t(vibe).toLowerCase()} mais próximas quando nenhuma corresponde ao limite de ${maxDistance} km.`;
-    return vibe === "surprise" ? `Cabe no seu limite de ≤ ${maxDistance} km e acrescenta variedade ao sorteio.` : `Corresponde ao tema ${t(vibe).toLowerCase()} e cabe no seu limite de ≤ ${maxDistance} km.`;
+    if (!withinRange) return vibe === "surprise" ? `Uma das opções variadas mais próximas quando nenhuma corresponde ao limite de ${limit}.` : `Uma das opções de ${t(vibe).toLowerCase()} mais próximas quando nenhuma corresponde ao limite de ${limit}.`;
+    return vibe === "surprise" ? `Cabe no seu limite de ≤ ${limit} e acrescenta variedade ao sorteio.` : `Corresponde ao tema ${t(vibe).toLowerCase()} e cabe no seu limite de ≤ ${limit}.`;
   }
-  if (!withinRange) return vibe === "surprise" ? `One of the closest varied options when nothing matches the ${maxDistance} km limit.` : `One of the closest ${t(vibe).toLowerCase()} options when nothing matches the ${maxDistance} km limit.`;
-  return vibe === "surprise" ? `Fits your ≤ ${maxDistance} km limit and adds variety to the draw.` : `Matches ${t(vibe).toLowerCase()} and fits your ≤ ${maxDistance} km limit.`;
+  if (!withinRange) return vibe === "surprise" ? `One of the closest varied options when nothing matches the ${limit} limit.` : `One of the closest ${t(vibe).toLowerCase()} options when nothing matches the ${limit} limit.`;
+  return vibe === "surprise" ? `Fits your ≤ ${limit} limit and adds variety to the draw.` : `Matches ${t(vibe).toLowerCase()} and fits your ≤ ${limit} limit.`;
 }
 
 function renderTrip(destination, updateUrl = true) {
@@ -147,13 +169,13 @@ function renderTrip(destination, updateUrl = true) {
   $("#save-trip").textContent = isSaved(origin.id, destination.id) ? t("saved") : t("saveTrip");
   updateMap(origin, destination);
   if (updateUrl) {
-    const query = new URLSearchParams({ district: origin.districtId, from: origin.id, to: destination.id, range: String(maxDistance), vibe, lang: language });
+    const query = new URLSearchParams({ district: origin.districtId, from: origin.id, to: destination.id, range: String(rangeLimit), rangeMode, vibe, lang: language });
     history.replaceState(null, "", `${location.pathname}?${query}`);
   }
 }
 
 function spin() {
-  const choice = pickDestination({ origin: currentOrigin(), maxDistance, vibe, excludeId: previousDestinationId });
+  const choice = pickDestination({ origin: currentOrigin(), ...rangeArguments(), vibe, excludeId: previousDestinationId });
   if (!choice) return;
   previousDestinationId = choice.id;
   renderTrip(choice);
@@ -169,7 +191,7 @@ function saveCurrent() {
   const origin = currentOrigin();
   const saved = savedTrips();
   if (!saved.some((trip) => trip.originId === origin.id && trip.destinationId === currentDestination.id)) {
-    saved.unshift({ originId: origin.id, destinationId: currentDestination.id, maxDistance, vibe });
+    saved.unshift({ originId: origin.id, destinationId: currentDestination.id, rangeLimit, rangeMode, vibe });
     try { localStorage.setItem(SAVED_KEY, JSON.stringify(saved.slice(0, 12))); } catch {}
   }
   $("#save-trip").textContent = t("saved");
@@ -184,7 +206,9 @@ function renderSaved() {
     const destination = destinations.find((item) => item.id === trip.destinationId);
     if (!origin || !destination) return "";
     const estimate = estimateTrip(origin, destination);
-    return `<article class="saved-card"><button type="button" data-saved-origin="${origin.id}" data-saved-destination="${destination.id}" data-saved-range="${trip.maxDistance}" data-saved-vibe="${trip.vibe}"><span>${t("from")} ${origin.name}</span><h3><i class="saved-emoji" aria-hidden="true">${displayEmoji(destination)}</i> ${destination.name}</h3><p>${estimate.distanceKm} km · ${formatDuration(estimate.durationMinutes, language)}</p></button></article>`;
+    const savedRange = trip.rangeLimit ?? trip.maxDistance ?? 180;
+    const savedMode = trip.rangeMode === "duration" ? "duration" : "distance";
+    return `<article class="saved-card"><button type="button" data-saved-origin="${origin.id}" data-saved-destination="${destination.id}" data-saved-range="${savedRange}" data-saved-range-mode="${savedMode}" data-saved-vibe="${trip.vibe}"><span>${t("from")} ${origin.name}</span><h3><i class="saved-emoji" aria-hidden="true">${displayEmoji(destination)}</i> ${destination.name}</h3><p>${estimate.distanceKm} km · ${formatDuration(estimate.durationMinutes, language)}</p></button></article>`;
   }).join("") : `<p class="empty-saved">${t("emptySaved")}</p>`;
 }
 
@@ -210,14 +234,16 @@ function restoreFromUrl() {
   const origin = starts.find((item) => item.id === query.get("from"));
   const destination = destinations.find((item) => item.id === query.get("to"));
   const range = Number(query.get("range"));
+  const requestedRangeMode = query.get("rangeMode");
   const requestedVibe = query.get("vibe");
   if (origin) {
     $("#start-district").value = origin.districtId;
     populateLocalities(origin.id);
   }
-  if ([90,180,360].includes(range)) maxDistance = range;
+  if ([90,180,360].includes(range)) rangeLimit = range;
+  if (["distance","duration"].includes(requestedRangeMode)) rangeMode = requestedRangeMode;
   if (["surprise","coast","nature","history","food","viewpoint"].includes(requestedVibe)) vibe = requestedVibe;
-  $$("[data-range]").forEach((button) => button.setAttribute("aria-pressed", String(Number(button.dataset.range) === maxDistance)));
+  updateRangeControls();
   $$("[data-vibe]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.vibe === vibe)));
   if (destination) renderTrip(destination, false); else spin();
 }
@@ -234,8 +260,8 @@ $("#saved-list").addEventListener("click", (event) => {
   if (!savedOrigin) return;
   $("#start-district").value = savedOrigin.districtId;
   populateLocalities(savedOrigin.id);
-  maxDistance = Number(button.dataset.savedRange); vibe = button.dataset.savedVibe;
-  $$("[data-range]").forEach((item) => item.setAttribute("aria-pressed", String(Number(item.dataset.range) === maxDistance)));
+  rangeLimit = Number(button.dataset.savedRange); rangeMode = button.dataset.savedRangeMode === "duration" ? "duration" : "distance"; vibe = button.dataset.savedVibe;
+  updateRangeControls();
   $$("[data-vibe]").forEach((item) => item.setAttribute("aria-pressed", String(item.dataset.vibe === vibe)));
   const destination = destinations.find((item) => item.id === button.dataset.savedDestination); if (destination) renderTrip(destination);
   $("#trip-result").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -244,7 +270,8 @@ $("#start-district").addEventListener("change", () => { populateLocalities(""); 
 $("#start-city-search").addEventListener("input", updateLocalitySearch);
 $("#start-city-search").addEventListener("change", () => { const exact = updateLocalitySearch(); if (exact) chooseOrigin(exact); });
 $("#locality-suggestions").addEventListener("click", (event) => { const button = event.target.closest("[data-origin-id]"); if (button) chooseOrigin(starts.find((start) => start.id === button.dataset.originId)); });
-$$('[data-range]').forEach((button) => button.addEventListener("click", () => { maxDistance = Number(button.dataset.range); $$('[data-range]').forEach((item) => item.setAttribute("aria-pressed", String(item === button))); }));
+$$('[data-range]').forEach((button) => button.addEventListener("click", () => { rangeLimit = Number(button.dataset.range); updateRangeControls(); }));
+$$('[data-range-mode]').forEach((button) => button.addEventListener("click", () => { rangeMode = button.dataset.rangeMode; updateRangeControls(); }));
 $$('[data-vibe]').forEach((button) => button.addEventListener("click", () => { vibe = button.dataset.vibe; $$('[data-vibe]').forEach((item) => item.setAttribute("aria-pressed", String(item === button))); }));
 $$('[data-language]').forEach((button) => button.addEventListener("click", () => { language = button.dataset.language; translatePage(); }));
 
