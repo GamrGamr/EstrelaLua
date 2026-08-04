@@ -213,6 +213,21 @@ export const destinations = [
   { id: "estoi", name: "Estoi", lat: 37.0950, lon: -7.8940, terrain: "normal", vibes: ["history", "food", "viewpoint"], emoji: "🌸", source: "https://www.reddit.com/r/portugueses/comments/nt6wtu/actividades_no_algarve/", sourceLabel: "Reddit community", sourceType: "community", copy: { en: "A rococo palace, Roman ruins and old Algarve streets just beyond Faro’s coastal bustle.", pt: "Um palácio rococó, ruínas romanas e ruas antigas do Algarve pouco além do movimento de Faro." }, stops: { en: ["Palace gardens", "Milreu Roman ruins", "Village café"], pt: ["Jardins do palácio", "Ruínas romanas de Milreu", "Café na aldeia"] } },
 ];
 
+const compatibleEmojiOverrides = {
+  obidos: "🏰",
+  monsanto: "⛰️",
+  sagres: "⚓",
+  arouca: "⛰️",
+  "linhares-beira": "🏰",
+  talasnal: "🌲",
+  "casal-sao-simao": "⛰️",
+  "foz-arelho": "🌊",
+};
+
+export function displayEmoji(destination) {
+  return compatibleEmojiOverrides[destination?.id] ?? destination?.emoji ?? "📍";
+}
+
 export const stopMapQueries = {
   sintra: ["Centro Histórico de Sintra", "Castelo dos Mouros, Sintra", "Cabo da Roca"],
   arrabida: ["Vila Nogueira de Azeitão", "Convento da Arrábida", "Portinho da Arrábida"],

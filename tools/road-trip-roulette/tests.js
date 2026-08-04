@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, districts, estimateTrip, findCandidates, formatDuration, haversineKm, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=10";
+import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, formatDuration, haversineKm, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=11";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -17,6 +17,7 @@ test("Destination sources include official, independent, and community ideas", (
 test("Visit Portugal source links use the correct Portuguese locale", () => { const source = "https://www.visitportugal.com/en/node/135553"; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt-pt/node/135553"); assert(localizeSourceUrl(source, "en") === source); });
 test("Destination-specific Portuguese source links are supported", () => { const source = destinations.find((item) => item.id === "arrabida").source; assert(localizeSourceUrl(source, "pt", "arrabida") === "https://www.visitportugal.com/pt-pt/content/serra-da-arrabida-e-estuario-do-sado"); });
 test("Bilingual source objects select an exact language page", () => { const source = destinations.find((item) => item.id === "monsanto").source; assert(localizeSourceUrl(source, "pt") === "https://www.visitportugal.com/pt-pt/regioes-e-localidades/monsanto"); });
+test("Newer unsupported emoji have compatible display fallbacks", () => { const unsupported = new Set(["🧱", "🧭", "🥾", "🪨", "🪁", "🪵", "🦩"]); const casal = destinations.find((item) => item.id === "casal-sao-simao"); assert(displayEmoji(casal) === "⛰️"); assert(destinations.every((item) => !unsupported.has(displayEmoji(item)))); });
 test("Lisbon to Porto straight-line distance is plausible", () => { const distance = haversineKm(lisbon, porto); assert(distance > 260 && distance < 290, distance); });
 test("Porto is north of Lisbon", () => assert(compassDirection(bearingDegrees(lisbon, porto)) === "N"));
 test("Trip estimates exceed straight-line distance", () => assert(estimateTrip(lisbon, porto).distanceKm > haversineKm(lisbon, porto)));

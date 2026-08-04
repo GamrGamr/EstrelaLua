@@ -1,4 +1,4 @@
-import { destinations, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=10";
+import { destinations, displayEmoji, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=11";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -89,7 +89,7 @@ function renderTrip(destination, updateUrl = true) {
   currentDestination = { ...destination, trip };
   $("#destination-eyebrow").textContent = t("todayDetour");
   $("#destination-name").textContent = destination.name;
-  $("#destination-emoji").textContent = destination.emoji;
+  $("#destination-emoji").textContent = displayEmoji(destination);
   $("#destination-copy").textContent = destination.copy[language];
   const sourceType = destination.sourceType ?? "official";
   const sourceName = destination.sourceLabel ?? "Visit Portugal";
@@ -145,7 +145,7 @@ function renderSaved() {
     const destination = destinations.find((item) => item.id === trip.destinationId);
     if (!origin || !destination) return "";
     const estimate = estimateTrip(origin, destination);
-    return `<article class="saved-card"><button type="button" data-saved-origin="${origin.id}" data-saved-destination="${destination.id}" data-saved-range="${trip.maxDistance}" data-saved-vibe="${trip.vibe}"><span>${t("from")} ${origin.name}</span><h3>${destination.emoji} ${destination.name}</h3><p>${estimate.distanceKm} km · ${formatDuration(estimate.durationMinutes, language)}</p></button></article>`;
+    return `<article class="saved-card"><button type="button" data-saved-origin="${origin.id}" data-saved-destination="${destination.id}" data-saved-range="${trip.maxDistance}" data-saved-vibe="${trip.vibe}"><span>${t("from")} ${origin.name}</span><h3><i class="saved-emoji" aria-hidden="true">${displayEmoji(destination)}</i> ${destination.name}</h3><p>${estimate.distanceKm} km · ${formatDuration(estimate.durationMinutes, language)}</p></button></article>`;
   }).join("") : `<p class="empty-saved">${t("emptySaved")}</p>`;
 }
 
