@@ -11,6 +11,14 @@ function discoveryItems(destination) {
       : { label: text("Find a local walking experience", "Encontrar um passeio a pé"), query: `Passeios a pé, ${name}` };
 
   return [
+    { id: "historic-centre", category: "visit", label: text("Explore the historic centre", "Explorar o centro histórico"), query: `Centro histórico, ${name}`, kind: "search" },
+    { id: "landmarks", category: "visit", label: text("Find another landmark or monument", "Encontrar outro monumento ou ponto de interesse"), query: `Monumentos e atrações turísticas, ${name}`, kind: "search" },
+    { id: "museums", category: "visit", label: text("Discover a local museum", "Descobrir um museu local"), query: `Museus, ${name}`, kind: "search" },
+    destination.terrain === "coast"
+      ? { id: "extra-scenery", category: "visit", label: text("Find another beach or coastal lookout", "Encontrar outra praia ou miradouro costeiro"), query: `Praias e miradouros costeiros, ${name}`, kind: "search" }
+      : destination.terrain === "mountain"
+        ? { id: "extra-scenery", category: "visit", label: text("Find another scenic nature stop", "Encontrar outro local natural panorâmico"), query: `Atrações naturais e miradouros, ${name}`, kind: "search" }
+        : { id: "extra-scenery", category: "visit", label: text("Find another nearby heritage site", "Encontrar outro local histórico próximo"), query: `Património e locais históricos, ${name}`, kind: "search" },
     { id: "activity", category: "do", ...activity, kind: "search" },
     { id: "viewpoint", category: "do", label: text("Find a nearby viewpoint", "Encontrar um miradouro próximo"), query: `Miradouros, ${name}`, kind: "search" },
     { id: "restaurant", category: "eat", label: text("Find a traditional restaurant", "Encontrar um restaurante tradicional"), query: `Restaurantes tradicionais, ${name}`, kind: "search" },
@@ -31,9 +39,10 @@ export function buildDestinationGuide(destination, mapQueries = [], mapPoints = 
     kind: "place",
   }));
   const items = [...exactStops, ...discoveryItems(destination)].map((item) => ({ ...item, sourceUrl, sourceLabel }));
+  const withIds = (...ids) => items.filter((item) => ids.includes(item.id));
   return {
-    mini: items.slice(0, 3),
-    medium: [...items.slice(0, 3), ...items.filter((item) => ["activity", "restaurant", "viewpoint"].includes(item.id))],
+    mini: withIds("visit-1", "visit-2", "visit-3"),
+    medium: withIds("visit-1", "visit-2", "visit-3", "historic-centre", "landmarks", "activity", "restaurant"),
     full: items,
   };
 }
