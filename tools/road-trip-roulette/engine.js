@@ -213,6 +213,68 @@ export const destinations = [
   { id: "estoi", name: "Estoi", lat: 37.0950, lon: -7.8940, terrain: "normal", vibes: ["history", "food", "viewpoint"], emoji: "🌸", source: "https://www.reddit.com/r/portugueses/comments/nt6wtu/actividades_no_algarve/", sourceLabel: "Reddit community", sourceType: "community", copy: { en: "A rococo palace, Roman ruins and old Algarve streets just beyond Faro’s coastal bustle.", pt: "Um palácio rococó, ruínas romanas e ruas antigas do Algarve pouco além do movimento de Faro." }, stops: { en: ["Palace gardens", "Milreu Roman ruins", "Village café"], pt: ["Jardins do palácio", "Ruínas romanas de Milreu", "Café na aldeia"] } },
 ];
 
+const wikipediaSource = (enTitle, ptTitle = enTitle) => ({
+  en: `https://en.wikipedia.org/wiki/${encodeURIComponent(enTitle.replaceAll(" ", "_"))}`,
+  pt: `https://pt.wikipedia.org/wiki/${encodeURIComponent(ptTitle.replaceAll(" ", "_"))}`,
+});
+
+const verifiedSourceCorrections = {
+  sintra: { source: wikipediaSource("Sintra"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  obidos: { source: wikipediaSource("Óbidos"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  nazare: { source: wikipediaSource("Nazaré"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  peniche: { source: wikipediaSource("Peniche"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  tomar: { source: wikipediaSource("Tomar"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  almourol: { source: wikipediaSource("Castle of Almourol", "Castelo de Almourol"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  piodao: { source: { en: "https://aldeiashistoricasdeportugal.com/en/aldeia/piodao/", pt: "https://aldeiashistoricasdeportugal.com/aldeia/piodao/" }, sourceLabel: { en: "Historical Villages of Portugal", pt: "Aldeias Históricas de Portugal" }, sourceType: "official" },
+  "serra-estrela": { source: wikipediaSource("Serra da Estrela"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  monsanto: { source: { en: "https://aldeiashistoricasdeportugal.com/en/aldeia/monsanto/", pt: "https://aldeiashistoricasdeportugal.com/pt/aldeia/monsanto/" }, sourceLabel: { en: "Historical Villages of Portugal", pt: "Aldeias Históricas de Portugal" }, sourceType: "official" },
+  marvao: { source: wikipediaSource("Marvão"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  monsaraz: { source: wikipediaSource("Monsaraz"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  comporta: { source: wikipediaSource("Comporta"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  milfontes: { source: wikipediaSource("Vila Nova de Milfontes"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  sagres: { source: wikipediaSource("Sagres"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  tavira: { source: wikipediaSource("Tavira"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  mertola: { source: wikipediaSource("Mértola"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  arouca: { source: { en: "https://aroucageopark.pt/en/visit/", pt: "https://aroucageopark.pt/visitar/" }, sourceLabel: "Arouca Geopark", sourceType: "official" },
+  pinhao: { source: wikipediaSource("Pinhão"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  geres: { source: wikipediaSource("Peneda-Gerês National Park", "Parque Nacional da Peneda-Gerês"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  guimaraes: { source: wikipediaSource("Guimarães"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "costa-nova": { source: { en: "https://www.visitportugal.com/en/node/139287", pt: wikipediaSource("Costa Nova do Prado").pt }, sourceLabel: { en: "Visit Portugal", pt: "Wikipédia" }, sourceType: { en: "official", pt: "independent" } },
+  bucaco: { source: wikipediaSource("Buçaco", "Mata Nacional do Buçaco"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  sortelha: { source: { en: "https://aldeiashistoricasdeportugal.com/en/aldeia/sortelha/", pt: "https://aldeiashistoricasdeportugal.com/aldeia/sortelha/" }, sourceLabel: { en: "Historical Villages of Portugal", pt: "Aldeias Históricas de Portugal" }, sourceType: "official" },
+  "mira-aire": { source: wikipediaSource("Mira de Aire"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  soajo: { source: { en: "https://www.portugal.com/travel/hidden-gems-17-must-see-villages-and-small-towns-in-portugal/", pt: wikipediaSource("Soajo").pt }, sourceLabel: { en: "Portugal.com", pt: "Wikipédia" }, sourceType: "independent" },
+  lindoso: { source: { en: "https://www.portugal.com/travel/hidden-gems-17-must-see-villages-and-small-towns-in-portugal/", pt: wikipediaSource("Lindoso").pt }, sourceLabel: { en: "Portugal.com", pt: "Wikipédia" }, sourceType: "independent" },
+  sistelo: { source: { en: "https://aldeiadesistelo.pt/en/home/", pt: "https://aldeiadesistelo.pt/" }, sourceLabel: { en: "Sistelo Village", pt: "Aldeia de Sistelo" }, sourceType: "independent" },
+  "miranda-douro-destination": { source: wikipediaSource("Miranda do Douro"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  montesinho: { source: { en: "https://www.montesinho.com/en", pt: "https://www.montesinho.com/pt" }, sourceLabel: "Montesinho", sourceType: "independent" },
+  "amarante-destination": { source: { en: "https://www.visitportugal.com/en/content/amarante", pt: wikipediaSource("Amarante").pt }, sourceLabel: { en: "Visit Portugal", pt: "Wikipédia" }, sourceType: { en: "official", pt: "independent" } },
+  talasnal: { source: { en: "https://www.aldeiasdoxisto.com/en/villages/lousa/talasnal/", pt: "https://www.aldeiasdoxisto.com/pt/aldeias/lousa/talasnal/" }, sourceLabel: { en: "Schist Villages", pt: "Aldeias do Xisto" }, sourceType: "official" },
+  "casal-sao-simao": { source: { en: "https://www.aldeiasdoxisto.com/en/villages/lousa/casal-de-sao-simao/", pt: "https://www.aldeiasdoxisto.com/pt/aldeias/lousa/casal-de-sao-simao/" }, sourceLabel: { en: "Schist Villages", pt: "Aldeias do Xisto" }, sourceType: "official" },
+  "janeiro-cima": { source: { en: "https://www.aldeiasdoxisto.com/en/villages/zezere/janeiro-de-cima/", pt: "https://www.aldeiasdoxisto.com/pt/aldeias/zezere/janeiro-de-cima/" }, sourceLabel: { en: "Schist Villages", pt: "Aldeias do Xisto" }, sourceType: "official" },
+  dornes: { source: { en: "https://www.visitportugal.com/en/node/136317", pt: wikipediaSource("Dornes").pt }, sourceLabel: { en: "Visit Portugal", pt: "Wikipédia" }, sourceType: { en: "official", pt: "independent" } },
+  constancia: { source: wikipediaSource("Constância"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "sao-pedro-moel": { source: wikipediaSource("São Pedro de Moel"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "foz-arelho": { source: { en: "https://www.visitportugal.com/en/node/141386", pt: wikipediaSource("Foz do Arelho").pt }, sourceLabel: { en: "Visit Portugal", pt: "Wikipédia" }, sourceType: { en: "official", pt: "independent" } },
+  "azenhas-mar": { source: { en: "https://www.pocketwanderings.com/portugal-hidden-beaches-road-trip/", pt: wikipediaSource("Azenhas do Mar").pt }, sourceLabel: { en: "Pocket Wanderings", pt: "Wikipédia" }, sourceType: "independent" },
+  ericeira: { source: wikipediaSource("Ericeira"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "cabo-espichel": { source: wikipediaSource("Cape Espichel", "Cabo Espichel"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  odeceixe: { source: { en: "https://www.pocketwanderings.com/portugal-hidden-beaches-road-trip/", pt: wikipediaSource("Odeceixe").pt }, sourceLabel: { en: "Pocket Wanderings", pt: "Wikipédia" }, sourceType: "independent" },
+  "zambujeira-mar": { source: wikipediaSource("Zambujeira do Mar"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  carrapateira: { source: { en: "https://www.reddit.com/r/Algarve/comments/1fwat36/3_days_in_algarve/", pt: "https://pt.wikipedia.org/wiki/Carrapateira" }, sourceLabel: { en: "Reddit community", pt: "Wikipédia" }, sourceType: { en: "community", pt: "independent" } },
+  "castelo-vide-destination": { source: wikipediaSource("Castelo de Vide"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "elvas-destination": { source: wikipediaSource("Elvas"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  alte: { source: { en: "https://www.reddit.com/r/Algarve/comments/ss8db5/travel_tips/", pt: "https://www.reddit.com/r/Algarve/comments/1ejcb4p/roadtrip_algarve_dicas_de_viagem/" }, sourceLabel: { en: "Reddit community", pt: "Comunidade Reddit" }, sourceType: "community" },
+  alcoutim: { source: wikipediaSource("Alcoutim"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+  "cacela-velha": { source: { en: "https://marealgarve.com/en/blog/most-beautiful-villages-algarve/", pt: wikipediaSource("Cacela Velha").pt }, sourceLabel: { en: "Maré Algarve", pt: "Wikipédia" }, sourceType: "independent" },
+  ferragudo: { source: { en: "https://marealgarve.com/en/blog/most-beautiful-villages-algarve/", pt: wikipediaSource("Ferragudo").pt }, sourceLabel: { en: "Maré Algarve", pt: "Wikipédia" }, sourceType: "independent" },
+  silves: { source: { en: "https://marealgarve.com/en/blog/most-beautiful-villages-algarve/", pt: wikipediaSource("Silves").pt }, sourceLabel: { en: "Maré Algarve", pt: "Wikipédia" }, sourceType: "independent" },
+  salema: { source: { en: "https://marealgarve.com/en/blog/most-beautiful-villages-algarve/", pt: wikipediaSource("Salema").pt }, sourceLabel: { en: "Maré Algarve", pt: "Wikipédia" }, sourceType: "independent" },
+  estoi: { source: wikipediaSource("Estoi"), sourceLabel: { en: "Wikipedia", pt: "Wikipédia" }, sourceType: "independent" },
+};
+
+for (const destination of destinations) Object.assign(destination, verifiedSourceCorrections[destination.id] ?? {});
+
 const compatibleEmojiOverrides = {
   obidos: "🏰",
   monsanto: "⛰️",
@@ -236,7 +298,7 @@ export const stopMapQueries = {
   peniche: ["Cabo Carvoeiro", "Praia do Baleal", "Mercado Municipal de Peniche"],
   tomar: ["Convento de Cristo, Tomar", "Praça da República, Tomar", "Parque do Mouchão, Tomar"],
   almourol: ["Cais de Tancos", "Castelo de Almourol", "Constância"],
-  piodao: ["Igreja Matriz de Piódão", "Foz d'Égua", "Praia Fluvial de Piódão"],
+  piodao: ["Igreja Matriz de Piódão", "Foz d'Égua", "Praia Fluvial de Foz d'Égua"],
   "serra-estrela": ["Manteigas", "Covão d'Ametade", "Museu do Pão, Seia"],
   monsanto: ["Aldeia Histórica de Monsanto", "Castelo de Monsanto", "Capela de São Miguel, Monsanto"],
   marvao: ["Castelo de Marvão", "Centro Histórico de Marvão", "Museu Municipal de Marvão"],
@@ -288,10 +350,76 @@ export const stopMapQueries = {
   alte: ["Fonte Pequena, Alte", "Fonte Grande, Alte", "Igreja Matriz de Alte"],
   alcoutim: ["Castelo de Alcoutim", "Cais de Alcoutim", "Igreja Matriz de Alcoutim"],
   "cacela-velha": ["Fortaleza de Cacela Velha", "Igreja Matriz de Cacela Velha", "Praia de Cacela Velha, Fábrica"],
-  ferragudo: ["Praça Rainha Dona Leonor, Ferragudo", "Igreja de São João do Arade", "Praia Grande, Ferragudo"],
+  ferragudo: ["Praça Rainha Dona Leonor, Ferragudo", "Igreja de São João Baptista, Ferragudo", "Praia Grande, Ferragudo"],
   silves: ["Castelo de Silves", "Sé de Silves", "Mercado Municipal de Silves"],
   salema: ["Praia da Salema", "Forte de Almádena", "Boca do Rio, Budens"],
   estoi: ["Palácio de Estoi", "Ruínas Romanas de Milreu", "Igreja Matriz de Estoi"]
+};
+
+export const stopMapPoints = {
+  sintra: [{ lat: 38.802900, lon: -9.381700 }, { lat: 38.792412, lon: -9.388669 }, { lat: 38.780904, lon: -9.499416 }],
+  arrabida: [{ lat: 38.518680, lon: -9.013865 }, { lat: 38.474654, lon: -8.993450 }, { lat: 38.475355, lon: -8.984360 }],
+  obidos: [{ lat: 39.363422, lon: -9.156901 }, { lat: 39.363235, lon: -9.157392 }, { lat: 39.361319, lon: -9.157503 }],
+  nazare: [{ lat: 39.602000, lon: -9.068000 }, { lat: 39.622828, lon: -9.083402 }, { lat: 39.598504, lon: -9.070436 }],
+  peniche: [{ lat: 39.359285, lon: -9.408842 }, { lat: 39.365507, lon: -9.341946 }, { lat: 39.360444, lon: -9.380149 }],
+  tomar: [{ lat: 39.603594, lon: -8.419928 }, { lat: 39.603601, lon: -8.415034 }, { lat: 39.605837, lon: -8.413149 }],
+  almourol: [{ lat: 39.458533, lon: -8.398473 }, { lat: 39.461943, lon: -8.383986 }, { lat: 39.475061, lon: -8.338190 }],
+  piodao: [{ lat: 40.229272, lon: -7.824495 }, { lat: 40.248114, lon: -7.813677 }, { lat: 40.247073, lon: -7.812863 }],
+  "serra-estrela": [{ lat: 40.400562, lon: -7.540868 }, { lat: 40.328892, lon: -7.588732 }, { lat: 40.417780, lon: -7.694474 }],
+  monsanto: [{ lat: 40.038751, lon: -7.115113 }, { lat: 40.035915, lon: -7.113890 }, { lat: 40.036936, lon: -7.113019 }],
+  marvao: [{ lat: 39.397109, lon: -7.380003 }, { lat: 39.394765, lon: -7.377549 }, { lat: 39.395054, lon: -7.378121 }],
+  monsaraz: [{ lat: 38.443295, lon: -7.380849 }, { lat: 38.443716, lon: -7.380368 }, { lat: 38.442011, lon: -7.378978 }],
+  comporta: [{ lat: 38.412730, lon: -8.756955 }, { lat: 38.380376, lon: -8.785997 }, { lat: 38.381117, lon: -8.803565 }],
+  milfontes: [{ lat: 37.722740, lon: -8.782879 }, { lat: 37.719422, lon: -8.791006 }, { lat: 37.728926, lon: -8.783427 }],
+  sagres: [{ lat: 37.001004, lon: -8.948461 }, { lat: 37.022911, lon: -8.996521 }, { lat: 37.025933, lon: -8.963874 }],
+  tavira: [{ lat: 37.126893, lon: -7.649838 }, { lat: 37.125238, lon: -7.651234 }, { lat: 37.116219, lon: -7.628754 }],
+  mertola: [{ lat: 37.638023, lon: -7.664586 }, { lat: 37.640727, lon: -7.661685 }, { lat: 37.638000, lon: -7.663000 }],
+  arouca: [{ lat: 40.952840, lon: -8.173703 }, { lat: 40.929152, lon: -8.245796 }, { lat: 40.927885, lon: -8.246566 }],
+  pinhao: [{ lat: 41.198534, lon: -7.532138 }, { lat: 41.190499, lon: -7.545095 }, { lat: 41.191000, lon: -7.545000 }],
+  geres: [{ lat: 41.652714, lon: -8.231108 }, { lat: 41.866610, lon: -8.199724 }, { lat: 41.723789, lon: -8.129869 }],
+  guimaraes: [{ lat: 41.446423, lon: -8.291303 }, { lat: 41.442901, lon: -8.292870 }, { lat: 41.439548, lon: -8.300065 }],
+  "costa-nova": [{ lat: 40.622031, lon: -8.750060 }, { lat: 40.612000, lon: -8.751000 }, { lat: 40.620073, lon: -8.752624 }],
+  bucaco: [{ lat: 40.377000, lon: -8.365000 }, { lat: 40.375984, lon: -8.364821 }, { lat: 40.383208, lon: -8.376420 }],
+  sortelha: [{ lat: 40.329289, lon: -7.214691 }, { lat: 40.328492, lon: -7.215046 }, { lat: 40.331000, lon: -7.211000 }],
+  "mira-aire": [{ lat: 39.540248, lon: -8.704073 }, { lat: 39.541000, lon: -8.706000 }, { lat: 39.444871, lon: -8.710840 }],
+  soajo: [{ lat: 41.872317, lon: -8.262185 }, { lat: 41.873812, lon: -8.264185 }, { lat: 41.880356, lon: -8.277484 }],
+  lindoso: [{ lat: 41.867058, lon: -8.199405 }, { lat: 41.866250, lon: -8.199780 }, { lat: 41.871966, lon: -8.202529 }],
+  sistelo: [{ lat: 41.974760, lon: -8.373402 }, { lat: 41.979886, lon: -8.349385 }, { lat: 41.971503, lon: -8.382121 }],
+  "ponte-lima-destination": [{ lat: 41.769260, lon: -8.586764 }, { lat: 41.770827, lon: -8.588551 }, { lat: 41.766469, lon: -8.585488 }],
+  "miranda-douro-destination": [{ lat: 41.493058, lon: -6.273343 }, { lat: 41.539218, lon: -6.222317 }, { lat: 41.498415, lon: -6.270053 }],
+  montesinho: [{ lat: 41.939175, lon: -6.765092 }, { lat: 41.862397, lon: -6.764240 }, { lat: 41.804250, lon: -6.749296 }],
+  "amarante-destination": [{ lat: 41.268852, lon: -8.078066 }, { lat: 41.269233, lon: -8.078725 }, { lat: 41.269562, lon: -8.078461 }],
+  "lamego-destination": [{ lat: 41.091674, lon: -7.816634 }, { lat: 41.096595, lon: -7.806505 }, { lat: 41.097467, lon: -7.805818 }],
+  almeida: [{ lat: 40.722671, lon: -6.904279 }, { lat: 40.725000, lon: -6.906000 }, { lat: 40.725000, lon: -6.906000 }],
+  "castelo-rodrigo": [{ lat: 40.876675, lon: -6.964723 }, { lat: 40.875000, lon: -6.963000 }, { lat: 40.876756, lon: -6.964249 }],
+  belmonte: [{ lat: 40.359331, lon: -7.348023 }, { lat: 40.358422, lon: -7.350217 }, { lat: 40.358560, lon: -7.347308 }],
+  "linhares-beira": [{ lat: 40.541409, lon: -7.462139 }, { lat: 40.541000, lon: -7.461000 }, { lat: 40.539564, lon: -7.461215 }],
+  marialva: [{ lat: 40.913491, lon: -7.231773 }, { lat: 40.913802, lon: -7.231659 }, { lat: 40.914000, lon: -7.231000 }],
+  "castelo-novo": [{ lat: 40.078000, lon: -7.496000 }, { lat: 40.077967, lon: -7.496276 }, { lat: 40.080593, lon: -7.525013 }],
+  "idanha-velha": [{ lat: 39.996416, lon: -7.144189 }, { lat: 39.995490, lon: -7.142086 }, { lat: 39.997000, lon: -7.144000 }],
+  talasnal: [{ lat: 40.091726, lon: -8.225931 }, { lat: 40.100472, lon: -8.235458 }, { lat: 40.091000, lon: -8.235000 }],
+  "casal-sao-simao": [{ lat: 39.916661, lon: -8.322503 }, { lat: 39.915445, lon: -8.316082 }, { lat: 39.916140, lon: -8.316760 }],
+  "janeiro-cima": [{ lat: 40.067390, lon: -7.799660 }, { lat: 40.067000, lon: -7.800000 }, { lat: 40.065947, lon: -7.805174 }],
+  dornes: [{ lat: 39.771453, lon: -8.269394 }, { lat: 39.772000, lon: -8.269000 }, { lat: 39.771304, lon: -8.269325 }],
+  constancia: [{ lat: 39.474258, lon: -8.339427 }, { lat: 39.475061, lon: -8.338190 }, { lat: 39.475595, lon: -8.341822 }],
+  "sao-pedro-moel": [{ lat: 39.753862, lon: -9.033380 }, { lat: 39.764026, lon: -9.031059 }, { lat: 39.764026, lon: -9.031059 }],
+  "foz-arelho": [{ lat: 39.428936, lon: -9.223806 }, { lat: 39.442052, lon: -9.220406 }, { lat: 39.430660, lon: -9.226287 }],
+  "azenhas-mar": [{ lat: 38.839059, lon: -9.463709 }, { lat: 38.840956, lon: -9.461906 }, { lat: 38.840600, lon: -9.462472 }],
+  ericeira: [{ lat: 38.964306, lon: -9.418548 }, { lat: 38.962000, lon: -9.417000 }, { lat: 38.962000, lon: -9.417000 }],
+  "cabo-espichel": [{ lat: 38.420591, lon: -9.213654 }, { lat: 38.415579, lon: -9.216304 }, { lat: 38.421964, lon: -9.216179 }],
+  odeceixe: [{ lat: 37.431177, lon: -8.771799 }, { lat: 37.440785, lon: -8.798306 }, { lat: 37.442122, lon: -8.797393 }],
+  "zambujeira-mar": [{ lat: 37.524580, lon: -8.786926 }, { lat: 37.523127, lon: -8.787847 }, { lat: 37.526000, lon: -8.787000 }],
+  carrapateira: [{ lat: 37.184000, lon: -8.895000 }, { lat: 37.183021, lon: -8.895151 }, { lat: 37.164359, lon: -8.903299 }],
+  "castelo-vide-destination": [{ lat: 39.417713, lon: -7.456738 }, { lat: 39.418243, lon: -7.458184 }, { lat: 39.416200, lon: -7.456800 }],
+  "elvas-destination": [{ lat: 38.878748, lon: -7.187996 }, { lat: 38.880546, lon: -7.163677 }, { lat: 38.895000, lon: -7.164400 }],
+  monchique: [{ lat: 37.318858, lon: -8.555555 }, { lat: 37.286381, lon: -8.554110 }, { lat: 37.315601, lon: -8.596437 }],
+  alte: [{ lat: 37.237639, lon: -8.173229 }, { lat: 37.238592, lon: -8.168576 }, { lat: 37.236311, lon: -8.176762 }],
+  alcoutim: [{ lat: 37.470594, lon: -7.471945 }, { lat: 37.472000, lon: -7.472000 }, { lat: 37.471946, lon: -7.471279 }],
+  "cacela-velha": [{ lat: 37.157117, lon: -7.545490 }, { lat: 37.157000, lon: -7.546000 }, { lat: 37.150186, lon: -7.553340 }],
+  ferragudo: [{ lat: 37.124775, lon: -8.519685 }, { lat: 37.125000, lon: -8.520000 }, { lat: 37.116436, lon: -8.519729 }],
+  silves: [{ lat: 37.191055, lon: -8.438359 }, { lat: 37.190034, lon: -8.438562 }, { lat: 37.189000, lon: -8.439000 }],
+  salema: [{ lat: 37.065043, lon: -8.824623 }, { lat: 37.066696, lon: -8.804516 }, { lat: 37.066432, lon: -8.810544 }],
+  estoi: [{ lat: 37.097111, lon: -7.896496 }, { lat: 37.095167, lon: -7.904026 }, { lat: 37.094267, lon: -7.894888 }],
 };
 
 const toRadians = (degrees) => degrees * (Math.PI / 180);
@@ -356,6 +484,27 @@ export function localizeSourceUrl(source, language = "en", destinationId = "") {
   if (language === "pt" && portugueseSourceOverrides[destinationId]) return portugueseSourceOverrides[destinationId];
   const locale = language === "pt" ? "pt-pt" : "en";
   return source.replace(/(visitportugal\.com\/)(?:en|pt(?:-pt)?)(?=\/|$)/i, `$1${locale}`);
+}
+
+export function localizeSourceMeta(value, language = "en", fallback = "") {
+  if (value && typeof value === "object") return value[language] ?? value.en ?? value.pt ?? fallback;
+  return value ?? fallback;
+}
+
+export function googleDirectionsUrl(origin, destination, language = "en") {
+  const params = new URLSearchParams({
+    api: "1",
+    origin: `${origin.lat},${origin.lon}`,
+    destination: `${destination.lat},${destination.lon}`,
+    travelmode: "driving",
+    hl: language === "pt" ? "pt-PT" : "en",
+  });
+  return `https://www.google.com/maps/dir/?${params}`;
+}
+
+export function googlePlaceUrl(query, point, language = "en") {
+  const place = encodeURIComponent(`${query}, Portugal`);
+  return `https://www.google.com/maps/search/${place}/@${point.lat},${point.lon},17z?hl=${language === "pt" ? "pt-PT" : "en"}`;
 }
 
 export function findCandidates({ origin, maxDistance, vibe = "surprise" }) {

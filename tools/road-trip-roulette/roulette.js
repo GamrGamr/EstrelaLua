@@ -1,4 +1,4 @@
-import { destinations, displayEmoji, districts, estimateTrip, formatDuration, localizeSourceUrl, pickDestination, starts, stopMapQueries } from "./engine.js?v=11";
+import { destinations, displayEmoji, districts, estimateTrip, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=12";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -64,13 +64,11 @@ function updateMap(origin, destination) {
 }
 
 function mapsUrl(origin, destination) {
-  const params = new URLSearchParams({ api: "1", origin: `${origin.name}, Portugal`, destination: `${destination.name}, Portugal`, travelmode: "driving", hl: language === "pt" ? "pt-PT" : "en" });
-  return `https://www.google.com/maps/dir/?${params}`;
+  return googleDirectionsUrl(origin, destination, language);
 }
 
-function mapsSearchUrl(query) {
-  const params = new URLSearchParams({ api: "1", query: `${query}, Portugal`, hl: language === "pt" ? "pt-PT" : "en" });
-  return `https://www.google.com/maps/search/?${params}`;
+function mapsSearchUrl(query, point) {
+  return googlePlaceUrl(query, point, language);
 }
 
 function recommendationReason(trip) {
@@ -91,8 +89,8 @@ function renderTrip(destination, updateUrl = true) {
   $("#destination-name").textContent = destination.name;
   $("#destination-emoji").textContent = displayEmoji(destination);
   $("#destination-copy").textContent = destination.copy[language];
-  const sourceType = destination.sourceType ?? "official";
-  const sourceName = destination.sourceLabel ?? "Visit Portugal";
+  const sourceType = localizeSourceMeta(destination.sourceType, language, "official");
+  const sourceName = localizeSourceMeta(destination.sourceLabel, language, "Visit Portugal");
   $("#match-reason").textContent = recommendationReason(trip);
   $("#source-type").textContent = `${t("source")} · ${translations[language].sourceTypes[sourceType]}`;
   $("#source-name").textContent = sourceName;
@@ -103,7 +101,7 @@ function renderTrip(destination, updateUrl = true) {
   $("#duration-value").textContent = formatDuration(trip.durationMinutes, language);
   $("#direction-value").textContent = translations[language].directions[trip.direction];
   $("#bearing-value").textContent = `${trip.direction} · ${Math.round(trip.bearing)}°`;
-  $("#stops-list").innerHTML = stopMapQueries[destination.id].map((mapTarget) => `<li><strong>${mapTarget}</strong><a href="${mapsSearchUrl(mapTarget)}" target="_blank" rel="noopener noreferrer">${t("openInMaps")} <span aria-hidden="true">↗</span></a></li>`).join("");
+  $("#stops-list").innerHTML = stopMapQueries[destination.id].map((mapTarget, index) => `<li><strong>${mapTarget}</strong><a href="${mapsSearchUrl(mapTarget, stopMapPoints[destination.id][index])}" target="_blank" rel="noopener noreferrer">${t("openInMaps")} <span aria-hidden="true">↗</span></a></li>`).join("");
   $("#maps-link").href = mapsUrl(origin, destination);
   $("#save-trip").textContent = isSaved(origin.id, destination.id) ? t("saved") : t("saveTrip");
   updateMap(origin, destination);
