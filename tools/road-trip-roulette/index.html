@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#092f3d" />
     <title>Road Trip Roulette — EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
-    <link rel="stylesheet" href="roulette.css?v=7" />
-    <script type="module" src="roulette.js?v=16"></script>
+    <link rel="stylesheet" href="roulette.css?v=8" />
+    <script type="module" src="roulette.js?v=17"></script>
   </head>
   <body>
     <a class="skip-link" href="#trip-builder" data-i18n="skip">Skip to trip builder</a>
@@ -91,7 +91,7 @@
             <div><span data-i18n="direction">Direction</span><strong id="direction-value">—</strong><small id="bearing-value">—</small></div>
           </div>
           <div class="mini-plan"><div class="plan-heading"><h3 data-i18n="miniPlan">Your three-stop mini plan</h3><span data-i18n="makeItYours">Make it yours</span></div><ol id="stops-list"></ol></div>
-          <div class="trip-actions"><button id="spin-again" class="button secondary" type="button" data-i18n="spinAgain">Spin again</button><button id="save-trip" class="button secondary" type="button" data-i18n="saveTrip">Save trip</button><a id="maps-link" class="button primary" href="#" target="_blank" rel="noopener noreferrer"><span data-i18n="openDirections">Open exact directions</span> ↗</a></div>
+          <div class="trip-actions"><button id="spin-again" class="button secondary" type="button" data-i18n="spinAgain">Spin again</button><button id="save-trip" class="button secondary" type="button" data-i18n="saveTrip">Save trip</button><label id="trip-completion-control" class="completion-toggle"><input id="trip-completed" type="checkbox" /><span data-i18n="tripCompleted">Trip completed</span></label><a id="maps-link" class="button primary" href="#" target="_blank" rel="noopener noreferrer"><span data-i18n="openDirections">Open exact directions</span> ↗</a></div>
           <p class="route-note" data-i18n="routeNote">Google Maps provides the exact road route. Check traffic, tolls, weather, access restrictions, and opening times before leaving.</p>
         </article>
       </section>
