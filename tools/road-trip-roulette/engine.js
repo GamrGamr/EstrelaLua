@@ -686,6 +686,16 @@ export function localizeSourceUrl(source, language = "en", destinationId = "") {
   return source.replace(/(visitportugal\.com\/)(?:en|pt(?:-pt)?)(?=\/|$)/i, `$1${locale}`);
 }
 
+export function originalSourceUrl(source) {
+  if (source && typeof source === "object") return source.pt ?? source.en ?? Object.values(source).find(Boolean) ?? "";
+  return typeof source === "string" ? source : "";
+}
+
+export function originalSourceLabel(value, fallback = "Destination guide") {
+  if (value && typeof value === "object") return value.pt ?? value.en ?? Object.values(value).find(Boolean) ?? fallback;
+  return value ?? fallback;
+}
+
 export function localizeSourceMeta(value, language = "en", fallback = "") {
   if (value && typeof value === "object") return value[language] ?? value.en ?? value.pt ?? fallback;
   return value ?? fallback;
