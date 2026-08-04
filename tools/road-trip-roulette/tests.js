@@ -1,4 +1,4 @@
-import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=12";
+import { bearingDegrees, compassDirection, destinations, displayEmoji, districts, estimateTrip, findCandidates, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, haversineKm, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=13";
 
 const results = [];
 const assert = (condition, message = "Assertion failed") => { if (!condition) throw new Error(message); };
@@ -8,6 +8,13 @@ const porto = starts.find((start) => start.id === "porto");
 
 test("All 18 mainland districts are available", () => assert(districts.length === 18, districts.length));
 test("Every starting locality belongs to a known district", () => assert(starts.every((start) => districts.some((district) => district.id === start.districtId))));
+test("Starting catalogue has broad mainland coverage", () => assert(starts.length >= 280, starts.length));
+test("Every district has at least ten starting places", () => assert(districts.every((district) => starts.filter((start) => start.districtId === district.id).length >= 10)));
+test("Starting place IDs are unique", () => assert(new Set(starts.map((start) => start.id)).size === starts.length));
+test("Starting coordinates stay within mainland Portugal", () => assert(starts.every((start) => start.lat >= 36.9 && start.lat <= 42.2 && start.lon >= -9.6 && start.lon <= -6.1)));
+test("Faro includes Sagres and Vila Real de Santo António", () => { const faro = starts.filter((start) => start.districtId === "faro"); assert(faro.some((start) => start.id === "sagres")); assert(faro.some((start) => start.id === "vila-real-de-santo-antonio")); });
+test("Locality search ignores accents and letter case", () => assert(normalizePlaceName("SÃO BRÁS") === "sao bras"));
+test("Locality search finds close spellings", () => assert(findStartMatches("faro", "vil real santo antonio", 3).some((start) => start.id === "vila-real-de-santo-antonio")));
 test("Santarém includes Torres Novas and detailed locality choices", () => { const localities = starts.filter((start) => start.districtId === "santarem"); assert(localities.length >= 10); assert(localities.some((start) => start.id === "torres-novas")); });
 test("Expanded destination collection has at least 60 options", () => assert(destinations.length >= 60, destinations.length));
 test("Every destination has bilingual content and a source", () => assert(destinations.every((item) => item.source && item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3)));

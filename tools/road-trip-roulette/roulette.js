@@ -1,4 +1,4 @@
-import { destinations, displayEmoji, districts, estimateTrip, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=12";
+import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=13";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -7,9 +7,11 @@ const SAVED_KEY = "estrelalua-road-trip-saved-v1";
 
 const translations = {
   en: {
+    searchLocality:"Search or choose a place",placesAvailable:"places available",closestMatches:"Closest available matches",useDistrictCapital:"Use district capital",selectedPlace:"Selected",
     skip:"Skip to trip builder",allApps:"All apps",savedTrips:"Saved trips",kicker:"Portugal · zero-plan adventures",heroTitle:"Stop planning.",heroEmphasis:"Start wandering.",heroCopy:"Choose the mood. Set your radius. Let the road decide the rest.",noAccount:"No account",noMapKey:"No paid map key",localOnly:"Saved locally",buildKicker:"Build the possibility",builderTitle:"What kind of escape?",builderIntro:"Distances and drive times are useful estimates. Open the route for exact live directions, traffic, tolls, and closures.",startFrom:"Start from",district:"District",locality:"City, town or village",whyThisTrip:"Why this trip",source:"Inspiration source",howFar:"How far?",nearby:"Nearby",dayTrip:"Day trip",weekend:"Weekend",mood:"Pick a mood",surprise:"Surprise",coast:"Coast",nature:"Nature",history:"History",food:"Food",viewpoint:"Viewpoint",spin:"Spin the road",roughRoute:"Your rough route",mapDisclaimer:"A playful visual—not a turn-by-turn map.",todayDetour:"Today’s detour",distance:"Approx. distance",driveTime:"Approx. drive",direction:"Direction",oneWay:"one way",miniPlan:"Your three-stop mini plan",makeItYours:"Make it yours",openInMaps:"Open in Google Maps",spinAgain:"Spin again",saveTrip:"Save trip",saved:"Saved ✓",openDirections:"Open exact directions",routeNote:"Google Maps provides the exact road route. Check traffic, tolls, weather, access restrictions, and opening times before leaving.",glovebox:"Your glovebox",savedAdventures:"Saved adventures",clearSaved:"Clear saved",openSaved:"Show saved trips",closeSaved:"Hide saved trips",emptySaved:"Nothing saved yet. Spin a trip and keep the ones that feel right.",honestByDesign:"Honest by design",howTitle:"A spark, then the real map.",stepOneTitle:"Pick a possibility",stepOneCopy:"The app draws from official tourism, independent travel guides, and community tips that match your range and mood.",stepTwoTitle:"See the shape of it",stepTwoCopy:"Distance, duration and direction are approximate, so the surprise works without tracking you.",stepThreeTitle:"Open the real road",stepThreeCopy:"When the idea feels right, open Google Maps for the current route and road conditions.",footer:"Made for spontaneous Portuguese roads.",tests:"App tests",from:"From",towards:"towards",sourceTypes:{official:"Official tourism",independent:"Independent guide",community:"Community tip"},directions:{N:"North",NE:"Northeast",E:"East",SE:"Southeast",S:"South",SW:"Southwest",W:"West",NW:"Northwest"}
   },
   pt: {
+    searchLocality:"Pesquise ou escolha um local",placesAvailable:"locais disponíveis",closestMatches:"Opções com o nome mais próximo",useDistrictCapital:"Usar capital de distrito",selectedPlace:"Selecionado",
     skip:"Ir para o gerador de viagens",allApps:"Todas as aplicações",savedTrips:"Viagens guardadas",kicker:"Portugal · aventuras sem planos",heroTitle:"Pare de planear.",heroEmphasis:"Comece a explorar.",heroCopy:"Escolha o ambiente. Defina a distância. Deixe a estrada decidir o resto.",noAccount:"Sem conta",noMapKey:"Sem mapas pagos",localOnly:"Guardado localmente",buildKicker:"Crie a possibilidade",builderTitle:"Que tipo de escapadinha?",builderIntro:"As distâncias e os tempos são estimativas úteis. Abra o percurso para obter direções, trânsito, portagens e condicionamentos atuais.",startFrom:"Partida",district:"Distrito",locality:"Cidade, vila ou aldeia",whyThisTrip:"Porquê esta viagem",source:"Fonte de inspiração",howFar:"Até onde?",nearby:"Perto",dayTrip:"Um dia",weekend:"Fim de semana",mood:"Escolha o ambiente",surprise:"Surpresa",coast:"Costa",nature:"Natureza",history:"História",food:"Comida",viewpoint:"Miradouro",spin:"Rodar a estrada",roughRoute:"O seu percurso aproximado",mapDisclaimer:"Uma visualização divertida—não é um mapa de navegação.",todayDetour:"O desvio de hoje",distance:"Distância aproximada",driveTime:"Tempo aproximado",direction:"Direção",oneWay:"só ida",miniPlan:"O seu mini plano de três paragens",makeItYours:"Adapte ao seu gosto",openInMaps:"Abrir no Google Maps",spinAgain:"Rodar novamente",saveTrip:"Guardar viagem",saved:"Guardada ✓",openDirections:"Abrir direções exatas",routeNote:"O Google Maps fornece o percurso rodoviário exato. Verifique trânsito, portagens, meteorologia, acessos e horários antes de partir.",glovebox:"O seu porta-luvas",savedAdventures:"Aventuras guardadas",clearSaved:"Limpar guardadas",openSaved:"Mostrar viagens guardadas",closeSaved:"Ocultar viagens guardadas",emptySaved:"Ainda não guardou nenhuma viagem. Rode uma sugestão e guarde as que lhe agradarem.",honestByDesign:"Honesta por natureza",howTitle:"Primeiro a ideia, depois o mapa real.",stepOneTitle:"Escolha uma possibilidade",stepOneCopy:"A aplicação sorteia sugestões de turismo oficial, guias de viagem independentes e comunidades que correspondem à distância e ao ambiente pretendidos.",stepTwoTitle:"Veja a forma da viagem",stepTwoCopy:"A distância, duração e direção são aproximadas, por isso a surpresa funciona sem o localizar.",stepThreeTitle:"Abra a estrada real",stepThreeCopy:"Quando a ideia parecer certa, abra o Google Maps para ver o percurso e as condições atuais.",footer:"Feita para estradas portuguesas espontâneas.",tests:"Testes da aplicação",from:"De",towards:"em direção a",sourceTypes:{official:"Turismo oficial",independent:"Guia independente",community:"Sugestão da comunidade"},directions:{N:"Norte",NE:"Nordeste",E:"Este",SE:"Sudeste",S:"Sul",SW:"Sudoeste",W:"Oeste",NW:"Noroeste"}
   }
 };
@@ -27,11 +29,13 @@ function translatePage() {
   document.documentElement.lang = language === "pt" ? "pt-PT" : "en";
   document.title = language === "pt" ? "Roleta de Viagens — EstrelaLuaApps" : "Road Trip Roulette — EstrelaLuaApps";
   $$('[data-i18n]').forEach((element) => { element.textContent = t(element.dataset.i18n); });
+  $$('[data-i18n-placeholder]').forEach((element) => { element.placeholder = t(element.dataset.i18nPlaceholder); });
   $$('[data-language]').forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
   try { localStorage.setItem(LANGUAGE_KEY, language); } catch {}
   if (currentDestination) renderTrip(currentDestination);
   renderSaved();
   updateSavedDisclosure();
+  if ($("#start-city-search")) updateLocalitySearch();
 }
 
 function populateDistricts(selectedId = "santarem") {
@@ -44,9 +48,46 @@ function populateLocalities(selectedId = "torres-novas") {
   const localities = starts.filter((start) => start.districtId === districtId);
   $("#start-city").innerHTML = localities.map((start) => `<option value="${start.id}">${start.name}</option>`).join("");
   $("#start-city").value = localities.some((start) => start.id === selectedId) ? selectedId : localities[0]?.id ?? "";
+  $("#start-city-options").innerHTML = [...localities].sort((a, b) => a.name.localeCompare(b.name, "pt-PT")).map((start) => `<option value="${start.name}"></option>`).join("");
+  $("#start-city-search").value = currentOrigin().name;
+  $("#locality-feedback").textContent = `${localities.length} ${t("placesAvailable")}`;
+  $("#locality-suggestions").replaceChildren();
 }
 
 function currentOrigin() { return starts.find((start) => start.id === $("#start-city").value) ?? starts[0]; }
+
+function chooseOrigin(start, shouldSpin = true) {
+  if (!start) return;
+  $("#start-district").value = start.districtId;
+  if (![...$("#start-city").options].some((option) => option.value === start.id)) populateLocalities(start.id);
+  $("#start-city").value = start.id;
+  $("#start-city-search").value = start.name;
+  $("#locality-feedback").textContent = `${t("selectedPlace")}: ${start.name}`;
+  $("#locality-suggestions").replaceChildren();
+  if (shouldSpin) spin();
+}
+
+function updateLocalitySearch() {
+  const query = $("#start-city-search").value.trim();
+  const districtId = $("#start-district").value;
+  const localities = starts.filter((start) => start.districtId === districtId);
+  const exact = localities.find((start) => normalizePlaceName(start.name) === normalizePlaceName(query));
+  if (exact) {
+    $("#start-city").value = exact.id;
+    $("#locality-feedback").textContent = `${t("selectedPlace")}: ${exact.name}`;
+    $("#locality-suggestions").replaceChildren();
+    return exact;
+  }
+  if (!query) {
+    $("#locality-feedback").textContent = `${localities.length} ${t("placesAvailable")}`;
+    $("#locality-suggestions").replaceChildren();
+    return null;
+  }
+  const suggestions = findStartMatches(districtId, query, 4);
+  $("#locality-feedback").textContent = t("closestMatches");
+  $("#locality-suggestions").innerHTML = suggestions.map((start) => `<button type="button" data-origin-id="${start.id}">${start.name}</button>`).join("") + (localities[0] ? `<button type="button" class="capital-fallback" data-origin-id="${localities[0].id}">${t("useDistrictCapital")}: ${localities[0].name}</button>` : "");
+  return null;
+}
 
 function mapPoint(place) {
   const x = 104 + ((place.lon + 9.55) / 3.45) * 190;
@@ -199,8 +240,10 @@ $("#saved-list").addEventListener("click", (event) => {
   const destination = destinations.find((item) => item.id === button.dataset.savedDestination); if (destination) renderTrip(destination);
   $("#trip-result").scrollIntoView({ behavior: "smooth", block: "start" });
 });
-$("#start-district").addEventListener("change", () => { populateLocalities(); spin(); });
-$("#start-city").addEventListener("change", spin);
+$("#start-district").addEventListener("change", () => { populateLocalities(""); spin(); });
+$("#start-city-search").addEventListener("input", updateLocalitySearch);
+$("#start-city-search").addEventListener("change", () => { const exact = updateLocalitySearch(); if (exact) chooseOrigin(exact); });
+$("#locality-suggestions").addEventListener("click", (event) => { const button = event.target.closest("[data-origin-id]"); if (button) chooseOrigin(starts.find((start) => start.id === button.dataset.originId)); });
 $$('[data-range]').forEach((button) => button.addEventListener("click", () => { maxDistance = Number(button.dataset.range); $$('[data-range]').forEach((item) => item.setAttribute("aria-pressed", String(item === button))); }));
 $$('[data-vibe]').forEach((button) => button.addEventListener("click", () => { vibe = button.dataset.vibe; $$('[data-vibe]').forEach((item) => item.setAttribute("aria-pressed", String(item === button))); }));
 $$('[data-language]').forEach((button) => button.addEventListener("click", () => { language = button.dataset.language; translatePage(); }));

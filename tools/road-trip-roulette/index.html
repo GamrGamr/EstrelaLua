@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#092f3d" />
     <title>Road Trip Roulette — EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
-    <link rel="stylesheet" href="roulette.css?v=6" />
-    <script type="module" src="roulette.js?v=12"></script>
+    <link rel="stylesheet" href="roulette.css?v=7" />
+    <script type="module" src="roulette.js?v=13"></script>
   </head>
   <body>
     <a class="skip-link" href="#trip-builder" data-i18n="skip">Skip to trip builder</a>
@@ -36,7 +36,14 @@
             <legend data-i18n="startFrom">Start from</legend>
             <div class="origin-fields">
               <label><span data-i18n="district">District</span><select id="start-district"></select></label>
-              <label><span data-i18n="locality">City, town or village</span><select id="start-city"></select></label>
+              <label class="locality-field">
+                <span data-i18n="locality">City, town or village</span>
+                <input id="start-city-search" type="search" list="start-city-options" autocomplete="off" spellcheck="false" data-i18n-placeholder="searchLocality" placeholder="Search or choose a place" />
+                <datalist id="start-city-options"></datalist>
+                <select id="start-city" hidden aria-hidden="true" tabindex="-1"></select>
+                <small id="locality-feedback" aria-live="polite"></small>
+                <div id="locality-suggestions" class="locality-suggestions" aria-live="polite"></div>
+              </label>
             </div>
           </fieldset>
           <fieldset class="control-block"><legend data-i18n="howFar">How far?</legend><div class="choice-row range-choices"><button type="button" data-range="90"><strong data-i18n="nearby">Nearby</strong><span>≤ 90 km</span></button><button type="button" data-range="180" aria-pressed="true"><strong data-i18n="dayTrip">Day trip</strong><span>≤ 180 km</span></button><button type="button" data-range="360"><strong data-i18n="weekend">Weekend</strong><span>≤ 360 km</span></button></div></fieldset>
