@@ -8,7 +8,7 @@
     <title>Road Trip Roulette — EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/favicon-32.ico" sizes="32x32" />
     <link rel="stylesheet" href="roulette.css?v=7" />
-    <script type="module" src="roulette.js?v=13"></script>
+    <script type="module" src="roulette.js?v=15"></script>
   </head>
   <body>
     <a class="skip-link" href="#trip-builder" data-i18n="skip">Skip to trip builder</a>
@@ -46,7 +46,18 @@
               </label>
             </div>
           </fieldset>
-          <fieldset class="control-block"><legend data-i18n="howFar">How far?</legend><div class="choice-row range-choices"><button type="button" data-range="90"><strong data-i18n="nearby">Nearby</strong><span>≤ 90 km</span></button><button type="button" data-range="180" aria-pressed="true"><strong data-i18n="dayTrip">Day trip</strong><span>≤ 180 km</span></button><button type="button" data-range="360"><strong data-i18n="weekend">Weekend</strong><span>≤ 360 km</span></button></div></fieldset>
+          <fieldset class="control-block range-block">
+            <legend data-i18n="howFar">How far?</legend>
+            <div class="range-mode-switch" role="group" aria-label="Range type" data-i18n-aria-label="rangeType">
+              <button type="button" data-range-mode="distance" aria-pressed="true" data-i18n="byDistance">Distance</button>
+              <button type="button" data-range-mode="duration" aria-pressed="false" data-i18n="byDuration">Approx. drive time</button>
+            </div>
+            <div class="choice-row range-choices">
+              <button type="button" data-range="90"><strong data-i18n="nearby">Nearby</strong><span data-range-label>≤ 90 km</span></button>
+              <button type="button" data-range="180" aria-pressed="true"><strong data-i18n="dayTrip">Day trip</strong><span data-range-label>≤ 180 km</span></button>
+              <button type="button" data-range="360"><strong data-i18n="weekend">Weekend</strong><span data-range-label>≤ 360 km</span></button>
+            </div>
+          </fieldset>
           <fieldset class="control-block vibe-block"><legend data-i18n="mood">Pick a mood</legend><div class="choice-row vibe-choices"><button type="button" data-vibe="surprise" aria-pressed="true">🎲 <span data-i18n="surprise">Surprise</span></button><button type="button" data-vibe="coast">🌊 <span data-i18n="coast">Coast</span></button><button type="button" data-vibe="nature">🌲 <span data-i18n="nature">Nature</span></button><button type="button" data-vibe="history">🏰 <span data-i18n="history">History</span></button><button type="button" data-vibe="food">🍴 <span data-i18n="food">Food</span></button><button type="button" data-vibe="viewpoint">🌅 <span data-i18n="viewpoint">Viewpoint</span></button></div></fieldset>
           <button id="spin-button" class="spin-button" type="button"><span data-i18n="spin">Spin the road</span><b aria-hidden="true">↗</b></button>
         </div>
