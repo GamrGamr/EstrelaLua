@@ -1,4 +1,4 @@
-import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=15";
+import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, localizeSourceMeta, localizeSourceUrl, normalizePlaceName, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=16";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -23,6 +23,11 @@ let rangeLimit = 180;
 let vibe = "surprise";
 let currentDestination = null;
 let previousDestinationId = "";
+const RANGE_BANDS = {
+  90: { min: 0, max: 90 },
+  180: { min: 90, max: 180 },
+  360: { min: 180, max: 360 },
+};
 
 const t = (key) => translations[language][key] ?? translations.en[key] ?? key;
 
@@ -116,11 +121,19 @@ function mapsSearchUrl(query, point) {
 }
 
 function rangeArguments() {
-  return rangeMode === "duration" ? { maxDuration: rangeLimit } : { maxDistance: rangeLimit };
+  const band = RANGE_BANDS[rangeLimit] ?? RANGE_BANDS[180];
+  return rangeMode === "duration"
+    ? { minDuration: band.min, maxDuration: band.max }
+    : { minDistance: band.min, maxDistance: band.max };
 }
 
 function rangeLimitText() {
-  return rangeMode === "duration" ? `${formatDuration(rangeLimit, language)} ${t("oneWay")}` : `${rangeLimit} km`;
+  const band = RANGE_BANDS[rangeLimit] ?? RANGE_BANDS[180];
+  if (rangeMode === "duration") {
+    const maximum = `${formatDuration(band.max, language)} ${t("oneWay")}`;
+    return band.min ? `> ${formatDuration(band.min, language)}–${maximum}` : `≤ ${maximum}`;
+  }
+  return band.min ? `> ${band.min}–${band.max} km` : `≤ ${band.max} km`;
 }
 
 function updateRangeControls() {
@@ -129,19 +142,32 @@ function updateRangeControls() {
     const value = Number(button.dataset.range);
     button.setAttribute("aria-pressed", String(value === rangeLimit));
     const label = $('[data-range-label]', button);
-    if (label) label.textContent = rangeMode === "duration" ? `≤ ${formatDuration(value, language)} ${t("oneWay")}` : `≤ ${value} km`;
+    if (label) {
+      const band = RANGE_BANDS[value];
+      if (rangeMode === "duration") {
+        const maximum = `${formatDuration(band.max, language)} ${t("oneWay")}`;
+        label.textContent = band.min ? `> ${formatDuration(band.min, language)}–${maximum}` : `≤ ${maximum}`;
+      } else {
+        label.textContent = band.min ? `> ${band.min}–${band.max} km` : `≤ ${band.max} km`;
+      }
+    }
   });
 }
 
-function recommendationReason(trip) {
-  const withinRange = rangeMode === "duration" ? trip.durationMinutes <= rangeLimit : trip.distanceKm <= rangeLimit;
-  const limit = rangeLimitText();
+function recommendationReason(destination, trip) {
+  const band = RANGE_BANDS[rangeLimit] ?? RANGE_BANDS[180];
+  const value = rangeMode === "duration" ? trip.durationMinutes : trip.distanceKm;
+  const withinRange = value > band.min && value <= band.max;
+  const range = rangeLimitText();
+  const matchesVibe = vibe === "surprise" || destination.vibes.includes(vibe);
   if (language === "pt") {
-    if (!withinRange) return vibe === "surprise" ? `Uma das opções variadas mais próximas quando nenhuma corresponde ao limite de ${limit}.` : `Uma das opções de ${t(vibe).toLowerCase()} mais próximas quando nenhuma corresponde ao limite de ${limit}.`;
-    return vibe === "surprise" ? `Cabe no seu limite de ≤ ${limit} e acrescenta variedade ao sorteio.` : `Corresponde ao tema ${t(vibe).toLowerCase()} e cabe no seu limite de ≤ ${limit}.`;
+    if (!withinRange) return `Esta viagem guardada ou partilhada fica fora do intervalo selecionado de ${range}.`;
+    if (!matchesVibe) return `Não havia uma opção de ${t(vibe).toLowerCase()} neste intervalo, por isso esta sugestão respeita ${range}.`;
+    return vibe === "surprise" ? `Respeita o intervalo de ${range} e acrescenta variedade ao sorteio.` : `Corresponde ao tema ${t(vibe).toLowerCase()} e respeita o intervalo de ${range}.`;
   }
-  if (!withinRange) return vibe === "surprise" ? `One of the closest varied options when nothing matches the ${limit} limit.` : `One of the closest ${t(vibe).toLowerCase()} options when nothing matches the ${limit} limit.`;
-  return vibe === "surprise" ? `Fits your ≤ ${limit} limit and adds variety to the draw.` : `Matches ${t(vibe).toLowerCase()} and fits your ≤ ${limit} limit.`;
+  if (!withinRange) return `This saved or shared trip falls outside the selected ${range} range.`;
+  if (!matchesVibe) return `No ${t(vibe).toLowerCase()} option was available in this band, so this suggestion stays within ${range}.`;
+  return vibe === "surprise" ? `Stays within ${range} and adds variety to the draw.` : `Matches ${t(vibe).toLowerCase()} and stays within ${range}.`;
 }
 
 function renderTrip(destination, updateUrl = true) {
@@ -154,7 +180,7 @@ function renderTrip(destination, updateUrl = true) {
   $("#destination-copy").textContent = destination.copy[language];
   const sourceType = localizeSourceMeta(destination.sourceType, language, "official");
   const sourceName = localizeSourceMeta(destination.sourceLabel, language, "Visit Portugal");
-  $("#match-reason").textContent = recommendationReason(trip);
+  $("#match-reason").textContent = recommendationReason(destination, trip);
   $("#source-type").textContent = `${t("source")} · ${translations[language].sourceTypes[sourceType]}`;
   $("#source-name").textContent = sourceName;
   $("#source-link").href = localizeSourceUrl(destination.source, language, destination.id);

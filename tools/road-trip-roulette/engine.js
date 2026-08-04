@@ -711,16 +711,19 @@ export function googlePlaceUrl(query, point, language = "en") {
   return `https://www.google.com/maps/search/?${params}`;
 }
 
-export function findCandidates({ origin, maxDistance = Infinity, maxDuration = Infinity, vibe = "surprise" }) {
-  const matching = destinations.map((destination) => ({ ...destination, trip: estimateTrip(origin, destination) }))
-    .filter((destination) => destination.trip.distanceKm >= 15 && (vibe === "surprise" || destination.vibes.includes(vibe)));
-  const withinRange = matching.filter((destination) => destination.trip.distanceKm <= maxDistance && destination.trip.durationMinutes <= maxDuration);
-  const sortByDuration = Number.isFinite(maxDuration) && !Number.isFinite(maxDistance);
-  return (withinRange.length ? withinRange : matching.sort((a, b) => sortByDuration ? a.trip.durationMinutes - b.trip.durationMinutes : a.trip.distanceKm - b.trip.distanceKm).slice(0, 5));
+export function findCandidates({ origin, minDistance = 0, maxDistance = Infinity, minDuration = 0, maxDuration = Infinity, vibe = "surprise" }) {
+  const withinRange = destinations.map((destination) => ({ ...destination, trip: estimateTrip(origin, destination) }))
+    .filter((destination) => destination.trip.distanceKm >= 15
+      && destination.trip.distanceKm > minDistance
+      && destination.trip.distanceKm <= maxDistance
+      && destination.trip.durationMinutes > minDuration
+      && destination.trip.durationMinutes <= maxDuration);
+  const matchingVibe = vibe === "surprise" ? withinRange : withinRange.filter((destination) => destination.vibes.includes(vibe));
+  return matchingVibe.length ? matchingVibe : withinRange;
 }
 
-export function pickDestination({ origin, maxDistance = Infinity, maxDuration = Infinity, vibe = "surprise", excludeId = "", random = Math.random }) {
-  const candidates = findCandidates({ origin, maxDistance, maxDuration, vibe });
+export function pickDestination({ origin, minDistance = 0, maxDistance = Infinity, minDuration = 0, maxDuration = Infinity, vibe = "surprise", excludeId = "", random = Math.random }) {
+  const candidates = findCandidates({ origin, minDistance, maxDistance, minDuration, maxDuration, vibe });
   const fresh = candidates.filter((destination) => destination.id !== excludeId);
   const pool = fresh.length ? fresh : candidates;
   return pool[Math.min(pool.length - 1, Math.floor(random() * pool.length))];
