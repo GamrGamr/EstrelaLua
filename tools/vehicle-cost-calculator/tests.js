@@ -1,4 +1,4 @@
-import { ValidationError, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=9";
+import { ValidationError, buildJourneySummary, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=10";
 import { CalculatorStorage } from "./storage.js?v=6";
 
 const results = [];
@@ -17,6 +17,8 @@ await test("LPG calculation", () => { const result = calculateJourney({ ...base,
 await test("Hybrid fuel calculation", () => { const result = calculateJourney({ ...base, energyType: "hybrid", fuelConsumption: 4.5 }); close(result.fuelQuantity, 4.5); });
 await test("Plug-in hybrid combines fuel and electricity", () => { const result = calculateJourney({ ...base, energyType: "plug-in-hybrid", fuelConsumption: 2, electricConsumption: 12, fuelPrice: 2, electricityPrice: .25 }); close(result.energyCost, 7); });
 await test("Electric calculation", () => { const result = calculateJourney({ ...base, energyType: "electric", electricConsumption: 18, electricityPrice: .25 }); close(result.electricQuantity, 18); close(result.electricityCost, 4.5); });
+await test("Copied summary includes fuel price", () => { const summary = buildJourneySummary({ name: "Test", vehicleName: "Test car" }, calculateJourney(base)); assert(summary.includes("Fuel price:") && summary.includes("/L")); });
+await test("Copied electric summary includes electricity price", () => { const result = calculateJourney({ ...base, energyType: "electric", electricConsumption: 18, electricityPrice: .25 }); const summary = buildJourneySummary({ name: "Test", vehicleName: "Test EV" }, result); assert(summary.includes("Electricity price:") && summary.includes("/kWh")); });
 await test("One-way journey", () => close(calculateJourney(base).totalDistance, 100));
 await test("Return journey", () => close(calculateJourney({ ...base, tripMultiplier: 2 }).totalDistance, 200));
 await test("Separate outbound and return tolls", () => { const result = calculateJourney({ ...base, outboundToll: 10, returnToll: 12 }); close(result.totalTolls, 22); });

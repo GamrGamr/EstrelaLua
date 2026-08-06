@@ -12,7 +12,7 @@ import {
   parseNumber,
   sanitiseDecimalInput,
   sanitiseIntegerInput,
-} from "./calculations.js?v=9";
+} from "./calculations.js?v=10";
 import { CalculatorStorage, StorageError } from "./storage.js?v=6";
 
 const $ = (selector, root = document) => root.querySelector(selector);
