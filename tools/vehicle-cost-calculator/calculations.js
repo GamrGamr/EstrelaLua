@@ -286,8 +286,8 @@ export function buildJourneySummary(journey, result) {
     `Consumption source: ${journey.consumptionSourceLabel || "Manual consumption"}`,
     "",
   ];
-  if (result.fuelQuantity) lines.push(`Fuel required: ${formatNumber(result.fuelQuantity)} L`, `Fuel cost: ${formatCurrency(result.fuelCost, result.currency)}`);
-  if (result.electricQuantity) lines.push(`Electricity required: ${formatNumber(result.electricQuantity)} kWh`, `Electricity cost: ${formatCurrency(result.electricityCost, result.currency)}`);
+  if (result.fuelQuantity) lines.push(`Fuel price: ${formatCurrency(result.fuelPrice, result.currency)}/L`, `Fuel required: ${formatNumber(result.fuelQuantity)} L`, `Fuel cost: ${formatCurrency(result.fuelCost, result.currency)}`);
+  if (result.electricQuantity) lines.push(`Electricity price: ${formatCurrency(result.electricityPrice, result.currency)}/kWh`, `Electricity required: ${formatNumber(result.electricQuantity)} kWh`, `Electricity cost: ${formatCurrency(result.electricityCost, result.currency)}`);
   lines.push(
     `Tolls: ${formatCurrency(result.totalTolls, result.currency)}`,
     `Ferry: ${formatCurrency(result.ferryCost, result.currency)}`,
