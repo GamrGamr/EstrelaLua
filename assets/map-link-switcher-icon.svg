@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Map Link Switcher</title>
+  <desc id="desc">A location pin connected to two map windows by directional arrows</desc>
+  <defs>
+    <linearGradient id="background" x1="35" y1="26" x2="219" y2="230" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#087daf"/>
+      <stop offset="1" stop-color="#063852"/>
+    </linearGradient>
+    <linearGradient id="route" x1="70" y1="159" x2="192" y2="93" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd166"/>
+      <stop offset="1" stop-color="#18b7ba"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="58" fill="url(#background)"/>
+  <path d="M43 75c0-10 8-18 18-18h56c10 0 18 8 18 18v101c0 10-8 18-18 18H61c-10 0-18-8-18-18V75Z" fill="#fff" opacity=".96"/>
+  <path d="M121 83c0-10 8-18 18-18h56c10 0 18 8 18 18v101c0 10-8 18-18 18h-56c-10 0-18-8-18-18V83Z" fill="#eafaf7" stroke="#8fe0d6" stroke-width="5"/>
+  <path d="M62 94h55M62 116h40M62 157h35M141 103h51M141 160h51" fill="none" stroke="#b9d9dc" stroke-linecap="round" stroke-width="9"/>
+  <path d="M83 170c11-35 39-59 77-65" fill="none" stroke="url(#route)" stroke-linecap="round" stroke-width="13"/>
+  <path d="m153 91 23 11-18 18" fill="none" stroke="#18b7ba" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+  <path d="M112 92c0 22-27 48-27 48S58 114 58 92a27 27 0 1 1 54 0Z" fill="#f47b64" stroke="#fff" stroke-width="7"/>
+  <circle cx="85" cy="92" r="9" fill="#fff"/>
+</svg>
