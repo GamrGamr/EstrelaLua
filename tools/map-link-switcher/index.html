@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Open one destination in Google Maps, Waze, Apple Maps, Bing Maps, or OpenStreetMap." />
+    <meta name="theme-color" content="#063852" />
+    <title>Map Link Switcher &mdash; EstrelaLuaApps</title>
+    <link rel="icon" href="../../assets/map-link-switcher-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="switcher.css?v=1" />
+    <script type="module" src="switcher.js?v=1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#switcher">Skip to converter</a>
+    <header class="switcher-header">
+      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
+      <nav aria-label="App navigation"><a href="../../apps.html">All apps</a><a href="../../apps/map-link-switcher.html">About</a></nav>
+    </header>
+
+    <main id="switcher">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="kicker">Map link converter</p>
+        <h1 id="page-title">One place.<br /><em>Any map.</em></h1>
+        <p>Paste a map link, address, place name, or coordinates. Choose where to open it.</p>
+      </section>
+
+      <form class="switcher-card" id="switcher-form" novalidate>
+        <div class="input-block">
+          <label for="destination-input">Paste a link or location</label>
+          <div class="paste-row">
+            <textarea id="destination-input" rows="3" spellcheck="false" autocomplete="off" placeholder="Google Maps link, address, place name, or 38.7223, -9.1393"></textarea>
+            <button type="button" class="paste-button" id="paste-button">Paste</button>
+          </div>
+          <p class="input-help">Full map links work best. Shortened links may hide the destination.</p>
+        </div>
+
+        <div class="status" id="parse-status" role="status" aria-live="polite">Paste a destination to begin.</div>
+
+        <fieldset id="provider-fieldset" disabled>
+          <legend>Choose a map app</legend>
+          <div class="provider-grid">
+            <label class="provider-option google"><input type="radio" name="provider" value="google" checked /><span class="provider-mark">G</span><span>Google Maps</span></label>
+            <label class="provider-option waze"><input type="radio" name="provider" value="waze" /><span class="provider-mark">W</span><span>Waze</span></label>
+            <label class="provider-option apple"><input type="radio" name="provider" value="apple" /><span class="provider-mark">A</span><span>Apple Maps</span></label>
+            <label class="provider-option bing"><input type="radio" name="provider" value="bing" /><span class="provider-mark">B</span><span>Bing Maps</span></label>
+            <label class="provider-option osm"><input type="radio" name="provider" value="osm" /><span class="provider-mark">O</span><span>OpenStreetMap</span></label>
+          </div>
+        </fieldset>
+
+        <a class="open-button is-disabled" id="open-button" aria-disabled="true">Open destination <span aria-hidden="true">&rarr;</span></a>
+        <p class="privacy-note">Processed only in this browser. Nothing is uploaded or saved.</p>
+      </form>
+    </main>
+
+    <footer><span>Map Link Switcher &middot; EstrelaLuaApps&trade;</span><a href="../../legal.html">Trademark &amp; copyright</a></footer>
+  </body>
+</html>

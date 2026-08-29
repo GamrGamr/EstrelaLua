@@ -44,6 +44,10 @@ A private browser-based household electricity calculator. Enter energy and daily
 
 An interactive Portugal road-trip idea generator with more than 60 destinations researched across official tourism pages, independent travel guides, and community recommendations. Choose a starting district and locality, distance range, and travel mood—or leave the choices to chance—to receive a sourced destination, approximate distance and duration, compass direction, map preview, and three-stop mini itinerary. Trips can be saved locally, shared with a link, or opened in Google Maps for exact road directions.
 
+### Map Link Switcher
+
+A private browser-based navigation link converter. Paste a supported full map link, place name, address, or coordinates, then open the destination in Google Maps, Waze, Apple Maps, Bing Maps, or OpenStreetMap. Parsing happens only in the current browser and the app does not store a history.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
@@ -58,6 +62,7 @@ This repository contains the public website and its browser-based calculators. E
 - `tools/vehicle-cost-calculator/` - Browser calculator, calculation and storage modules, and tests
 - `tools/home-energy-calculator/` - Household electricity calculator, calculation module, and tests
 - `tools/road-trip-roulette/` - Interactive trip generator, curated destination data, route engine, and browser tests
+- `tools/map-link-switcher/` - Local map-link parser, provider URL generator, minimal interface, and browser tests
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
@@ -66,4 +71,4 @@ This repository contains the public website and its browser-based calculators. E
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions.
+The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open.
