@@ -1,5 +1,9 @@
 import { timerRecords } from "./timer-data.js";
 
+const STORAGE_KEY = "gtaOnlineTimerTracker.v1";
+const nonCountdownTypes = new Set(["Daily reset", "Weekly reset", "Variable gate"]);
+const recordsById = new Map(timerRecords.map((record) => [record.id, record]));
+
 const elements = {
   results: document.querySelector("#timer-results"),
   empty: document.querySelector("#empty-state"),
@@ -14,7 +18,11 @@ const elements = {
   visibleCount: document.querySelector("#visible-count"),
   recordCount: document.querySelector("#record-count"),
   categoryCount: document.querySelector("#category-count"),
-  officialCount: document.querySelector("#official-count")
+  officialCount: document.querySelector("#official-count"),
+  trackerDock: document.querySelector("#tracker-dock"),
+  runningTimers: document.querySelector("#running-timers"),
+  activeTimerSummary: document.querySelector("#active-timer-summary"),
+  clearFinished: document.querySelector("#clear-finished")
 };
 
 const evidenceLabels = {
@@ -45,6 +53,33 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function loadTimers() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (!Array.isArray(stored)) return [];
+    return stored.filter((timer) => {
+      return timer
+        && recordsById.has(timer.recordId)
+        && Number.isFinite(timer.startedAt)
+        && Number.isFinite(timer.endsAt)
+        && Number.isFinite(timer.durationMinutes)
+        && timer.durationMinutes > 0;
+    });
+  } catch {
+    return [];
+  }
+}
+
+let activeTimers = loadTimers();
+
+function saveTimers() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(activeTimers));
+  } catch {
+    // The countdown continues for this page session when storage is unavailable.
+  }
+}
+
 function populateSelect(select, values) {
   values.forEach((value) => {
     const option = document.createElement("option");
@@ -59,6 +94,49 @@ function sourceMarkup(sources) {
     const suffix = sources.length > 1 ? ` ${index + 1}` : "";
     return `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}${suffix} <span aria-hidden="true">↗</span></a>`;
   }).join("");
+}
+
+function canTrack(record) {
+  return Number.isFinite(record.minMinutes)
+    && record.minMinutes > 0
+    && !nonCountdownTypes.has(record.timerType)
+    && !record.duration.toLowerCase().includes("no normal fixed cooldown");
+}
+
+function existingTimer(recordId) {
+  return activeTimers.find((timer) => timer.recordId === recordId);
+}
+
+function timerButtonLabel(recordId) {
+  const timer = existingTimer(recordId);
+  if (!timer) return "Start timer";
+  return timer.endsAt <= Date.now() ? "Start again" : "Restart timer";
+}
+
+function timerControlMarkup(record) {
+  if (!canTrack(record)) {
+    return `
+      <div class="timer-launch timer-launch-unavailable">
+        <div><span class="timer-launch-label">Reference only</span><p>This entry does not have one dependable start-to-finish countdown.</p></div>
+      </div>`;
+  }
+
+  const hasAlternatives = /–|\/|about/i.test(record.duration);
+  const hint = hasAlternatives
+    ? "The shortest listed value is prefilled. Adjust it for your crew, upgrades, or condition."
+    : "The verified duration is prefilled, and you can adjust it before starting.";
+
+  return `
+    <div class="timer-launch">
+      <div class="timer-launch-copy">
+        <span class="timer-launch-label">Track this timer</span>
+        <p>${escapeHtml(hint)}</p>
+      </div>
+      <label class="timer-duration-input" for="duration-${escapeHtml(record.id)}">Minutes
+        <input id="duration-${escapeHtml(record.id)}" data-duration-for="${escapeHtml(record.id)}" type="number" min="0.1" max="10080" step="0.5" value="${escapeHtml(record.minMinutes)}" inputmode="decimal" required />
+      </label>
+      <button class="start-timer-button" type="button" data-start-timer="${escapeHtml(record.id)}">${timerButtonLabel(record.id)}</button>
+    </div>`;
 }
 
 function recordMarkup(record) {
@@ -86,6 +164,7 @@ function recordMarkup(record) {
           <div><dt>Can I do something else?</dt><dd>${escapeHtml(record.parallelLabel)}</dd></div>
           <div><dt>Conditions and exceptions</dt><dd>${escapeHtml(record.conditions)}</dd></div>
         </dl>
+        ${timerControlMarkup(record)}
         <div class="source-row">
           <div><span class="evidence-pill ${escapeHtml(record.evidence)}">${escapeHtml(evidenceLabels[record.evidence])}</span><div class="source-links">${sourceMarkup(record.sources)}</div></div>
           <span class="verified">Verified ${escapeHtml(record.verified)}</span>
@@ -163,6 +242,121 @@ function resetFilters() {
   elements.search.focus();
 }
 
+function formatDurationLabel(minutes) {
+  if (minutes < 1) return `${Math.round(minutes * 60)} sec`;
+  if (minutes < 60) return `${Number.isInteger(minutes) ? minutes : minutes.toFixed(1)} min`;
+  const hours = Math.floor(minutes / 60);
+  const remainder = Math.round(minutes % 60);
+  return remainder ? `${hours} hr ${remainder} min` : `${hours} hr`;
+}
+
+function formatCountdown(milliseconds) {
+  if (milliseconds <= 0) return "Ready now";
+  const totalSeconds = Math.ceil(milliseconds / 1000);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const time = [hours, minutes, seconds].map((value) => String(value).padStart(2, "0")).join(":");
+  return days ? `${days}d ${time}` : time;
+}
+
+function trackerItemMarkup(timer) {
+  const record = recordsById.get(timer.recordId);
+  const remaining = Math.max(0, timer.endsAt - Date.now());
+  const isReady = remaining === 0;
+  const progress = Math.max(0, Math.min(100, (remaining / (timer.durationMinutes * 60000)) * 100));
+  return `
+    <article class="running-timer${isReady ? " is-ready" : ""}" data-running-timer="${escapeHtml(timer.recordId)}">
+      <div class="running-timer-topline">
+        <span>${escapeHtml(record.category)}</span>
+        <strong data-timer-status>${isReady ? "Ready" : "Running"}</strong>
+      </div>
+      <h3>${escapeHtml(record.activity)}</h3>
+      <p class="countdown" data-countdown>${formatCountdown(remaining)}</p>
+      <div class="countdown-progress" aria-hidden="true"><span data-progress style="width:${progress.toFixed(2)}%"></span></div>
+      <div class="running-timer-footer">
+        <span>${escapeHtml(formatDurationLabel(timer.durationMinutes))}</span>
+        <div>
+          <button type="button" data-timer-action="reset" data-record-id="${escapeHtml(timer.recordId)}" aria-label="Reset ${escapeHtml(record.activity)} timer">Reset</button>
+          <button type="button" data-timer-action="remove" data-record-id="${escapeHtml(timer.recordId)}" aria-label="Remove ${escapeHtml(record.activity)} timer">Remove</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+function updateRecordButtons() {
+  document.querySelectorAll("[data-start-timer]").forEach((button) => {
+    button.textContent = timerButtonLabel(button.dataset.startTimer);
+  });
+}
+
+function tickTimers() {
+  const now = Date.now();
+  let running = 0;
+  let ready = 0;
+
+  elements.runningTimers.querySelectorAll("[data-running-timer]").forEach((item) => {
+    const timer = existingTimer(item.dataset.runningTimer);
+    if (!timer) return;
+    const remaining = Math.max(0, timer.endsAt - now);
+    const isReady = remaining === 0;
+    const progress = Math.max(0, Math.min(100, (remaining / (timer.durationMinutes * 60000)) * 100));
+    item.classList.toggle("is-ready", isReady);
+    item.querySelector("[data-countdown]").textContent = formatCountdown(remaining);
+    item.querySelector("[data-timer-status]").textContent = isReady ? "Ready" : "Running";
+    item.querySelector("[data-progress]").style.width = `${progress}%`;
+    if (isReady) ready += 1;
+    else running += 1;
+  });
+
+  const parts = [];
+  if (running) parts.push(`${running} running`);
+  if (ready) parts.push(`${ready} ready`);
+  elements.activeTimerSummary.textContent = parts.join(" · ");
+  elements.clearFinished.disabled = ready === 0;
+  updateRecordButtons();
+}
+
+function renderTracker() {
+  activeTimers.sort((a, b) => a.endsAt - b.endsAt);
+  elements.trackerDock.hidden = activeTimers.length === 0;
+  elements.runningTimers.innerHTML = activeTimers.map(trackerItemMarkup).join("");
+  tickTimers();
+}
+
+function startTimer(recordId, durationMinutes) {
+  const record = recordsById.get(recordId);
+  if (!record || !canTrack(record) || !Number.isFinite(durationMinutes) || durationMinutes <= 0) return;
+  const now = Date.now();
+  const timer = {
+    recordId,
+    durationMinutes,
+    startedAt: now,
+    endsAt: now + (durationMinutes * 60000)
+  };
+  activeTimers = activeTimers.filter((item) => item.recordId !== recordId);
+  activeTimers.push(timer);
+  saveTimers();
+  renderTracker();
+}
+
+function resetTimer(recordId) {
+  const timer = existingTimer(recordId);
+  if (!timer) return;
+  const now = Date.now();
+  timer.startedAt = now;
+  timer.endsAt = now + (timer.durationMinutes * 60000);
+  saveTimers();
+  renderTracker();
+}
+
+function removeTimer(recordId) {
+  activeTimers = activeTimers.filter((timer) => timer.recordId !== recordId);
+  saveTimers();
+  renderTracker();
+}
+
 const categories = [...new Set(timerRecords.map((record) => record.category))].sort();
 const timerTypes = [...new Set(timerRecords.map((record) => record.timerType))].sort();
 populateSelect(elements.category, categories);
@@ -176,4 +370,29 @@ elements.officialCount.textContent = timerRecords.filter((record) => record.evid
 });
 elements.reset.addEventListener("click", resetFilters);
 
+elements.results.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-start-timer]");
+  if (!button) return;
+  const input = elements.results.querySelector(`[data-duration-for="${CSS.escape(button.dataset.startTimer)}"]`);
+  const durationMinutes = Number(input?.value);
+  if (!input || !input.reportValidity() || !Number.isFinite(durationMinutes) || durationMinutes <= 0) return;
+  startTimer(button.dataset.startTimer, durationMinutes);
+});
+
+elements.runningTimers.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-timer-action]");
+  if (!button) return;
+  if (button.dataset.timerAction === "reset") resetTimer(button.dataset.recordId);
+  if (button.dataset.timerAction === "remove") removeTimer(button.dataset.recordId);
+});
+
+elements.clearFinished.addEventListener("click", () => {
+  const now = Date.now();
+  activeTimers = activeTimers.filter((timer) => timer.endsAt > now);
+  saveTimers();
+  renderTracker();
+});
+
 render();
+renderTracker();
+setInterval(tickTimers, 1000);
