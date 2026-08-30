@@ -133,7 +133,7 @@ function timerControlMarkup(record) {
         <p>${escapeHtml(hint)}</p>
       </div>
       <label class="timer-duration-input" for="duration-${escapeHtml(record.id)}">Minutes
-        <input id="duration-${escapeHtml(record.id)}" data-duration-for="${escapeHtml(record.id)}" type="number" min="0.1" max="10080" step="0.5" value="${escapeHtml(record.minMinutes)}" inputmode="decimal" required />
+        <input id="duration-${escapeHtml(record.id)}" data-duration-for="${escapeHtml(record.id)}" type="number" min="0.1" max="10080" step="any" value="${escapeHtml(record.minMinutes)}" inputmode="decimal" required />
       </label>
       <button class="start-timer-button" type="button" data-start-timer="${escapeHtml(record.id)}">${timerButtonLabel(record.id)}</button>
     </div>`;
