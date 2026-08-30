@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">GTA Online Timer Reference</title>
+  <rect width="128" height="128" rx="28" fill="#10151c"/>
+  <path d="M46 18h36v12H46z" fill="#f2f4ee"/>
+  <path d="M64 31a40 40 0 1 0 40 40 40 40 0 0 0-40-40Zm0 68a28 28 0 1 1 28-28 28 28 0 0 1-28 28Z" fill="#f2f4ee"/>
+  <path d="M64 47v25l18 11" fill="none" stroke="#62d84e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="64" cy="71" r="6" fill="#ffca2f"/>
+  <path d="M91 35l9-9 9 9-9 9z" fill="#ff4fa3"/>
+</svg>
