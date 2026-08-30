@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#10151c" />
     <title>GTA Online Timer Reference &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/gta-online-timer-icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="timer-reference.css?v=1" />
-    <script type="module" src="timer-reference.js?v=1"></script>
+    <link rel="stylesheet" href="timer-reference.css?v=2" />
+    <script type="module" src="timer-reference.js?v=2"></script>
   </head>
   <body>
     <a class="skip-link" href="#timer-results">Skip to timers</a>
@@ -17,12 +17,28 @@
       <nav aria-label="App navigation"><a href="../../apps.html">All apps</a><a href="../../apps/gta-online-timers.html">About</a></nav>
     </header>
 
+    <section id="tracker-dock" class="tracker-dock" aria-labelledby="tracker-title" hidden>
+      <div class="tracker-shell">
+        <div class="tracker-heading">
+          <div>
+            <p class="section-label">Live tracker</p>
+            <h2 id="tracker-title">Active timers</h2>
+          </div>
+          <div class="tracker-heading-actions">
+            <span id="active-timer-summary" aria-live="polite"></span>
+            <button type="button" id="clear-finished">Clear finished</button>
+          </div>
+        </div>
+        <div id="running-timers" class="running-timers"></div>
+      </div>
+    </section>
+
     <main>
       <section class="intro" aria-labelledby="page-title">
         <div>
           <p class="kicker">Unofficial player reference &middot; verified 30 Aug 2026</p>
           <h1 id="page-title">Know what is<br /><em>ready next.</em></h1>
-          <p class="intro-copy">Search cooldowns, mission clocks, production cycles, deliveries, and resets across GTA Online.</p>
+          <p class="intro-copy">Search cooldowns, mission clocks, production cycles, deliveries, and resets across GTA Online. Start a timer on any fixed-duration record and keep playing while it counts down.</p>
         </div>
         <div class="evidence-key" aria-label="Evidence labels">
           <p><span class="evidence-dot official"></span><strong>Official</strong> Rockstar publishes the rule.</p>
