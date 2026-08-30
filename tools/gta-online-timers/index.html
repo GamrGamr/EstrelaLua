@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#10151c" />
     <title>GTA Online Timer Reference &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/gta-online-timer-icon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="timer-reference.css?v=2" />
-    <script type="module" src="timer-reference.js?v=3"></script>
+    <link rel="stylesheet" href="timer-reference.css?v=4" />
+    <script type="module" src="timer-reference.js?v=4"></script>
   </head>
   <body>
     <a class="skip-link" href="#timer-results">Skip to timers</a>
@@ -27,6 +27,7 @@
           <div class="tracker-heading-actions">
             <span id="active-timer-summary" aria-live="polite"></span>
             <button type="button" id="clear-finished">Clear finished</button>
+            <button type="button" id="toggle-tracker" class="tracker-toggle" aria-expanded="true" aria-controls="running-timers"><span data-toggle-label>Show less</span><span class="tracker-chevron" aria-hidden="true">&#9650;</span></button>
           </div>
         </div>
         <div id="running-timers" class="running-timers"></div>

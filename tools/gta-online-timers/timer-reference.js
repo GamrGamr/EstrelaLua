@@ -1,6 +1,7 @@
 import { timerRecords } from "./timer-data.js";
 
 const STORAGE_KEY = "gtaOnlineTimerTracker.v1";
+const TRACKER_COLLAPSED_KEY = "gtaOnlineTimerTrackerCollapsed.v1";
 const nonCountdownTypes = new Set(["Daily reset", "Weekly reset", "Variable gate"]);
 const recordsById = new Map(timerRecords.map((record) => [record.id, record]));
 
@@ -22,7 +23,8 @@ const elements = {
   trackerDock: document.querySelector("#tracker-dock"),
   runningTimers: document.querySelector("#running-timers"),
   activeTimerSummary: document.querySelector("#active-timer-summary"),
-  clearFinished: document.querySelector("#clear-finished")
+  clearFinished: document.querySelector("#clear-finished"),
+  toggleTracker: document.querySelector("#toggle-tracker")
 };
 
 const evidenceLabels = {
@@ -71,6 +73,13 @@ function loadTimers() {
 }
 
 let activeTimers = loadTimers();
+let trackerCollapsed = false;
+
+try {
+  trackerCollapsed = localStorage.getItem(TRACKER_COLLAPSED_KEY) === "true";
+} catch {
+  trackerCollapsed = false;
+}
 
 function saveTimers() {
   try {
@@ -322,7 +331,24 @@ function renderTracker() {
   activeTimers.sort((a, b) => a.endsAt - b.endsAt);
   elements.trackerDock.hidden = activeTimers.length === 0;
   elements.runningTimers.innerHTML = activeTimers.map(trackerItemMarkup).join("");
+  applyTrackerDisplay();
   tickTimers();
+}
+
+function applyTrackerDisplay() {
+  elements.trackerDock.classList.toggle("is-collapsed", trackerCollapsed);
+  elements.toggleTracker.setAttribute("aria-expanded", String(!trackerCollapsed));
+  elements.toggleTracker.querySelector("[data-toggle-label]").textContent = trackerCollapsed ? "Show all" : "Show less";
+}
+
+function toggleTrackerDisplay() {
+  trackerCollapsed = !trackerCollapsed;
+  try {
+    localStorage.setItem(TRACKER_COLLAPSED_KEY, String(trackerCollapsed));
+  } catch {
+    // The preference still applies for this page session when storage is unavailable.
+  }
+  applyTrackerDisplay();
 }
 
 function startTimer(recordId, durationMinutes) {
@@ -392,6 +418,7 @@ elements.clearFinished.addEventListener("click", () => {
   saveTimers();
   renderTracker();
 });
+elements.toggleTracker.addEventListener("click", toggleTrackerDisplay);
 
 render();
 renderTracker();
