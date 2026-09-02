@@ -1,9 +1,10 @@
 import { ValidationError, calculateHomeEnergy, formatCurrency, formatNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=9";
+import { getLanguage, saveLanguage } from "../../assets/i18n-core.js";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const STORAGE_KEY = "estrelalua-home-energy-v3";
-const LANGUAGE_KEY = "estrelalua-home-energy-language";
+const APP_LANGUAGE_KEY = "estrelalua-home-energy-language";
 let nextRowId = 1;
 let calculateTimer = 0;
 let lastResult = null;
@@ -92,8 +93,12 @@ const translations = {
 };
 
 function storedLanguage() {
-  try { return localStorage.getItem(LANGUAGE_KEY) === "pt" ? "pt" : "en"; }
-  catch { return "en"; }
+  try {
+    const requested = new URLSearchParams(location.search).get("lang");
+    if (requested === "pt" || requested === "en") return requested;
+    const legacy = localStorage.getItem(APP_LANGUAGE_KEY);
+    return legacy === "pt" || legacy === "en" ? legacy : getLanguage();
+  } catch { return getLanguage(); }
 }
 
 let currentLanguage = storedLanguage();
@@ -140,7 +145,9 @@ function setLanguage(language, { persist = true } = {}) {
     if (!translatedResult) renderResult(lastResult);
   } else resetResults();
   if (persist) {
-    try { localStorage.setItem(LANGUAGE_KEY, currentLanguage); } catch {}
+    saveLanguage(currentLanguage);
+    try { localStorage.setItem(APP_LANGUAGE_KEY, currentLanguage); } catch {}
+    try { const url = new URL(location.href); url.searchParams.set("lang", currentLanguage); history.replaceState(null, "", url); } catch {}
   }
 }
 

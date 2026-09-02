@@ -256,14 +256,14 @@ export function formatCurrency(value, currency = "EUR", locale = globalThis.navi
   }
 }
 
-export function formatNumber(value, digits = 2) {
+export function formatNumber(value, digits = 2, locale = globalThis.navigator?.language) {
   const number = Number(value);
-  return Number.isFinite(number) ? number.toLocaleString(undefined, { maximumFractionDigits: digits }) : "—";
+  return Number.isFinite(number) ? number.toLocaleString(locale, { maximumFractionDigits: digits }) : "—";
 }
 
-export function formatDuration(seconds) {
+export function formatDuration(seconds, language = "en") {
   const value = Math.max(0, Math.round(Number(seconds) || 0));
-  if (!value) return "Not provided";
+  if (!value) return language === "pt" ? "Não indicada" : "Not provided";
   const hours = Math.floor(value / 3600);
   const minutes = Math.round((value % 3600) / 60);
   return [hours ? `${hours} h` : "", minutes ? `${minutes} min` : ""].filter(Boolean).join(" ");
@@ -273,28 +273,32 @@ export function makeId(prefix = "item") {
   return `${prefix}-${Date.now().toString(36)}-${crypto.getRandomValues(new Uint32Array(1))[0].toString(36)}`;
 }
 
-export function buildJourneySummary(journey, result) {
+export function buildJourneySummary(journey, result, language = "en") {
+  const pt = language === "pt";
+  const locale = pt ? "pt-PT" : "en-IE";
+  const currency = (value) => formatCurrency(value, result.currency, locale);
+  const number = (value, digits = 2) => formatNumber(value, digits, locale);
   const lines = [
-    "Vehicle Cost Calculator",
+    pt ? "Calculadora de Custos de Veículo" : "Vehicle Cost Calculator",
     "",
-    `Journey: ${journey.name || "Untitled journey"}`,
-    `Journey type: ${result.tripMultiplier === 2 ? "Return" : "One-way"}`,
-    `Distance: ${formatNumber(result.totalDistance, 2)} km`,
-    `Duration: ${formatDuration(result.durationSeconds)}`,
-    `Vehicle: ${journey.vehicleName || "Custom vehicle"}`,
-    `Consumption used: ${result.energyType === "electric" ? `${formatNumber(result.electricConsumption)} kWh/100 km` : `${formatNumber(result.fuelConsumption)} L/100 km`}`,
-    `Consumption source: ${journey.consumptionSourceLabel || "Manual consumption"}`,
+    `${pt ? "Viagem" : "Journey"}: ${journey.name || (pt ? "Viagem sem título" : "Untitled journey")}`,
+    `${pt ? "Tipo de viagem" : "Journey type"}: ${result.tripMultiplier === 2 ? (pt ? "Ida e volta" : "Return") : (pt ? "Só ida" : "One-way")}`,
+    `${pt ? "Distância" : "Distance"}: ${number(result.totalDistance, 2)} km`,
+    `${pt ? "Duração" : "Duration"}: ${formatDuration(result.durationSeconds, language)}`,
+    `${pt ? "Veículo" : "Vehicle"}: ${journey.vehicleName || (pt ? "Veículo personalizado" : "Custom vehicle")}`,
+    `${pt ? "Consumo utilizado" : "Consumption used"}: ${result.energyType === "electric" ? `${number(result.electricConsumption)} kWh/100 km` : `${number(result.fuelConsumption)} L/100 km`}`,
+    `${pt ? "Origem do consumo" : "Consumption source"}: ${journey.consumptionSourceLabel || (pt ? "Consumo manual" : "Manual consumption")}`,
     "",
   ];
-  if (result.fuelQuantity) lines.push(`Fuel price: ${formatCurrency(result.fuelPrice, result.currency)}/L`, `Fuel required: ${formatNumber(result.fuelQuantity)} L`, `Fuel cost: ${formatCurrency(result.fuelCost, result.currency)}`);
-  if (result.electricQuantity) lines.push(`Electricity price: ${formatCurrency(result.electricityPrice, result.currency)}/kWh`, `Electricity required: ${formatNumber(result.electricQuantity)} kWh`, `Electricity cost: ${formatCurrency(result.electricityCost, result.currency)}`);
+  if (result.fuelQuantity) lines.push(`${pt ? "Preço do combustível" : "Fuel price"}: ${currency(result.fuelPrice)}/L`, `${pt ? "Combustível necessário" : "Fuel required"}: ${number(result.fuelQuantity)} L`, `${pt ? "Custo do combustível" : "Fuel cost"}: ${currency(result.fuelCost)}`);
+  if (result.electricQuantity) lines.push(`${pt ? "Preço da eletricidade" : "Electricity price"}: ${currency(result.electricityPrice)}/kWh`, `${pt ? "Eletricidade necessária" : "Electricity required"}: ${number(result.electricQuantity)} kWh`, `${pt ? "Custo da eletricidade" : "Electricity cost"}: ${currency(result.electricityCost)}`);
   lines.push(
-    `Tolls: ${formatCurrency(result.totalTolls, result.currency)}`,
-    `Ferry: ${formatCurrency(result.ferryCost, result.currency)}`,
-    `Parking: ${formatCurrency(result.parkingCost, result.currency)}`,
-    `Maintenance: ${formatCurrency(result.maintenanceCost, result.currency)}`,
+    `${pt ? "Portagens" : "Tolls"}: ${currency(result.totalTolls)}`,
+    `Ferry: ${currency(result.ferryCost)}`,
+    `${pt ? "Estacionamento" : "Parking"}: ${currency(result.parkingCost)}`,
+    `${pt ? "Manutenção" : "Maintenance"}: ${currency(result.maintenanceCost)}`,
   );
-  result.customCosts.forEach((item) => lines.push(`${item.name}: ${formatCurrency(item.amount, result.currency)}`));
-  lines.push("", `Total: ${formatCurrency(result.totalCost, result.currency)}`, `Passengers: ${result.passengerCount}`, `Per passenger: ${formatCurrency(result.costPerPassenger, result.currency)}`);
+  result.customCosts.forEach((item) => lines.push(`${item.name}: ${currency(item.amount)}`));
+  lines.push("", `Total: ${currency(result.totalCost)}`, `${pt ? "Passageiros" : "Passengers"}: ${result.passengerCount}`, `${pt ? "Por passageiro" : "Per passenger"}: ${currency(result.costPerPassenger)}`);
   return lines.join("\n");
 }

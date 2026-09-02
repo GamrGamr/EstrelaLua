@@ -8,14 +8,14 @@
     <title>Road Trip Roulette — EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/road-trip-roulette-icon.ico" sizes="256x256" type="image/x-icon" />
     <link rel="stylesheet" href="roulette.css?v=11" />
-    <script type="module" src="roulette.js?v=23"></script>
+    <script type="module" src="roulette.js?v=24"></script>
   </head>
   <body>
     <a class="skip-link" href="#trip-builder" data-i18n="skip">Skip to trip builder</a>
     <header class="trip-header">
-      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
-      <nav aria-label="App navigation"><a href="../../apps.html" data-i18n="allApps">All apps</a></nav>
-      <div class="language-switch" role="group" aria-label="Language / Idioma"><button type="button" data-language="en" aria-pressed="true">EN</button><button type="button" data-language="pt" aria-pressed="false">PT</button></div>
+      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home" data-i18n-aria-label="home"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
+      <nav aria-label="App navigation" data-i18n-aria-label="appNavigation"><a href="../../apps.html" data-i18n="allApps">All apps</a></nav>
+      <div class="language-switch" role="group" aria-label="Language / Idioma"><button type="button" data-language="pt" aria-pressed="false">PT</button><button type="button" data-language="en" aria-pressed="true">EN</button></div>
     </header>
 
     <main>
@@ -66,7 +66,7 @@
       <section id="trip-result" class="result-shell" aria-live="polite">
         <div class="route-stage">
           <div class="map-topline"><span data-i18n="roughRoute">Your rough route</span><strong id="route-label">Lisboa → Óbidos</strong></div>
-          <svg id="portugal-map" viewBox="0 0 420 600" role="img" aria-label="Approximate route map of Portugal">
+          <svg id="portugal-map" viewBox="0 0 420 600" role="img" aria-label="Approximate route map of Portugal" data-i18n-aria-label="routeMap">
             <defs><linearGradient id="land" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dff5e8"/><stop offset="1" stop-color="#f8e6a7"/></linearGradient><filter id="routeGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
             <path class="country" d="M157 24 L250 18 L284 57 L277 99 L294 131 L278 173 L296 210 L279 255 L294 300 L266 345 L272 391 L245 435 L251 477 L218 531 L170 571 L119 558 L104 516 L112 474 L91 434 L105 391 L91 343 L110 299 L98 255 L119 212 L107 166 L129 123 L120 77 Z" />
             <path class="map-river" d="M113 306 C165 295 205 315 284 291"/><path class="map-river" d="M132 185 C174 204 217 180 281 189"/>
@@ -92,7 +92,7 @@
           </div>
           <div class="mini-plan guide-plan">
             <div class="plan-heading"><div><p class="kicker" data-i18n="choosePlanDepth">Choose your detail</p><h3 id="plan-title">Your three-stop mini plan</h3></div><span data-i18n="makeItYours">Make it yours</span></div>
-            <div class="plan-depth-switch" role="group" aria-label="Guide detail">
+            <div class="plan-depth-switch" role="group" aria-label="Guide detail" data-i18n-aria-label="guideDetail">
               <button type="button" data-guide-depth="mini" aria-pressed="true"><b data-i18n="mini">Mini</b><span data-i18n="miniHint">3 exact places</span></button>
               <button type="button" data-guide-depth="medium" aria-pressed="false"><b data-i18n="medium">Medium</b><span data-i18n="mediumHint">5 visits · 7 ideas</span></button>
               <button type="button" data-guide-depth="full" aria-pressed="false"><b data-i18n="fullGuide">Full guide</b><span data-i18n="fullHint">Adapts to the destination</span></button>

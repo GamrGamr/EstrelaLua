@@ -1,0 +1,43 @@
+.language-switch,
+.global-language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  border: 1px solid rgba(8, 125, 175, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 8px 24px rgba(6, 56, 82, 0.08);
+  flex: 0 0 auto;
+}
+
+.language-switch button,
+.global-language-switch button {
+  min-width: 2.35rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #315b68;
+  font: 800 0.74rem/1 system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.language-switch button[aria-pressed="true"],
+.global-language-switch button[aria-pressed="true"] {
+  background: #087daf;
+  color: #fff;
+}
+
+.language-switch button:focus-visible,
+.global-language-switch button:focus-visible {
+  outline: 3px solid rgba(247, 177, 33, 0.75);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .language-switch button,
+  .global-language-switch button { transition: background-color 160ms ease, color 160ms ease; }
+}

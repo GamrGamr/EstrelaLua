@@ -1,9 +1,10 @@
 import { destinations, displayEmoji, districts, estimateTrip, findStartMatches, formatDuration, googleDirectionsUrl, googlePlaceUrl, normalizePlaceName, originalSourceLabel, originalSourceUrl, pickDestination, starts, stopMapPoints, stopMapQueries } from "./engine.js?v=19";
 import { buildDestinationGuide, sourceLanguage } from "./guide-data.js?v=3";
+import { getLanguage, saveLanguage } from "../../assets/i18n-core.js";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-const LANGUAGE_KEY = "estrelalua-road-trip-language";
+const APP_LANGUAGE_KEY = "estrelalua-road-trip-language";
 const SAVED_KEY = "estrelalua-road-trip-saved-v1";
 const COMPLETED_KEY = "estrelalua-road-trip-completed-v1";
 
@@ -18,8 +19,24 @@ const translations = {
   }
 };
 
-let language = "en";
-try { language = localStorage.getItem(LANGUAGE_KEY) === "pt" ? "pt" : "en"; } catch {}
+Object.assign(translations.en, {
+  home: "EstrelaLuaApps home",
+  appNavigation: "App navigation",
+  routeMap: "Approximate route map of Portugal",
+  guideDetail: "Guide detail",
+});
+Object.assign(translations.pt, {
+  home: "Página inicial da EstrelaLuaApps",
+  appNavigation: "Navegação da aplicação",
+  routeMap: "Mapa aproximado do percurso em Portugal",
+  guideDetail: "Detalhe do guia",
+});
+
+let language = getLanguage();
+try {
+  const legacy = localStorage.getItem(APP_LANGUAGE_KEY);
+  if (legacy === "pt" || legacy === "en") language = legacy;
+} catch {}
 let rangeMode = "distance";
 let rangeLimit = 180;
 let vibe = "surprise";
@@ -41,7 +58,8 @@ function translatePage() {
   $$('[data-i18n-placeholder]').forEach((element) => { element.placeholder = t(element.dataset.i18nPlaceholder); });
   $$('[data-i18n-aria-label]').forEach((element) => { element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel)); });
   $$('[data-language]').forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.language === language)));
-  try { localStorage.setItem(LANGUAGE_KEY, language); } catch {}
+  saveLanguage(language);
+  try { localStorage.setItem(APP_LANGUAGE_KEY, language); } catch {}
   if (currentDestination) renderTrip(currentDestination);
   updateRangeControls();
   renderSaved();
@@ -410,7 +428,7 @@ $$('[data-guide-depth]').forEach((button) => button.addEventListener("click", ()
   guideDepth = button.dataset.guideDepth;
   if (currentDestination) renderTrip(currentDestination);
 }));
-$$('[data-language]').forEach((button) => button.addEventListener("click", () => { language = button.dataset.language; translatePage(); }));
+$$('[data-language]').forEach((button) => button.addEventListener("click", () => { language = button.dataset.language; try { const url = new URL(location.href); url.searchParams.set("lang", language); history.replaceState(null, "", url); } catch {} translatePage(); }));
 
 populateDistricts();
 populateLocalities();

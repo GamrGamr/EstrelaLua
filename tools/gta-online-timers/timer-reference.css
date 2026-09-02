@@ -199,6 +199,7 @@ footer div { display: flex; gap: 18px; white-space: nowrap; }
   footer { flex-direction: column; }
 }
 @media (max-width: 520px) {
+  .brand > span { display: none; }
   .app-header nav a:last-child { display: none; }
   .summary-strip { grid-template-columns: 1fr; }
   .summary-strip div { border-right: 0; border-bottom: 1px solid var(--line); }

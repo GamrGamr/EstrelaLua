@@ -3,31 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Search sourced GTA Online cooldowns, production times, mission limits, deliveries, and resets." />
+    <meta name="description" content="Search sourced GTA Online cooldowns, production times, mission limits, deliveries, and resets." data-i18n-content="description" />
     <meta name="theme-color" content="#10151c" />
     <title>GTA Online Timer Reference &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/gta-online-timer-icon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="timer-reference.css?v=4" />
-    <script type="module" src="timer-reference.js?v=4"></script>
+    <link rel="stylesheet" href="../../assets/language-switch.css" />
+    <script type="module" src="timer-reference.js?v=5"></script>
   </head>
   <body>
-    <a class="skip-link" href="#timer-results">Skip to timers</a>
+    <a class="skip-link" href="#timer-results" data-i18n="skip">Skip to timers</a>
     <header class="app-header">
-      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
-      <nav aria-label="App navigation"><a href="../../apps.html">All apps</a><a href="../../apps/gta-online-timers.html">About</a></nav>
+      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home" data-i18n-aria-label="home"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
+      <nav aria-label="App navigation" data-i18n-aria-label="nav"><a href="../../apps.html" data-i18n="allApps">All apps</a><a href="../../apps/gta-online-timers.html" data-i18n="about">About</a></nav>
+      <div id="language-switch"></div>
     </header>
 
     <section id="tracker-dock" class="tracker-dock" aria-labelledby="tracker-title" hidden>
       <div class="tracker-shell">
         <div class="tracker-heading">
           <div>
-            <p class="section-label">Live tracker</p>
-            <h2 id="tracker-title">Active timers</h2>
+            <p class="section-label" data-i18n="liveTracker">Live tracker</p>
+            <h2 id="tracker-title" data-i18n="activeTimers">Active timers</h2>
           </div>
           <div class="tracker-heading-actions">
             <span id="active-timer-summary" aria-live="polite"></span>
-            <button type="button" id="clear-finished">Clear finished</button>
-            <button type="button" id="toggle-tracker" class="tracker-toggle" aria-expanded="true" aria-controls="running-timers"><span data-toggle-label>Show less</span><span class="tracker-chevron" aria-hidden="true">&#9650;</span></button>
+            <button type="button" id="clear-finished" data-i18n="clearFinished">Clear finished</button>
+            <button type="button" id="toggle-tracker" class="tracker-toggle" aria-expanded="true" aria-controls="running-timers"><span data-toggle-label data-i18n="showLess">Show less</span><span class="tracker-chevron" aria-hidden="true">&#9650;</span></button>
           </div>
         </div>
         <div id="running-timers" class="running-timers"></div>
@@ -37,52 +39,52 @@
     <main>
       <section class="intro" aria-labelledby="page-title">
         <div>
-          <p class="kicker">Unofficial player reference &middot; verified 30 Aug 2026</p>
-          <h1 id="page-title">Know what is<br /><em>ready next.</em></h1>
-          <p class="intro-copy">Search cooldowns, mission clocks, production cycles, deliveries, and resets across GTA Online. Start a timer on any fixed-duration record and keep playing while it counts down.</p>
+          <p class="kicker" data-i18n="kicker">Unofficial player reference &middot; verified 30 Aug 2026</p>
+          <h1 id="page-title"><span data-i18n="title">Know what is</span><br /><em data-i18n="titleEm">ready next.</em></h1>
+          <p class="intro-copy" data-i18n="intro">Search cooldowns, mission clocks, production cycles, deliveries, and resets across GTA Online. Start a timer on any fixed-duration record and keep playing while it counts down.</p>
         </div>
-        <div class="evidence-key" aria-label="Evidence labels">
-          <p><span class="evidence-dot official"></span><strong>Official</strong> Rockstar publishes the rule.</p>
-          <p><span class="evidence-dot crosschecked"></span><strong>Cross-checked</strong> Current specialist or wiki evidence.</p>
-          <p><span class="evidence-dot variable"></span><strong>Variable</strong> The game does not expose one fixed number.</p>
+        <div class="evidence-key" aria-label="Evidence labels" data-i18n-aria-label="evidenceLabels">
+          <p><span class="evidence-dot official"></span><strong data-i18n="official">Official</strong> <span data-i18n="officialCopy">Rockstar publishes the rule.</span></p>
+          <p><span class="evidence-dot crosschecked"></span><strong data-i18n="crosschecked">Cross-checked</strong> <span data-i18n="crosscheckedCopy">Current specialist or wiki evidence.</span></p>
+          <p><span class="evidence-dot variable"></span><strong data-i18n="variable">Variable</strong> <span data-i18n="variableCopy">The game does not expose one fixed number.</span></p>
         </div>
       </section>
 
-      <section class="summary-strip" aria-label="Database summary">
-        <div><strong id="record-count">0</strong><span>timer records</span></div>
-        <div><strong id="category-count">0</strong><span>business groups</span></div>
-        <div><strong id="official-count">0</strong><span>officially documented</span></div>
-        <div><strong>1.73</strong><span>current title update</span></div>
+      <section class="summary-strip" aria-label="Database summary" data-i18n-aria="databaseSummary">
+        <div><strong id="record-count">0</strong><span data-i18n="timerRecords">timer records</span></div>
+        <div><strong id="category-count">0</strong><span data-i18n="businessGroups">business groups</span></div>
+        <div><strong id="official-count">0</strong><span data-i18n="officiallyDocumented">officially documented</span></div>
+        <div><strong>1.73</strong><span data-i18n="currentUpdate">current title update</span></div>
       </section>
 
       <section class="workspace">
         <aside class="filters" aria-labelledby="filter-title">
-          <div class="filters-heading"><div><p class="section-label">Find a timer</p><h2 id="filter-title">Filter the database</h2></div><button type="button" id="reset-filters">Reset</button></div>
-          <label class="search-field" for="search-input"><span>Search</span><input id="search-input" type="search" placeholder="Try Cayo, Nightclub, supplies..." autocomplete="off" /></label>
+          <div class="filters-heading"><div><p class="section-label" data-i18n="findTimer">Find a timer</p><h2 id="filter-title" data-i18n="filterDatabase">Filter the database</h2></div><button type="button" id="reset-filters" data-i18n="reset">Reset</button></div>
+          <label class="search-field" for="search-input"><span data-i18n="search">Search</span><input id="search-input" type="search" placeholder="Try Cayo, Nightclub, supplies..." data-i18n-placeholder="searchPlaceholder" autocomplete="off" /></label>
           <div class="select-grid">
-            <label for="category-filter">Business or category<select id="category-filter"><option value="all">All categories</option></select></label>
-            <label for="type-filter">Timer type<select id="type-filter"><option value="all">All timer types</option></select></label>
-            <label for="scope-filter">Scope<select id="scope-filter"><option value="all">Any scope</option><option value="property">Property / business specific</option><option value="global">Global</option><option value="account">Character / account</option><option value="activity">Activity specific</option></select></label>
-            <label for="parallel-filter">Can I do something else?<select id="parallel-filter"><option value="all">Either</option><option value="yes">Yes</option><option value="limited">Limited</option><option value="no">No</option></select></label>
+            <label for="category-filter"><span data-i18n="businessCategory">Business or category</span><select id="category-filter"><option value="all" data-i18n="allCategories">All categories</option></select></label>
+            <label for="type-filter"><span data-i18n="timerType">Timer type</span><select id="type-filter"><option value="all" data-i18n="allTypes">All timer types</option></select></label>
+            <label for="scope-filter"><span data-i18n="scope">Scope</span><select id="scope-filter"><option value="all" data-i18n="anyScope">Any scope</option><option value="property" data-i18n="propertyScope">Property / business specific</option><option value="global" data-i18n="global">Global</option><option value="account" data-i18n="accountScope">Character / account</option><option value="activity" data-i18n="activityScope">Activity specific</option></select></label>
+            <label for="parallel-filter"><span data-i18n="somethingElse">Can I do something else?</span><select id="parallel-filter"><option value="all" data-i18n="either">Either</option><option value="yes" data-i18n="yes">Yes</option><option value="limited" data-i18n="limited">Limited</option><option value="no" data-i18n="no">No</option></select></label>
           </div>
-          <div class="filter-note"><strong>Important</strong><p>Event weeks, GTA+ benefits, platform changes, and later title updates can override normal values. Open the source and check the condition shown on each record.</p></div>
+          <div class="filter-note"><strong data-i18n="important">Important</strong><p data-i18n="importantCopy">Event weeks, GTA+ benefits, platform changes, and later title updates can override normal values. Open the source and check the condition shown on each record.</p></div>
         </aside>
 
         <div class="results-panel">
-          <div class="results-heading"><div><p class="section-label">Timer library</p><h2><span id="visible-count">0</span> matching records</h2></div><label for="sort-select">Sort<select id="sort-select"><option value="category">Category</option><option value="duration">Shortest first</option><option value="activity">Activity name</option><option value="verified">Recently verified</option></select></label></div>
+          <div class="results-heading"><div><p class="section-label" data-i18n="timerLibrary">Timer library</p><h2><span id="visible-count">0</span> <span data-i18n="matchingRecords">matching records</span></h2></div><label for="sort-select"><span data-i18n="sort">Sort</span><select id="sort-select"><option value="category" data-i18n="category">Category</option><option value="duration" data-i18n="shortest">Shortest first</option><option value="activity" data-i18n="activityName">Activity name</option><option value="verified" data-i18n="recentlyVerified">Recently verified</option></select></label></div>
           <div id="active-filters" class="active-filters" aria-live="polite"></div>
           <div id="timer-results" class="timer-results" aria-live="polite"></div>
-          <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">00:00</span><h3>No timer matches those filters.</h3><p>Reset the filters or try a broader search.</p></div>
+          <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">00:00</span><h3 data-i18n="noMatch">No timer matches those filters.</h3><p data-i18n="noMatchCopy">Reset the filters or try a broader search.</p></div>
         </div>
       </section>
 
       <section class="methodology" aria-labelledby="method-title">
-        <p class="section-label">How verification works</p>
-        <h2 id="method-title">Useful without pretending every number is official.</h2>
-        <div class="method-grid"><article><span>01</span><h3>Rockstar first</h3><p>Support articles, title update notes, and Newswire posts are used whenever Rockstar publishes the rule.</p></article><article><span>02</span><h3>Current cross-checks</h3><p>For hidden timers, the database uses current GTA Wiki pages and recent hands-on specialist guides rather than memory or old forum guesses.</p></article><article><span>03</span><h3>Uncertainty stays visible</h3><p>Random arrival checks, route-dependent limits, and call-gated reruns are labelled as variable instead of flattened into a false exact number.</p></article></div>
+        <p class="section-label" data-i18n="verification">How verification works</p>
+        <h2 id="method-title" data-i18n="methodTitle">Useful without pretending every number is official.</h2>
+        <div class="method-grid"><article><span>01</span><h3 data-i18n="rockstarFirst">Rockstar first</h3><p data-i18n="rockstarCopy">Support articles, title update notes, and Newswire posts are used whenever Rockstar publishes the rule.</p></article><article><span>02</span><h3 data-i18n="currentChecks">Current cross-checks</h3><p data-i18n="checksCopy">For hidden timers, the database uses current GTA Wiki pages and recent hands-on specialist guides rather than memory or old forum guesses.</p></article><article><span>03</span><h3 data-i18n="uncertainty">Uncertainty stays visible</h3><p data-i18n="uncertaintyCopy">Random arrival checks, route-dependent limits, and call-gated reruns are labelled as variable instead of flattened into a false exact number.</p></article></div>
       </section>
     </main>
 
-    <footer><p>Unofficial fan-made reference. Grand Theft Auto, GTA Online, Rockstar Games, and related marks belong to their respective owners.</p><div><a href="../../legal.html">Trademark &amp; copyright</a><a href="../../apps/gta-online-timers.html">About this app</a></div></footer>
+    <footer><p data-i18n="footer">Unofficial fan-made reference. Grand Theft Auto, GTA Online, Rockstar Games, and related marks belong to their respective owners.</p><div><a href="../../legal.html" data-i18n="legal">Trademark &amp; copyright</a><a href="../../apps/gta-online-timers.html" data-i18n="aboutApp">About this app</a></div></footer>
   </body>
 </html>

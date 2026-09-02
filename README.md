@@ -9,6 +9,7 @@ The website gives every app one clear home where visitors can:
 - Understand how it handles privacy and local data
 - Open the application's GitHub repository
 - Download the latest official release
+- Use the complete website and every browser app in Portuguese or English
 
 ## Apps featured on the website
 
@@ -42,7 +43,7 @@ A private browser-based household electricity calculator. Enter energy and daily
 
 ### Road Trip Roulette
 
-An interactive Portugal road-trip idea generator with more than 60 destinations researched across official tourism pages, independent travel guides, and community recommendations. Choose a starting district and locality, distance range, and travel mood—or leave the choices to chance—to receive a sourced destination, approximate distance and duration, compass direction, map preview, and three-stop mini itinerary. Trips can be saved locally, shared with a link, or opened in Google Maps for exact road directions.
+An interactive Portugal road-trip idea generator with 135 destinations and 283 starting localities researched across official tourism pages, independent travel guides, and community recommendations. Choose a starting district and locality, distance or travel-time range, and mood—or leave the choices to chance—to receive a sourced destination, approximate distance and duration, compass direction, map preview, and a Mini, Medium, or destination-aware Full guide. Trips can be saved, marked completed, shared with a link, or opened in Google Maps for exact road directions.
 
 ### Map Link Switcher
 
@@ -67,6 +68,7 @@ This repository contains the public website and its browser-based calculators. E
 - `index.html` - Main EstrelaLuaApps homepage and app collection
 - `apps/` - Dedicated information page for each application
 - `assets/` - Brand artwork, favicons, and official app icons
+- `assets/i18n-core.js` and `site-i18n.js` - Shared Portuguese/English preference, controls, and website translations
 - `tools/vehicle-cost-calculator/` - Browser calculator, calculation and storage modules, and tests
 - `tools/home-energy-calculator/` - Household electricity calculator, calculation module, and tests
 - `tools/road-trip-roulette/` - Interactive trip generator, curated destination data, route engine, and browser tests
@@ -76,9 +78,10 @@ This repository contains the public website and its browser-based calculators. E
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
+- `.audit/bilingual-audit.mjs` - Automated structural, catalogue, link-generation, and calculation checks for the bilingual release
 
 ## Hosting
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere. Partilha Justa stores names, incomes, expenses, and the selected split method only in the current browser.
+The shared Portuguese/English choice is remembered on the current device and can also be selected explicitly with `?lang=pt` or `?lang=en`. The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere. Partilha Justa stores names, incomes, expenses, and the selected split method only in the current browser.

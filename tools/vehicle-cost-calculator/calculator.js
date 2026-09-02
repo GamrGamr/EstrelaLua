@@ -3,10 +3,10 @@ import {
   buildJourneySummary,
   calculateFillUpConsumption,
   calculateJourney,
-  formatCurrency,
-  formatDuration,
+  formatCurrency as baseFormatCurrency,
+  formatDuration as baseFormatDuration,
   formatDurationInput,
-  formatNumber,
+  formatNumber as baseFormatNumber,
   makeId,
   parseDuration,
   parseNumber,
@@ -14,6 +14,7 @@ import {
   sanitiseIntegerInput,
 } from "./calculations.js?v=10";
 import { CalculatorStorage, StorageError } from "./storage.js?v=6";
+import { currentLanguage, initialiseVehicleLanguage, locale, tr } from "./vehicle-i18n.js";
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -28,6 +29,10 @@ const state = {
   pendingBackup: null,
   storageAvailable: true,
 };
+
+const formatCurrency = (value, currency = "EUR") => baseFormatCurrency(value, currency, locale());
+const formatNumber = (value, digits = 2) => baseFormatNumber(value, digits, locale());
+const formatDuration = (seconds) => baseFormatDuration(seconds, currentLanguage);
 
 function escapeHtml(value) {
   return String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[character]);
@@ -56,19 +61,37 @@ function clearValidation(scope) {
 function nativeValidationError(form) {
   const element = [...form.elements].find((control) => control.willValidate && !control.validity.valid && !control.closest("[hidden]"));
   if (!element) return null;
-  const label = form.querySelector(`label[for="${CSS.escape(element.id)}"]`)?.childNodes[0]?.textContent?.trim() || "This field";
-  let text = `${label} contains an invalid value.`;
-  if (element.validity.valueMissing) text = `${label} is required.`;
-  else if (element.validity.tooLong) text = `${label} is too long.`;
-  else if (element.validity.rangeUnderflow) text = `${label} must be at least ${element.min}.`;
-  else if (element.validity.rangeOverflow) text = `${label} cannot be greater than ${element.max}.`;
-  else if (element.validity.stepMismatch) text = `${label} must be a whole number.`;
-  else if (element.validity.patternMismatch) text = `${label} must use the requested format.`;
+  const label = form.querySelector(`label[for="${CSS.escape(element.id)}"]`)?.childNodes[0]?.textContent?.trim() || tr("This field", "Este campo");
+  let text = tr(`${label} contains an invalid value.`, `${label} contém um valor inválido.`);
+  if (element.validity.valueMissing) text = tr(`${label} is required.`, `${label} é obrigatório.`);
+  else if (element.validity.tooLong) text = tr(`${label} is too long.`, `${label} é demasiado longo.`);
+  else if (element.validity.rangeUnderflow) text = tr(`${label} must be at least ${element.min}.`, `${label} tem de ser pelo menos ${element.min}.`);
+  else if (element.validity.rangeOverflow) text = tr(`${label} cannot be greater than ${element.max}.`, `${label} não pode ser superior a ${element.max}.`);
+  else if (element.validity.stepMismatch) text = tr(`${label} must be a whole number.`, `${label} tem de ser um número inteiro.`);
+  else if (element.validity.patternMismatch) text = tr(`${label} must use the requested format.`, `${label} tem de utilizar o formato pedido.`);
   return new ValidationError(text, label, element.id);
 }
 
+function localiseValidationError(error) {
+  if (!(error instanceof ValidationError) || currentLanguage !== "pt") return error?.message || "";
+  const fieldMap = {
+    Value: "Valor", Duration: "Duração", "One-way distance": "Distância de ida", "Trip multiplier": "Multiplicador da viagem", "Passenger count": "Número de passageiros", "Total distance": "Distância total", "Electricity consumption": "Consumo de eletricidade", "Electricity price": "Preço da eletricidade", "Fuel consumption": "Consumo de combustível", "Fuel price": "Preço do combustível", Consumption: "Consumo", "Outbound toll": "Portagem de ida", "Return toll": "Portagem de regresso", "Ferry cost": "Custo do ferry", "Parking cost": "Custo do estacionamento", "Maintenance cost per kilometre": "Custo de manutenção por quilómetro", "Vehicle name": "Nome do veículo", Year: "Ano", "Manual fuel consumption": "Consumo manual de combustível", "Manual electric consumption": "Consumo elétrico manual", "Default passengers": "Passageiros predefinidos", Vehicle: "Veículo", Odometer: "Conta-quilómetros", "Trip distance": "Distância percorrida", "Odometer or trip distance": "Conta-quilómetros ou distância percorrida", "Litres added": "Litros adicionados", "Price per litre": "Preço por litro", "Total paid": "Total pago", Currency: "Moeda",
+  };
+  const field = fieldMap[error.field] || error.field || "O valor";
+  const message = error.message || "";
+  if (message.includes("must be a valid number")) return `${field} tem de ser um número válido.`;
+  if (message.includes("is required")) return `${field} é obrigatório.`;
+  const minimum = message.match(/must be at least ([^.]*)/); if (minimum) return `${field} tem de ser pelo menos ${minimum[1]}.`;
+  const maximum = message.match(/cannot be greater than ([^.]*)/); if (maximum) return `${field} não pode ser superior a ${maximum[1]}.`;
+  if (message.includes("must be a whole number")) return `${field} tem de ser um número inteiro.`;
+  if (message.includes("must use the format 01h30")) return `${field} tem de usar o formato 01h30. Os minutos têm de estar entre 00 e 59.`;
+  if (message === "Total distance must be greater than zero.") return "A distância total tem de ser superior a zero.";
+  if (message === "Enter fuel consumption, electricity consumption, or both.") return "Introduza o consumo de combustível, o consumo elétrico ou ambos.";
+  return message;
+}
+
 function showValidationError(error, { form, status, summary } = {}) {
-  const text = error instanceof ValidationError ? error.message : "Check the values and try again.";
+  const text = error instanceof ValidationError ? localiseValidationError(error) : tr("Check the values and try again.", "Verifique os valores e tente novamente.");
   if (status) message(status, text, "error");
   if (summary) {
     summary.textContent = text;
@@ -171,8 +194,8 @@ function renderVehicleSelectors() {
   const selected = value("vehicle-select");
   const fillSelected = value("fillup-vehicle");
   const active = state.vehicles.filter((vehicle) => !vehicle.archived);
-  $("#vehicle-select").innerHTML = `<option value="">Custom vehicle</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
-  $("#fillup-vehicle").innerHTML = `<option value="">Choose a saved vehicle</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
+  $("#vehicle-select").innerHTML = `<option value="">${tr("Custom vehicle", "Veículo personalizado")}</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
+  $("#fillup-vehicle").innerHTML = `<option value="">${tr("Choose a saved vehicle", "Escolha um veículo guardado")}</option>${active.map((vehicle) => `<option value="${escapeHtml(vehicle.id)}">${escapeHtml(vehicle.name)}</option>`).join("")}`;
   if (active.some((vehicle) => vehicle.id === selected)) $("#vehicle-select").value = selected;
   if (active.some((vehicle) => vehicle.id === fillSelected)) $("#fillup-vehicle").value = fillSelected;
 }
@@ -181,21 +204,21 @@ function renderVehicleList() {
   const container = $("#vehicle-list");
   if (!state.vehicles.length) {
     container.className = "card-list empty-state";
-    container.textContent = "No vehicles saved yet.";
+    container.textContent = tr("No vehicles saved yet.", "Ainda não existem veículos guardados.");
     return;
   }
   container.className = "card-list";
   container.innerHTML = state.vehicles.map((vehicle) => `
     <article class="item-card${vehicle.archived ? " archived" : ""}">
       <h3>${escapeHtml(vehicle.name)}</h3>
-      <p>${escapeHtml([vehicle.make, vehicle.model, vehicle.year].filter(Boolean).join(" ") || "Vehicle profile")}</p>
-      <p>${escapeHtml(vehicle.energyType)} &middot; ${formatNumber(vehicle.manualConsumption || vehicle.manualElectricConsumption || 0)} ${vehicle.energyType === "electric" ? "kWh/100 km" : "L/100 km"}${vehicle.archived ? " · Archived" : ""}</p>
+      <p>${escapeHtml([vehicle.make, vehicle.model, vehicle.year].filter(Boolean).join(" ") || tr("Vehicle profile", "Perfil do veículo"))}</p>
+      <p>${escapeHtml(vehicle.energyType)} &middot; ${formatNumber(vehicle.manualConsumption || vehicle.manualElectricConsumption || 0)} ${vehicle.energyType === "electric" ? "kWh/100 km" : "L/100 km"}${vehicle.archived ? tr(" · Archived", " · Arquivado") : ""}</p>
       <div class="item-actions">
-        <button type="button" data-vehicle-action="use" data-id="${escapeHtml(vehicle.id)}">Use</button>
-        <button type="button" data-vehicle-action="edit" data-id="${escapeHtml(vehicle.id)}">Edit</button>
-        <button type="button" data-vehicle-action="duplicate" data-id="${escapeHtml(vehicle.id)}">Duplicate</button>
-        <button type="button" data-vehicle-action="archive" data-id="${escapeHtml(vehicle.id)}">${vehicle.archived ? "Restore" : "Archive"}</button>
-        <button type="button" data-vehicle-action="delete" data-id="${escapeHtml(vehicle.id)}">Delete</button>
+        <button type="button" data-vehicle-action="use" data-id="${escapeHtml(vehicle.id)}">${tr("Use", "Usar")}</button>
+        <button type="button" data-vehicle-action="edit" data-id="${escapeHtml(vehicle.id)}">${tr("Edit", "Editar")}</button>
+        <button type="button" data-vehicle-action="duplicate" data-id="${escapeHtml(vehicle.id)}">${tr("Duplicate", "Duplicar")}</button>
+        <button type="button" data-vehicle-action="archive" data-id="${escapeHtml(vehicle.id)}">${vehicle.archived ? tr("Restore", "Restaurar") : tr("Archive", "Arquivar")}</button>
+        <button type="button" data-vehicle-action="delete" data-id="${escapeHtml(vehicle.id)}">${tr("Delete", "Eliminar")}</button>
       </div>
     </article>`).join("");
 }
@@ -224,21 +247,21 @@ function applyConsumptionSource() {
       safeValue("fuel-consumption", vehicle.manualConsumption || "");
       safeValue("electric-consumption", vehicle.manualElectricConsumption || "");
     }
-    message($("#consumption-feedback"), "Manual value selected. You can edit it for this journey.");
+    message($("#consumption-feedback"), tr("Manual value selected. You can edit it for this journey.", "Valor manual selecionado. Pode editá-lo para esta viagem."));
     return;
   }
   if (!vehicle) {
-    message($("#consumption-feedback"), "Choose a saved fuel-powered vehicle before using measured consumption.", "warning");
+    message($("#consumption-feedback"), tr("Choose a saved fuel-powered vehicle before using measured consumption.", "Escolha um veículo a combustível guardado antes de utilizar o consumo medido."), "warning");
     return;
   }
   const stats = vehicleConsumptionStats(vehicle.id);
   const measured = measuredValue(source, stats);
   if (!(measured > 0)) {
-    message($("#consumption-feedback"), stats.message || `No valid ${source.replace("-", " ")} consumption is available.`, "warning");
+    message($("#consumption-feedback"), stats.message ? tr(stats.message, "Registe outro abastecimento de depósito cheio depois de conduzir normalmente. A calculadora precisa de dois registos de depósito cheio para calcular o consumo.") : tr(`No valid ${source.replace("-", " ")} consumption is available.`, `Não existe consumo válido para ${source.replace("-", " ")}.`), "warning");
     return;
   }
   safeValue("fuel-consumption", measured.toFixed(3));
-  message($("#consumption-feedback"), `${source.replace("-", " ")} measured consumption: ${formatNumber(measured, 3)} L/100 km from ${stats.intervals.length} valid interval${stats.intervals.length === 1 ? "" : "s"}.`, "success");
+  message($("#consumption-feedback"), tr(`${source.replace("-", " ")} measured consumption: ${formatNumber(measured, 3)} L/100 km from ${stats.intervals.length} valid interval${stats.intervals.length === 1 ? "" : "s"}.`, `Consumo medido (${source.replace("-", " ")}): ${formatNumber(measured, 3)} L/100 km a partir de ${stats.intervals.length} intervalo${stats.intervals.length === 1 ? " válido" : "s válidos"}.`), "success");
 }
 
 function updateEnergyFields() {
@@ -259,7 +282,7 @@ function updateEnergyFields() {
   });
   if (energy === "electric" && value("consumption-source") !== "manual") {
     $("#consumption-source").value = "manual";
-    message($("#consumption-feedback"), "Fill-up measurement applies to liquid fuel. Enter electric consumption manually.");
+    message($("#consumption-feedback"), tr("Fill-up measurement applies to liquid fuel. Enter electric consumption manually.", "A medição por abastecimentos aplica-se a combustíveis líquidos. Introduza o consumo elétrico manualmente."));
   }
   loadRecentPrice();
 }
@@ -291,7 +314,7 @@ function useVehicle(vehicle) {
 
 function profileFromForm(existing = null) {
   const name = value("profile-name").trim();
-  if (!name) throw new ValidationError("Vehicle name is required.", "Vehicle name", "profile-name");
+  if (!name) throw new ValidationError(tr("Vehicle name is required.", "O nome do veículo é obrigatório."), tr("Vehicle name", "Nome do veículo"), "profile-name");
   const energyType = value("profile-energy");
   return {
     id: value("profile-id") || makeId("vehicle"),
@@ -316,9 +339,9 @@ function profileFromForm(existing = null) {
 
 function openVehicleDialog(vehicle = null, duplicate = false) {
   const copy = vehicle ? structuredClone(vehicle) : null;
-  $("#vehicle-dialog-title").textContent = copy ? duplicate ? "Duplicate vehicle" : "Edit vehicle" : "Add vehicle";
+  $("#vehicle-dialog-title").textContent = copy ? duplicate ? tr("Duplicate vehicle", "Duplicar veículo") : tr("Edit vehicle", "Editar veículo") : tr("Add vehicle", "Adicionar veículo");
   safeValue("profile-id", copy && !duplicate ? copy.id : "");
-  safeValue("profile-name", copy ? `${copy.name}${duplicate ? " copy" : ""}` : "");
+  safeValue("profile-name", copy ? `${copy.name}${duplicate ? tr(" copy", " cópia") : ""}` : "");
   safeValue("profile-make", copy?.make || "");
   safeValue("profile-model", copy?.model || "");
   safeValue("profile-year", copy?.year || "");
@@ -349,7 +372,7 @@ async function saveVehicle(event) {
     $("#vehicle-dialog").close();
     await reloadData();
     useVehicle(profile);
-    message($("#action-status"), `Saved ${profile.name}.`, "success");
+    message($("#action-status"), tr(`Saved ${profile.name}.`, `${profile.name} guardado.`), "success");
   } catch (error) {
     showValidationError(error, { form: event.currentTarget, status: $("#vehicle-form-status") });
   }
@@ -372,7 +395,7 @@ async function handleVehicleAction(event) {
   } else if (action === "delete") {
     const relatedFills = state.fillups.filter((fill) => fill.vehicleId === vehicle.id);
     const relatedJourneys = state.journeys.filter((journey) => journey.vehicleId === vehicle.id);
-    const explanation = `Delete “${vehicle.name}”? ${relatedFills.length} fill-up record(s) will also be removed. ${relatedJourneys.length} saved journey snapshot(s) will remain unchanged.`;
+    const explanation = tr(`Delete “${vehicle.name}”? ${relatedFills.length} fill-up record(s) will also be removed. ${relatedJourneys.length} saved journey snapshot(s) will remain unchanged.`, `Eliminar «${vehicle.name}»? Também serão removidos ${relatedFills.length} registo(s) de abastecimento. ${relatedJourneys.length} viagem(ns) guardada(s) não serão alteradas.`);
     if (!confirm(explanation)) return;
     await Promise.all(relatedFills.map((fill) => storage.remove("fillups", fill.id)));
     await storage.remove("vehicles", vehicle.id);
@@ -383,14 +406,14 @@ async function handleVehicleAction(event) {
 function renderFillups() {
   const table = $("#fillup-table");
   if (!state.fillups.length) {
-    table.innerHTML = '<tr><td colspan="7">No fill-ups saved.</td></tr>';
+    table.innerHTML = `<tr><td colspan="7">${tr("No fill-ups saved.", "Ainda não existem abastecimentos guardados.")}</td></tr>`;
   } else {
     const names = Object.fromEntries(state.vehicles.map((vehicle) => [vehicle.id, vehicle.name]));
     table.innerHTML = state.fillups.map((fill) => `<tr>
-      <td>${escapeHtml(fill.date)}</td><td>${escapeHtml(names[fill.vehicleId] || "Deleted vehicle")}</td>
-      <td>${escapeHtml(fill.odometer ? `${formatNumber(fill.odometer)} km odometer` : `${formatNumber(fill.tripDistance)} km trip`)}</td>
-      <td>${formatNumber(fill.litres, 3)} L</td><td>${fill.fullTank ? "Yes" : "No"}</td><td>${escapeHtml(fill.drivingType)}</td>
-      <td><button type="button" data-fillup-delete="${escapeHtml(fill.id)}">Delete</button></td></tr>`).join("");
+      <td>${escapeHtml(fill.date)}</td><td>${escapeHtml(names[fill.vehicleId] || tr("Deleted vehicle", "Veículo eliminado"))}</td>
+      <td>${escapeHtml(fill.odometer ? `${formatNumber(fill.odometer)} km ${tr("odometer", "no conta-quilómetros")}` : `${formatNumber(fill.tripDistance)} km ${tr("trip", "de viagem")}`)}</td>
+      <td>${formatNumber(fill.litres, 3)} L</td><td>${fill.fullTank ? tr("Yes", "Sim") : tr("No", "Não")}</td><td>${escapeHtml(tr(fill.drivingType, ({ city: "cidade", motorway: "autoestrada", mixed: "mista", other: "outra" })[fill.drivingType] || fill.drivingType))}</td>
+      <td><button type="button" data-fillup-delete="${escapeHtml(fill.id)}">${tr("Delete", "Eliminar")}</button></td></tr>`).join("");
   }
   renderConsumptionStats(value("fillup-vehicle"));
 }
@@ -399,20 +422,20 @@ function renderConsumptionStats(vehicleId) {
   const container = $("#consumption-stats");
   if (!vehicleId) {
     container.className = "stats-grid empty-state";
-    container.textContent = "Choose a vehicle with fill-up history.";
+    container.textContent = tr("Choose a vehicle with fill-up history.", "Escolha um veículo com histórico de abastecimentos.");
     return;
   }
   const stats = vehicleConsumptionStats(vehicleId);
   if (!stats.intervals.length) {
     container.className = "stats-grid empty-state";
-    container.textContent = stats.message;
+    container.textContent = tr(stats.message, "Registe outro abastecimento de depósito cheio depois de conduzir normalmente. A calculadora precisa de dois registos de depósito cheio para calcular o consumo.");
     return;
   }
   const items = [
-    ["Latest", stats.latest], ["Overall weighted", stats.overall], ["Latest three", stats.latestThree],
-    ["City", stats.byDrivingType.city], ["Motorway", stats.byDrivingType.motorway], ["Mixed", stats.byDrivingType.mixed],
-    ["Minimum", stats.minimum], ["Maximum", stats.maximum], ["Valid intervals", stats.intervals.length, ""],
-    ["Date range", `${stats.dateRange.start} to ${stats.dateRange.end}`, ""],
+    [tr("Latest", "Mais recente"), stats.latest], [tr("Overall weighted", "Média ponderada"), stats.overall], [tr("Latest three", "Últimos três"), stats.latestThree],
+    [tr("City", "Cidade"), stats.byDrivingType.city], [tr("Motorway", "Autoestrada"), stats.byDrivingType.motorway], [tr("Mixed", "Mista"), stats.byDrivingType.mixed],
+    [tr("Minimum", "Mínimo"), stats.minimum], [tr("Maximum", "Máximo"), stats.maximum], [tr("Valid intervals", "Intervalos válidos"), stats.intervals.length, ""],
+    [tr("Date range", "Intervalo de datas"), `${stats.dateRange.start} ${tr("to", "a")} ${stats.dateRange.end}`, ""],
   ];
   container.className = "stats-grid";
   container.innerHTML = items.filter(([, amount]) => amount !== undefined && amount !== null).map(([label, amount, unit = "L/100 km"]) => `<div class="stat"><span>${escapeHtml(label)}</span><strong>${typeof amount === "number" ? formatNumber(amount, 3) : escapeHtml(amount)}${unit ? ` ${unit}` : ""}</strong></div>`).join("");
@@ -425,10 +448,10 @@ async function saveFillup(event) {
   try {
     requireNativeValidity(event.currentTarget);
     const vehicleId = value("fillup-vehicle");
-    if (!vehicleId) throw new ValidationError("Choose a saved vehicle.", "Vehicle", "fillup-vehicle");
+    if (!vehicleId) throw new ValidationError(tr("Choose a saved vehicle.", "Escolha um veículo guardado."), tr("Vehicle", "Veículo"), "fillup-vehicle");
     const odometer = parseNumber(value("fillup-odometer"), { field: "Odometer", fieldId: "fillup-odometer", max: 100_000_000 });
     const tripDistance = parseNumber(value("fillup-trip-distance"), { field: "Trip distance", fieldId: "fillup-trip-distance", max: 1_000_000 });
-    if (!(odometer > 0 || tripDistance > 0)) throw new ValidationError("Enter an odometer reading or trip distance greater than zero.", "Odometer or trip distance", "fillup-odometer");
+    if (!(odometer > 0 || tripDistance > 0)) throw new ValidationError(tr("Enter an odometer reading or trip distance greater than zero.", "Introduza uma leitura do conta-quilómetros ou uma distância superior a zero."), tr("Odometer or trip distance", "Conta-quilómetros ou distância percorrida"), "fillup-odometer");
     const litres = parseNumber(value("fillup-litres"), { field: "Litres added", fieldId: "fillup-litres", min: 0.01, max: 100_000, required: true });
     const pricePerLitre = parseNumber(value("fillup-price"), { field: "Price per litre", fieldId: "fillup-price", max: 1_000_000 });
     const record = {
@@ -444,14 +467,14 @@ async function saveFillup(event) {
     await reloadData();
     safeValue("fillup-vehicle", selectedVehicle);
     renderConsumptionStats(selectedVehicle);
-    message($("#fillup-status"), "Fill-up saved locally.", "success");
+    message($("#fillup-status"), tr("Fill-up saved locally.", "Abastecimento guardado localmente."), "success");
   } catch (error) {
     showValidationError(error, { form: event.currentTarget, status: $("#fillup-status") });
   }
 }
 
 async function deleteFillup(id) {
-  if (!confirm("Delete this fill-up record? Measured averages will be recalculated.")) return;
+  if (!confirm(tr("Delete this fill-up record? Measured averages will be recalculated.", "Eliminar este abastecimento? As médias medidas serão recalculadas."))) return;
   await storage.remove("fillups", id);
   await reloadData();
   applyConsumptionSource();
@@ -491,12 +514,32 @@ function consumptionSourceLabel() {
   return $("#consumption-source").selectedOptions[0]?.textContent || "Manual consumption";
 }
 
+function localizedJourneyDisplay(journey) {
+  const consumptionLabels = {
+    manual: tr("Manual consumption", "Consumo manual"),
+    latest: tr("Latest measured", "Último valor medido"),
+    "latest-three": tr("Latest-three average", "Média dos últimos três"),
+    overall: tr("Overall measured average", "Média geral medida"),
+    city: tr("City measured average", "Média medida em cidade"),
+    motorway: tr("Motorway measured average", "Média medida em autoestrada"),
+    mixed: tr("Mixed measured average", "Média medida em percurso misto"),
+  };
+  const genericVehicleNames = new Set(["Custom vehicle", "Veículo personalizado"]);
+  return {
+    ...journey,
+    vehicleName: !journey.vehicleId && genericVehicleNames.has(journey.vehicleName)
+      ? tr("Custom vehicle", "Veículo personalizado")
+      : journey.vehicleName,
+    consumptionSourceLabel: consumptionLabels[journey.consumptionSource] || journey.consumptionSourceLabel,
+  };
+}
+
 function collectJourney() {
   const raw = rawJourneyValues();
   const result = calculateJourney(raw);
   raw.customCosts = result.customCosts.map(({ name, amount }) => ({ name, amount }));
   const journey = {
-    name: value("journey-name").trim(), notes: value("journey-notes").trim(), vehicleId: value("vehicle-select"), vehicleName: value("vehicle-name").trim() || activeVehicle()?.name || "Custom vehicle",
+    name: value("journey-name").trim(), notes: value("journey-notes").trim(), vehicleId: value("vehicle-select"), vehicleName: value("vehicle-name").trim() || activeVehicle()?.name || tr("Custom vehicle", "Veículo personalizado"),
     consumptionSource: value("consumption-source"), consumptionSourceLabel: consumptionSourceLabel(),
   };
   return { raw, result, journey };
@@ -514,20 +557,21 @@ async function rememberPrice(result) {
 
 function resultRows(result) {
   const rows = [];
-  if (result.fuelQuantity) rows.push([`Fuel (${formatNumber(result.fuelQuantity)} L)`, result.fuelCost]);
-  if (result.electricQuantity) rows.push([`Electricity (${formatNumber(result.electricQuantity)} kWh)`, result.electricityCost]);
-  rows.push(["Outbound tolls", result.outboundToll], ["Return tolls", result.returnToll], ["Ferry", result.ferryCost], ["Parking", result.parkingCost], ["Maintenance", result.maintenanceCost]);
+  if (result.fuelQuantity) rows.push([`${tr("Fuel", "Combustível")} (${formatNumber(result.fuelQuantity)} L)`, result.fuelCost]);
+  if (result.electricQuantity) rows.push([`${tr("Electricity", "Eletricidade")} (${formatNumber(result.electricQuantity)} kWh)`, result.electricityCost]);
+  rows.push([tr("Outbound tolls", "Portagens de ida"), result.outboundToll], [tr("Return tolls", "Portagens de regresso"), result.returnToll], ["Ferry", result.ferryCost], [tr("Parking", "Estacionamento"), result.parkingCost], [tr("Maintenance", "Manutenção"), result.maintenanceCost]);
   result.customCosts.forEach((item) => rows.push([item.name, item.amount]));
-  rows.push(["Cost per kilometre", result.costPerKilometre]);
+  rows.push([tr("Cost per kilometre", "Custo por quilómetro"), result.costPerKilometre]);
   return rows;
 }
 
 function renderResult(journey, result) {
+  const displayJourney = localizedJourneyDisplay(journey);
   $("#result-total").textContent = formatCurrency(result.totalCost, result.currency);
   $("#result-passenger").textContent = formatCurrency(result.costPerPassenger, result.currency);
   $("#result-distance").textContent = `${formatNumber(result.totalDistance, 2)} km`;
   $("#result-breakdown").innerHTML = resultRows(result).map(([label, amount]) => `<div><dt>${escapeHtml(label)}</dt><dd>${formatCurrency(amount, result.currency)}</dd></div>`).join("");
-  $("#result-assumptions").textContent = `${formatDuration(result.durationSeconds)} · ${journey.vehicleName} · ${journey.consumptionSourceLabel} · ${result.passengerCount} passenger${result.passengerCount === 1 ? "" : "s"}. Values are estimates based only on the manual entries shown.`;
+  $("#result-assumptions").textContent = tr(`${formatDuration(result.durationSeconds)} · ${displayJourney.vehicleName} · ${displayJourney.consumptionSourceLabel} · ${result.passengerCount} passenger${result.passengerCount === 1 ? "" : "s"}. Values are estimates based only on the manual entries shown.`, `${formatDuration(result.durationSeconds)} · ${displayJourney.vehicleName} · ${displayJourney.consumptionSourceLabel} · ${result.passengerCount} passageiro${result.passengerCount === 1 ? "" : "s"}. Os valores são estimativas baseadas apenas nos dados manuais apresentados.`);
   ["save-journey", "recalculate-result", "duplicate-current", "copy-summary", "export-summary", "print-result"].forEach((id) => { $(`#${id}`).disabled = false; });
 }
 
@@ -541,7 +585,7 @@ async function calculateForm(event) {
     state.currentResult = result;
     renderResult(journey, result);
     await rememberPrice(result);
-    message($("#action-status"), "Journey recalculated. Save it if you want to keep this snapshot.", "success");
+    message($("#action-status"), tr("Journey recalculated. Save it if you want to keep this snapshot.", "Viagem recalculada. Guarde-a se quiser manter este registo."), "success");
     if (matchMedia("(max-width: 820px)").matches) $("#results-section").scrollIntoView({ behavior: "smooth" });
   } catch (error) {
     showValidationError(error, { form: $("#journey-form"), summary: $("#form-errors") });
@@ -560,7 +604,7 @@ async function saveCurrentJourney() {
   await storage.put("journeys", record);
   state.currentJourneyId = record.id;
   await reloadData();
-  message($("#action-status"), "Journey snapshot saved locally.", "success");
+  message($("#action-status"), tr("Journey snapshot saved locally.", "Registo da viagem guardado localmente."), "success");
 }
 
 function populateCustomCosts(items = []) {
@@ -602,7 +646,7 @@ function loadJourney(record, useCurrentVehicle = false) {
 
 async function duplicateJourney(record) {
   const now = new Date().toISOString();
-  await storage.put("journeys", { ...structuredClone(record), id: makeId("journey"), name: `${record.name || "Journey"} copy`, createdAt: now, updatedAt: now });
+  await storage.put("journeys", { ...structuredClone(record), id: makeId("journey"), name: `${record.name || tr("Journey", "Viagem")}${tr(" copy", " cópia")}`, createdAt: now, updatedAt: now });
   await reloadData();
 }
 
@@ -610,11 +654,11 @@ function renderJourneys() {
   const container = $("#journey-list");
   if (!state.journeys.length) {
     container.className = "card-list empty-state";
-    container.textContent = "No journeys saved yet.";
+    container.textContent = tr("No journeys saved yet.", "Ainda não existem viagens guardadas.");
     return;
   }
   container.className = "card-list";
-  container.innerHTML = state.journeys.map((journey) => `<article class="item-card"><h3>${escapeHtml(journey.name || "Untitled journey")}</h3><p>${escapeHtml(journey.vehicleName || "Custom vehicle")} &middot; ${Number(journey.result?.tripMultiplier) === 2 ? "Return" : "One-way"}</p><p>${formatNumber(journey.result?.totalDistance, 1)} km · ${formatCurrency(journey.result?.totalCost, journey.result?.currency || "EUR")} · ${escapeHtml(new Date(journey.updatedAt || journey.createdAt).toLocaleDateString())}</p><div class="item-actions"><button type="button" data-journey-action="open" data-id="${escapeHtml(journey.id)}">Open</button><button type="button" data-journey-action="duplicate" data-id="${escapeHtml(journey.id)}">Duplicate</button><button type="button" data-journey-action="recalculate" data-id="${escapeHtml(journey.id)}">Recalculate current</button><button type="button" data-journey-action="export" data-id="${escapeHtml(journey.id)}">Export</button><button type="button" data-journey-action="delete" data-id="${escapeHtml(journey.id)}">Delete</button></div></article>`).join("");
+  container.innerHTML = state.journeys.map((journey) => `<article class="item-card"><h3>${escapeHtml(journey.name || tr("Untitled journey", "Viagem sem título"))}</h3><p>${escapeHtml(journey.vehicleName || tr("Custom vehicle", "Veículo personalizado"))} &middot; ${Number(journey.result?.tripMultiplier) === 2 ? tr("Return", "Ida e volta") : tr("One-way", "Só ida")}</p><p>${formatNumber(journey.result?.totalDistance, 1)} km · ${formatCurrency(journey.result?.totalCost, journey.result?.currency || "EUR")} · ${escapeHtml(new Date(journey.updatedAt || journey.createdAt).toLocaleDateString(locale()))}</p><div class="item-actions"><button type="button" data-journey-action="open" data-id="${escapeHtml(journey.id)}">${tr("Open", "Abrir")}</button><button type="button" data-journey-action="duplicate" data-id="${escapeHtml(journey.id)}">${tr("Duplicate", "Duplicar")}</button><button type="button" data-journey-action="recalculate" data-id="${escapeHtml(journey.id)}">${tr("Recalculate current", "Recalcular com dados atuais")}</button><button type="button" data-journey-action="export" data-id="${escapeHtml(journey.id)}">${tr("Export", "Exportar")}</button><button type="button" data-journey-action="delete" data-id="${escapeHtml(journey.id)}">${tr("Delete", "Eliminar")}</button></div></article>`).join("");
 }
 
 async function handleJourneyAction(event) {
@@ -627,29 +671,29 @@ async function handleJourneyAction(event) {
   else if (action === "recalculate") loadJourney(record, true);
   else if (action === "duplicate") await duplicateJourney(record);
   else if (action === "export") downloadFile(`${record.name || "journey"}.json`, JSON.stringify(record, null, 2), "application/json");
-  else if (action === "delete" && confirm(`Delete the saved journey “${record.name || "Untitled journey"}”?`)) {
+  else if (action === "delete" && confirm(tr(`Delete the saved journey “${record.name || "Untitled journey"}”?`, `Eliminar a viagem guardada «${record.name || "Viagem sem título"}»?`))) {
     await storage.remove("journeys", record.id); await reloadData();
   }
 }
 
 async function copySummary() {
   if (!state.currentResult || !state.currentInput) return;
-  const summary = buildJourneySummary(state.currentInput.journey, state.currentResult);
+  const summary = buildJourneySummary(localizedJourneyDisplay(state.currentInput.journey), state.currentResult, currentLanguage);
   try {
     await navigator.clipboard.writeText(summary);
-    message($("#action-status"), "Summary copied to the clipboard.", "success");
+    message($("#action-status"), tr("Summary copied to the clipboard.", "Resumo copiado para a área de transferência."), "success");
   } catch {
-    message($("#action-status"), "Clipboard access is unavailable. Use Export summary instead.", "error");
+    message($("#action-status"), tr("Clipboard access is unavailable. Use Export summary instead.", "O acesso à área de transferência não está disponível. Utilize Exportar resumo."), "error");
   }
 }
 
 function exportSummary() {
   if (!state.currentResult || !state.currentInput) return;
-  downloadFile("vehicle-cost-summary.txt", buildJourneySummary(state.currentInput.journey, state.currentResult), "text/plain;charset=utf-8");
+  downloadFile("vehicle-cost-summary.txt", buildJourneySummary(localizedJourneyDisplay(state.currentInput.journey), state.currentResult, currentLanguage), "text/plain;charset=utf-8");
 }
 
 function resetCalculator(force = false) {
-  if (!force && state.currentResult && !confirm("Reset the current calculator form? Saved vehicles, fill-ups, and journeys will not be removed.")) return;
+  if (!force && state.currentResult && !confirm(tr("Reset the current calculator form? Saved vehicles, fill-ups, and journeys will not be removed.", "Repor o formulário atual? Os veículos, abastecimentos e viagens guardadas não serão removidos."))) return;
   $("#journey-form").reset();
   safeValue("trip-multiplier", 1); safeValue("passenger-count", 1); safeValue("maintenance-rate", 0);
   safeValue("outbound-toll", 0); safeValue("return-toll", 0); safeValue("ferry-cost", 0); safeValue("parking-cost", 0);
@@ -657,8 +701,8 @@ function resetCalculator(force = false) {
   state.currentResult = null; state.currentInput = null; state.currentJourneyId = null;
   updateEnergyFields();
   $("#result-total").textContent = "—"; $("#result-passenger").textContent = "—"; $("#result-distance").textContent = "—";
-  $("#result-breakdown").innerHTML = "<div><dt>Energy</dt><dd>—</dd></div><div><dt>Tolls</dt><dd>—</dd></div><div><dt>Other costs</dt><dd>—</dd></div>";
-  $("#result-assumptions").textContent = "Enter the distance and vehicle values, then calculate.";
+  $("#result-breakdown").innerHTML = `<div><dt>${tr("Energy", "Energia")}</dt><dd>—</dd></div><div><dt>${tr("Tolls", "Portagens")}</dt><dd>—</dd></div><div><dt>${tr("Other costs", "Outros custos")}</dt><dd>—</dd></div>`;
+  $("#result-assumptions").textContent = tr("Enter the distance and vehicle values, then calculate.", "Introduza a distância e os dados do veículo e depois calcule.");
   ["save-journey", "recalculate-result", "duplicate-current", "copy-summary", "export-summary", "print-result"].forEach((id) => { $(`#${id}`).disabled = true; });
 }
 
@@ -669,10 +713,10 @@ async function saveSettings(event) {
   try {
     requireNativeValidity(event.currentTarget);
     const currency = value("currency").trim().toUpperCase();
-    if (!/^[A-Z]{3}$/.test(currency)) throw new ValidationError("Currency must use a three-letter code such as EUR.", "Currency", "currency");
+    if (!/^[A-Z]{3}$/.test(currency)) throw new ValidationError(tr("Currency must use a three-letter code such as EUR.", "A moeda tem de usar um código de três letras, como EUR."), tr("Currency", "Moeda"), "currency");
     storage.setSetting("currency", currency); storage.setSetting("theme", value("theme"));
     updateCurrencyLabels(); applyTheme(value("theme"));
-    message($("#settings-status"), "Settings saved on this browser.", "success");
+    message($("#settings-status"), tr("Settings saved on this browser.", "Definições guardadas neste navegador."), "success");
   } catch (error) {
     showValidationError(error, { form: event.currentTarget, status: $("#settings-status") });
   }
@@ -687,14 +731,14 @@ async function exportBackup() {
 async function prepareImport(file) {
   try {
     if (!file) return;
-    if (file.size > 5_000_000) throw new StorageError("The backup is larger than the 5 MB safety limit.");
+    if (file.size > 5_000_000) throw new StorageError(tr("The backup is larger than the 5 MB safety limit.", "A cópia de segurança excede o limite de segurança de 5 MB."));
     const backup = JSON.parse(await file.text());
     const preview = storage.validateBackup(backup);
     state.pendingBackup = backup;
-    $("#import-preview").innerHTML = [["Backup version", preview.version], ["Vehicles", preview.vehicles], ["Fill-ups", preview.fillups], ["Journeys", preview.journeys], ["Exported", preview.exportedAt]].map(([label, amount]) => `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(amount)}</strong></div>`).join("");
+    $("#import-preview").innerHTML = [[tr("Backup version", "Versão da cópia"), preview.version], [tr("Vehicles", "Veículos"), preview.vehicles], [tr("Fill-ups", "Abastecimentos"), preview.fillups], [tr("Journeys", "Viagens"), preview.journeys], [tr("Exported", "Exportada"), preview.exportedAt]].map(([label, amount]) => `<div><span>${escapeHtml(label)}</span><strong>${escapeHtml(amount)}</strong></div>`).join("");
     $("#import-dialog").showModal();
   } catch (error) {
-    message($("#settings-status"), error.message || "The backup could not be read.", "error");
+    message($("#settings-status"), error.message || tr("The backup could not be read.", "Não foi possível ler a cópia de segurança."), "error");
   } finally {
     $("#import-backup").value = "";
   }
@@ -708,9 +752,9 @@ async function importBackup(mode) {
     state.pendingBackup = null;
     $("#import-dialog").close();
     await loadSettings(); await reloadData();
-    message($("#settings-status"), `Backup ${mode === "replace" ? "replaced" : "merged with"} local calculator data.`, "success");
+    message($("#settings-status"), tr(`Backup ${mode === "replace" ? "replaced" : "merged with"} local calculator data.`, `Cópia de segurança ${mode === "replace" ? "substituiu" : "foi juntada aos"} dados locais da calculadora.`), "success");
   } catch (error) {
-    message($("#settings-status"), error.message || "The backup could not be imported.", "error");
+    message($("#settings-status"), error.message || tr("The backup could not be imported.", "Não foi possível importar a cópia de segurança."), "error");
   }
 }
 
@@ -728,15 +772,15 @@ function exportJourneysCsv() {
 }
 
 async function deleteAllData() {
-  const warning = "Delete all Vehicle Cost Calculator data from this browser? This removes vehicles, fill-ups, journeys, price history, and preferences. Other EstrelaLua data and other websites are not affected. This cannot be undone unless you exported a backup.";
+  const warning = tr("Delete all Vehicle Cost Calculator data from this browser? This removes vehicles, fill-ups, journeys, price history, and preferences. Other EstrelaLua data and other websites are not affected. This cannot be undone unless you exported a backup.", "Eliminar todos os dados da Calculadora de Custos de Veículo deste navegador? Isto remove veículos, abastecimentos, viagens, histórico de preços e preferências. Outros dados EstrelaLua e outros websites não são afetados. A ação não pode ser anulada sem uma cópia exportada.");
   if (!confirm(warning)) return;
   try {
     await storage.deleteAll();
     state.vehicles = []; state.fillups = []; state.journeys = [];
     resetCalculator(true); await storage.open(); await loadSettings(); await reloadData();
-    message($("#settings-status"), "All local Vehicle Cost Calculator data was deleted.", "success");
+    message($("#settings-status"), tr("All local Vehicle Cost Calculator data was deleted.", "Todos os dados locais da Calculadora de Custos de Veículo foram eliminados."), "success");
   } catch (error) {
-    message($("#settings-status"), error.message || "Local data could not be deleted.", "error");
+    message($("#settings-status"), error.message || tr("Local data could not be deleted.", "Não foi possível eliminar os dados locais."), "error");
   }
 }
 
@@ -769,10 +813,10 @@ function bindEvents() {
   $("#custom-costs").addEventListener("click", (event) => { const button = event.target.closest(".remove-custom-cost"); if (button) button.closest(".custom-cost-row").remove(); });
   $("#save-journey").addEventListener("click", saveCurrentJourney);
   $("#recalculate-result").addEventListener("click", calculateForm);
-  $("#duplicate-current").addEventListener("click", () => { if (!state.currentInput) return; safeValue("journey-name", `${value("journey-name") || "Journey"} copy`); state.currentJourneyId = null; calculateForm(); });
+  $("#duplicate-current").addEventListener("click", () => { if (!state.currentInput) return; safeValue("journey-name", `${value("journey-name") || tr("Journey", "Viagem")}${tr(" copy", " cópia")}`); state.currentJourneyId = null; calculateForm(); });
   $("#copy-summary").addEventListener("click", copySummary);
   $("#export-summary").addEventListener("click", exportSummary);
-  $("#print-result").addEventListener("click", () => { try { window.print(); } catch { message($("#action-status"), "Printing is unavailable in this browser.", "error"); } });
+  $("#print-result").addEventListener("click", () => { try { window.print(); } catch { message($("#action-status"), tr("Printing is unavailable in this browser.", "A impressão não está disponível neste navegador."), "error"); } });
   $("#reset-calculator").addEventListener("click", resetCalculator);
   $("#journey-list").addEventListener("click", handleJourneyAction);
   $("#settings-form").addEventListener("submit", saveSettings);
@@ -817,6 +861,17 @@ function bindEvents() {
 }
 
 async function initialise() {
+  initialiseVehicleLanguage(() => {
+    renderVehicleSelectors();
+    renderVehicleList();
+    renderFillups();
+    renderJourneys();
+    if (state.currentResult && state.currentInput) renderResult(state.currentInput.journey, state.currentResult);
+    else {
+      $("#result-breakdown").innerHTML = `<div><dt>${tr("Energy", "Energia")}</dt><dd>—</dd></div><div><dt>${tr("Tolls", "Portagens")}</dt><dd>—</dd></div><div><dt>${tr("Other costs", "Outros custos")}</dt><dd>—</dd></div>`;
+      $("#result-assumptions").textContent = tr("Enter the distance and vehicle values, then calculate.", "Introduza a distância e os dados do veículo e depois calcule.");
+    }
+  });
   bindEvents();
   safeValue("fillup-date", isoDate());
   try {
@@ -825,7 +880,7 @@ async function initialise() {
     await reloadData();
   } catch (error) {
     state.storageAvailable = false;
-    message($("#settings-status"), "Browser storage is unavailable. Manual calculations still work, but profiles and journeys cannot be saved.", "error");
+    message($("#settings-status"), tr("Browser storage is unavailable. Manual calculations still work, but profiles and journeys cannot be saved.", "O armazenamento do navegador não está disponível. Os cálculos manuais funcionam, mas não é possível guardar perfis ou viagens."), "error");
     ["save-journey", "new-vehicle", "add-vehicle-library", "export-backup", "import-backup"].forEach((id) => { const element = $(`#${id}`); if (element) element.disabled = true; });
   }
   updateEnergyFields();
