@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Compare uma divisão 50/50 com uma divisão proporcional aos rendimentos e descubra quanto cada pessoa deve pagar." />
+    <meta name="theme-color" content="#123c47" />
+    <title>Partilha Justa &mdash; EstrelaLuaApps</title>
+    <link rel="icon" href="../../assets/partilha-justa-icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="partilha-justa.css?v=1" />
+    <script type="module" src="partilha-justa.js?v=1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#calculator">Saltar para a calculadora</a>
+    <header class="app-header">
+      <a class="brand" href="../../index.html" aria-label="Página inicial da EstrelaLuaApps"><img src="../../assets/estrelalua-logo.png" alt="" /><span>EstrelaLua<span>Apps</span></span></a>
+      <nav aria-label="Navegação da aplicação"><a href="../../apps.html">Todas as apps</a><a href="../../apps/partilha-justa.html">Sobre</a></nav>
+    </header>
+
+    <main id="calculator">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="kicker">Despesas a dois &middot; cálculo privado</p>
+          <h1 id="page-title">Dividir sem<br /><em>adivinhar.</em></h1>
+        </div>
+        <div class="intro-copy">
+          <p>Compare uma divisão igual com uma divisão proporcional ao rendimento de cada pessoa.</p>
+          <span>Os dados ficam apenas neste navegador.</span>
+        </div>
+      </section>
+
+      <section class="calculator-workspace" aria-label="Calculadora de despesas do casal">
+        <div class="input-column">
+          <section class="panel people-panel" aria-labelledby="income-title">
+            <div class="panel-heading"><div><p class="section-label">Passo 1</p><h2 id="income-title">Rendimentos mensais</h2></div><button type="button" class="text-button" id="load-example">Carregar exemplo</button></div>
+            <div class="people-grid">
+              <article class="person-input person-a-input">
+                <span class="person-marker" aria-hidden="true">A</span>
+                <label for="person-a-name">Nome<input id="person-a-name" type="text" maxlength="30" value="Pessoa A" autocomplete="off" /></label>
+                <label for="person-a-income">Rendimento líquido mensal<div class="money-input"><input id="person-a-income" type="number" min="0" max="10000000" step="any" value="0" inputmode="decimal" /><span>&euro;</span></div></label>
+              </article>
+              <article class="person-input person-b-input">
+                <span class="person-marker" aria-hidden="true">B</span>
+                <label for="person-b-name">Nome<input id="person-b-name" type="text" maxlength="30" value="Pessoa B" autocomplete="off" /></label>
+                <label for="person-b-income">Rendimento líquido mensal<div class="money-input"><input id="person-b-income" type="number" min="0" max="10000000" step="any" value="0" inputmode="decimal" /><span>&euro;</span></div></label>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel expenses-panel" aria-labelledby="expenses-title">
+            <div class="panel-heading"><div><p class="section-label">Passo 2</p><h2 id="expenses-title">Despesas comuns</h2></div><button type="button" class="text-button danger" id="clear-all">Limpar tudo</button></div>
+            <div class="expense-table-heading" aria-hidden="true"><span>Despesa</span><span>Valor mensal</span><span></span></div>
+            <div id="expense-list" class="expense-list"></div>
+            <div id="expense-empty" class="expense-empty" hidden><p>Ainda não existem despesas comuns.</p></div>
+            <button type="button" id="add-expense" class="add-expense"><span aria-hidden="true">+</span> Adicionar despesa</button>
+          </section>
+        </div>
+
+        <aside class="results-panel" aria-labelledby="results-title">
+          <div class="results-heading"><div><p class="section-label">Resultado</p><h2 id="results-title">A vossa divisão</h2></div><span id="save-status" aria-live="polite">Guardado neste dispositivo</span></div>
+          <div class="mode-switch" role="group" aria-label="Método de divisão">
+            <button type="button" data-mode="proportional" aria-pressed="true">Proporcional</button>
+            <button type="button" data-mode="equal" aria-pressed="false">50 / 50</button>
+          </div>
+
+          <div class="headline-metrics">
+            <div><span>Rendimento total</span><strong id="total-income">0,00&nbsp;&euro;</strong></div>
+            <div><span>Despesas comuns</span><strong id="total-expenses">0,00&nbsp;&euro;</strong></div>
+          </div>
+
+          <div class="share-visual" aria-label="Percentagem de contribuição de cada pessoa">
+            <div class="share-bar"><span id="share-a-bar"></span><span id="share-b-bar"></span></div>
+            <div class="share-labels"><span><i class="dot-a"></i><strong id="share-a-name">Pessoa A</strong> <b id="share-a-percent">0%</b></span><span><i class="dot-b"></i><strong id="share-b-name">Pessoa B</strong> <b id="share-b-percent">0%</b></span></div>
+          </div>
+
+          <div class="person-results">
+            <article class="person-result result-a">
+              <div><span class="result-person-name" id="result-a-name">Pessoa A</span><small id="result-a-income">Rendimento: 0,00&nbsp;&euro;</small></div>
+              <dl><div><dt>Deve pagar</dt><dd id="result-a-payment">0,00&nbsp;&euro;</dd></div><div><dt>Fica com</dt><dd id="result-a-remaining">0,00&nbsp;&euro;</dd></div></dl>
+            </article>
+            <article class="person-result result-b">
+              <div><span class="result-person-name" id="result-b-name">Pessoa B</span><small id="result-b-income">Rendimento: 0,00&nbsp;&euro;</small></div>
+              <dl><div><dt>Deve pagar</dt><dd id="result-b-payment">0,00&nbsp;&euro;</dd></div><div><dt>Fica com</dt><dd id="result-b-remaining">0,00&nbsp;&euro;</dd></div></dl>
+            </article>
+          </div>
+          <p id="result-note" class="result-note">Introduzam os rendimentos para calcular uma divisão proporcional.</p>
+        </aside>
+      </section>
+
+      <section class="comparison" aria-labelledby="comparison-title">
+        <div class="comparison-heading"><div><p class="section-label">Comparar</p><h2 id="comparison-title">Duas formas de dividir</h2></div><p>A mesma despesa pode ter um impacto muito diferente no orçamento de cada pessoa.</p></div>
+        <div class="comparison-grid">
+          <article class="comparison-card" data-comparison="proportional">
+            <div class="comparison-card-heading"><div><span>Com base nos rendimentos</span><h3>Divisão proporcional</h3></div><button type="button" data-select-mode="proportional">Usar este método</button></div>
+            <div class="comparison-people"><div><span id="compare-prop-a-name">Pessoa A</span><strong id="compare-prop-a-payment">0,00&nbsp;&euro;</strong><small id="compare-prop-a-remaining">Sobra 0,00&nbsp;&euro;</small></div><div><span id="compare-prop-b-name">Pessoa B</span><strong id="compare-prop-b-payment">0,00&nbsp;&euro;</strong><small id="compare-prop-b-remaining">Sobra 0,00&nbsp;&euro;</small></div></div>
+          </article>
+          <article class="comparison-card" data-comparison="equal">
+            <div class="comparison-card-heading"><div><span>Metade para cada pessoa</span><h3>Divisão 50 / 50</h3></div><button type="button" data-select-mode="equal">Usar este método</button></div>
+            <div class="comparison-people"><div><span id="compare-equal-a-name">Pessoa A</span><strong id="compare-equal-a-payment">0,00&nbsp;&euro;</strong><small id="compare-equal-a-remaining">Sobra 0,00&nbsp;&euro;</small></div><div><span id="compare-equal-b-name">Pessoa B</span><strong id="compare-equal-b-payment">0,00&nbsp;&euro;</strong><small id="compare-equal-b-remaining">Sobra 0,00&nbsp;&euro;</small></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="explanation" aria-label="Como interpretar o resultado">
+        <div><span>01</span><h3>Somar rendimentos</h3><p>A app calcula quanto cada pessoa representa no rendimento total do casal.</p></div>
+        <div><span>02</span><h3>Somar despesas</h3><p>Renda, contas, supermercado e todas as outras despesas comuns entram no mesmo total.</p></div>
+        <div><span>03</span><h3>Comparar sem impor</h3><p>Os resultados ajudam à conversa; cada casal decide o método que faz sentido para si.</p></div>
+      </section>
+    </main>
+
+    <footer><p>Ferramenta informativa. Não substitui aconselhamento financeiro ou jurídico.</p><div><a href="../../legal.html">Marcas e direitos de autor</a><a href="../../apps/partilha-justa.html">Sobre a app</a></div></footer>
+  </body>
+</html>

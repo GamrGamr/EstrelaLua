@@ -52,6 +52,10 @@ A private browser-based navigation link converter. Paste a supported full map li
 
 A sourced browser reference and live tracker for GTA Online activity cooldowns, mission time limits, passive production, supply deliveries, and daily or weekly resets. Every record identifies its trigger, scope, whether other work remains available, conditions or exceptions, evidence source, and last verification date. Fixed-duration records can be started as persistent device-local countdowns.
 
+### Partilha Justa
+
+A private browser calculator for couples who want to compare an equal 50/50 expense split with contributions proportional to each person&rsquo;s monthly income. It supports unlimited shared expenses, live income-share percentages, payment suggestions, remaining monthly balances, a side-by-side comparison, and device-local persistence.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
@@ -68,6 +72,7 @@ This repository contains the public website and its browser-based calculators. E
 - `tools/road-trip-roulette/` - Interactive trip generator, curated destination data, route engine, and browser tests
 - `tools/map-link-switcher/` - Local map-link parser, provider URL generator, minimal interface, and browser tests
 - `tools/gta-online-timers/` - Searchable GTA Online timer records, evidence links, filters, and persistent live countdowns
+- `tools/partilha-justa/` - Couples expense calculator with proportional and 50/50 comparison modes
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
@@ -76,4 +81,4 @@ This repository contains the public website and its browser-based calculators. E
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere.
+The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere. Partilha Justa stores names, incomes, expenses, and the selected split method only in the current browser.

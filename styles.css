@@ -136,6 +136,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .app-eight::before { background: #ff715b; }
 .app-nine::before { background: #18b7ba; }
 .app-ten::before { background: #62d84e; }
+.app-eleven::before { background: #71c7b8; }
 .app-card-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
 .app-symbol {
   display: grid; place-items: center; width: 58px; height: 58px; flex: 0 0 58px;
@@ -215,6 +216,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .home-energy-detail { --detail-accent: #ffd166; --detail-icon: #fff4cf; }
 .road-trip-detail { --detail-accent: #ff715b; --detail-icon: #e8fbf5; }
 .map-link-detail { --detail-accent: #18b7ba; --detail-icon: #e8fbf5; }
+.partilha-justa-detail { --detail-accent: #71c7b8; --detail-icon: #f2fbf8; }
 
 .contact-section { background: var(--sand); }
 .contact-card { display: grid; grid-template-columns: 1.2fr .7fr auto; align-items: center; gap: 55px; padding: 65px; border-radius: 34px; background: rgba(255,255,255,.72); box-shadow: 0 18px 50px rgba(126,87,30,.08); }

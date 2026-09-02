@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Partilha Justa</title>
+  <rect width="256" height="256" rx="58" fill="#123c47"/>
+  <circle cx="128" cy="112" r="70" fill="#f7f2e8"/>
+  <path d="M128 42a70 70 0 0 1 0 140z" fill="#f7a95b"/>
+  <path d="M128 42a70 70 0 0 0 0 140z" fill="#71c7b8"/>
+  <circle cx="128" cy="112" r="16" fill="#123c47"/>
+  <path d="M72 202h112" stroke="#f7f2e8" stroke-width="14" stroke-linecap="round"/>
+</svg>
