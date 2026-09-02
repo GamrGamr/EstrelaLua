@@ -1,4 +1,4 @@
-import { ValidationError, buildJourneySummary, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=10";
+import { ValidationError, buildJourneySummary, calculateFillUpConsumption, calculateJourney, formatCurrency, formatDurationInput, parseDuration, parseNumber, sanitiseDecimalInput, sanitiseIntegerInput } from "./calculations.js?v=11";
 import { CalculatorStorage } from "./storage.js?v=6";
 
 const results = [];

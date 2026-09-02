@@ -12,7 +12,7 @@ import {
   parseNumber,
   sanitiseDecimalInput,
   sanitiseIntegerInput,
-} from "./calculations.js?v=10";
+} from "./calculations.js?v=11";
 import { CalculatorStorage, StorageError } from "./storage.js?v=6";
 import { currentLanguage, initialiseVehicleLanguage, locale, tr } from "./vehicle-i18n.js";
 
