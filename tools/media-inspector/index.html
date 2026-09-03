@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Inspect photo and video metadata locally, understand privacy risks, and explore raw technical details without uploading your media." data-i18n-content="description" />
+    <meta name="theme-color" content="#07141d" />
+    <title>Media Inspector — EstrelaLuaApps</title>
+    <link rel="icon" href="../../assets/favicon-48.ico" sizes="48x48" />
+    <link rel="stylesheet" href="vendor/maplibre-gl.css?v=1" />
+    <link rel="stylesheet" href="../../assets/language-switch.css" />
+    <link rel="stylesheet" href="media-inspector.css?v=1" />
+    <script type="module" src="dist/app.js?v=1"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#inspector" data-i18n="skip">Skip to file inspector</a>
+
+    <header class="app-header">
+      <a class="brand" href="../../index.html" aria-label="EstrelaLuaApps home" data-i18n-aria-label="home">
+        <img src="../../assets/estrelalua-logo.png" alt="" width="42" height="42" />
+        <span>EstrelaLua<span>Apps</span></span>
+      </a>
+      <nav aria-label="Application navigation" data-i18n-aria-label="applicationNavigation">
+        <a href="../../apps.html" data-i18n="allApps">All apps</a>
+        <a href="../../apps/media-inspector.html" data-i18n="about">About</a>
+      </nav>
+      <div id="language-switch"></div>
+    </header>
+
+    <main id="inspector">
+      <section id="landing" class="landing" aria-labelledby="page-title">
+        <div class="landing-copy">
+          <div class="privacy-pill"><span aria-hidden="true">●</span><span data-i18n="staysLocal">Your media stays on your device.</span></div>
+          <p class="kicker" data-i18n="privacyKicker">Private by design</p>
+          <h1 id="page-title"><span data-i18n="title">See what your media</span><br /><em data-i18n="titleEm">reveals.</em></h1>
+          <p class="intro" data-i18n="intro">Drop a photo or video to understand its camera data, dates, location, technical details, and privacy exposure.</p>
+        </div>
+
+        <div class="drop-column">
+          <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-describedby="drop-copy supported-formats">
+            <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/tiff,image/heic,image/heif,image/avif,video/mp4,video/quicktime,video/webm,video/x-m4v,.jpg,.jpeg,.png,.webp,.tif,.tiff,.heic,.heif,.avif,.mp4,.mov,.webm,.m4v" hidden />
+            <div class="drop-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" focusable="false"><path d="M12 7h17l7 7v27H12z"/><path d="M29 7v8h8M18 27h12M24 21v12"/></svg>
+            </div>
+            <strong data-i18n="dropTitle">Drop a photo or video here</strong>
+            <span id="drop-copy" data-i18n="dropCopy">or choose a file from this device</span>
+            <button id="choose-file" type="button" data-i18n="chooseFile">Choose file</button>
+          </div>
+          <p id="supported-formats" class="supported"><span data-i18n="supported">JPEG, PNG, WebP, TIFF, HEIC* · MP4, MOV, WebM, M4V</span><small data-i18n="heicNote">* HEIC metadata can be read when present; preview support depends on the browser.</small></p>
+          <ul class="trust-list" aria-label="Privacy guarantees" data-i18n-aria-label="privacyGuarantees">
+            <li><span aria-hidden="true">✓</span><span data-i18n="localAnalysis">Analysed locally</span></li>
+            <li><span aria-hidden="true">✓</span><span data-i18n="noUploads">No uploads</span></li>
+            <li><span aria-hidden="true">✓</span><span data-i18n="noAccount">No account required</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="analysis-state" class="state-card analysis-card" hidden aria-live="polite" aria-labelledby="analysis-title">
+        <div class="analysis-orbit" aria-hidden="true"><span></span><i></i></div>
+        <div>
+          <p class="kicker" data-i18n="analysing">Inspecting your media</p>
+          <h2 id="analysis-title"></h2>
+          <p id="analysis-step" data-i18n="readingFile">Reading file…</p>
+          <div class="progress-track" aria-hidden="true"><span id="analysis-progress"></span></div>
+        </div>
+      </section>
+
+      <section id="error-state" class="state-card error-card" hidden role="alert" aria-labelledby="error-title">
+        <div class="error-mark" aria-hidden="true">!</div>
+        <div>
+          <p class="kicker">Media Inspector</p>
+          <h2 id="error-title" data-i18n="errorTitle">This file could not be inspected</h2>
+          <p id="error-message"></p>
+          <details><summary data-i18n="technicalDetails">Technical details</summary><code id="error-technical"></code></details>
+          <button type="button" class="secondary-button" data-reset data-i18n="tryAnother">Choose another file</button>
+        </div>
+      </section>
+
+      <section id="report" class="report" hidden aria-labelledby="report-file-name">
+        <header class="report-toolbar">
+          <div>
+            <p class="kicker" data-i18n="reportLabel">Local inspection report</p>
+            <h1 id="report-file-name"></h1>
+          </div>
+          <div class="report-actions">
+            <div class="mode-switch" role="group" aria-label="Report detail" data-i18n-aria-label="viewMode">
+              <button type="button" data-mode="simple" aria-pressed="true" data-i18n="simpleMode">Simple</button>
+              <button type="button" data-mode="advanced" aria-pressed="false" data-i18n="advancedMode">Advanced</button>
+            </div>
+            <button id="copy-json" type="button" class="secondary-button" data-i18n="copyJson">Copy all metadata</button>
+            <button type="button" class="primary-button" data-reset data-i18n="inspectAnother">Inspect another file</button>
+          </div>
+        </header>
+
+        <section class="summary-panel" aria-labelledby="overview-title">
+          <div id="media-preview" class="media-preview"></div>
+          <div class="summary-content">
+            <div class="summary-heading">
+              <div><p class="section-label" data-i18n="fileOverview">File overview</p><h2 id="overview-title"></h2></div>
+              <span id="summary-type" class="media-badge"></span>
+            </div>
+            <div id="summary-metrics" class="summary-metrics"></div>
+            <div id="summary-line" class="summary-line"></div>
+            <div class="summary-statuses">
+              <div><span data-i18n="captured">Taken</span><strong id="summary-date"></strong></div>
+              <div><span data-i18n="locationStatus">Location</span><strong id="summary-location"></strong></div>
+            </div>
+          </div>
+        </section>
+
+        <div id="warning-list" class="warning-list" hidden></div>
+
+        <div class="report-layout">
+          <aside class="privacy-panel" aria-labelledby="privacy-title">
+            <div class="privacy-heading">
+              <div><p class="section-label" data-i18n="privacySection">Privacy scan</p><h2 id="privacy-title" data-i18n="overallExposure">Overall privacy exposure</h2></div>
+              <span id="privacy-level" class="risk-badge"></span>
+            </div>
+            <div id="privacy-findings" class="privacy-findings"></div>
+          </aside>
+
+          <div class="metadata-column">
+            <div id="simple-report" class="metadata-sections">
+              <details class="metadata-section" open>
+                <summary><span class="section-icon" aria-hidden="true">01</span><h2 data-i18n="fileSection">File</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="file-fields" class="field-grid"></div>
+              </details>
+              <details id="device-section" class="metadata-section">
+                <summary><span class="section-icon" aria-hidden="true">02</span><h2 data-i18n="deviceSection">Camera / device</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="device-fields" class="field-grid"></div>
+              </details>
+              <details id="capture-section" class="metadata-section">
+                <summary><span class="section-icon" aria-hidden="true">03</span><h2 data-i18n="captureSection">Capture settings</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="capture-fields" class="field-grid"></div>
+              </details>
+              <details class="metadata-section">
+                <summary><span class="section-icon" aria-hidden="true">04</span><h2 data-i18n="datesSection">Dates and timeline</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="date-fields" class="timeline"></div>
+              </details>
+              <details id="location-section" class="metadata-section">
+                <summary><span class="section-icon" aria-hidden="true">05</span><h2 data-i18n="locationSection">Location</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="location-fields" class="field-grid"></div>
+                <div id="map-actions" class="map-actions" hidden>
+                  <p data-i18n="mapPrivacy">Loading the map sends map-tile and approximate location requests to OpenStreetMap. Your original media is never sent.</p>
+                  <button id="request-map" type="button" class="secondary-button" data-i18n="loadMap">Load interactive map</button>
+                </div>
+                <div id="map-shell" class="map-shell" hidden>
+                  <div id="map" aria-label="Interactive location map" data-i18n-aria-label="interactiveMap"></div>
+                  <button id="recenter-map" type="button" data-i18n="recenter">Re-centre</button>
+                  <p id="map-error" hidden data-i18n="mapFailed">The map could not load. The coordinates above are still available.</p>
+                </div>
+              </details>
+              <details id="video-section" class="metadata-section" hidden>
+                <summary><span class="section-icon" aria-hidden="true">06</span><h2 data-i18n="videoSection">Video streams</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="video-tracks" class="track-list"></div>
+              </details>
+              <details id="audio-section" class="metadata-section" hidden>
+                <summary><span class="section-icon" aria-hidden="true">07</span><h2 data-i18n="audioSection">Audio streams</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="audio-tracks" class="track-list"></div>
+              </details>
+              <details id="other-section" class="metadata-section" hidden>
+                <summary><span class="section-icon" aria-hidden="true">08</span><h2 data-i18n="otherStreams">Other streams</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
+                <div id="other-tracks" class="track-list"></div>
+              </details>
+            </div>
+
+            <section id="advanced-report" class="advanced-report" hidden aria-labelledby="raw-title">
+              <div class="advanced-heading">
+                <div><p class="section-label" data-i18n="advancedMode">Advanced</p><h2 id="raw-title" data-i18n="rawSection">Raw metadata explorer</h2></div>
+                <p data-i18n="rawIntro">Browse the original structures returned by the local parsers. Values are treated as untrusted text.</p>
+              </div>
+              <div class="raw-controls">
+                <label><span class="sr-only" data-i18n="searchMetadata">Search metadata…</span><input id="raw-search" type="search" placeholder="Search metadata…" data-i18n-placeholder="searchMetadata" /></label>
+                <label><span data-i18n="source">Source</span><select id="raw-source"><option value="all" data-i18n="allSources">All sources</option></select></label>
+              </div>
+              <div id="raw-tree" class="raw-tree"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="map-consent" class="map-dialog">
+      <form method="dialog">
+        <div class="dialog-mark" aria-hidden="true">◎</div>
+        <h2 data-i18n="loadMap">Load interactive map</h2>
+        <p data-i18n="mapPrivacy">Loading the map sends map-tile and approximate location requests to OpenStreetMap. Your original media is never sent.</p>
+        <div><button value="cancel" class="secondary-button" data-i18n="cancel">Cancel</button><button id="confirm-map" value="confirm" class="primary-button" data-i18n="mapConsent">I understand — load map</button></div>
+      </form>
+    </dialog>
+
+    <footer>
+      <p data-i18n="localFooter">Files and metadata are processed on this device and are not uploaded by Media Inspector.</p>
+      <div><a href="../../legal.html" data-i18n="legal">Trademark &amp; copyright</a><a href="../../apps/media-inspector.html" data-i18n="aboutApp">About this app</a></div>
+    </footer>
+  </body>
+</html>

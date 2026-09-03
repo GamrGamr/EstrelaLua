@@ -139,6 +139,7 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
 .app-nine::before { background: #18b7ba; }
 .app-ten::before { background: #62d84e; }
 .app-eleven::before { background: #71c7b8; }
+.app-twelve::before { background: #4cd8d2; }
 .app-card-top { position: relative; z-index: 1; display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
 .app-symbol {
   display: grid; place-items: center; width: 58px; height: 58px; flex: 0 0 58px;
@@ -322,6 +323,8 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
   align-items: center;
   margin-left: auto;
 }
+.media-inspector-mark { color: #07141d; background: linear-gradient(145deg, #83ece7, #ffbd57); box-shadow: 0 13px 34px rgba(76,216,210,.18); }
+.media-inspector-mark span { font-size: 16px; font-weight: 950; letter-spacing: -.03em; }
 
 .site-nav + .global-language-holder { margin-left: 0.8rem; }
 

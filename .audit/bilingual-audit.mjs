@@ -9,6 +9,7 @@ import { buildDestinationGuide, sourceLanguage } from "../tools/road-trip-roulet
 import { destinations, districts, findCandidates, googlePlaceUrl, starts, stopMapPoints, stopMapQueries } from "../tools/road-trip-roulette/engine.js";
 import { timerRecords } from "../tools/gta-online-timers/timer-data.js";
 import { timerTranslationsPt } from "../tools/gta-online-timers/timer-translations-pt.js";
+import { translations as mediaInspectorTranslations } from "../tools/media-inspector/dist/translations.js";
 import { buildJourneySummary, calculateJourney } from "../tools/vehicle-cost-calculator/calculations.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -39,12 +40,21 @@ check("All local HTML assets and links resolve", localMissing.length === 0, loca
 const presentationPages = ["index.html", "apps.html", "legal.html", ...readdirSync(join(root, "apps")).filter((name) => name.endsWith(".html")).map((name) => `apps/${name}`)];
 check("All presentation pages load the shared bilingual runtime", presentationPages.every((name) => readFileSync(join(root, name), "utf8").includes("site-i18n.js")));
 
-const webapps = ["home-energy-calculator", "road-trip-roulette", "map-link-switcher", "gta-online-timers", "vehicle-cost-calculator", "partilha-justa"];
+const webapps = ["home-energy-calculator", "road-trip-roulette", "map-link-switcher", "gta-online-timers", "vehicle-cost-calculator", "partilha-justa", "media-inspector"];
 check("Every public webapp exposes Portuguese and English controls", webapps.every((name) => {
   const html = readFileSync(join(root, "tools", name, "index.html"), "utf8");
-  const scripts = readdirSync(join(root, "tools", name)).filter((file) => file.endsWith(".js")).map((file) => readFileSync(join(root, "tools", name, file), "utf8")).join("\n");
+  const toolRoot = join(root, "tools", name);
+  const scriptFiles = readdirSync(toolRoot).filter((file) => file.endsWith(".js")).map((file) => join(toolRoot, file));
+  const compiledApp = join(toolRoot, "dist", "app.js");
+  if (existsSync(compiledApp)) scriptFiles.push(compiledApp);
+  const scripts = scriptFiles.map((file) => readFileSync(file, "utf8")).join("\n");
   return html.includes("language-switch") && ((html.includes(">PT<") && html.includes(">EN<")) || scripts.includes("createLanguageSwitch"));
 }));
+
+const mediaInspectorHtml = readFileSync(join(root, "tools", "media-inspector", "index.html"), "utf8");
+const mediaInspectorKeys = [...mediaInspectorHtml.matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)].map((match) => match[1]);
+check("Every Media Inspector interface key exists in Portuguese and English", mediaInspectorKeys.every((key) => mediaInspectorTranslations.en[key] && mediaInspectorTranslations.pt[key]));
+check("Media Inspector is linked from both catalogues and its detail page", ["index.html", "apps.html"].every((name) => readFileSync(join(root, name), "utf8").includes("apps/media-inspector.html")) && existsSync(join(root, "apps", "media-inspector.html")));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
 check("Fair split example is 40/60 and totals €1,000", split.shareA === 0.4 && split.shareB === 0.6 && split.proportional.paymentA === 400 && split.proportional.paymentB === 600 && split.totalExpenses === 1000);
