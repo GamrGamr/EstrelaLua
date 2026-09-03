@@ -55,6 +55,10 @@ const mediaInspectorHtml = readFileSync(join(root, "tools", "media-inspector", "
 const mediaInspectorKeys = [...mediaInspectorHtml.matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)].map((match) => match[1]);
 check("Every Media Inspector interface key exists in Portuguese and English", mediaInspectorKeys.every((key) => mediaInspectorTranslations.en[key] && mediaInspectorTranslations.pt[key]));
 check("Media Inspector is linked from both catalogues and its detail page", ["index.html", "apps.html"].every((name) => readFileSync(join(root, name), "utf8").includes("apps/media-inspector.html")) && existsSync(join(root, "apps", "media-inspector.html")));
+check("Media Inspector uses its dedicated icon throughout the site", ["index.html", "apps.html", "apps/media-inspector.html", "tools/media-inspector/index.html"].every((name) => readFileSync(join(root, name), "utf8").includes("media-inspector-icon.ico")) && existsSync(join(root, "assets", "media-inspector-icon.ico")));
+
+const fairSharePages = ["index.html", "apps.html", "apps/partilha-justa.html", "tools/partilha-justa/index.html"];
+check("Fair Share is the displayed English brand name everywhere", fairSharePages.every((name) => readFileSync(join(root, name), "utf8").includes("Fair Share")) && !publicHtml.some((file) => readFileSync(file, "utf8").includes("Partilha Justa")));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
 check("Fair split example is 40/60 and totals €1,000", split.shareA === 0.4 && split.shareB === 0.6 && split.proportional.paymentA === 400 && split.proportional.paymentB === 600 && split.totalExpenses === 1000);

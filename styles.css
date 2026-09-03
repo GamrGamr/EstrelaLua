@@ -323,8 +323,6 @@ h1 em, h2 em { color: var(--aqua); font-weight: 500; }
   align-items: center;
   margin-left: auto;
 }
-.media-inspector-mark { color: #07141d; background: linear-gradient(145deg, #83ece7, #ffbd57); box-shadow: 0 13px 34px rgba(76,216,210,.18); }
-.media-inspector-mark span { font-size: 16px; font-weight: 950; letter-spacing: -.03em; }
 
 .site-nav + .global-language-holder { margin-left: 0.8rem; }
 

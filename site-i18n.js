@@ -64,6 +64,7 @@ const pairs = [
   ["Search business cooldowns, production cycles, mission limits, deliveries, and resets with conditions and source links.", "Pesquise tempos de espera, ciclos de produção, limites de missões, entregas e reinícios, com condições e fontes."],
   ["Compare a 50/50 split with contributions based on each person’s income, shared expenses, and remaining monthly budget.", "Compare uma divisão 50/50 com contribuições baseadas no rendimento, despesas comuns e orçamento mensal restante de cada pessoa."],
   ["Understand the camera data, dates, location, technical details, and privacy exposure hidden inside photos and videos.", "Compreenda os dados da câmara, datas, localização, detalhes técnicos e exposição de privacidade ocultos em fotografias e vídeos."],
+  ["Open Fair Share details", "Abrir detalhes da Fair Share"],
   ["Open Media Inspector details", "Abrir detalhes do Media Inspector"],
   ["Support & contact", "Apoio e contacto"],
   ["Questions, bugs or", "Dúvidas, erros ou"],
@@ -350,7 +351,7 @@ const pageMeta = {
   "/road-trip-roulette.html": { en: ["Road Trip Roulette — EstrelaLuaApps", "Generate a surprise Portugal road trip with approximate distance, drive time, direction, stops, and exact live directions."], pt: ["Roleta de Viagens — EstrelaLuaApps", "Gere uma viagem surpresa por Portugal com distância, duração, direção, paragens e direções exatas."] },
   "/map-link-switcher.html": { en: ["Map Link Switcher — EstrelaLuaApps", "Convert a map link, address, place name, or coordinates into one-click links for five navigation services."], pt: ["Conversor de Links de Mapas — EstrelaLuaApps", "Converta um link de mapa, morada, local ou coordenadas em links para cinco serviços de navegação."] },
   "/gta-online-timers.html": { en: ["GTA Online Timer Reference — EstrelaLuaApps", "A sourced GTA Online reference for business cooldowns, production cycles, mission limits, deliveries, and resets."], pt: ["Referência de Temporizadores GTA Online — EstrelaLuaApps", "Referência com fontes para tempos de espera, produção, missões, entregas e reinícios do GTA Online."] },
-  "/partilha-justa.html": { en: ["Partilha Justa — EstrelaLuaApps", "Compare a 50/50 split with an income-proportional split for a couple's shared expenses."], pt: ["Partilha Justa — EstrelaLuaApps", "Compare uma divisão 50/50 com uma divisão proporcional aos rendimentos para as despesas comuns do casal."] },
+  "/partilha-justa.html": { en: ["Fair Share — EstrelaLuaApps", "Compare a 50/50 split with an income-proportional split for a couple's shared expenses."], pt: ["Fair Share — EstrelaLuaApps", "Compare uma divisão 50/50 com uma divisão proporcional aos rendimentos para as despesas comuns do casal."] },
   "/media-inspector.html": { en: ["Media Inspector — EstrelaLuaApps", "Inspect photo and video metadata locally, understand privacy risks, and explore raw technical details without uploading your media."], pt: ["Media Inspector — EstrelaLuaApps", "Inspecione localmente os metadados de fotografias e vídeos, compreenda os riscos de privacidade e explore detalhes técnicos sem enviar os ficheiros."] },
 };
 

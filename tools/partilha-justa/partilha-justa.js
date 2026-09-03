@@ -307,7 +307,7 @@ function applyLanguage(next) {
     if (person.name === oldDefault || person.name === otherDefault) person.name = index === 0 ? t("personA") : t("personB");
   });
   document.documentElement.lang = language === "pt" ? "pt-PT" : "en";
-  document.title = `Partilha Justa — EstrelaLuaApps`;
+  document.title = `Fair Share — EstrelaLuaApps`;
   applyTranslations(document, translations, language);
   syncInputs();
   renderExpenses();
