@@ -19,11 +19,12 @@ const translations = {
     footerPrivacy: "Everything is processed and stored locally in this browser.", legal: "Trademark & copyright", aboutApp: "About the app", createFirstSport: "Create your first sport to begin.", selectSportFirst: "Choose or create a sport first.", selectWorkoutFirst: "Choose or create a workout first.",
     editSport: "Edit sport", deleteSport: "Delete sport", editWorkout: "Edit workout", duplicateWorkout: "Duplicate workout", deleteWorkout: "Delete workout", editExercise: "Edit exercise", duplicateExercise: "Duplicate exercise", deleteExercise: "Delete exercise", moveUp: "Move up", moveDown: "Move down",
     exercises: "exercises", workoutSingular: "workout", workoutPlural: "workouts", sportSingular: "sport", sportPlural: "sports", exerciseSingular: "exercise", exercisePlural: "exercises", approx: "Approx.", notes: "Notes", details: "Details", media: "Images & videos", addMedia: "Add media", replace: "Replace", remove: "Remove",
-    confirmDeleteSport: "Delete this sport, all its workouts, calendar entries, exercises, images, and videos?", confirmDeleteWorkout: "Delete this workout, its calendar entries, exercises, images, and videos?", confirmDeleteExercise: "Delete this exercise and its images and videos?", confirmDeleteMedia: "Remove this image or video?", confirmImport: "Importing a backup replaces the current library. Continue?",
+    confirmDeleteSport: "Move this sport, all its workouts, calendar entries, exercises, images, and videos to Trash?", confirmDeleteWorkout: "Move this workout, its calendar entries, exercises, images, and videos to Trash?", confirmDeleteExercise: "Move this exercise and its images and videos to Trash?", confirmDeleteMedia: "Move this image or video to Trash?", confirmImport: "Importing a backup replaces the current library. Continue?",
     sportSaved: "Sport saved.", workoutSaved: "Workout saved.", exerciseSaved: "Exercise saved.", sportDuplicated: "Workout duplicated.", exerciseDuplicated: "Exercise duplicated.", deleted: "Deleted.", orderUpdated: "Exercise order updated.", mediaSaved: "Media saved locally.", mediaReplaced: "Media replaced.", backupReady: "Backup exported.", importComplete: "Backup imported.",
     unsupportedMedia: "Choose an image or video file.", fileTooLarge: "This file is larger than 250 MB.", storageError: "The browser could not save that file. Free some device storage and try again.", invalidBackup: "This is not a valid Training Atlas backup.", exportError: "The backup could not be created.",
     storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only",
-    viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout from your library to this day.", date: "Date", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Remove this workout from the calendar?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of"
+    viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout from your library to this day.", date: "Date", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
+    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs a sport, workout, or exercise that is also deleted. Recover the required parent items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media"
   },
   pt: {
     description: "Organize desportos, treinos, exercícios e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
@@ -37,11 +38,12 @@ const translations = {
     footerPrivacy: "Tudo é processado e guardado localmente neste navegador.", legal: "Marcas e direitos de autor", aboutApp: "Sobre a app", createFirstSport: "Crie o primeiro desporto para começar.", selectSportFirst: "Escolha ou crie primeiro um desporto.", selectWorkoutFirst: "Escolha ou crie primeiro um treino.",
     editSport: "Editar desporto", deleteSport: "Eliminar desporto", editWorkout: "Editar treino", duplicateWorkout: "Duplicar treino", deleteWorkout: "Eliminar treino", editExercise: "Editar exercício", duplicateExercise: "Duplicar exercício", deleteExercise: "Eliminar exercício", moveUp: "Mover para cima", moveDown: "Mover para baixo",
     exercises: "exercícios", workoutSingular: "treino", workoutPlural: "treinos", sportSingular: "desporto", sportPlural: "desportos", exerciseSingular: "exercício", exercisePlural: "exercícios", approx: "Aprox.", notes: "Notas", details: "Detalhes", media: "Imagens e vídeos", addMedia: "Adicionar multimédia", replace: "Substituir", remove: "Remover",
-    confirmDeleteSport: "Eliminar este desporto e todos os treinos, agendamentos, exercícios, imagens e vídeos?", confirmDeleteWorkout: "Eliminar este treino, os agendamentos, exercícios, imagens e vídeos?", confirmDeleteExercise: "Eliminar este exercício e as respetivas imagens e vídeos?", confirmDeleteMedia: "Remover esta imagem ou vídeo?", confirmImport: "Importar uma cópia substitui a biblioteca atual. Continuar?",
+    confirmDeleteSport: "Mover este desporto e todos os treinos, agendamentos, exercícios, imagens e vídeos para o Lixo?", confirmDeleteWorkout: "Mover este treino, os agendamentos, exercícios, imagens e vídeos para o Lixo?", confirmDeleteExercise: "Mover este exercício e as respetivas imagens e vídeos para o Lixo?", confirmDeleteMedia: "Mover esta imagem ou vídeo para o Lixo?", confirmImport: "Importar uma cópia substitui a biblioteca atual. Continuar?",
     sportSaved: "Desporto guardado.", workoutSaved: "Treino guardado.", exerciseSaved: "Exercício guardado.", sportDuplicated: "Treino duplicado.", exerciseDuplicated: "Exercício duplicado.", deleted: "Eliminado.", orderUpdated: "Ordem dos exercícios atualizada.", mediaSaved: "Multimédia guardada localmente.", mediaReplaced: "Multimédia substituída.", backupReady: "Cópia exportada.", importComplete: "Cópia importada.",
     unsupportedMedia: "Escolha um ficheiro de imagem ou vídeo.", fileTooLarge: "Este ficheiro tem mais de 250 MB.", storageError: "O navegador não conseguiu guardar o ficheiro. Liberte espaço no dispositivo e tente novamente.", invalidBackup: "Esta não é uma cópia válida do Training Atlas.", exportError: "Não foi possível criar a cópia.",
     storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local",
-    viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino da sua biblioteca a este dia.", date: "Data", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Remover este treino do calendário?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de"
+    viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino da sua biblioteca a este dia.", date: "Data", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
+    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de um desporto, treino ou exercício que também foi eliminado. Recuperar os elementos-pai necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia"
   }
 };
 
@@ -50,7 +52,8 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const now = () => new Date().toISOString();
 const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 const clean = (value, max = 2000) => String(value ?? "").trim().slice(0, max);
-const emptyState = () => ({ version: 2, sports: [], workouts: [], exercises: [], sessions: [] });
+const cloneData = (value) => JSON.parse(JSON.stringify(value));
+const emptyState = () => ({ version: 3, sports: [], workouts: [], exercises: [], sessions: [], trash: [] });
 
 let language = getLanguage();
 let state = loadState();
@@ -68,7 +71,7 @@ const objectUrls = new Set();
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
   libraryView: $("#library-view"), calendarView: $("#calendar-view"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
@@ -100,18 +103,40 @@ function loadState() {
   catch { return emptyState(); }
 }
 
+function sanitiseSport(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,60), description: clean(item?.description,300), createdAt: item?.createdAt || now() }; }
+function sanitiseWorkout(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), name: clean(item?.name,80), description: clean(item?.description,500), duration: clean(item?.duration,40), notes: clean(item?.notes,200), createdAt: item?.createdAt || now() }; }
+function sanitiseMedia(item) { return { id: clean(item?.id,100), name: clean(item?.name,240), type: clean(item?.type,100), size: Number(item?.size) || 0 }; }
+function sanitiseExercise(item) { return {
+  id: clean(item?.id,100) || id(), workoutId: clean(item?.workoutId,100), name: clean(item?.name,100), description: clean(item?.description,1000), sets: clean(item?.sets,30), reps: clean(item?.reps,40), weight: clean(item?.weight,40), distance: clean(item?.distance,40), duration: clean(item?.duration,40), rest: clean(item?.rest,40), intensity: clean(item?.intensity,80), instructions: clean(item?.instructions,1500), notes: clean(item?.notes,800), order: Number.isFinite(Number(item?.order)) ? Number(item.order) : 0,
+  media: Array.isArray(item?.media) ? item.media.map(sanitiseMedia).filter((media) => media.id) : [], createdAt: item?.createdAt || now()
+}; }
+function sanitiseSession(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), workoutId: clean(item?.workoutId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), createdAt: item?.createdAt || now() }; }
+
+function sanitiseTrashItem(item) {
+  const type = ["sport","workout","exercise","session","media"].includes(item?.type) ? item.type : "";
+  if (!type || !item?.payload || typeof item.payload !== "object") return null;
+  const payload = {};
+  if (item.payload.sport) payload.sport = sanitiseSport(item.payload.sport);
+  if (item.payload.workout) payload.workout = sanitiseWorkout(item.payload.workout);
+  if (item.payload.exercise) payload.exercise = sanitiseExercise(item.payload.exercise);
+  if (item.payload.session) payload.session = sanitiseSession(item.payload.session);
+  if (item.payload.media) payload.media = sanitiseMedia(item.payload.media);
+  payload.workouts = Array.isArray(item.payload.workouts) ? item.payload.workouts.map(sanitiseWorkout).filter((value) => value.name) : [];
+  payload.exercises = Array.isArray(item.payload.exercises) ? item.payload.exercises.map(sanitiseExercise).filter((value) => value.name) : [];
+  payload.sessions = Array.isArray(item.payload.sessions) ? item.payload.sessions.map(sanitiseSession).filter((value) => value.date) : [];
+  return { id: clean(item.id,100) || id(), type, label: clean(item.label,120) || type, deletedAt: item.deletedAt || now(), payload };
+}
+
 function normaliseState(input) {
   if (!input || typeof input !== "object") return emptyState();
-  const sports = Array.isArray(input.sports) ? input.sports.map((item) => ({ id: clean(item.id, 100) || id(), name: clean(item.name, 60), description: clean(item.description, 300), createdAt: item.createdAt || now() })).filter((item) => item.name) : [];
+  const sports = Array.isArray(input.sports) ? input.sports.map(sanitiseSport).filter((item) => item.name) : [];
   const sportIds = new Set(sports.map((item) => item.id));
-  const workouts = Array.isArray(input.workouts) ? input.workouts.map((item) => ({ id: clean(item.id, 100) || id(), sportId: clean(item.sportId, 100), name: clean(item.name, 80), description: clean(item.description, 500), duration: clean(item.duration, 40), notes: clean(item.notes, 200), createdAt: item.createdAt || now() })).filter((item) => item.name && sportIds.has(item.sportId)) : [];
+  const workouts = Array.isArray(input.workouts) ? input.workouts.map(sanitiseWorkout).filter((item) => item.name && sportIds.has(item.sportId)) : [];
   const workoutIds = new Set(workouts.map((item) => item.id));
-  const exercises = Array.isArray(input.exercises) ? input.exercises.map((item) => ({
-    id: clean(item.id, 100) || id(), workoutId: clean(item.workoutId, 100), name: clean(item.name, 100), description: clean(item.description, 1000), sets: clean(item.sets, 30), reps: clean(item.reps, 40), weight: clean(item.weight, 40), distance: clean(item.distance, 40), duration: clean(item.duration, 40), rest: clean(item.rest, 40), intensity: clean(item.intensity, 80), instructions: clean(item.instructions, 1500), notes: clean(item.notes, 800), order: Number.isFinite(Number(item.order)) ? Number(item.order) : 0,
-    media: Array.isArray(item.media) ? item.media.map((media) => ({ id: clean(media.id, 100), name: clean(media.name, 240), type: clean(media.type, 100), size: Number(media.size) || 0 })).filter((media) => media.id) : [], createdAt: item.createdAt || now()
-  })).filter((item) => item.name && workoutIds.has(item.workoutId)) : [];
-  const sessions = Array.isArray(input.sessions) ? input.sessions.map((item) => ({ id: clean(item.id, 100) || id(), sportId: clean(item.sportId, 100), workoutId: clean(item.workoutId, 100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item.date, 10)) ? clean(item.date, 10) : "", notes: clean(item.notes, 500), completed: Boolean(item.completed), createdAt: item.createdAt || now() })).filter((item) => item.date && sportIds.has(item.sportId) && workoutIds.has(item.workoutId) && workouts.some((workout) => workout.id === item.workoutId && workout.sportId === item.sportId)) : [];
-  return { version: 2, sports, workouts, exercises, sessions };
+  const exercises = Array.isArray(input.exercises) ? input.exercises.map(sanitiseExercise).filter((item) => item.name && workoutIds.has(item.workoutId)) : [];
+  const sessions = Array.isArray(input.sessions) ? input.sessions.map(sanitiseSession).filter((item) => item.date && sportIds.has(item.sportId) && workoutIds.has(item.workoutId) && workouts.some((workout) => workout.id === item.workoutId && workout.sportId === item.sportId)) : [];
+  const trash = Array.isArray(input.trash) ? input.trash.map(sanitiseTrashItem).filter(Boolean) : [];
+  return { version: 3, sports, workouts, exercises, sessions, trash };
 }
 
 function saveState() {
@@ -124,6 +149,7 @@ function plural(count, singularKey, pluralKey) { return `${count} ${t(count === 
 
 function updateSummary() {
   elements.summary.textContent = [plural(state.sports.length, "sportSingular", "sportPlural"), plural(state.workouts.length, "workoutSingular", "workoutPlural"), plural(state.exercises.length, "exerciseSingular", "exercisePlural"), plural(state.sessions.length, "sessionSingular", "sessionPlural")].join(" · ");
+  elements.trashCount.textContent = String(state.trash.length);
 }
 
 function showToast(message, isError = false) {
@@ -192,6 +218,7 @@ function render() {
   renderWorkouts();
   renderPlan();
   renderCalendar();
+  renderTrash();
   renderView();
   updateSummary();
   refreshStorage();
@@ -270,6 +297,30 @@ function renderCalendar() {
   renderWeek();
   renderMonth();
   renderAgenda();
+}
+
+function renderTrash() {
+  const items = [...state.trash].sort((a,b) => String(b.deletedAt).localeCompare(String(a.deletedAt)));
+  elements.trashList.replaceChildren();
+  elements.trashList.hidden = items.length === 0;
+  elements.trashEmpty.hidden = items.length > 0;
+  elements.emptyTrash.disabled = items.length === 0;
+  elements.trashSummary.textContent = plural(items.length, "trashItemSingular", "trashItemPlural");
+  elements.trashCount.textContent = String(items.length);
+  for (const item of items) {
+    const card = document.createElement("article"); card.className = "trash-item";
+    const typeLabel = t(`type${item.type[0].toUpperCase()}${item.type.slice(1)}`);
+    const icon = document.createElement("span"); icon.className = "trash-type-icon"; icon.textContent = typeLabel.slice(0,1).toLocaleUpperCase(dateLocale());
+    const content = document.createElement("div"); content.className = "trash-item-copy";
+    const type = document.createElement("span"); type.textContent = typeLabel;
+    const title = document.createElement("h3"); title.textContent = item.label;
+    const date = document.createElement("p"); date.textContent = `${t("deletedOn")} ${formatDate(new Date(item.deletedAt), { day: "numeric", month: "short", year: "numeric" })}`;
+    content.append(type,title,date);
+    const actions = document.createElement("div"); actions.className = "trash-item-actions";
+    const restore = document.createElement("button"); restore.type = "button"; restore.className = "button secondary"; restore.dataset.action = "restore-trash"; restore.dataset.id = item.id; restore.textContent = t("restore");
+    const remove = document.createElement("button"); remove.type = "button"; remove.className = "button danger-outline"; remove.dataset.action = "purge-trash"; remove.dataset.id = item.id; remove.textContent = t("permanentlyDelete");
+    actions.append(restore,remove); card.append(icon,content,actions); elements.trashList.append(card);
+  }
 }
 
 function renderWeek() {
@@ -439,7 +490,17 @@ function openWorkoutDialog(workout = null) {
   if (!selectedSportId) { showToast(t("selectSportFirst"), true); return; }
   resetForm(elements.workoutForm); elements.workoutDialogTitle.textContent = workout ? t("editWorkout") : t("newWorkout");
   if (workout) for (const key of ["id","name","description","duration","notes"]) elements.workoutForm.elements[key].value = workout[key] || "";
+  elements.workoutSchedule.hidden = Boolean(workout);
+  elements.workoutForm.elements.scheduleEnabled.checked = false;
+  elements.workoutForm.elements.scheduleDate.value = toLocalIso(new Date());
+  updateNewWorkoutSchedule();
   elements.workoutDialog.showModal(); setTimeout(() => elements.workoutForm.elements.name.focus(), 0);
+}
+
+function updateNewWorkoutSchedule() {
+  const enabled = !elements.workoutSchedule.hidden && elements.workoutForm.elements.scheduleEnabled.checked;
+  elements.workoutDate.hidden = !enabled;
+  elements.workoutForm.elements.scheduleDate.required = enabled;
 }
 
 function openExerciseDialog(exercise = null) {
@@ -494,9 +555,17 @@ function handleSportSubmit(event) {
 function handleWorkoutSubmit(event) {
   event.preventDefault(); if (!elements.workoutForm.reportValidity()) return;
   const values = formValues(elements.workoutForm); const existing = state.workouts.find((item) => item.id === values.id);
+  let scheduled = false;
   if (existing) Object.assign(existing, { name: clean(values.name,80), description: clean(values.description,500), duration: clean(values.duration,40), notes: clean(values.notes,200) });
-  else { const workout = { id: id(), sportId: selectedSportId, name: clean(values.name,80), description: clean(values.description,500), duration: clean(values.duration,40), notes: clean(values.notes,200), createdAt: now() }; state.workouts.push(workout); selectedWorkoutId = workout.id; }
-  saveState(); elements.workoutDialog.close(); render(); showToast(t("workoutSaved"));
+  else {
+    const workout = { id: id(), sportId: selectedSportId, name: clean(values.name,80), description: clean(values.description,500), duration: clean(values.duration,40), notes: clean(values.notes,200), createdAt: now() };
+    state.workouts.push(workout); selectedWorkoutId = workout.id;
+    if (values.scheduleEnabled === "on" && /^\d{4}-\d{2}-\d{2}$/.test(values.scheduleDate || "")) {
+      state.sessions.push({ id: id(), sportId: selectedSportId, workoutId: workout.id, date: values.scheduleDate, notes: "", completed: false, createdAt: now() });
+      selectedDate = values.scheduleDate; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); scheduled = true;
+    }
+  }
+  saveState(); elements.workoutDialog.close(); render(); showToast(t(scheduled ? "workoutSavedAndScheduled" : "workoutSaved"));
 }
 
 function handleExerciseSubmit(event) {
@@ -520,19 +589,155 @@ function handleScheduleSubmit(event) {
   saveState(); elements.scheduleDialog.close(); render(); showToast(t(existing ? "sessionUpdated" : "sessionSaved"));
 }
 
-async function deleteExerciseAndMedia(exerciseId) {
-  const exercise = state.exercises.find((item) => item.id === exerciseId);
-  if (!exercise) return;
-  await Promise.allSettled(exercise.media.map((media) => deleteMedia(media.id)));
-  state.exercises = state.exercises.filter((item) => item.id !== exerciseId);
+function addTrashItem(type, label, payload) {
+  state.trash.unshift({ id: id(), type, label: clean(label,120) || type, deletedAt: now(), payload: cloneData(payload) });
 }
 
-async function deleteWorkoutAndChildren(workoutId) {
-  const exerciseIds = state.exercises.filter((item) => item.workoutId === workoutId).map((item) => item.id);
-  for (const exerciseId of exerciseIds) await deleteExerciseAndMedia(exerciseId);
-  state.workouts = state.workouts.filter((item) => item.id !== workoutId);
-  state.sessions = state.sessions.filter((item) => item.workoutId !== workoutId);
+function trashExercise(exerciseId) {
+  const exercise = state.exercises.find((item) => item.id === exerciseId); if (!exercise) return false;
+  const workout = state.workouts.find((item) => item.id === exercise.workoutId);
+  const sport = state.sports.find((item) => item.id === workout?.sportId);
+  addTrashItem("exercise", exercise.name, { sport, workout, exercise });
+  state.exercises = state.exercises.filter((item) => item.id !== exerciseId); return true;
 }
+
+function trashWorkout(workoutId) {
+  const workout = state.workouts.find((item) => item.id === workoutId); if (!workout) return false;
+  const sport = state.sports.find((item) => item.id === workout.sportId);
+  const exercises = state.exercises.filter((item) => item.workoutId === workoutId);
+  const sessions = state.sessions.filter((item) => item.workoutId === workoutId);
+  addTrashItem("workout", workout.name, { sport, workout, exercises, sessions });
+  state.exercises = state.exercises.filter((item) => item.workoutId !== workoutId);
+  state.sessions = state.sessions.filter((item) => item.workoutId !== workoutId);
+  state.workouts = state.workouts.filter((item) => item.id !== workoutId); return true;
+}
+
+function trashSport(sportId) {
+  const sport = state.sports.find((item) => item.id === sportId); if (!sport) return false;
+  const workouts = state.workouts.filter((item) => item.sportId === sportId);
+  const workoutIds = new Set(workouts.map((item) => item.id));
+  const exercises = state.exercises.filter((item) => workoutIds.has(item.workoutId));
+  const sessions = state.sessions.filter((item) => item.sportId === sportId || workoutIds.has(item.workoutId));
+  addTrashItem("sport", sport.name, { sport, workouts, exercises, sessions });
+  state.exercises = state.exercises.filter((item) => !workoutIds.has(item.workoutId));
+  state.sessions = state.sessions.filter((item) => item.sportId !== sportId && !workoutIds.has(item.workoutId));
+  state.workouts = state.workouts.filter((item) => item.sportId !== sportId);
+  state.sports = state.sports.filter((item) => item.id !== sportId); return true;
+}
+
+function trashSession(sessionId) {
+  const session = state.sessions.find((item) => item.id === sessionId); if (!session) return false;
+  const workout = state.workouts.find((item) => item.id === session.workoutId);
+  const sport = state.sports.find((item) => item.id === session.sportId);
+  addTrashItem("session", workout?.name || t("typeSession"), { sport, workout, session });
+  state.sessions = state.sessions.filter((item) => item.id !== sessionId); return true;
+}
+
+function trashMedia(exerciseId, mediaId) {
+  const exercise = state.exercises.find((item) => item.id === exerciseId); if (!exercise) return false;
+  const media = exercise.media.find((item) => item.id === mediaId); if (!media) return false;
+  const workout = state.workouts.find((item) => item.id === exercise.workoutId);
+  const sport = state.sports.find((item) => item.id === workout?.sportId);
+  const exerciseSnapshot = cloneData(exercise); exerciseSnapshot.media = exerciseSnapshot.media.filter((item) => item.id !== mediaId);
+  addTrashItem("media", media.name || t("unnamedMedia"), { sport, workout, exercise: exerciseSnapshot, media });
+  exercise.media = exercise.media.filter((item) => item.id !== mediaId); return true;
+}
+
+function pushUnique(collection, item) { if (item?.id && !collection.some((value) => value.id === item.id)) collection.push(cloneData(item)); }
+function removeTrashEntry(entryId) { state.trash = state.trash.filter((item) => item.id !== entryId); }
+function sportSnapshot(sportId, fallback = {}) { return state.trash.find((item) => item.type === "sport" && item.payload.sport?.id === sportId)?.payload.sport || fallback.sport || state.trash.map((item) => item.payload.sport).find((item) => item?.id === sportId); }
+function workoutSnapshot(workoutId, fallback = {}) { return state.trash.find((item) => item.type === "workout" && item.payload.workout?.id === workoutId)?.payload.workout || fallback.workout || state.trash.map((item) => item.payload.workout).find((item) => item?.id === workoutId) || state.trash.flatMap((item) => item.payload.workouts || []).find((item) => item.id === workoutId); }
+function exerciseSnapshot(exerciseId, fallback = {}) { return state.trash.find((item) => item.type === "exercise" && item.payload.exercise?.id === exerciseId)?.payload.exercise || fallback.exercise || state.trash.map((item) => item.payload.exercise).find((item) => item?.id === exerciseId) || state.trash.flatMap((item) => item.payload.exercises || []).find((item) => item.id === exerciseId); }
+
+function restoreSportEntry(entry) {
+  const payload = entry.payload; if (!payload.sport) return false;
+  pushUnique(state.sports,payload.sport);
+  for (const workout of payload.workouts || []) pushUnique(state.workouts,workout);
+  for (const exercise of payload.exercises || []) pushUnique(state.exercises,exercise);
+  for (const session of payload.sessions || []) pushUnique(state.sessions,session);
+  removeTrashEntry(entry.id); return true;
+}
+
+function restoreSportById(sportId, fallback = {}) {
+  if (state.sports.some((item) => item.id === sportId)) return true;
+  const entry = state.trash.find((item) => item.type === "sport" && item.payload.sport?.id === sportId);
+  if (entry) return restoreSportEntry(entry);
+  const sport = sportSnapshot(sportId,fallback); if (!sport) return false; pushUnique(state.sports,sport); return true;
+}
+
+function restoreWorkoutEntry(entry) {
+  const payload = entry.payload; const workout = payload.workout; if (!workout || !restoreSportById(workout.sportId,payload)) return false;
+  pushUnique(state.workouts,workout);
+  for (const exercise of payload.exercises || []) pushUnique(state.exercises,exercise);
+  for (const session of payload.sessions || []) pushUnique(state.sessions,session);
+  removeTrashEntry(entry.id); return true;
+}
+
+function restoreWorkoutById(workoutId, fallback = {}) {
+  if (state.workouts.some((item) => item.id === workoutId)) return true;
+  const entry = state.trash.find((item) => item.type === "workout" && item.payload.workout?.id === workoutId);
+  if (entry) return restoreWorkoutEntry(entry);
+  const workout = workoutSnapshot(workoutId,fallback); if (!workout || !restoreSportById(workout.sportId,fallback)) return false; pushUnique(state.workouts,workout); return true;
+}
+
+function restoreExerciseEntry(entry) {
+  const payload = entry.payload; const exercise = payload.exercise; if (!exercise || !restoreWorkoutById(exercise.workoutId,payload)) return false;
+  pushUnique(state.exercises,exercise); removeTrashEntry(entry.id); return true;
+}
+
+function restoreExerciseById(exerciseId, fallback = {}) {
+  if (state.exercises.some((item) => item.id === exerciseId)) return true;
+  const entry = state.trash.find((item) => item.type === "exercise" && item.payload.exercise?.id === exerciseId);
+  if (entry) return restoreExerciseEntry(entry);
+  const exercise = exerciseSnapshot(exerciseId,fallback); if (!exercise || !restoreWorkoutById(exercise.workoutId,fallback)) return false; pushUnique(state.exercises,exercise); return true;
+}
+
+function missingParentCount(entry) {
+  const payload = entry.payload; let count = 0;
+  const sportId = payload.sport?.id || payload.workout?.sportId || payload.session?.sportId;
+  const workoutId = payload.workout?.id || payload.exercise?.workoutId || payload.session?.workoutId;
+  const exerciseId = payload.exercise?.id;
+  if (sportId && !state.sports.some((item) => item.id === sportId)) count += 1;
+  if (["exercise","session","media"].includes(entry.type) && workoutId && !state.workouts.some((item) => item.id === workoutId)) count += 1;
+  if (entry.type === "media" && exerciseId && !state.exercises.some((item) => item.id === exerciseId)) count += 1;
+  return count;
+}
+
+function restoreTrashItem(entryId) {
+  const entry = state.trash.find((item) => item.id === entryId); if (!entry) return false;
+  if (missingParentCount(entry) && !confirm(t("restoreWithParents"))) return false;
+  let restored = false;
+  if (entry.type === "sport") restored = restoreSportEntry(entry);
+  if (entry.type === "workout") restored = restoreWorkoutEntry(entry);
+  if (entry.type === "exercise") restored = restoreExerciseEntry(entry);
+  if (entry.type === "session") {
+    const session = entry.payload.session;
+    restored = Boolean(session && restoreWorkoutById(session.workoutId,entry.payload));
+    if (restored) { pushUnique(state.sessions,session); removeTrashEntry(entry.id); }
+  }
+  if (entry.type === "media") {
+    const { exercise, media } = entry.payload;
+    restored = Boolean(exercise && media && restoreExerciseById(exercise.id,entry.payload));
+    if (restored) { const active = state.exercises.find((item) => item.id === exercise.id); if (active && !active.media.some((item) => item.id === media.id)) active.media.push(cloneData(media)); removeTrashEntry(entry.id); }
+  }
+  if (!restored) showToast(t("cannotRestore"),true);
+  return restored;
+}
+
+function referencedMediaIds() {
+  const ids = new Set(); const collectExercise = (exercise) => { for (const media of exercise?.media || []) ids.add(media.id); };
+  state.exercises.forEach(collectExercise);
+  for (const item of state.trash) { collectExercise(item.payload.exercise); (item.payload.exercises || []).forEach(collectExercise); if (item.payload.media?.id) ids.add(item.payload.media.id); }
+  return ids;
+}
+
+async function cleanupOrphanMedia() {
+  const referenced = referencedMediaIds(); const records = await getAllMedia();
+  await Promise.allSettled(records.filter((record) => !referenced.has(record.id)).map((record) => deleteMedia(record.id)));
+}
+
+async function purgeTrashItem(entryId) { removeTrashEntry(entryId); await cleanupOrphanMedia(); }
+async function emptyTrash() { state.trash = []; await cleanupOrphanMedia(); }
 
 async function duplicateExercise(exerciseId, targetWorkoutId = selectedWorkoutId, rename = true) {
   const source = state.exercises.find((item) => item.id === exerciseId); if (!source) return null;
@@ -565,6 +770,10 @@ async function handleAction(action, target) {
   if (action === "new-workout") return openWorkoutDialog();
   if (action === "new-exercise") return openExerciseDialog();
   if (action === "new-session") return openScheduleDialog();
+  if (action === "open-trash") { renderTrash(); elements.trashDialog.showModal(); return; }
+  if (action === "restore-trash") { if (restoreTrashItem(itemId)) { saveState(); render(); showToast(t("restoredFromTrash")); } return; }
+  if (action === "purge-trash") { if (!confirm(t("confirmPermanentDelete"))) return; await purgeTrashItem(itemId); saveState(); render(); refreshStorage(); showToast(t("permanentlyDeleted")); return; }
+  if (action === "empty-trash") { if (!state.trash.length || !confirm(t("confirmEmptyTrash"))) return; await emptyTrash(); saveState(); render(); refreshStorage(); showToast(t("trashCleared")); return; }
   if (action === "schedule-workout") return openScheduleDialog(null, itemId || selectedWorkoutId);
   if (action === "select-date") { selectedDate = target.dataset.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); renderCalendar(); return; }
   if (action === "today") { selectedDate = toLocalIso(new Date()); calendarMonth = startOfMonth(new Date()); renderCalendar(); return; }
@@ -584,10 +793,10 @@ async function handleAction(action, target) {
   if (action === "edit-session") return openScheduleDialog(state.sessions.find((item) => item.id === itemId));
   if (action === "open-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; selectedSportId = session.sportId; selectedWorkoutId = session.workoutId; activeView = "library"; render(); return; }
   if (action === "toggle-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; session.completed = !session.completed; saveState(); renderCalendar(); updateSummary(); showToast(t(session.completed ? "sessionCompleted" : "sessionReopened")); return; }
-  if (action === "delete-session") { if (!confirm(t("confirmDeleteSession"))) return; state.sessions = state.sessions.filter((item) => item.id !== itemId); saveState(); renderCalendar(); showToast(t("deleted")); return; }
-  if (action === "delete-exercise") { if (!confirm(t("confirmDeleteExercise"))) return; await deleteExerciseAndMedia(itemId); saveState(); render(); showToast(t("deleted")); return; }
-  if (action === "delete-workout") { const workoutId = itemId || selectedWorkoutId; if (!confirm(t("confirmDeleteWorkout"))) return; await deleteWorkoutAndChildren(workoutId); if (selectedWorkoutId === workoutId) selectedWorkoutId = null; saveState(); render(); showToast(t("deleted")); return; }
-  if (action === "delete-sport") { if (!confirm(t("confirmDeleteSport"))) return; const workoutIds = state.workouts.filter((item) => item.sportId === itemId).map((item) => item.id); for (const workoutId of workoutIds) await deleteWorkoutAndChildren(workoutId); state.sports = state.sports.filter((item) => item.id !== itemId); if (selectedSportId === itemId) { selectedSportId = null; selectedWorkoutId = null; } saveState(); render(); showToast(t("deleted")); }
+  if (action === "delete-session") { if (!confirm(t("confirmDeleteSession"))) return; if (trashSession(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-exercise") { if (!confirm(t("confirmDeleteExercise"))) return; if (trashExercise(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-workout") { const workoutId = itemId || selectedWorkoutId; if (!confirm(t("confirmDeleteWorkout"))) return; if (trashWorkout(workoutId)) { if (selectedWorkoutId === workoutId) selectedWorkoutId = null; saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-sport") { if (!confirm(t("confirmDeleteSport"))) return; if (trashSport(itemId)) { if (selectedSportId === itemId) { selectedSportId = null; selectedWorkoutId = null; } saveState(); render(); showToast(t("movedToTrash")); } }
 }
 
 async function handleMediaFiles(files) {
@@ -613,9 +822,8 @@ async function handleMediaFiles(files) {
 
 async function removeMediaItem(exerciseId, mediaId) {
   if (!confirm(t("confirmDeleteMedia"))) return;
-  const exercise = state.exercises.find((item) => item.id === exerciseId); if (!exercise) return;
-  try { await deleteMedia(mediaId); } catch {}
-  exercise.media = exercise.media.filter((item) => item.id !== mediaId); saveState(); renderPlan(); refreshStorage(); showToast(t("deleted"));
+  if (!trashMedia(exerciseId,mediaId)) return;
+  saveState(); render(); refreshStorage(); showToast(t("movedToTrash"));
 }
 
 function blobToDataUrl(blob) { return new Promise((resolve,reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(reader.error); reader.readAsDataURL(blob); }); }
@@ -625,7 +833,7 @@ async function exportBackup() {
   try {
     const records = await getAllMedia(); const media = [];
     for (const record of records) media.push({ id: record.id, exerciseId: record.exerciseId, name: record.name, type: record.type, size: record.size, createdAt: record.createdAt, data: await blobToDataUrl(record.blob) });
-    const payload = { app: "training-atlas", version: 2, exportedAt: now(), library: state, media };
+    const payload = { app: "training-atlas", version: 3, exportedAt: now(), library: state, media };
     const blob = new Blob([JSON.stringify(payload)], { type: "application/json" }); const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = `training-atlas-backup-${new Date().toISOString().slice(0,10)}.json`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url),1000); showToast(t("backupReady"));
   } catch { showToast(t("exportError"),true); }
 }
@@ -659,10 +867,11 @@ $("#new-sport-small").addEventListener("click", () => openSportDialog());
 $("#new-workout").addEventListener("click", () => openWorkoutDialog());
 elements.sportForm.addEventListener("submit",handleSportSubmit);
 elements.workoutForm.addEventListener("submit",handleWorkoutSubmit);
+elements.workoutForm.elements.scheduleEnabled.addEventListener("change",updateNewWorkoutSchedule);
 elements.exerciseForm.addEventListener("submit",handleExerciseSubmit);
 elements.scheduleForm.addEventListener("submit",handleScheduleSubmit);
 elements.scheduleForm.elements.sportId.addEventListener("change",() => populateScheduleWorkouts());
-for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
+for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
 elements.mediaInput.addEventListener("change", () => handleMediaFiles(elements.mediaInput.files));
 $("#export-backup").addEventListener("click",exportBackup);
 elements.importInput.addEventListener("change",() => importBackup(elements.importInput.files[0]));

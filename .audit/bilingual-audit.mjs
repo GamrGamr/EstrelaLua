@@ -72,6 +72,8 @@ check("Training Atlas remains local-only", !/https?:\/\//i.test(trainingAtlasHtm
 check("Training Atlas schedules workouts by week and day", trainingAtlasHtml.includes('id="calendar-view"') && trainingAtlasHtml.includes('id="week-days"') && trainingAtlasScript.includes("renderCalendar") && trainingAtlasScript.includes("sessionsForDate") && trainingAtlasScript.includes("completed"));
 const scheduleSubmitBlock = trainingAtlasScript.match(/function handleScheduleSubmit\(event\) \{([\s\S]*?)\n\}/)?.[1] || "";
 check("Scheduling preserves the current Training Atlas view", scheduleSubmitBlock.includes("scheduleDialog.close()") && !scheduleSubmitBlock.includes('activeView = "calendar"'));
+check("A new Training Atlas workout can be scheduled immediately", trainingAtlasHtml.includes('name="scheduleEnabled"') && trainingAtlasHtml.includes('name="scheduleDate"') && trainingAtlasScript.includes('values.scheduleEnabled === "on"') && trainingAtlasScript.includes("workoutSavedAndScheduled"));
+check("Training Atlas has dependency-aware recoverable trash", trainingAtlasHtml.includes('id="trash-dialog"') && trainingAtlasScript.includes("state.trash") && trainingAtlasScript.includes("restoreWithParents") && trainingAtlasScript.includes("restoreWorkoutById") && trainingAtlasScript.includes("cleanupOrphanMedia"));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
 check("Fair split example is 40/60 and totals €1,000", split.shareA === 0.4 && split.shareB === 0.6 && split.proportional.paymentA === 400 && split.proportional.paymentB === 600 && split.totalExpenses === 1000);
