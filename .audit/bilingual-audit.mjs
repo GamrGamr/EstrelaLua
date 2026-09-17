@@ -73,6 +73,7 @@ check("Training Atlas schedules workouts by week and day", trainingAtlasHtml.inc
 const scheduleSubmitBlock = trainingAtlasScript.match(/function handleScheduleSubmit\(event\) \{([\s\S]*?)\n\}/)?.[1] || "";
 check("Scheduling preserves the current Training Atlas view", scheduleSubmitBlock.includes("scheduleDialog.close()") && !scheduleSubmitBlock.includes('activeView = "calendar"'));
 check("A new Training Atlas workout can be scheduled immediately", trainingAtlasHtml.includes('name="scheduleEnabled"') && trainingAtlasHtml.includes('name="scheduleDate"') && trainingAtlasScript.includes('values.scheduleEnabled === "on"') && trainingAtlasScript.includes("workoutSavedAndScheduled"));
+check("Every Training Atlas date field explains the displayed order", (trainingAtlasHtml.match(/type="date"/g) || []).length === 2 && (trainingAtlasHtml.match(/month\/day\/year/g) || []).length === 2 && trainingAtlasScript.includes('date: "Date (month/day/year)"') && trainingAtlasScript.includes('date: "Data (mês/dia/ano)"'));
 check("Training Atlas has dependency-aware recoverable trash", trainingAtlasHtml.includes('id="trash-dialog"') && trainingAtlasScript.includes("state.trash") && trainingAtlasScript.includes("restoreWithParents") && trainingAtlasScript.includes("restoreWorkoutById") && trainingAtlasScript.includes("cleanupOrphanMedia"));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
