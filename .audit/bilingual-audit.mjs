@@ -70,6 +70,8 @@ check("Every Training Atlas interface key exists in Portuguese and English", Boo
 check("Training Atlas uses its dedicated supplied icon throughout", existsSync(join(root, "assets", "training-atlas-icon.ico")) && existsSync(join(root, "assets", "training-atlas-icon.png")) && ["index.html", "apps.html", "apps/training-atlas.html", "tools/training-atlas/index.html"].every((name) => readFileSync(join(root, name), "utf8").includes("training-atlas-icon.")));
 check("Training Atlas remains local-only", !/https?:\/\//i.test(trainingAtlasHtml + trainingAtlasScript) && trainingAtlasScript.includes("indexedDB") && trainingAtlasScript.includes("localStorage"));
 check("Training Atlas schedules workouts by week and day", trainingAtlasHtml.includes('id="calendar-view"') && trainingAtlasHtml.includes('id="week-days"') && trainingAtlasScript.includes("renderCalendar") && trainingAtlasScript.includes("sessionsForDate") && trainingAtlasScript.includes("completed"));
+const scheduleSubmitBlock = trainingAtlasScript.match(/function handleScheduleSubmit\(event\) \{([\s\S]*?)\n\}/)?.[1] || "";
+check("Scheduling preserves the current Training Atlas view", scheduleSubmitBlock.includes("scheduleDialog.close()") && !scheduleSubmitBlock.includes('activeView = "calendar"'));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
 check("Fair split example is 40/60 and totals €1,000", split.shareA === 0.4 && split.shareB === 0.6 && split.proportional.paymentA === 400 && split.proportional.paymentB === 600 && split.totalExpenses === 1000);

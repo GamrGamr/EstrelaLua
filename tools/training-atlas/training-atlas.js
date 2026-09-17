@@ -516,7 +516,7 @@ function handleScheduleSubmit(event) {
   const existing = state.sessions.find((item) => item.id === values.id);
   if (existing) Object.assign(existing, { sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500) });
   else state.sessions.push({ id: id(), sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500), completed: false, createdAt: now() });
-  selectedDate = values.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); activeView = "calendar";
+  selectedDate = values.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate));
   saveState(); elements.scheduleDialog.close(); render(); showToast(t(existing ? "sessionUpdated" : "sessionSaved"));
 }
 
