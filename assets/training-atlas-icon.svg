@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Training Atlas</title>
+  <defs>
+    <linearGradient id="bg" x1="30" y1="20" x2="230" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0d6971"/>
+      <stop offset="1" stop-color="#083b49"/>
+    </linearGradient>
+    <linearGradient id="track" x1="70" y1="58" x2="184" y2="199" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffcf67"/>
+      <stop offset="1" stop-color="#f39255"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="58" fill="url(#bg)"/>
+  <path d="M72 57h112a20 20 0 0 1 20 20v102a20 20 0 0 1-20 20H72a20 20 0 0 1-20-20V77a20 20 0 0 1 20-20Z" fill="#f8f5eb"/>
+  <path d="M86 88h84M86 126h84M86 164h55" fill="none" stroke="#0d6971" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="174" cy="164" r="23" fill="url(#track)"/>
+  <path d="m163 164 8 8 15-18" fill="none" stroke="#083b49" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

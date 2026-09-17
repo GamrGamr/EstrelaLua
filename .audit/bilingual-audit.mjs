@@ -40,7 +40,7 @@ check("All local HTML assets and links resolve", localMissing.length === 0, loca
 const presentationPages = ["index.html", "apps.html", "legal.html", ...readdirSync(join(root, "apps")).filter((name) => name.endsWith(".html")).map((name) => `apps/${name}`)];
 check("All presentation pages load the shared bilingual runtime", presentationPages.every((name) => readFileSync(join(root, name), "utf8").includes("site-i18n.js")));
 
-const webapps = ["home-energy-calculator", "road-trip-roulette", "map-link-switcher", "gta-online-timers", "vehicle-cost-calculator", "partilha-justa", "media-inspector"];
+const webapps = ["home-energy-calculator", "road-trip-roulette", "map-link-switcher", "gta-online-timers", "vehicle-cost-calculator", "partilha-justa", "media-inspector", "training-atlas"];
 check("Every public webapp exposes Portuguese and English controls", webapps.every((name) => {
   const html = readFileSync(join(root, "tools", name, "index.html"), "utf8");
   const toolRoot = join(root, "tools", name);
@@ -59,6 +59,15 @@ check("Media Inspector uses its dedicated icon throughout the site", ["index.htm
 
 const fairSharePages = ["index.html", "apps.html", "apps/partilha-justa.html", "tools/partilha-justa/index.html"];
 check("Fair Share is the displayed English brand name everywhere", fairSharePages.every((name) => readFileSync(join(root, name), "utf8").includes("Fair Share")) && !publicHtml.some((file) => readFileSync(file, "utf8").includes("Partilha Justa")));
+
+const trainingAtlasHtml = readFileSync(join(root, "tools", "training-atlas", "index.html"), "utf8");
+const trainingAtlasScript = readFileSync(join(root, "tools", "training-atlas", "training-atlas.js"), "utf8");
+const trainingAtlasKeys = [...trainingAtlasHtml.matchAll(/data-i18n(?:-[a-z-]+)?="([^"]+)"/g)].map((match) => match[1]);
+const trainingAtlasTranslationBlocks = trainingAtlasScript.match(/const translations = \{\s*en:\s*\{([\s\S]*?)\n\s*\},\s*pt:\s*\{([\s\S]*?)\n\s*\}\s*\};/);
+const hasTrainingAtlasKey = (block, key) => new RegExp(`(?:^|[\\s,])${key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}:\\s*"`, "m").test(block);
+check("Training Atlas is linked from both catalogues and its detail page", ["index.html", "apps.html"].every((name) => readFileSync(join(root, name), "utf8").includes("apps/training-atlas.html")) && existsSync(join(root, "apps", "training-atlas.html")));
+check("Every Training Atlas interface key exists in Portuguese and English", Boolean(trainingAtlasTranslationBlocks) && trainingAtlasKeys.every((key) => hasTrainingAtlasKey(trainingAtlasTranslationBlocks[1], key) && hasTrainingAtlasKey(trainingAtlasTranslationBlocks[2], key)));
+check("Training Atlas remains local-only", !/https?:\/\//i.test(trainingAtlasHtml + trainingAtlasScript) && trainingAtlasScript.includes("indexedDB") && trainingAtlasScript.includes("localStorage"));
 
 const split = calculateSplit(1000, 1500, [700, 60, 40, 40, 160]);
 check("Fair split example is 40/60 and totals €1,000", split.shareA === 0.4 && split.shareB === 0.6 && split.proportional.paymentA === 400 && split.proportional.paymentB === 600 && split.totalExpenses === 1000);

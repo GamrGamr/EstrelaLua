@@ -61,6 +61,10 @@ A private browser calculator for couples who want to compare an equal 50/50 expe
 
 A privacy-first browser inspector for photo and video metadata. Files are parsed locally with a human-readable report for camera details, capture settings, dates, GPS, video and audio streams, plus a deterministic privacy scan and a searchable raw-metadata explorer. Maps are never loaded without explicit consent.
 
+### Training Atlas
+
+A private, local-first workout organiser for any sport. Users can create sports, workouts, and flexible exercises; duplicate and reorder plans; attach device-local images and videos; and export or restore a complete private backup without an account or server.
+
 ## About the project
 
 EstrelaLuaApps is created and maintained by one independent developer. The applications focus on useful everyday tools, straightforward interfaces, local data storage, and avoiding unnecessary accounts, cloud services, and telemetry.
@@ -80,6 +84,7 @@ This repository contains the public website and its browser-based calculators. E
 - `tools/gta-online-timers/` - Searchable GTA Online timer records, evidence links, filters, and persistent live countdowns
 - `tools/partilha-justa/` - Couples expense calculator with proportional and 50/50 comparison modes
 - `tools/media-inspector/` - Local photo/video metadata inspector, privacy scanner, raw explorer, tests, and browser dependencies
+- `tools/training-atlas/` - Private sports, workouts, exercises, local media, and backup organiser
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions
@@ -89,4 +94,4 @@ This repository contains the public website and its browser-based calculators. E
 
 The website is static and is published through GitHub Pages from the `main` branch. It uses relative paths and does not require a build process, package manager, database, or web server framework.
 
-The shared Portuguese/English choice is remembered on the current device and can also be selected explicitly with `?lang=pt` or `?lang=en`. The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere. Fair Share stores names, incomes, expenses, and the selected split method only in the current browser. Media Inspector analyses the selected file locally, retains no upload history, and contacts OpenStreetMap only after the user explicitly asks to load a GPS map.
+The shared Portuguese/English choice is remembered on the current device and can also be selected explicitly with `?lang=pt` or `?lang=en`. The browser tools work without a backend, account, or build step. Calculator data and saved trips stay in the current browser. Road Trip Roulette uses local curated data for its suggestions and only sends the selected origin and destination to Google Maps when the user chooses to open exact driving directions. Map Link Switcher processes pasted text locally and sends the extracted destination only to the map provider the user chooses to open. GTA Online Timer Reference stores its researched catalogue and active countdowns locally in the browser and sends no gameplay data anywhere. Fair Share stores names, incomes, expenses, and the selected split method only in the current browser. Media Inspector analyses the selected file locally, retains no upload history, and contacts OpenStreetMap only after the user explicitly asks to load a GPS map. Training Atlas stores plans, images, and videos locally and makes no external requests.
