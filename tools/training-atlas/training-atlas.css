@@ -95,9 +95,9 @@ h1 em { color: var(--orange); font-weight: 500; }
 .plan-meta span { padding: 6px 9px; border-radius: 999px; color: var(--teal-dark); background: white; font-size: 10px; font-weight: 900; }
 .workout-notes { margin: 16px 28px 0; padding: 13px 15px; border-left: 4px solid var(--sun); border-radius: 0 11px 11px 0; color: var(--muted); background: #fff8e7; font-size: 12px; line-height: 1.55; }
 .exercise-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px 28px 12px; }
-.exercise-toolbar strong, .exercise-toolbar span { display: block; }
-.exercise-toolbar strong { margin-bottom: 4px; font-size: 13px; }
-.exercise-toolbar span { color: var(--muted); font-size: 10px; }
+.exercise-toolbar > div > strong, .exercise-toolbar > div > span { display: block; }
+.exercise-toolbar > div > strong { margin-bottom: 4px; font-size: 13px; }
+.exercise-toolbar > div > span { color: var(--muted); font-size: 10px; }
 .exercise-list { display: grid; gap: 12px; margin: 0; padding: 0 22px 28px; list-style: none; counter-reset: exercise; }
 .exercise-card { counter-increment: exercise; display: grid; grid-template-columns: 38px minmax(0,1fr); gap: 12px; border: 1px solid var(--line); border-radius: 19px; padding: 16px; background: #fff; transition: border-color .2s, transform .2s, opacity .2s; }
 .exercise-card.dragging { opacity: .45; }
