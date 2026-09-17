@@ -63,7 +63,7 @@ A privacy-first browser inspector for photo and video metadata. Files are parsed
 
 ### Training Atlas
 
-A private, local-first workout organiser for any sport. Users can create sports, workouts, and flexible exercises; schedule a workout while creating it or later from the weekly and monthly calendar; mark sessions complete or reschedule them; attach device-local images and videos; recover deleted items together with any missing parent sport or workout; and export or restore a complete private backup without an account or server.
+A private, local-first workout organiser for any sport. Users can create sports, workouts, and flexible exercises from the library or from one combined calendar planner; schedule by week and day; mark sessions complete or reschedule them; attach device-local images and videos; recover deleted items together with any missing parent sport or workout; and export or restore a complete private backup without an account or server.
 
 ## About the project
 

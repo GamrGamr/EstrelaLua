@@ -5,6 +5,7 @@ const DB_NAME = "training-atlas-media";
 const DB_VERSION = 1;
 const STORE_NAME = "media";
 const MAX_FILE_SIZE = 250 * 1024 * 1024;
+const NEW_CHOICE = "__new__";
 
 const translations = {
   en: {
@@ -24,7 +25,8 @@ const translations = {
     unsupportedMedia: "Choose an image or video file.", fileTooLarge: "This file is larger than 250 MB.", storageError: "The browser could not save that file. Free some device storage and try again.", invalidBackup: "This is not a valid Training Atlas backup.", exportError: "The backup could not be created.",
     storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only",
     viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout from your library to this day.", date: "Date (month/day/year)", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
-    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs a sport, workout, or exercise that is also deleted. Recover the required parent items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media"
+    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs a sport, workout, or exercise that is also deleted. Recover the required parent items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
+    planAndSchedule: "Build and schedule", planAndScheduleCopy: "Use something from your library or create the sport, workout, and exercises here.", sportSetup: "Sport setup", chooseOrCreateSport: "Choose a sport or create a new one.", createNewSportOption: "+ Create a new sport", workoutSetup: "Workout setup", chooseOrCreateWorkout: "Choose a workout or create a new one.", createNewWorkoutOption: "+ Create a new workout", exercisesOptional: "Exercises (optional)", exercisesOptionalCopy: "Add any exercises you already know. You can add more later.", addAnotherExercise: "Add another exercise", removeExercise: "Remove exercise", calendarDetailsCopy: "Choose the day and add any session-specific notes.", savePlanToCalendar: "Save plan to calendar", planSaved: "Workout plan saved to the calendar.", scheduleAnotherWorkout: "Schedule another workout"
   },
   pt: {
     description: "Organize desportos, treinos, exercícios e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
@@ -43,7 +45,8 @@ const translations = {
     unsupportedMedia: "Escolha um ficheiro de imagem ou vídeo.", fileTooLarge: "Este ficheiro tem mais de 250 MB.", storageError: "O navegador não conseguiu guardar o ficheiro. Liberte espaço no dispositivo e tente novamente.", invalidBackup: "Esta não é uma cópia válida do Training Atlas.", exportError: "Não foi possível criar a cópia.",
     storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local",
     viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino da sua biblioteca a este dia.", date: "Data (mês/dia/ano)", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
-    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de um desporto, treino ou exercício que também foi eliminado. Recuperar os elementos-pai necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia"
+    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de um desporto, treino ou exercício que também foi eliminado. Recuperar os elementos-pai necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
+    planAndSchedule: "Criar e agendar", planAndScheduleCopy: "Utilize algo da sua biblioteca ou crie aqui o desporto, o treino e os exercícios.", sportSetup: "Configuração do desporto", chooseOrCreateSport: "Escolha um desporto ou crie um novo.", createNewSportOption: "+ Criar novo desporto", workoutSetup: "Configuração do treino", chooseOrCreateWorkout: "Escolha um treino ou crie um novo.", createNewWorkoutOption: "+ Criar novo treino", exercisesOptional: "Exercícios (opcional)", exercisesOptionalCopy: "Adicione os exercícios que já conhece. Pode acrescentar mais tarde.", addAnotherExercise: "Adicionar outro exercício", removeExercise: "Remover exercício", calendarDetailsCopy: "Escolha o dia e adicione notas específicas desta sessão.", savePlanToCalendar: "Guardar plano no calendário", planSaved: "Plano de treino guardado no calendário.", scheduleAnotherWorkout: "Agendar outro treino"
   }
 };
 
@@ -71,7 +74,7 @@ const objectUrls = new Set();
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
   libraryView: $("#library-view"), calendarView: $("#calendar-view"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
@@ -403,6 +406,9 @@ function renderAgenda() {
     actions.append(createAgendaButton(t("openWorkout"), "open-session", session.id), createAgendaButton(t("editSchedule"), "edit-session", session.id), createAgendaButton(t("removeFromCalendar"), "delete-session", session.id, true));
     card.append(status,content,actions); elements.agendaList.append(card);
   }
+  if (sessions.length) {
+    const add = document.createElement("button"); add.type = "button"; add.className = "button secondary agenda-add"; add.dataset.action = "quick-plan"; add.textContent = t("scheduleAnotherWorkout"); elements.agendaList.append(add);
+  }
 }
 
 function createAgendaButton(label, action, sessionId, danger = false) {
@@ -542,6 +548,113 @@ function openScheduleDialog(session = null, workoutId = null) {
   elements.scheduleForm.elements.notes.value = session?.notes || "";
   elements.scheduleDialog.showModal();
   setTimeout(() => elements.scheduleForm.elements.date.focus(), 0);
+}
+
+function addChoice(select, value, label) {
+  const option = document.createElement("option"); option.value = value; option.textContent = label; select.append(option);
+}
+
+function updatePlannerExerciseNumbers() {
+  const cards = $$(".planner-exercise", elements.plannerExercises);
+  cards.forEach((card,index) => {
+    card.querySelector("h4").textContent = `${t("exercise")} ${index + 1}`;
+    const remove = card.querySelector('[data-action="remove-planner-exercise"]');
+    remove.hidden = cards.length === 1;
+    remove.setAttribute("aria-label", t("removeExercise"));
+    remove.title = t("removeExercise");
+  });
+}
+
+function addPlannerExercise() {
+  const card = elements.plannerExerciseTemplate.content.firstElementChild.cloneNode(true);
+  $$('[data-key]',card).forEach((node) => { node.textContent = t(node.dataset.key); });
+  $$('[data-key-placeholder]',card).forEach((node) => { node.placeholder = t(node.dataset.keyPlaceholder); });
+  elements.plannerExercises.append(card); updatePlannerExerciseNumbers();
+}
+
+function updatePlannerWorkoutChoice(preferredWorkoutId = null) {
+  const form = elements.plannerForm;
+  const sportId = form.elements.sportChoice.value;
+  const select = form.elements.workoutChoice;
+  select.replaceChildren();
+  const workouts = sportId === NEW_CHOICE ? [] : state.workouts.filter((item) => item.sportId === sportId);
+  for (const workout of workouts) addChoice(select,workout.id,workout.name);
+  addChoice(select,NEW_CHOICE,t("createNewWorkoutOption"));
+  select.value = workouts.some((item) => item.id === preferredWorkoutId) ? preferredWorkoutId : (workouts[0]?.id || NEW_CHOICE);
+  syncPlannerWorkoutFields();
+}
+
+function syncPlannerWorkoutFields() {
+  const form = elements.plannerForm;
+  const select = form.elements.workoutChoice;
+  const creating = select.value === NEW_CHOICE;
+  elements.plannerNewWorkout.hidden = !creating;
+  form.elements.workoutName.required = creating;
+}
+
+function updatePlannerSportChoice(preferredWorkoutId = null) {
+  const form = elements.plannerForm;
+  const creating = form.elements.sportChoice.value === NEW_CHOICE;
+  elements.plannerNewSport.hidden = !creating;
+  form.elements.sportName.required = creating;
+  updatePlannerWorkoutChoice(preferredWorkoutId);
+}
+
+function populatePlannerChoices() {
+  const select = elements.plannerForm.elements.sportChoice;
+  select.replaceChildren();
+  for (const sport of state.sports) addChoice(select,sport.id,sport.name);
+  addChoice(select,NEW_CHOICE,t("createNewSportOption"));
+  select.value = state.sports.some((item) => item.id === selectedSportId) ? selectedSportId : (state.sports[0]?.id || NEW_CHOICE);
+  updatePlannerSportChoice(selectedWorkoutId);
+}
+
+function openPlannerDialog() {
+  elements.plannerForm.reset();
+  elements.plannerExercises.replaceChildren();
+  addPlannerExercise();
+  elements.plannerForm.elements.date.value = selectedDate;
+  populatePlannerChoices();
+  elements.plannerDialog.showModal();
+  setTimeout(() => elements.plannerForm.elements.sportChoice.focus(), 0);
+}
+
+function plannerExerciseDraft(card) {
+  const value = (name,max) => clean(card.querySelector(`[name="${name}"]`)?.value,max);
+  const fields = {
+    name: value("plannerExerciseName",100), description: value("plannerExerciseDescription",1000), sets: value("plannerSets",30), reps: value("plannerReps",40), weight: value("plannerWeight",40), distance: value("plannerDistance",40), duration: value("plannerDuration",40), rest: value("plannerRest",40), intensity: value("plannerIntensity",80), instructions: value("plannerInstructions",1500), notes: value("plannerExerciseNotes",800)
+  };
+  return { fields, hasContent: Object.values(fields).some(Boolean), nameInput: card.querySelector('[name="plannerExerciseName"]') };
+}
+
+function handlePlannerSubmit(event) {
+  event.preventDefault();
+  if (!elements.plannerForm.reportValidity()) return;
+  const form = elements.plannerForm;
+  const drafts = [];
+  for (const card of $$(".planner-exercise",elements.plannerExercises)) {
+    const draft = plannerExerciseDraft(card); draft.nameInput.setCustomValidity("");
+    if (!draft.hasContent) continue;
+    if (!draft.fields.name) { draft.nameInput.setCustomValidity(t("requiredName")); draft.nameInput.reportValidity(); return; }
+    drafts.push(draft.fields);
+  }
+
+  let sport = state.sports.find((item) => item.id === form.elements.sportChoice.value);
+  if (form.elements.sportChoice.value === NEW_CHOICE) sport = { id: id(), name: clean(form.elements.sportName.value,60), description: clean(form.elements.sportDescription.value,300), createdAt: now() };
+  if (!sport?.name) { showToast(t("selectSportFirst"),true); return; }
+
+  let workout = state.workouts.find((item) => item.id === form.elements.workoutChoice.value && item.sportId === sport.id);
+  if (form.elements.workoutChoice.value === NEW_CHOICE) workout = { id: id(), sportId: sport.id, name: clean(form.elements.workoutName.value,80), description: clean(form.elements.workoutDescription.value,500), duration: clean(form.elements.workoutDuration.value,40), notes: clean(form.elements.workoutNotes.value,200), createdAt: now() };
+  if (!workout?.name) { showToast(t("selectWorkoutFirst"),true); return; }
+
+  if (!state.sports.some((item) => item.id === sport.id)) state.sports.push(sport);
+  if (!state.workouts.some((item) => item.id === workout.id)) state.workouts.push(workout);
+  const startingOrder = state.exercises.filter((item) => item.workoutId === workout.id).length;
+  drafts.forEach((fields,index) => state.exercises.push({ id: id(), workoutId: workout.id, ...fields, order: startingOrder + index, media: [], createdAt: now() }));
+  const date = form.elements.date.value;
+  state.sessions.push({ id: id(), sportId: sport.id, workoutId: workout.id, date, notes: clean(form.elements.sessionNotes.value,500), completed: false, createdAt: now() });
+  selectedSportId = sport.id; selectedWorkoutId = workout.id; selectedDate = date; calendarMonth = startOfMonth(parseIsoDate(date)); activeView = "calendar";
+  saveState(); elements.plannerDialog.close(); render(); showToast(t("planSaved"));
 }
 
 function handleSportSubmit(event) {
@@ -769,7 +882,9 @@ async function handleAction(action, target) {
   if (action === "new-sport") return openSportDialog();
   if (action === "new-workout") return openWorkoutDialog();
   if (action === "new-exercise") return openExerciseDialog();
-  if (action === "new-session") return openScheduleDialog();
+  if (action === "new-session" || action === "quick-plan") return openPlannerDialog();
+  if (action === "add-planner-exercise") { addPlannerExercise(); return; }
+  if (action === "remove-planner-exercise") { target.closest(".planner-exercise")?.remove(); if (!elements.plannerExercises.children.length) addPlannerExercise(); else updatePlannerExerciseNumbers(); return; }
   if (action === "open-trash") { renderTrash(); elements.trashDialog.showModal(); return; }
   if (action === "restore-trash") { if (restoreTrashItem(itemId)) { saveState(); render(); showToast(t("restoredFromTrash")); } return; }
   if (action === "purge-trash") { if (!confirm(t("confirmPermanentDelete"))) return; await purgeTrashItem(itemId); saveState(); render(); refreshStorage(); showToast(t("permanentlyDeleted")); return; }
@@ -871,7 +986,11 @@ elements.workoutForm.elements.scheduleEnabled.addEventListener("change",updateNe
 elements.exerciseForm.addEventListener("submit",handleExerciseSubmit);
 elements.scheduleForm.addEventListener("submit",handleScheduleSubmit);
 elements.scheduleForm.elements.sportId.addEventListener("change",() => populateScheduleWorkouts());
-for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
+elements.plannerForm.addEventListener("submit",handlePlannerSubmit);
+elements.plannerForm.elements.sportChoice.addEventListener("change",() => updatePlannerSportChoice());
+elements.plannerForm.elements.workoutChoice.addEventListener("change",syncPlannerWorkoutFields);
+elements.plannerForm.addEventListener("input",(event) => { if (event.target.name === "plannerExerciseName") event.target.setCustomValidity(""); });
+for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.plannerDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
 elements.mediaInput.addEventListener("change", () => handleMediaFiles(elements.mediaInput.files));
 $("#export-backup").addEventListener("click",exportBackup);
 elements.importInput.addEventListener("change",() => importBackup(elements.importInput.files[0]));

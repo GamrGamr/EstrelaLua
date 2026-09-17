@@ -323,6 +323,7 @@ const pairs = [
   ["Create sports, add as many workouts as you need, organise flexible exercises in the exact order you will perform them, and schedule reusable workouts on specific days. The weekly view and monthly calendar stay in sync.", "Crie desportos, adicione os treinos de que precisa, organize exercícios flexíveis pela ordem exata de execução e agende treinos reutilizáveis em dias específicos. A vista semanal e o calendário mensal permanecem sincronizados."],
   ["Create sports, add as many workouts as you need, organise flexible exercises in the exact order you will perform them, and schedule a new or reusable workout on a specific day. The weekly view and monthly calendar stay in sync.", "Crie desportos, adicione os treinos de que precisa, organize exercícios flexíveis pela ordem exata de execução e agende um treino novo ou reutilizável num dia específico. A vista semanal e o calendário mensal permanecem sincronizados."],
   ["Sports, workouts, and exercises", "Desportos, treinos e exercícios"],
+  ["Combined sport, workout, and exercise planner", "Planeador combinado de desporto, treino e exercícios"],
   ["Schedule while creating a workout", "Agendar ao criar um treino"],
   ["Weekly and monthly calendar planning", "Planeamento semanal e calendário mensal"],
   ["Complete, reschedule, or remove sessions", "Concluir, reagendar ou remover sessões"],
