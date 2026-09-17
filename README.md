@@ -63,7 +63,7 @@ A privacy-first browser inspector for photo and video metadata. Files are parsed
 
 ### Training Atlas
 
-A private, local-first workout organiser for any sport. Users can create sports, workouts, and flexible exercises; duplicate and reorder plans; attach device-local images and videos; and export or restore a complete private backup without an account or server.
+A private, local-first workout organiser for any sport. Users can create sports, workouts, and flexible exercises; schedule reusable workouts by week and day in an interactive monthly calendar; mark sessions complete or reschedule them; attach device-local images and videos; and export or restore a complete private backup without an account or server.
 
 ## About the project
 
@@ -84,7 +84,7 @@ This repository contains the public website and its browser-based calculators. E
 - `tools/gta-online-timers/` - Searchable GTA Online timer records, evidence links, filters, and persistent live countdowns
 - `tools/partilha-justa/` - Couples expense calculator with proportional and 50/50 comparison modes
 - `tools/media-inspector/` - Local photo/video metadata inspector, privacy scanner, raw explorer, tests, and browser dependencies
-- `tools/training-atlas/` - Private sports, workouts, exercises, local media, and backup organiser
+- `tools/training-atlas/` - Private sports, workouts, exercises, week/day calendar, local media, and backup organiser
 - `docs/vehicle-cost-calculator.md` - Calculator operation, formulas, privacy, storage, and tests
 - `styles.css` - Shared responsive design and page styling
 - `script.js` - Navigation, scrolling, and reveal interactions

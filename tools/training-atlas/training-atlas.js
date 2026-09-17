@@ -8,8 +8,8 @@ const MAX_FILE_SIZE = 250 * 1024 * 1024;
 
 const translations = {
   en: {
-    description: "Organise sports, workouts, exercises, images, and videos privately on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
-    kicker: "Private training library", intro: "Create any sport, organise its workouts, and keep every exercise and demonstration ready when you train.", localTitle: "Stored only on this device", localCopy: "No account, uploads, analytics, or external requests.",
+    description: "Organise sports, workouts, exercises, and a private week-by-day training calendar on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
+    kicker: "Private training library", intro: "Create any sport, organise its workouts, and schedule every session by week and day.", localTitle: "Stored only on this device", localCopy: "No account, uploads, analytics, or external requests.",
     libraryTools: "Library tools", storageChecking: "Checking local storage…", export: "Export backup", import: "Import backup", newSport: "New sport", sports: "Sports", noSports: "No sports yet", noSportsCopy: "Start with any discipline—from gym training to swimming, running, or football.", createSport: "Create a sport",
     workouts: "Workouts", newWorkout: "New workout", noWorkouts: "No workouts here", noWorkoutsCopy: "Choose a sport and add its first workout.", createWorkout: "Create a workout", chooseWorkout: "Choose a workout", chooseWorkoutCopy: "Its exercises, instructions, images, and videos will appear here in training order.",
     trainingPlan: "Training plan", edit: "Edit", duplicate: "Duplicate", delete: "Delete", orderHint: "Use the arrows or drag cards to change the order.", addExercise: "Add exercise", noExercises: "No exercises yet", noExercisesCopy: "Add a free-form instruction or use the optional detail fields.", addFirstExercise: "Add first exercise",
@@ -19,14 +19,15 @@ const translations = {
     footerPrivacy: "Everything is processed and stored locally in this browser.", legal: "Trademark & copyright", aboutApp: "About the app", createFirstSport: "Create your first sport to begin.", selectSportFirst: "Choose or create a sport first.", selectWorkoutFirst: "Choose or create a workout first.",
     editSport: "Edit sport", deleteSport: "Delete sport", editWorkout: "Edit workout", duplicateWorkout: "Duplicate workout", deleteWorkout: "Delete workout", editExercise: "Edit exercise", duplicateExercise: "Duplicate exercise", deleteExercise: "Delete exercise", moveUp: "Move up", moveDown: "Move down",
     exercises: "exercises", workoutSingular: "workout", workoutPlural: "workouts", sportSingular: "sport", sportPlural: "sports", exerciseSingular: "exercise", exercisePlural: "exercises", approx: "Approx.", notes: "Notes", details: "Details", media: "Images & videos", addMedia: "Add media", replace: "Replace", remove: "Remove",
-    confirmDeleteSport: "Delete this sport, all its workouts, exercises, images, and videos?", confirmDeleteWorkout: "Delete this workout and all its exercises, images, and videos?", confirmDeleteExercise: "Delete this exercise and its images and videos?", confirmDeleteMedia: "Remove this image or video?", confirmImport: "Importing a backup replaces the current library. Continue?",
+    confirmDeleteSport: "Delete this sport, all its workouts, calendar entries, exercises, images, and videos?", confirmDeleteWorkout: "Delete this workout, its calendar entries, exercises, images, and videos?", confirmDeleteExercise: "Delete this exercise and its images and videos?", confirmDeleteMedia: "Remove this image or video?", confirmImport: "Importing a backup replaces the current library. Continue?",
     sportSaved: "Sport saved.", workoutSaved: "Workout saved.", exerciseSaved: "Exercise saved.", sportDuplicated: "Workout duplicated.", exerciseDuplicated: "Exercise duplicated.", deleted: "Deleted.", orderUpdated: "Exercise order updated.", mediaSaved: "Media saved locally.", mediaReplaced: "Media replaced.", backupReady: "Backup exported.", importComplete: "Backup imported.",
     unsupportedMedia: "Choose an image or video file.", fileTooLarge: "This file is larger than 250 MB.", storageError: "The browser could not save that file. Free some device storage and try again.", invalidBackup: "This is not a valid Training Atlas backup.", exportError: "The backup could not be created.",
-    storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only"
+    storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only",
+    viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout from your library to this day.", date: "Date", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Remove this workout from the calendar?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of"
   },
   pt: {
-    description: "Organize desportos, treinos, exercícios, imagens e vídeos de forma privada neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
-    kicker: "Biblioteca privada de treinos", intro: "Crie qualquer desporto, organize os seus treinos e tenha cada exercício e demonstração prontos quando for treinar.", localTitle: "Guardado apenas neste dispositivo", localCopy: "Sem conta, envios, análises ou pedidos externos.",
+    description: "Organize desportos, treinos, exercícios e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
+    kicker: "Biblioteca privada de treinos", intro: "Crie qualquer desporto, organize os seus treinos e agende cada sessão por semana e dia.", localTitle: "Guardado apenas neste dispositivo", localCopy: "Sem conta, envios, análises ou pedidos externos.",
     libraryTools: "Ferramentas da biblioteca", storageChecking: "A verificar armazenamento local…", export: "Exportar cópia", import: "Importar cópia", newSport: "Novo desporto", sports: "Desportos", noSports: "Ainda não existem desportos", noSportsCopy: "Comece por qualquer modalidade — ginásio, natação, corrida ou futebol.", createSport: "Criar desporto",
     workouts: "Treinos", newWorkout: "Novo treino", noWorkouts: "Ainda não existem treinos", noWorkoutsCopy: "Escolha um desporto e adicione o primeiro treino.", createWorkout: "Criar treino", chooseWorkout: "Escolha um treino", chooseWorkoutCopy: "Os exercícios, instruções, imagens e vídeos aparecem aqui pela ordem de execução.",
     trainingPlan: "Plano de treino", edit: "Editar", duplicate: "Duplicar", delete: "Eliminar", orderHint: "Use as setas ou arraste os cartões para alterar a ordem.", addExercise: "Adicionar exercício", noExercises: "Ainda não existem exercícios", noExercisesCopy: "Adicione uma descrição livre ou utilize os campos opcionais.", addFirstExercise: "Adicionar primeiro exercício",
@@ -36,10 +37,11 @@ const translations = {
     footerPrivacy: "Tudo é processado e guardado localmente neste navegador.", legal: "Marcas e direitos de autor", aboutApp: "Sobre a app", createFirstSport: "Crie o primeiro desporto para começar.", selectSportFirst: "Escolha ou crie primeiro um desporto.", selectWorkoutFirst: "Escolha ou crie primeiro um treino.",
     editSport: "Editar desporto", deleteSport: "Eliminar desporto", editWorkout: "Editar treino", duplicateWorkout: "Duplicar treino", deleteWorkout: "Eliminar treino", editExercise: "Editar exercício", duplicateExercise: "Duplicar exercício", deleteExercise: "Eliminar exercício", moveUp: "Mover para cima", moveDown: "Mover para baixo",
     exercises: "exercícios", workoutSingular: "treino", workoutPlural: "treinos", sportSingular: "desporto", sportPlural: "desportos", exerciseSingular: "exercício", exercisePlural: "exercícios", approx: "Aprox.", notes: "Notas", details: "Detalhes", media: "Imagens e vídeos", addMedia: "Adicionar multimédia", replace: "Substituir", remove: "Remover",
-    confirmDeleteSport: "Eliminar este desporto e todos os treinos, exercícios, imagens e vídeos?", confirmDeleteWorkout: "Eliminar este treino e todos os exercícios, imagens e vídeos?", confirmDeleteExercise: "Eliminar este exercício e as respetivas imagens e vídeos?", confirmDeleteMedia: "Remover esta imagem ou vídeo?", confirmImport: "Importar uma cópia substitui a biblioteca atual. Continuar?",
+    confirmDeleteSport: "Eliminar este desporto e todos os treinos, agendamentos, exercícios, imagens e vídeos?", confirmDeleteWorkout: "Eliminar este treino, os agendamentos, exercícios, imagens e vídeos?", confirmDeleteExercise: "Eliminar este exercício e as respetivas imagens e vídeos?", confirmDeleteMedia: "Remover esta imagem ou vídeo?", confirmImport: "Importar uma cópia substitui a biblioteca atual. Continuar?",
     sportSaved: "Desporto guardado.", workoutSaved: "Treino guardado.", exerciseSaved: "Exercício guardado.", sportDuplicated: "Treino duplicado.", exerciseDuplicated: "Exercício duplicado.", deleted: "Eliminado.", orderUpdated: "Ordem dos exercícios atualizada.", mediaSaved: "Multimédia guardada localmente.", mediaReplaced: "Multimédia substituída.", backupReady: "Cópia exportada.", importComplete: "Cópia importada.",
     unsupportedMedia: "Escolha um ficheiro de imagem ou vídeo.", fileTooLarge: "Este ficheiro tem mais de 250 MB.", storageError: "O navegador não conseguiu guardar o ficheiro. Liberte espaço no dispositivo e tente novamente.", invalidBackup: "Esta não é uma cópia válida do Training Atlas.", exportError: "Não foi possível criar a cópia.",
-    storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local"
+    storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local",
+    viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino da sua biblioteca a este dia.", date: "Data", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Remover este treino do calendário?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de"
   }
 };
 
@@ -48,12 +50,15 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const now = () => new Date().toISOString();
 const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 const clean = (value, max = 2000) => String(value ?? "").trim().slice(0, max);
-const emptyState = () => ({ version: 1, sports: [], workouts: [], exercises: [] });
+const emptyState = () => ({ version: 2, sports: [], workouts: [], exercises: [], sessions: [] });
 
 let language = getLanguage();
 let state = loadState();
 let selectedSportId = state.sports[0]?.id || null;
 let selectedWorkoutId = state.workouts.find((item) => item.sportId === selectedSportId)?.id || null;
+let activeView = "library";
+let selectedDate = toLocalIso(new Date());
+let calendarMonth = startOfMonth(parseIsoDate(selectedDate));
 let toastTimer;
 let mediaTarget = null;
 let draggedExerciseId = null;
@@ -63,11 +68,32 @@ const objectUrls = new Set();
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"),
+  libraryView: $("#library-view"), calendarView: $("#calendar-view"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
 
 function t(key) { return translations[language]?.[key] ?? translations.en[key] ?? key; }
+
+function toLocalIso(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function parseIsoDate(value) {
+  const [year, month, day] = String(value).split("-").map(Number);
+  return new Date(year || 2000, (month || 1) - 1, day || 1, 12);
+}
+
+function addDays(date, amount) { const next = new Date(date); next.setDate(next.getDate() + amount); return next; }
+function startOfMonth(date) { return new Date(date.getFullYear(), date.getMonth(), 1, 12); }
+function startOfWeek(date) { const next = new Date(date); const day = (next.getDay() + 6) % 7; next.setDate(next.getDate() - day); return next; }
+function dateLocale() { return language === "pt" ? "pt-PT" : "en-GB"; }
+function formatDate(date, options) { return new Intl.DateTimeFormat(dateLocale(), options).format(date); }
+function capitalise(value) { return value ? value[0].toLocaleUpperCase(dateLocale()) + value.slice(1) : value; }
+function sessionsForDate(date) { return state.sessions.filter((session) => session.date === date).sort((a,b) => a.createdAt.localeCompare(b.createdAt)); }
 
 function loadState() {
   try { return normaliseState(JSON.parse(localStorage.getItem(STORAGE_KEY))); }
@@ -84,7 +110,8 @@ function normaliseState(input) {
     id: clean(item.id, 100) || id(), workoutId: clean(item.workoutId, 100), name: clean(item.name, 100), description: clean(item.description, 1000), sets: clean(item.sets, 30), reps: clean(item.reps, 40), weight: clean(item.weight, 40), distance: clean(item.distance, 40), duration: clean(item.duration, 40), rest: clean(item.rest, 40), intensity: clean(item.intensity, 80), instructions: clean(item.instructions, 1500), notes: clean(item.notes, 800), order: Number.isFinite(Number(item.order)) ? Number(item.order) : 0,
     media: Array.isArray(item.media) ? item.media.map((media) => ({ id: clean(media.id, 100), name: clean(media.name, 240), type: clean(media.type, 100), size: Number(media.size) || 0 })).filter((media) => media.id) : [], createdAt: item.createdAt || now()
   })).filter((item) => item.name && workoutIds.has(item.workoutId)) : [];
-  return { version: 1, sports, workouts, exercises };
+  const sessions = Array.isArray(input.sessions) ? input.sessions.map((item) => ({ id: clean(item.id, 100) || id(), sportId: clean(item.sportId, 100), workoutId: clean(item.workoutId, 100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item.date, 10)) ? clean(item.date, 10) : "", notes: clean(item.notes, 500), completed: Boolean(item.completed), createdAt: item.createdAt || now() })).filter((item) => item.date && sportIds.has(item.sportId) && workoutIds.has(item.workoutId) && workouts.some((workout) => workout.id === item.workoutId && workout.sportId === item.sportId)) : [];
+  return { version: 2, sports, workouts, exercises, sessions };
 }
 
 function saveState() {
@@ -96,7 +123,7 @@ function saveState() {
 function plural(count, singularKey, pluralKey) { return `${count} ${t(count === 1 ? singularKey : pluralKey)}`; }
 
 function updateSummary() {
-  elements.summary.textContent = [plural(state.sports.length, "sportSingular", "sportPlural"), plural(state.workouts.length, "workoutSingular", "workoutPlural"), plural(state.exercises.length, "exerciseSingular", "exercisePlural")].join(" · ");
+  elements.summary.textContent = [plural(state.sports.length, "sportSingular", "sportPlural"), plural(state.workouts.length, "workoutSingular", "workoutPlural"), plural(state.exercises.length, "exerciseSingular", "exercisePlural"), plural(state.sessions.length, "sessionSingular", "sessionPlural")].join(" · ");
 }
 
 function showToast(message, isError = false) {
@@ -164,8 +191,25 @@ function render() {
   renderSports();
   renderWorkouts();
   renderPlan();
+  renderCalendar();
+  renderView();
   updateSummary();
   refreshStorage();
+}
+
+function renderView() {
+  elements.libraryView.hidden = activeView !== "library";
+  elements.calendarView.hidden = activeView !== "calendar";
+  $$('[data-view]').forEach((button) => {
+    const selected = button.dataset.view === activeView;
+    button.setAttribute("aria-selected", String(selected));
+  });
+}
+
+function setView(view) {
+  activeView = view === "calendar" ? "calendar" : "library";
+  renderView();
+  if (activeView === "calendar") renderCalendar();
 }
 
 function createActionButton(label, symbol, action, itemId, className = "") {
@@ -208,9 +252,101 @@ function renderWorkouts() {
     const meta = document.createElement("span"); meta.textContent = [plural(count, "exerciseSingular", "exercisePlural"), workout.duration].filter(Boolean).join(" · ");
     select.append(name, meta);
     const menu = document.createElement("div"); menu.className = "item-menu";
-    menu.append(createActionButton(t("editWorkout"), "✎", "edit-workout", workout.id), createActionButton(t("duplicateWorkout"), "⧉", "duplicate-workout", workout.id), createActionButton(t("deleteWorkout"), "×", "delete-workout", workout.id, "danger"));
+    menu.append(createActionButton(t("scheduleWorkout"), "□", "schedule-workout", workout.id), createActionButton(t("editWorkout"), "✎", "edit-workout", workout.id), createActionButton(t("duplicateWorkout"), "⧉", "duplicate-workout", workout.id), createActionButton(t("deleteWorkout"), "×", "delete-workout", workout.id, "danger"));
     item.append(select, menu); elements.workoutsList.append(item);
   }
+}
+
+function renderCalendar() {
+  renderWeek();
+  renderMonth();
+  renderAgenda();
+}
+
+function renderWeek() {
+  const selected = parseIsoDate(selectedDate);
+  const first = startOfWeek(selected);
+  const last = addDays(first, 6);
+  const firstLabel = formatDate(first, { day: "numeric", month: first.getMonth() === last.getMonth() ? undefined : "short" });
+  const lastLabel = formatDate(last, { day: "numeric", month: "long", year: "numeric" });
+  elements.weekTitle.textContent = `${t("weekOf")} ${firstLabel} – ${lastLabel}`;
+  elements.weekDays.replaceChildren();
+  for (let index = 0; index < 7; index += 1) {
+    const date = addDays(first, index);
+    const iso = toLocalIso(date);
+    const sessions = sessionsForDate(iso);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `week-day${iso === selectedDate ? " selected" : ""}${iso === toLocalIso(new Date()) ? " today" : ""}`;
+    button.dataset.action = "select-date";
+    button.dataset.date = iso;
+    button.setAttribute("aria-label", `${formatDate(date, { weekday: "long", day: "numeric", month: "long" })}, ${plural(sessions.length, "sessionSingular", "sessionPlural")}`);
+    const weekday = document.createElement("span"); weekday.className = "week-day-name"; weekday.textContent = formatDate(date, { weekday: "short" });
+    const number = document.createElement("strong"); number.textContent = date.getDate();
+    const count = document.createElement("span"); count.className = "week-day-count"; count.textContent = sessions.length ? String(sessions.length) : "—";
+    const dots = document.createElement("span"); dots.className = "week-session-dots";
+    for (const session of sessions.slice(0, 4)) { const dot = document.createElement("i"); if (session.completed) dot.className = "done"; dots.append(dot); }
+    button.append(weekday, number, count, dots);
+    elements.weekDays.append(button);
+  }
+}
+
+function renderMonth() {
+  elements.monthTitle.textContent = capitalise(formatDate(calendarMonth, { month: "long", year: "numeric" }));
+  elements.calendarWeekdays.replaceChildren();
+  const monday = startOfWeek(new Date(2024, 0, 1, 12));
+  for (let index = 0; index < 7; index += 1) { const label = document.createElement("span"); label.textContent = formatDate(addDays(monday,index), { weekday: "short" }); elements.calendarWeekdays.append(label); }
+  elements.calendarGrid.replaceChildren();
+  const first = startOfWeek(calendarMonth);
+  const today = toLocalIso(new Date());
+  for (let index = 0; index < 42; index += 1) {
+    const date = addDays(first,index);
+    const iso = toLocalIso(date);
+    const sessions = sessionsForDate(iso);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `calendar-day${date.getMonth() !== calendarMonth.getMonth() ? " outside" : ""}${iso === selectedDate ? " selected" : ""}${iso === today ? " today" : ""}`;
+    button.dataset.action = "select-date"; button.dataset.date = iso;
+    button.setAttribute("aria-label", `${formatDate(date, { weekday: "long", day: "numeric", month: "long", year: "numeric" })}, ${plural(sessions.length, "sessionSingular", "sessionPlural")}`);
+    const number = document.createElement("span"); number.className = "calendar-day-number"; number.textContent = date.getDate(); button.append(number);
+    const entries = document.createElement("span"); entries.className = "calendar-entries";
+    for (const session of sessions.slice(0, 3)) {
+      const workout = state.workouts.find((item) => item.id === session.workoutId);
+      if (!workout) continue;
+      const chip = document.createElement("span"); chip.className = `calendar-chip${session.completed ? " completed" : ""}`; chip.textContent = `${session.completed ? "✓ " : ""}${workout.name}`; entries.append(chip);
+    }
+    if (sessions.length > 3) { const more = document.createElement("span"); more.className = "calendar-more"; more.textContent = `+${sessions.length - 3}`; entries.append(more); }
+    button.append(entries); elements.calendarGrid.append(button);
+  }
+}
+
+function renderAgenda() {
+  const date = parseIsoDate(selectedDate);
+  elements.agendaTitle.textContent = capitalise(formatDate(date, { weekday: "long", day: "numeric", month: "long" }));
+  const sessions = sessionsForDate(selectedDate);
+  elements.agendaList.replaceChildren();
+  elements.agendaList.hidden = sessions.length === 0;
+  elements.agendaEmpty.hidden = sessions.length > 0;
+  for (const session of sessions) {
+    const sport = state.sports.find((item) => item.id === session.sportId);
+    const workout = state.workouts.find((item) => item.id === session.workoutId);
+    if (!sport || !workout) continue;
+    const card = document.createElement("article"); card.className = `agenda-item${session.completed ? " completed" : ""}`;
+    const status = document.createElement("button"); status.type = "button"; status.className = "completion-toggle"; status.dataset.action = "toggle-session"; status.dataset.id = session.id; status.setAttribute("aria-label", t(session.completed ? "markIncomplete" : "markComplete")); status.title = t(session.completed ? "markIncomplete" : "markComplete"); status.textContent = session.completed ? "✓" : "";
+    const content = document.createElement("div"); content.className = "agenda-content";
+    const eyebrow = document.createElement("span"); eyebrow.textContent = sport.name;
+    const title = document.createElement("h3"); title.textContent = workout.name;
+    content.append(eyebrow,title);
+    if (session.notes) { const notes = document.createElement("p"); notes.textContent = session.notes; content.append(notes); }
+    if (session.completed) { const badge = document.createElement("strong"); badge.className = "completed-label"; badge.textContent = t("completed"); content.append(badge); }
+    const actions = document.createElement("div"); actions.className = "agenda-actions";
+    actions.append(createAgendaButton(t("openWorkout"), "open-session", session.id), createAgendaButton(t("editSchedule"), "edit-session", session.id), createAgendaButton(t("removeFromCalendar"), "delete-session", session.id, true));
+    card.append(status,content,actions); elements.agendaList.append(card);
+  }
+}
+
+function createAgendaButton(label, action, sessionId, danger = false) {
+  const button = document.createElement("button"); button.type = "button"; button.dataset.action = action; button.dataset.id = sessionId; button.textContent = label; if (danger) button.className = "danger"; return button;
 }
 
 async function renderPlan() {
@@ -304,6 +440,40 @@ function openExerciseDialog(exercise = null) {
   elements.exerciseDialog.showModal(); setTimeout(() => elements.exerciseForm.elements.name.focus(), 0);
 }
 
+function populateScheduleSports(preferredSportId) {
+  const select = elements.scheduleForm.elements.sportId;
+  select.replaceChildren();
+  for (const sport of state.sports.filter((item) => state.workouts.some((workout) => workout.sportId === item.id))) {
+    const option = document.createElement("option"); option.value = sport.id; option.textContent = sport.name; select.append(option);
+  }
+  if ([...select.options].some((option) => option.value === preferredSportId)) select.value = preferredSportId;
+  populateScheduleWorkouts();
+}
+
+function populateScheduleWorkouts(preferredWorkoutId) {
+  const select = elements.scheduleForm.elements.workoutId;
+  const sportId = elements.scheduleForm.elements.sportId.value;
+  select.replaceChildren();
+  for (const workout of state.workouts.filter((item) => item.sportId === sportId)) {
+    const option = document.createElement("option"); option.value = workout.id; option.textContent = workout.name; select.append(option);
+  }
+  if ([...select.options].some((option) => option.value === preferredWorkoutId)) select.value = preferredWorkoutId;
+}
+
+function openScheduleDialog(session = null, workoutId = null) {
+  if (!state.workouts.length) { showToast(t("noWorkoutsToSchedule"), true); return; }
+  resetForm(elements.scheduleForm);
+  elements.scheduleDialogTitle.textContent = session ? t("editSchedule") : t("scheduleWorkout");
+  const workout = state.workouts.find((item) => item.id === (session?.workoutId || workoutId || selectedWorkoutId)) || state.workouts[0];
+  populateScheduleSports(session?.sportId || workout.sportId);
+  populateScheduleWorkouts(session?.workoutId || workout.id);
+  elements.scheduleForm.elements.id.value = session?.id || "";
+  elements.scheduleForm.elements.date.value = session?.date || selectedDate;
+  elements.scheduleForm.elements.notes.value = session?.notes || "";
+  elements.scheduleDialog.showModal();
+  setTimeout(() => elements.scheduleForm.elements.date.focus(), 0);
+}
+
 function handleSportSubmit(event) {
   event.preventDefault(); if (!elements.sportForm.reportValidity()) return;
   const values = formValues(elements.sportForm); const existing = state.sports.find((item) => item.id === values.id);
@@ -329,6 +499,18 @@ function handleExerciseSubmit(event) {
   saveState(); elements.exerciseDialog.close(); render(); showToast(t("exerciseSaved"));
 }
 
+function handleScheduleSubmit(event) {
+  event.preventDefault(); if (!elements.scheduleForm.reportValidity()) return;
+  const values = formValues(elements.scheduleForm);
+  const workout = state.workouts.find((item) => item.id === values.workoutId && item.sportId === values.sportId);
+  if (!workout) { showToast(t("noWorkoutsToSchedule"), true); return; }
+  const existing = state.sessions.find((item) => item.id === values.id);
+  if (existing) Object.assign(existing, { sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500) });
+  else state.sessions.push({ id: id(), sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500), completed: false, createdAt: now() });
+  selectedDate = values.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); activeView = "calendar";
+  saveState(); elements.scheduleDialog.close(); render(); showToast(t(existing ? "sessionUpdated" : "sessionSaved"));
+}
+
 async function deleteExerciseAndMedia(exerciseId) {
   const exercise = state.exercises.find((item) => item.id === exerciseId);
   if (!exercise) return;
@@ -340,6 +522,7 @@ async function deleteWorkoutAndChildren(workoutId) {
   const exerciseIds = state.exercises.filter((item) => item.workoutId === workoutId).map((item) => item.id);
   for (const exerciseId of exerciseIds) await deleteExerciseAndMedia(exerciseId);
   state.workouts = state.workouts.filter((item) => item.id !== workoutId);
+  state.sessions = state.sessions.filter((item) => item.workoutId !== workoutId);
 }
 
 async function duplicateExercise(exerciseId, targetWorkoutId = selectedWorkoutId, rename = true) {
@@ -372,6 +555,12 @@ async function handleAction(action, target) {
   if (action === "new-sport") return openSportDialog();
   if (action === "new-workout") return openWorkoutDialog();
   if (action === "new-exercise") return openExerciseDialog();
+  if (action === "new-session") return openScheduleDialog();
+  if (action === "schedule-workout") return openScheduleDialog(null, itemId || selectedWorkoutId);
+  if (action === "select-date") { selectedDate = target.dataset.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); renderCalendar(); return; }
+  if (action === "today") { selectedDate = toLocalIso(new Date()); calendarMonth = startOfMonth(new Date()); renderCalendar(); return; }
+  if (action === "previous-week" || action === "next-week") { selectedDate = toLocalIso(addDays(parseIsoDate(selectedDate), action === "previous-week" ? -7 : 7)); calendarMonth = startOfMonth(parseIsoDate(selectedDate)); renderCalendar(); return; }
+  if (action === "previous-month" || action === "next-month") { const amount = action === "previous-month" ? -1 : 1; calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + amount, 1, 12); selectedDate = toLocalIso(calendarMonth); renderCalendar(); return; }
   if (action === "select-sport") { selectedSportId = itemId; selectedWorkoutId = state.workouts.find((item) => item.sportId === itemId)?.id || null; return render(); }
   if (action === "select-workout") { selectedWorkoutId = itemId; return render(); }
   if (action === "edit-sport") return openSportDialog(state.sports.find((item) => item.id === itemId));
@@ -383,6 +572,10 @@ async function handleAction(action, target) {
   if (action === "move-down") return moveExercise(itemId,1);
   if (action === "add-media" || action === "replace-media") { mediaTarget = { exerciseId: itemId, replaceId: target.dataset.mediaId || null }; elements.mediaInput.multiple = action === "add-media"; elements.mediaInput.value = ""; elements.mediaInput.click(); return; }
   if (action === "remove-media") return removeMediaItem(itemId,target.dataset.mediaId);
+  if (action === "edit-session") return openScheduleDialog(state.sessions.find((item) => item.id === itemId));
+  if (action === "open-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; selectedSportId = session.sportId; selectedWorkoutId = session.workoutId; activeView = "library"; render(); return; }
+  if (action === "toggle-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; session.completed = !session.completed; saveState(); renderCalendar(); updateSummary(); showToast(t(session.completed ? "sessionCompleted" : "sessionReopened")); return; }
+  if (action === "delete-session") { if (!confirm(t("confirmDeleteSession"))) return; state.sessions = state.sessions.filter((item) => item.id !== itemId); saveState(); renderCalendar(); showToast(t("deleted")); return; }
   if (action === "delete-exercise") { if (!confirm(t("confirmDeleteExercise"))) return; await deleteExerciseAndMedia(itemId); saveState(); render(); showToast(t("deleted")); return; }
   if (action === "delete-workout") { const workoutId = itemId || selectedWorkoutId; if (!confirm(t("confirmDeleteWorkout"))) return; await deleteWorkoutAndChildren(workoutId); if (selectedWorkoutId === workoutId) selectedWorkoutId = null; saveState(); render(); showToast(t("deleted")); return; }
   if (action === "delete-sport") { if (!confirm(t("confirmDeleteSport"))) return; const workoutIds = state.workouts.filter((item) => item.sportId === itemId).map((item) => item.id); for (const workoutId of workoutIds) await deleteWorkoutAndChildren(workoutId); state.sports = state.sports.filter((item) => item.id !== itemId); if (selectedSportId === itemId) { selectedSportId = null; selectedWorkoutId = null; } saveState(); render(); showToast(t("deleted")); }
@@ -423,7 +616,7 @@ async function exportBackup() {
   try {
     const records = await getAllMedia(); const media = [];
     for (const record of records) media.push({ id: record.id, exerciseId: record.exerciseId, name: record.name, type: record.type, size: record.size, createdAt: record.createdAt, data: await blobToDataUrl(record.blob) });
-    const payload = { app: "training-atlas", version: 1, exportedAt: now(), library: state, media };
+    const payload = { app: "training-atlas", version: 2, exportedAt: now(), library: state, media };
     const blob = new Blob([JSON.stringify(payload)], { type: "application/json" }); const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = `training-atlas-backup-${new Date().toISOString().slice(0,10)}.json`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url),1000); showToast(t("backupReady"));
   } catch { showToast(t("exportError"),true); }
 }
@@ -451,14 +644,16 @@ function applyLanguage(next) {
   render();
 }
 
-document.addEventListener("click", (event) => { const target = event.target.closest("[data-action]"); if (target) handleAction(target.dataset.action,target); });
+document.addEventListener("click", (event) => { const target = event.target.closest("[data-action]"); if (target) handleAction(target.dataset.action,target); const view = event.target.closest("[data-view]"); if (view) setView(view.dataset.view); });
 $("#new-sport").addEventListener("click", () => openSportDialog());
 $("#new-sport-small").addEventListener("click", () => openSportDialog());
 $("#new-workout").addEventListener("click", () => openWorkoutDialog());
 elements.sportForm.addEventListener("submit",handleSportSubmit);
 elements.workoutForm.addEventListener("submit",handleWorkoutSubmit);
 elements.exerciseForm.addEventListener("submit",handleExerciseSubmit);
-for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
+elements.scheduleForm.addEventListener("submit",handleScheduleSubmit);
+elements.scheduleForm.elements.sportId.addEventListener("change",() => populateScheduleWorkouts());
+for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
 elements.mediaInput.addEventListener("change", () => handleMediaFiles(elements.mediaInput.files));
 $("#export-backup").addEventListener("click",exportBackup);
 elements.importInput.addEventListener("change",() => importBackup(elements.importInput.files[0]));

@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Organise sports, workouts, exercises, images, and videos privately on this device." data-i18n-content="description" />
+    <meta name="description" content="Organise sports, workouts, exercises, and a private week-by-day training calendar on this device." data-i18n-content="description" />
     <meta name="theme-color" content="#0d6971" />
     <title>Training Atlas &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/training-atlas-icon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../../assets/language-switch.css" />
-    <link rel="stylesheet" href="training-atlas.css?v=2" />
-    <script type="module" src="training-atlas.js?v=1"></script>
+    <link rel="stylesheet" href="training-atlas.css?v=3" />
+    <script type="module" src="training-atlas.js?v=2"></script>
   </head>
   <body>
     <a class="skip-link" href="#workspace" data-i18n="skip">Skip to organiser</a>
@@ -21,7 +21,7 @@
 
     <main id="workspace">
       <section class="app-intro">
-        <div><p class="kicker" data-i18n="kicker">Private training library</p><h1>Training <em>Atlas</em></h1><p class="intro-copy" data-i18n="intro">Create any sport, organise its workouts, and keep every exercise and demonstration ready when you train.</p></div>
+        <div><p class="kicker" data-i18n="kicker">Private training library</p><h1>Training <em>Atlas</em></h1><p class="intro-copy" data-i18n="intro">Create any sport, organise its workouts, and schedule every session by week and day.</p></div>
         <div class="privacy-card"><span class="privacy-dot" aria-hidden="true"></span><div><strong data-i18n="localTitle">Stored only on this device</strong><p data-i18n="localCopy">No account, uploads, analytics, or external requests.</p></div></div>
       </section>
 
@@ -30,7 +30,12 @@
         <div class="utility-actions"><button class="button ghost" id="export-backup" type="button" data-i18n="export">Export backup</button><label class="button ghost file-button"><span data-i18n="import">Import backup</span><input id="import-backup" type="file" accept="application/json,.json" /></label><button class="button primary" id="new-sport" type="button"><span aria-hidden="true">+</span> <span data-i18n="newSport">New sport</span></button></div>
       </section>
 
-      <section class="atlas-grid">
+      <div class="view-switch" role="tablist" aria-label="Training Atlas views" data-i18n-aria-label="viewSwitch">
+        <button type="button" role="tab" aria-selected="true" data-view="library"><span aria-hidden="true">▦</span><span data-i18n="library">Library</span></button>
+        <button type="button" role="tab" aria-selected="false" data-view="calendar"><span aria-hidden="true">□</span><span data-i18n="calendar">Calendar</span></button>
+      </div>
+
+      <section id="library-view" class="atlas-grid view-panel">
         <aside class="column sports-column" aria-labelledby="sports-title">
           <div class="column-heading"><div><p class="step">01</p><h2 id="sports-title" data-i18n="sports">Sports</h2></div><button class="icon-button" id="new-sport-small" type="button" aria-label="New sport" data-i18n-aria-label="newSport">+</button></div>
           <div id="sports-list" class="item-list"></div>
@@ -46,13 +51,40 @@
         <section class="column plan-column" aria-labelledby="plan-title">
           <div id="plan-empty" class="empty-state plan-empty"><div class="empty-icon" aria-hidden="true">✓</div><h2 data-i18n="chooseWorkout">Choose a workout</h2><p data-i18n="chooseWorkoutCopy">Its exercises, instructions, images, and videos will appear here in training order.</p></div>
           <div id="plan-view" hidden>
-            <header class="plan-header"><div><p class="step">03 · <span data-i18n="trainingPlan">Training plan</span></p><h2 id="plan-title"></h2><p id="plan-description"></p><div id="plan-meta" class="plan-meta"></div></div><div class="plan-actions"><button class="icon-button text" type="button" data-action="edit-workout" data-i18n="edit">Edit</button><button class="icon-button text" type="button" data-action="duplicate-workout" data-i18n="duplicate">Duplicate</button><button class="icon-button text danger" type="button" data-action="delete-workout" data-i18n="delete">Delete</button></div></header>
+            <header class="plan-header"><div><p class="step">03 · <span data-i18n="trainingPlan">Training plan</span></p><h2 id="plan-title"></h2><p id="plan-description"></p><div id="plan-meta" class="plan-meta"></div></div><div class="plan-actions"><button class="icon-button text schedule-button" type="button" data-action="schedule-workout" data-i18n="schedule">Schedule</button><button class="icon-button text" type="button" data-action="edit-workout" data-i18n="edit">Edit</button><button class="icon-button text" type="button" data-action="duplicate-workout" data-i18n="duplicate">Duplicate</button><button class="icon-button text danger" type="button" data-action="delete-workout" data-i18n="delete">Delete</button></div></header>
             <div id="workout-notes" class="workout-notes" hidden></div>
             <div class="exercise-toolbar"><div><strong id="exercise-count">0 exercises</strong><span data-i18n="orderHint">Use the arrows or drag cards to change the order.</span></div><button class="button primary" type="button" data-action="new-exercise"><span aria-hidden="true">+</span> <span data-i18n="addExercise">Add exercise</span></button></div>
             <ol id="exercise-list" class="exercise-list"></ol>
             <div id="exercises-empty" class="empty-state exercises-empty"><div class="empty-icon" aria-hidden="true">＋</div><h3 data-i18n="noExercises">No exercises yet</h3><p data-i18n="noExercisesCopy">Add a free-form instruction or use the optional detail fields.</p><button class="button secondary" type="button" data-action="new-exercise" data-i18n="addFirstExercise">Add first exercise</button></div>
           </div>
         </section>
+      </section>
+
+      <section id="calendar-view" class="calendar-view view-panel" hidden>
+        <section class="week-panel" aria-labelledby="week-title">
+          <div class="calendar-section-heading">
+            <div><p class="step" data-i18n="weeklyPlan">Weekly plan</p><h2 id="week-title"></h2></div>
+            <div class="calendar-nav"><button class="icon-button" type="button" data-action="previous-week" aria-label="Previous week" data-i18n-aria-label="previousWeek">&larr;</button><button class="button ghost" type="button" data-action="today" data-i18n="today">Today</button><button class="icon-button" type="button" data-action="next-week" aria-label="Next week" data-i18n-aria-label="nextWeek">&rarr;</button></div>
+          </div>
+          <div id="week-days" class="week-days"></div>
+        </section>
+
+        <div class="calendar-layout">
+          <section class="month-panel" aria-labelledby="month-title">
+            <div class="calendar-section-heading">
+              <div><p class="step" data-i18n="monthlyCalendar">Monthly calendar</p><h2 id="month-title"></h2></div>
+              <div class="calendar-nav"><button class="icon-button" type="button" data-action="previous-month" aria-label="Previous month" data-i18n-aria-label="previousMonth">&larr;</button><button class="icon-button" type="button" data-action="next-month" aria-label="Next month" data-i18n-aria-label="nextMonth">&rarr;</button></div>
+            </div>
+            <div id="calendar-weekdays" class="calendar-weekdays" aria-hidden="true"></div>
+            <div id="calendar-grid" class="calendar-grid"></div>
+          </section>
+
+          <aside class="agenda-panel" aria-labelledby="agenda-title">
+            <div class="agenda-heading"><div><p class="step" data-i18n="selectedDay">Selected day</p><h2 id="agenda-title"></h2></div><button class="button primary" type="button" data-action="new-session"><span aria-hidden="true">+</span><span data-i18n="addWorkout">Add workout</span></button></div>
+            <div id="agenda-list" class="agenda-list"></div>
+            <div id="agenda-empty" class="empty-state agenda-empty"><div class="empty-icon" aria-hidden="true">□</div><h3 data-i18n="nothingPlanned">Nothing planned</h3><p data-i18n="nothingPlannedCopy">Add a workout from your library to this day.</p><button class="button secondary" type="button" data-action="new-session" data-i18n="scheduleWorkout">Schedule a workout</button></div>
+          </aside>
+        </div>
       </section>
     </main>
 
@@ -61,6 +93,8 @@
     <dialog id="workout-dialog" class="editor-dialog"><form method="dialog" id="workout-form"><div class="dialog-heading"><div><p class="step" data-i18n="workout">Workout</p><h2 id="workout-dialog-title" data-i18n="newWorkout">New workout</h2></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><input type="hidden" name="id" /><label><span data-i18n="name">Name</span><input name="name" maxlength="80" required data-i18n-placeholder="workoutNamePlaceholder" placeholder="For example, Push Day" /></label><label><span data-i18n="descriptionOptional">Description (optional)</span><textarea name="description" maxlength="500" rows="3"></textarea></label><div class="field-grid"><label><span data-i18n="approxDuration">Approx. duration</span><input name="duration" maxlength="40" data-i18n-placeholder="durationPlaceholder" placeholder="For example, 60 min" /></label><label><span data-i18n="notesOptional">Notes (optional)</span><input name="notes" maxlength="200" /></label></div><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button><button class="button primary" id="save-workout" value="default" data-i18n="saveWorkout">Save workout</button></div></form></dialog>
 
     <dialog id="exercise-dialog" class="editor-dialog wide"><form method="dialog" id="exercise-form"><div class="dialog-heading"><div><p class="step" data-i18n="exercise">Exercise</p><h2 id="exercise-dialog-title" data-i18n="newExercise">New exercise</h2></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><input type="hidden" name="id" /><label><span data-i18n="exerciseName">Exercise name</span><input name="name" maxlength="100" required data-i18n-placeholder="exerciseNamePlaceholder" placeholder="For example, Dumbbell Bench Press" /></label><label><span data-i18n="freeDescription">Free-form description</span><textarea name="description" maxlength="1000" rows="4" data-i18n-placeholder="descriptionPlaceholder" placeholder="Write the exercise exactly as you prefer…"></textarea></label><details class="optional-fields"><summary data-i18n="optionalDetails">Optional details</summary><div class="optional-grid"><label><span data-i18n="sets">Sets</span><input name="sets" maxlength="30" inputmode="numeric" /></label><label><span data-i18n="repetitions">Repetitions</span><input name="reps" maxlength="40" /></label><label><span data-i18n="weight">Weight</span><input name="weight" maxlength="40" placeholder="50 kg" /></label><label><span data-i18n="distance">Distance</span><input name="distance" maxlength="40" placeholder="400 m" /></label><label><span data-i18n="duration">Duration</span><input name="duration" maxlength="40" placeholder="10 min" /></label><label><span data-i18n="rest">Rest</span><input name="rest" maxlength="40" placeholder="90 s" /></label><label><span data-i18n="intensity">Intensity</span><input name="intensity" maxlength="80" placeholder="RPE 8 / 5K pace" /></label></div><label><span data-i18n="instructions">Instructions</span><textarea name="instructions" maxlength="1500" rows="4"></textarea></label><label><span data-i18n="notesOptional">Notes (optional)</span><textarea name="notes" maxlength="800" rows="3"></textarea></label></details><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button><button class="button primary" id="save-exercise" value="default" data-i18n="saveExercise">Save exercise</button></div></form></dialog>
+
+    <dialog id="schedule-dialog" class="editor-dialog"><form method="dialog" id="schedule-form"><div class="dialog-heading"><div><p class="step" data-i18n="calendar">Calendar</p><h2 id="schedule-dialog-title" data-i18n="scheduleWorkout">Schedule a workout</h2></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><input type="hidden" name="id" /><label><span data-i18n="sport">Sport</span><select name="sportId" required></select></label><label><span data-i18n="workout">Workout</span><select name="workoutId" required></select></label><label><span data-i18n="date">Date</span><input name="date" type="date" required /></label><label><span data-i18n="sessionNotes">Session notes (optional)</span><textarea name="notes" maxlength="500" rows="3" data-i18n-placeholder="sessionNotesPlaceholder" placeholder="Add anything specific for this day…"></textarea></label><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button><button class="button primary" value="default" data-i18n="saveToCalendar">Save to calendar</button></div></form></dialog>
 
     <input id="media-input" class="sr-only" type="file" accept="image/*,video/*" multiple />
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
