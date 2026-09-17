@@ -212,9 +212,18 @@ function setView(view) {
   if (activeView === "calendar") renderCalendar();
 }
 
+function createCalendarIcon() {
+  const svg = document.createElementNS("http\u003a//www.w3.org/2000/svg", "svg");
+  svg.setAttribute("class", "action-icon"); svg.setAttribute("viewBox", "0 0 24 24"); svg.setAttribute("aria-hidden", "true"); svg.setAttribute("focusable", "false");
+  const path = document.createElementNS("http\u003a//www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "M6 3v3M18 3v3M4 8h16M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z");
+  svg.append(path); return svg;
+}
+
 function createActionButton(label, symbol, action, itemId, className = "") {
   const button = document.createElement("button");
-  button.type = "button"; button.dataset.action = action; button.dataset.id = itemId; button.className = className; button.textContent = symbol; button.setAttribute("aria-label", label); button.title = label;
+  button.type = "button"; button.dataset.action = action; button.dataset.id = itemId; button.className = className; button.setAttribute("aria-label", label); button.title = label;
+  if (symbol === "calendar") button.append(createCalendarIcon()); else button.textContent = symbol;
   return button;
 }
 
@@ -252,7 +261,7 @@ function renderWorkouts() {
     const meta = document.createElement("span"); meta.textContent = [plural(count, "exerciseSingular", "exercisePlural"), workout.duration].filter(Boolean).join(" · ");
     select.append(name, meta);
     const menu = document.createElement("div"); menu.className = "item-menu";
-    menu.append(createActionButton(t("scheduleWorkout"), "□", "schedule-workout", workout.id), createActionButton(t("editWorkout"), "✎", "edit-workout", workout.id), createActionButton(t("duplicateWorkout"), "⧉", "duplicate-workout", workout.id), createActionButton(t("deleteWorkout"), "×", "delete-workout", workout.id, "danger"));
+    menu.append(createActionButton(t("scheduleWorkout"), "calendar", "schedule-workout", workout.id), createActionButton(t("editWorkout"), "✎", "edit-workout", workout.id), createActionButton(t("duplicateWorkout"), "⧉", "duplicate-workout", workout.id), createActionButton(t("deleteWorkout"), "×", "delete-workout", workout.id, "danger"));
     item.append(select, menu); elements.workoutsList.append(item);
   }
 }

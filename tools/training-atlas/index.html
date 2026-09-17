@@ -6,10 +6,11 @@
     <meta name="description" content="Organise sports, workouts, exercises, and a private week-by-day training calendar on this device." data-i18n-content="description" />
     <meta name="theme-color" content="#0d6971" />
     <title>Training Atlas &mdash; EstrelaLuaApps</title>
-    <link rel="icon" href="../../assets/training-atlas-icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../assets/training-atlas-icon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="../../assets/training-atlas-icon.png" />
     <link rel="stylesheet" href="../../assets/language-switch.css" />
     <link rel="stylesheet" href="training-atlas.css?v=3" />
-    <script type="module" src="training-atlas.js?v=2"></script>
+    <script type="module" src="training-atlas.js?v=3"></script>
   </head>
   <body>
     <a class="skip-link" href="#workspace" data-i18n="skip">Skip to organiser</a>
@@ -31,8 +32,8 @@
       </section>
 
       <div class="view-switch" role="tablist" aria-label="Training Atlas views" data-i18n-aria-label="viewSwitch">
-        <button type="button" role="tab" aria-selected="true" data-view="library"><span aria-hidden="true">▦</span><span data-i18n="library">Library</span></button>
-        <button type="button" role="tab" aria-selected="false" data-view="calendar"><span aria-hidden="true">□</span><span data-i18n="calendar">Calendar</span></button>
+        <button type="button" role="tab" aria-selected="true" data-view="library"><svg class="ui-icon fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span data-i18n="library">Library</span></button>
+        <button type="button" role="tab" aria-selected="false" data-view="calendar"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3v3M18 3v3M4 8h16M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /></svg><span data-i18n="calendar">Calendar</span></button>
       </div>
 
       <section id="library-view" class="atlas-grid view-panel">
