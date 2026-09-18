@@ -6,6 +6,7 @@ const DB_VERSION = 1;
 const STORE_NAME = "media";
 const MAX_FILE_SIZE = 250 * 1024 * 1024;
 const NEW_CHOICE = "__new__";
+const DETAIL_KEYS = ["sets","repetitions","weight","distance","duration","rest","intensity","pace","laps","rounds","stroke","equipment","surface","poolLength","drill"];
 
 const translations = {
   en: {
@@ -16,7 +17,7 @@ const translations = {
     trainingPlan: "Training plan", edit: "Edit", duplicate: "Duplicate", delete: "Delete", orderHint: "Use the arrows or drag cards to change the order.", addExercise: "Add exercise", noExercises: "No exercises yet", noExercisesCopy: "Add a free-form instruction or use the optional detail fields.", addFirstExercise: "Add first exercise",
     sport: "Sport", close: "Close", name: "Name", descriptionOptional: "Description (optional)", sportNamePlaceholder: "For example, Gym", sportDescriptionPlaceholder: "What do you use this sport for?", cancel: "Cancel", saveSport: "Save sport",
     workout: "Workout", workoutNamePlaceholder: "For example, Push Day", approxDuration: "Approx. duration", durationPlaceholder: "For example, 60 min", notesOptional: "Notes (optional)", saveWorkout: "Save workout",
-    exercise: "Exercise", newExercise: "New exercise", exerciseName: "Exercise name", exerciseNamePlaceholder: "For example, Dumbbell Bench Press", freeDescription: "Free-form description", descriptionPlaceholder: "Write the exercise exactly as you prefer…", optionalDetails: "Optional details", sets: "Sets", repetitions: "Repetitions", weight: "Weight", distance: "Distance", duration: "Duration", rest: "Rest", intensity: "Intensity", instructions: "Instructions", saveExercise: "Save exercise",
+    exercise: "Exercise", newExercise: "New exercise", exerciseName: "Exercise name", exerciseNamePlaceholder: "For example, freestyle intervals, hill repeats, or bench press", freeDescription: "Free-form description", descriptionPlaceholder: "Write the exercise exactly as you prefer…", optionalDetails: "Optional details", sets: "Sets", repetitions: "Repetitions", weight: "Weight", distance: "Distance", duration: "Duration", rest: "Rest", intensity: "Intensity", instructions: "Instructions", saveExercise: "Save exercise",
     footerPrivacy: "Everything is processed and stored locally in this browser.", legal: "Trademark & copyright", aboutApp: "About the app", createFirstSport: "Create your first sport to begin.", selectSportFirst: "Choose or create a sport first.", selectWorkoutFirst: "Choose or create a workout first.",
     editSport: "Edit sport", deleteSport: "Delete sport", editWorkout: "Edit workout", duplicateWorkout: "Duplicate workout", deleteWorkout: "Delete workout", editExercise: "Edit exercise", duplicateExercise: "Duplicate exercise", deleteExercise: "Delete exercise", moveUp: "Move up", moveDown: "Move down",
     exercises: "exercises", workoutSingular: "workout", workoutPlural: "workouts", sportSingular: "sport", sportPlural: "sports", exerciseSingular: "exercise", exercisePlural: "exercises", approx: "Approx.", notes: "Notes", details: "Details", media: "Images & videos", addMedia: "Add media", replace: "Replace", remove: "Remove",
@@ -27,7 +28,8 @@ const translations = {
     viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout from your library to this day.", date: "Date (month/day/year)", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
     addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, goals, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs a sport, workout, or exercise that is also deleted. Recover the required parent items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
     planAndSchedule: "Build and schedule", planAndScheduleCopy: "Use something from your library or create the sport, workout, and exercises here.", sportSetup: "Sport setup", chooseOrCreateSport: "Choose a sport or create a new one.", createNewSportOption: "+ Create a new sport", workoutSetup: "Workout setup", chooseOrCreateWorkout: "Choose a workout or create a new one.", createNewWorkoutOption: "+ Create a new workout", exercisesOptional: "Exercises (optional)", exercisesOptionalCopy: "Add any exercises you already know. You can add more later.", addAnotherExercise: "Add another exercise", removeExercise: "Remove exercise", calendarDetailsCopy: "Choose the day and add any session-specific notes.", savePlanToCalendar: "Save plan to calendar", planSaved: "Workout plan saved to the calendar.", scheduleAnotherWorkout: "Schedule another workout", confirmDeleteOwnedPlan: "This calendar entry created a new library plan. Remove it from the calendar and move its workout, exercises, and any otherwise-empty new sport to Trash?",
-    goals: "Goals", goal: "Goal", personalMilestones: "Personal milestones", goalsIntro: "Create a target and watch each circle fill as you complete workouts. You can also adjust progress manually.", newGoal: "New goal", createGoal: "Create a goal", noGoals: "No goals yet", noGoalsCopy: "Choose a personal target, such as completing 10 workouts, and build your streak one circle at a time.", goalDialogCopy: "Every completed calendar workout fills one circle. Click the circles whenever you want to adjust the count yourself.", goalName: "Goal name", goalNamePlaceholder: "For example, Complete 10 workouts", targetWorkouts: "Number of circles", saveGoal: "Save goal", editGoal: "Edit goal", deleteGoal: "Delete goal", confirmDeleteGoal: "Move this goal and its progress to Trash?", goalSaved: "Goal saved.", goalProgressUpdated: "Goal progress updated.", goalComplete: "Goal complete!", goalProgressHint: "Completed workouts fill circles automatically. Click a filled circle to remove one, or an empty circle to set that total.", goalSingular: "goal", goalPlural: "goals", typeGoal: "Goal"
+    goals: "Goals", goal: "Goal", personalMilestones: "Personal milestones", goalsIntro: "Create a target and watch each circle fill as you complete workouts. You can also adjust progress manually.", newGoal: "New goal", createGoal: "Create a goal", noGoals: "No goals yet", noGoalsCopy: "Choose a personal target, such as completing 10 workouts, and build your streak one circle at a time.", goalDialogCopy: "Every completed calendar workout fills one circle. Click the circles whenever you want to adjust the count yourself.", goalName: "Goal name", goalNamePlaceholder: "For example, Complete 10 workouts", targetWorkouts: "Number of circles", saveGoal: "Save goal", editGoal: "Edit goal", deleteGoal: "Delete goal", confirmDeleteGoal: "Move this goal and its progress to Trash?", goalSaved: "Goal saved.", goalProgressUpdated: "Goal progress updated.", goalComplete: "Goal complete!", goalProgressHint: "Completed workouts fill circles automatically. Click a filled circle to remove one, or an empty circle to set that total.", goalSingular: "goal", goalPlural: "goals", typeGoal: "Goal",
+    flexibleDetails: "Flexible details", flexibleDetailsCopy: "Add only what matters for this activity—pace, stroke, distance, court, rounds, equipment, or anything else.", addDetail: "Add detail", removeDetail: "Remove detail", detailLabel: "Detail", detailValue: "Value", detailLabelPlaceholder: "For example, Pace", detailValuePlaceholder: "For example, 5:00/km", pace: "Pace", laps: "Laps", rounds: "Rounds", stroke: "Stroke / style", equipment: "Equipment", surface: "Surface / court", poolLength: "Pool length", drill: "Drill"
   },
   pt: {
     description: "Organize desportos, treinos, exercícios, objetivos pessoais e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
@@ -37,7 +39,7 @@ const translations = {
     trainingPlan: "Plano de treino", edit: "Editar", duplicate: "Duplicar", delete: "Eliminar", orderHint: "Use as setas ou arraste os cartões para alterar a ordem.", addExercise: "Adicionar exercício", noExercises: "Ainda não existem exercícios", noExercisesCopy: "Adicione uma descrição livre ou utilize os campos opcionais.", addFirstExercise: "Adicionar primeiro exercício",
     sport: "Desporto", close: "Fechar", name: "Nome", descriptionOptional: "Descrição (opcional)", sportNamePlaceholder: "Por exemplo, Ginásio", sportDescriptionPlaceholder: "Como utiliza este desporto?", cancel: "Cancelar", saveSport: "Guardar desporto",
     workout: "Treino", workoutNamePlaceholder: "Por exemplo, Push Day", approxDuration: "Duração aproximada", durationPlaceholder: "Por exemplo, 60 min", notesOptional: "Notas (opcional)", saveWorkout: "Guardar treino",
-    exercise: "Exercício", newExercise: "Novo exercício", exerciseName: "Nome do exercício", exerciseNamePlaceholder: "Por exemplo, Dumbbell Bench Press", freeDescription: "Descrição livre", descriptionPlaceholder: "Escreva o exercício exatamente como preferir…", optionalDetails: "Detalhes opcionais", sets: "Séries", repetitions: "Repetições", weight: "Peso", distance: "Distância", duration: "Duração", rest: "Descanso", intensity: "Intensidade", instructions: "Instruções", saveExercise: "Guardar exercício",
+    exercise: "Exercício", newExercise: "Novo exercício", exerciseName: "Nome do exercício", exerciseNamePlaceholder: "Por exemplo, séries de crawl, subidas ou supino", freeDescription: "Descrição livre", descriptionPlaceholder: "Escreva o exercício exatamente como preferir…", optionalDetails: "Detalhes opcionais", sets: "Séries", repetitions: "Repetições", weight: "Peso", distance: "Distância", duration: "Duração", rest: "Descanso", intensity: "Intensidade", instructions: "Instruções", saveExercise: "Guardar exercício",
     footerPrivacy: "Tudo é processado e guardado localmente neste navegador.", legal: "Marcas e direitos de autor", aboutApp: "Sobre a app", createFirstSport: "Crie o primeiro desporto para começar.", selectSportFirst: "Escolha ou crie primeiro um desporto.", selectWorkoutFirst: "Escolha ou crie primeiro um treino.",
     editSport: "Editar desporto", deleteSport: "Eliminar desporto", editWorkout: "Editar treino", duplicateWorkout: "Duplicar treino", deleteWorkout: "Eliminar treino", editExercise: "Editar exercício", duplicateExercise: "Duplicar exercício", deleteExercise: "Eliminar exercício", moveUp: "Mover para cima", moveDown: "Mover para baixo",
     exercises: "exercícios", workoutSingular: "treino", workoutPlural: "treinos", sportSingular: "desporto", sportPlural: "desportos", exerciseSingular: "exercício", exercisePlural: "exercícios", approx: "Aprox.", notes: "Notas", details: "Detalhes", media: "Imagens e vídeos", addMedia: "Adicionar multimédia", replace: "Substituir", remove: "Remover",
@@ -48,7 +50,8 @@ const translations = {
     viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino da sua biblioteca a este dia.", date: "Data (mês/dia/ano)", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
     addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões, objetivos e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de um desporto, treino ou exercício que também foi eliminado. Recuperar os elementos-pai necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
     planAndSchedule: "Criar e agendar", planAndScheduleCopy: "Utilize algo da sua biblioteca ou crie aqui o desporto, o treino e os exercícios.", sportSetup: "Configuração do desporto", chooseOrCreateSport: "Escolha um desporto ou crie um novo.", createNewSportOption: "+ Criar novo desporto", workoutSetup: "Configuração do treino", chooseOrCreateWorkout: "Escolha um treino ou crie um novo.", createNewWorkoutOption: "+ Criar novo treino", exercisesOptional: "Exercícios (opcional)", exercisesOptionalCopy: "Adicione os exercícios que já conhece. Pode acrescentar mais tarde.", addAnotherExercise: "Adicionar outro exercício", removeExercise: "Remover exercício", calendarDetailsCopy: "Escolha o dia e adicione notas específicas desta sessão.", savePlanToCalendar: "Guardar plano no calendário", planSaved: "Plano de treino guardado no calendário.", scheduleAnotherWorkout: "Agendar outro treino", confirmDeleteOwnedPlan: "Este agendamento criou um plano novo na Biblioteca. Removê-lo do calendário e mover o treino, os exercícios e qualquer desporto novo que fique vazio para o Lixo?",
-    goals: "Objetivos", goal: "Objetivo", personalMilestones: "Metas pessoais", goalsIntro: "Crie uma meta e veja cada círculo ficar preenchido à medida que conclui treinos. Também pode ajustar o progresso manualmente.", newGoal: "Novo objetivo", createGoal: "Criar objetivo", noGoals: "Ainda não existem objetivos", noGoalsCopy: "Escolha uma meta pessoal, como concluir 10 treinos, e avance um círculo de cada vez.", goalDialogCopy: "Cada treino concluído no calendário preenche um círculo. Clique nos círculos sempre que quiser ajustar a contagem manualmente.", goalName: "Nome do objetivo", goalNamePlaceholder: "Por exemplo, Concluir 10 treinos", targetWorkouts: "Número de círculos", saveGoal: "Guardar objetivo", editGoal: "Editar objetivo", deleteGoal: "Eliminar objetivo", confirmDeleteGoal: "Mover este objetivo e o respetivo progresso para o Lixo?", goalSaved: "Objetivo guardado.", goalProgressUpdated: "Progresso do objetivo atualizado.", goalComplete: "Objetivo concluído!", goalProgressHint: "Os treinos concluídos preenchem círculos automaticamente. Clique num círculo preenchido para retirar um, ou num vazio para definir esse total.", goalSingular: "objetivo", goalPlural: "objetivos", typeGoal: "Objetivo"
+    goals: "Objetivos", goal: "Objetivo", personalMilestones: "Metas pessoais", goalsIntro: "Crie uma meta e veja cada círculo ficar preenchido à medida que conclui treinos. Também pode ajustar o progresso manualmente.", newGoal: "Novo objetivo", createGoal: "Criar objetivo", noGoals: "Ainda não existem objetivos", noGoalsCopy: "Escolha uma meta pessoal, como concluir 10 treinos, e avance um círculo de cada vez.", goalDialogCopy: "Cada treino concluído no calendário preenche um círculo. Clique nos círculos sempre que quiser ajustar a contagem manualmente.", goalName: "Nome do objetivo", goalNamePlaceholder: "Por exemplo, Concluir 10 treinos", targetWorkouts: "Número de círculos", saveGoal: "Guardar objetivo", editGoal: "Editar objetivo", deleteGoal: "Eliminar objetivo", confirmDeleteGoal: "Mover este objetivo e o respetivo progresso para o Lixo?", goalSaved: "Objetivo guardado.", goalProgressUpdated: "Progresso do objetivo atualizado.", goalComplete: "Objetivo concluído!", goalProgressHint: "Os treinos concluídos preenchem círculos automaticamente. Clique num círculo preenchido para retirar um, ou num vazio para definir esse total.", goalSingular: "objetivo", goalPlural: "objetivos", typeGoal: "Objetivo",
+    flexibleDetails: "Detalhes flexíveis", flexibleDetailsCopy: "Adicione apenas o que interessa para esta atividade — ritmo, estilo, distância, campo, rondas, equipamento ou qualquer outro detalhe.", addDetail: "Adicionar detalhe", removeDetail: "Remover detalhe", detailLabel: "Detalhe", detailValue: "Valor", detailLabelPlaceholder: "Por exemplo, Ritmo", detailValuePlaceholder: "Por exemplo, 5:00/km", pace: "Ritmo", laps: "Voltas", rounds: "Rondas", stroke: "Estilo / técnica", equipment: "Equipamento", surface: "Superfície / campo", poolLength: "Comprimento da piscina", drill: "Exercício técnico"
   }
 };
 
@@ -76,7 +79,7 @@ const objectUrls = new Set();
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), exerciseDetails: $("#exercise-details"), customDetailTemplate: $("#custom-detail-template"), detailLabelOptions: $("#detail-label-options"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
   libraryView: $("#library-view"), calendarView: $("#calendar-view"), goalsView: $("#goals-view"), goalsList: $("#goals-list"), goalsEmpty: $("#goals-empty"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
@@ -111,10 +114,23 @@ function loadState() {
 function sanitiseSport(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,60), description: clean(item?.description,300), createdAt: item?.createdAt || now() }; }
 function sanitiseWorkout(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), name: clean(item?.name,80), description: clean(item?.description,500), duration: clean(item?.duration,40), notes: clean(item?.notes,200), createdAt: item?.createdAt || now() }; }
 function sanitiseMedia(item) { return { id: clean(item?.id,100), name: clean(item?.name,240), type: clean(item?.type,100), size: Number(item?.size) || 0 }; }
-function sanitiseExercise(item) { return {
-  id: clean(item?.id,100) || id(), workoutId: clean(item?.workoutId,100), name: clean(item?.name,100), description: clean(item?.description,1000), sets: clean(item?.sets,30), reps: clean(item?.reps,40), weight: clean(item?.weight,40), distance: clean(item?.distance,40), duration: clean(item?.duration,40), rest: clean(item?.rest,40), intensity: clean(item?.intensity,80), instructions: clean(item?.instructions,1500), notes: clean(item?.notes,800), order: Number.isFinite(Number(item?.order)) ? Number(item.order) : 0,
-  media: Array.isArray(item?.media) ? item.media.map(sanitiseMedia).filter((media) => media.id) : [], createdAt: item?.createdAt || now()
-}; }
+function sanitiseDetail(item) {
+  const key = DETAIL_KEYS.includes(item?.key) ? item.key : "";
+  const label = key ? "" : clean(item?.label,60);
+  const value = clean(item?.value,120);
+  return value && (key || label) ? { id: clean(item?.id,100) || id(), key, label, value } : null;
+}
+function legacyExerciseDetails(item) {
+  return [["sets","sets"],["repetitions","reps"],["weight","weight"],["distance","distance"],["duration","duration"],["rest","rest"],["intensity","intensity"]]
+    .map(([key,property]) => sanitiseDetail({ key, value: item?.[property] })).filter(Boolean);
+}
+function sanitiseExercise(item) {
+  const details = Array.isArray(item?.details) ? item.details.slice(0,50).map(sanitiseDetail).filter(Boolean) : legacyExerciseDetails(item);
+  return {
+    id: clean(item?.id,100) || id(), workoutId: clean(item?.workoutId,100), name: clean(item?.name,100), description: clean(item?.description,1000), sets: clean(item?.sets,30), reps: clean(item?.reps,40), weight: clean(item?.weight,40), distance: clean(item?.distance,40), duration: clean(item?.duration,40), rest: clean(item?.rest,40), intensity: clean(item?.intensity,80), details, instructions: clean(item?.instructions,1500), notes: clean(item?.notes,800), order: Number.isFinite(Number(item?.order)) ? Number(item.order) : 0,
+    media: Array.isArray(item?.media) ? item.media.map(sanitiseMedia).filter((media) => media.id) : [], createdAt: item?.createdAt || now()
+  };
+}
 function sanitiseSession(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), workoutId: clean(item?.workoutId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), plannerCreatedWorkout: Boolean(item?.plannerCreatedWorkout), plannerCreatedSport: Boolean(item?.plannerCreatedSport), createdAt: item?.createdAt || now() }; }
 function sanitiseGoal(item) {
   const target = Math.max(1,Math.min(365,Math.round(Number(item?.target) || 10)));
@@ -493,8 +509,7 @@ function createExerciseCard(exercise, ordered) {
   const down = createActionButton(t("moveDown"), "↓", "move-down", exercise.id); down.disabled = index === ordered.length - 1;
   actions.append(up, down, createActionButton(t("editExercise"), "✎", "edit-exercise", exercise.id), createActionButton(t("duplicateExercise"), "⧉", "duplicate-exercise", exercise.id), createActionButton(t("deleteExercise"), "×", "delete-exercise", exercise.id, "danger"));
   heading.append(titleWrap, actions); main.append(heading);
-  const facts = [["sets", exercise.sets], ["repetitions", exercise.reps], ["weight", exercise.weight], ["distance", exercise.distance], ["duration", exercise.duration], ["rest", exercise.rest], ["intensity", exercise.intensity]].filter(([,value]) => value);
-  if (facts.length) { const row = document.createElement("div"); row.className = "exercise-facts"; for (const [key,value] of facts) { const fact = document.createElement("span"); fact.textContent = `${t(key)}: ${value}`; row.append(fact); } main.append(row); }
+  if (exercise.details.length) { const row = document.createElement("div"); row.className = "exercise-facts"; for (const detail of exercise.details) { const fact = document.createElement("span"); fact.textContent = `${detail.key ? t(detail.key) : detail.label}: ${detail.value}`; row.append(fact); } main.append(row); }
   for (const [key,value] of [["instructions", exercise.instructions], ["notes", exercise.notes]]) if (value) { const detail = document.createElement("div"); detail.className = "exercise-detail"; const label = document.createElement("strong"); label.textContent = t(key); const text = document.createElement("span"); text.textContent = value; detail.append(label, text); main.append(detail); }
   const mediaSection = document.createElement("div"); mediaSection.className = "media-section";
   const mediaHeading = document.createElement("div"); mediaHeading.className = "media-heading"; const mediaTitle = document.createElement("strong"); mediaTitle.textContent = `${t("media")} (${exercise.media.length})`;
@@ -530,6 +545,37 @@ async function renderExerciseMedia(exercise, token) {
 function formValues(form) { return Object.fromEntries(new FormData(form).entries()); }
 function resetForm(form) { form.reset(); form.elements.id.value = ""; }
 
+function detailKeyForLabel(label) {
+  const normalised = clean(label,60).toLocaleLowerCase();
+  return DETAIL_KEYS.find((key) => [translations.en[key],translations.pt[key]].some((value) => value?.toLocaleLowerCase() === normalised)) || "";
+}
+
+function renderDetailSuggestions() {
+  elements.detailLabelOptions.replaceChildren();
+  for (const key of DETAIL_KEYS) { const option = document.createElement("option"); option.value = t(key); elements.detailLabelOptions.append(option); }
+}
+
+function addCustomDetail(container,detail = {}) {
+  const row = elements.customDetailTemplate.content.firstElementChild.cloneNode(true);
+  row.dataset.detailId = detail.id || id(); row.dataset.detailKey = detail.key || "";
+  row.querySelector("[data-detail-label]").textContent = t("detailLabel");
+  row.querySelector("[data-detail-value]").textContent = t("detailValue");
+  const labelInput = row.querySelector('[name="detailLabel"]'); const valueInput = row.querySelector('[name="detailValue"]');
+  labelInput.placeholder = t("detailLabelPlaceholder"); valueInput.placeholder = t("detailValuePlaceholder");
+  labelInput.value = detail.key ? t(detail.key) : (detail.label || ""); valueInput.value = detail.value || "";
+  const remove = row.querySelector('[data-action="remove-custom-detail"]'); remove.setAttribute("aria-label",t("removeDetail")); remove.title = t("removeDetail");
+  container.append(row); return row;
+}
+
+function readCustomDetails(container) {
+  return $$(".custom-detail-row",container).slice(0,50).map((row) => {
+    const label = clean(row.querySelector('[name="detailLabel"]')?.value,60);
+    const value = clean(row.querySelector('[name="detailValue"]')?.value,120);
+    const key = detailKeyForLabel(label);
+    return value && label ? { id: clean(row.dataset.detailId,100) || id(), key, label: key ? "" : label, value } : null;
+  }).filter(Boolean);
+}
+
 function openSportDialog(sport = null) {
   resetForm(elements.sportForm); elements.sportDialogTitle.textContent = sport ? t("editSport") : t("newSport");
   if (sport) { elements.sportForm.elements.id.value = sport.id; elements.sportForm.elements.name.value = sport.name; elements.sportForm.elements.description.value = sport.description; }
@@ -556,7 +602,10 @@ function updateNewWorkoutSchedule() {
 function openExerciseDialog(exercise = null) {
   if (!selectedWorkoutId) { showToast(t("selectWorkoutFirst"), true); return; }
   resetForm(elements.exerciseForm); elements.exerciseDialogTitle.textContent = exercise ? t("editExercise") : t("newExercise");
-  if (exercise) for (const key of ["id","name","description","sets","reps","weight","distance","duration","rest","intensity","instructions","notes"]) elements.exerciseForm.elements[key].value = exercise[key] || "";
+  if (exercise) for (const key of ["id","name","description","instructions","notes"]) elements.exerciseForm.elements[key].value = exercise[key] || "";
+  elements.exerciseDetails.replaceChildren();
+  for (const detail of exercise?.details || []) addCustomDetail(elements.exerciseDetails,detail);
+  if (!elements.exerciseDetails.children.length) addCustomDetail(elements.exerciseDetails);
   elements.exerciseDialog.showModal(); setTimeout(() => elements.exerciseForm.elements.name.focus(), 0);
 }
 
@@ -620,6 +669,7 @@ function addPlannerExercise() {
   const card = elements.plannerExerciseTemplate.content.firstElementChild.cloneNode(true);
   $$('[data-key]',card).forEach((node) => { node.textContent = t(node.dataset.key); });
   $$('[data-key-placeholder]',card).forEach((node) => { node.placeholder = t(node.dataset.keyPlaceholder); });
+  addCustomDetail(card.querySelector(".planner-custom-details"));
   elements.plannerExercises.append(card); updatePlannerExerciseNumbers();
 }
 
@@ -673,9 +723,9 @@ function openPlannerDialog() {
 function plannerExerciseDraft(card) {
   const value = (name,max) => clean(card.querySelector(`[name="${name}"]`)?.value,max);
   const fields = {
-    name: value("plannerExerciseName",100), description: value("plannerExerciseDescription",1000), sets: value("plannerSets",30), reps: value("plannerReps",40), weight: value("plannerWeight",40), distance: value("plannerDistance",40), duration: value("plannerDuration",40), rest: value("plannerRest",40), intensity: value("plannerIntensity",80), instructions: value("plannerInstructions",1500), notes: value("plannerExerciseNotes",800)
+    name: value("plannerExerciseName",100), description: value("plannerExerciseDescription",1000), details: readCustomDetails(card.querySelector(".planner-custom-details")), instructions: value("plannerInstructions",1500), notes: value("plannerExerciseNotes",800)
   };
-  return { fields, hasContent: Object.values(fields).some(Boolean), nameInput: card.querySelector('[name="plannerExerciseName"]') };
+  return { fields, hasContent: Boolean(fields.name || fields.description || fields.details.length || fields.instructions || fields.notes), nameInput: card.querySelector('[name="plannerExerciseName"]') };
 }
 
 function handlePlannerSubmit(event) {
@@ -737,7 +787,7 @@ function handleWorkoutSubmit(event) {
 function handleExerciseSubmit(event) {
   event.preventDefault(); if (!elements.exerciseForm.reportValidity()) return;
   const values = formValues(elements.exerciseForm); const existing = state.exercises.find((item) => item.id === values.id);
-  const fields = { name: clean(values.name,100), description: clean(values.description,1000), sets: clean(values.sets,30), reps: clean(values.reps,40), weight: clean(values.weight,40), distance: clean(values.distance,40), duration: clean(values.duration,40), rest: clean(values.rest,40), intensity: clean(values.intensity,80), instructions: clean(values.instructions,1500), notes: clean(values.notes,800) };
+  const fields = { name: clean(values.name,100), description: clean(values.description,1000), sets: "", reps: "", weight: "", distance: "", duration: "", rest: "", intensity: "", details: readCustomDetails(elements.exerciseDetails), instructions: clean(values.instructions,1500), notes: clean(values.notes,800) };
   if (existing) Object.assign(existing, fields);
   else { const current = state.exercises.filter((item) => item.workoutId === selectedWorkoutId); state.exercises.push({ id: id(), workoutId: selectedWorkoutId, ...fields, order: current.length, media: [], createdAt: now() }); }
   saveState(); elements.exerciseDialog.close(); render(); showToast(t("exerciseSaved"));
@@ -1010,6 +1060,8 @@ async function handleAction(action, target) {
   if (action === "new-session" || action === "quick-plan") return openPlannerDialog();
   if (action === "add-planner-exercise") { addPlannerExercise(); return; }
   if (action === "remove-planner-exercise") { target.closest(".planner-exercise")?.remove(); if (!elements.plannerExercises.children.length) addPlannerExercise(); else updatePlannerExerciseNumbers(); return; }
+  if (action === "add-custom-detail") { const container = target.dataset.target ? $(`#${CSS.escape(target.dataset.target)}`) : target.closest(".planner-exercise")?.querySelector(".planner-custom-details"); const row = container && addCustomDetail(container); row?.querySelector('[name="detailLabel"]')?.focus(); return; }
+  if (action === "remove-custom-detail") { target.closest(".custom-detail-row")?.remove(); return; }
   if (action === "open-trash") { renderTrash(); elements.trashDialog.showModal(); return; }
   if (action === "restore-trash") { if (restoreTrashItem(itemId)) { saveState(); render(); showToast(t("restoredFromTrash")); } return; }
   if (action === "purge-trash") { if (!confirm(t("confirmPermanentDelete"))) return; await purgeTrashItem(itemId); saveState(); render(); refreshStorage(); showToast(t("permanentlyDeleted")); return; }
@@ -1106,6 +1158,7 @@ async function importBackup(file) {
 function applyLanguage(next) {
   language = saveLanguage(next); document.documentElement.lang = language === "pt" ? "pt-PT" : "en"; document.title = "Training Atlas — EstrelaLuaApps";
   applyTranslations(document,translations,language);
+  renderDetailSuggestions();
   render();
 }
 
