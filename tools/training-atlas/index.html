@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Organise sports, workouts, exercises, and a private week-by-day training calendar on this device." data-i18n-content="description" />
+    <meta name="description" content="Organise sports, workouts, exercises, personal goals, and a private week-by-day training calendar on this device." data-i18n-content="description" />
     <meta name="theme-color" content="#0d6971" />
     <title>Training Atlas &mdash; EstrelaLuaApps</title>
     <link rel="icon" href="../../assets/training-atlas-icon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="../../assets/training-atlas-icon.png" />
     <link rel="stylesheet" href="../../assets/language-switch.css" />
-    <link rel="stylesheet" href="training-atlas.css?v=8" />
-    <script type="module" src="training-atlas.js?v=8"></script>
+    <link rel="stylesheet" href="training-atlas.css?v=9" />
+    <script type="module" src="training-atlas.js?v=9"></script>
   </head>
   <body>
     <a class="skip-link" href="#workspace" data-i18n="skip">Skip to organiser</a>
@@ -22,7 +22,7 @@
 
     <main id="workspace">
       <section class="app-intro">
-        <div><p class="kicker" data-i18n="kicker">Private training library</p><h1>Training <em>Atlas</em></h1><p class="intro-copy" data-i18n="intro">Create any sport, organise its workouts, and schedule every session by week and day.</p></div>
+        <div><p class="kicker" data-i18n="kicker">Private training library</p><h1>Training <em>Atlas</em></h1><p class="intro-copy" data-i18n="intro">Create any sport, organise its workouts, schedule every session, and follow your personal goals.</p></div>
         <div class="privacy-card"><span class="privacy-dot" aria-hidden="true"></span><div><strong data-i18n="localTitle">Stored only on this device</strong><p data-i18n="localCopy">No account, uploads, analytics, or external requests.</p></div></div>
       </section>
 
@@ -34,6 +34,7 @@
       <div class="view-switch" role="tablist" aria-label="Training Atlas views" data-i18n-aria-label="viewSwitch">
         <button type="button" role="tab" aria-selected="true" data-view="library"><svg class="ui-icon fill" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg><span data-i18n="library">Library</span></button>
         <button type="button" role="tab" aria-selected="false" data-view="calendar"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3v3M18 3v3M4 8h16M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" /></svg><span data-i18n="calendar">Calendar</span></button>
+        <button type="button" role="tab" aria-selected="false" data-view="goals"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-4a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-4a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" /></svg><span data-i18n="goals">Goals</span></button>
       </div>
 
       <section id="library-view" class="atlas-grid view-panel">
@@ -87,6 +88,15 @@
           </aside>
         </div>
       </section>
+
+      <section id="goals-view" class="goals-view view-panel" hidden>
+        <header class="goals-hero">
+          <div><p class="step" data-i18n="personalMilestones">Personal milestones</p><h2 data-i18n="goals">Goals</h2><p data-i18n="goalsIntro">Create a target and watch each circle fill as you complete workouts. You can also adjust progress manually.</p></div>
+          <button class="button primary" type="button" data-action="new-goal"><span aria-hidden="true">+</span> <span data-i18n="newGoal">New goal</span></button>
+        </header>
+        <div id="goals-list" class="goals-list"></div>
+        <div id="goals-empty" class="empty-state goals-empty"><div class="empty-icon" aria-hidden="true">◎</div><h3 data-i18n="noGoals">No goals yet</h3><p data-i18n="noGoalsCopy">Choose a personal target, such as completing 10 workouts, and build your streak one circle at a time.</p><button class="button secondary" type="button" data-action="new-goal" data-i18n="createGoal">Create a goal</button></div>
+      </section>
     </main>
 
     <dialog id="sport-dialog" class="editor-dialog"><form method="dialog" id="sport-form"><div class="dialog-heading"><div><p class="step" data-i18n="sport">Sport</p><h2 id="sport-dialog-title" data-i18n="newSport">New sport</h2></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><input type="hidden" name="id" /><label><span data-i18n="name">Name</span><input name="name" maxlength="60" required data-i18n-placeholder="sportNamePlaceholder" placeholder="For example, Gym" /></label><label><span data-i18n="descriptionOptional">Description (optional)</span><textarea name="description" maxlength="300" rows="3" data-i18n-placeholder="sportDescriptionPlaceholder" placeholder="What do you use this sport for?"></textarea></label><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button><button class="button primary" id="save-sport" value="default" data-i18n="saveSport">Save sport</button></div></form></dialog>
@@ -101,7 +111,9 @@
 
     <template id="planner-exercise-template"><article class="planner-exercise"><div class="planner-exercise-title"><h4></h4><button class="icon-button danger" type="button" data-action="remove-planner-exercise" aria-label="Remove exercise">&times;</button></div><label><span data-key="exerciseName"></span><input name="plannerExerciseName" maxlength="100" data-key-placeholder="exerciseNamePlaceholder" /></label><label><span data-key="freeDescription"></span><textarea name="plannerExerciseDescription" maxlength="1000" rows="3" data-key-placeholder="descriptionPlaceholder"></textarea></label><details class="optional-fields"><summary data-key="optionalDetails"></summary><div class="optional-grid"><label><span data-key="sets"></span><input name="plannerSets" maxlength="30" inputmode="numeric" /></label><label><span data-key="repetitions"></span><input name="plannerReps" maxlength="40" /></label><label><span data-key="weight"></span><input name="plannerWeight" maxlength="40" placeholder="50 kg" /></label><label><span data-key="distance"></span><input name="plannerDistance" maxlength="40" placeholder="400 m" /></label><label><span data-key="duration"></span><input name="plannerDuration" maxlength="40" placeholder="10 min" /></label><label><span data-key="rest"></span><input name="plannerRest" maxlength="40" placeholder="90 s" /></label><label><span data-key="intensity"></span><input name="plannerIntensity" maxlength="80" placeholder="RPE 8 / 5K pace" /></label></div><label><span data-key="instructions"></span><textarea name="plannerInstructions" maxlength="1500" rows="3"></textarea></label><label><span data-key="notesOptional"></span><textarea name="plannerExerciseNotes" maxlength="800" rows="2"></textarea></label></details></article></template>
 
-    <dialog id="trash-dialog" class="editor-dialog wide"><form method="dialog" id="trash-form"><div class="dialog-heading"><div><p class="step" data-i18n="recoverableItems">Recoverable items</p><h2 data-i18n="trash">Trash</h2><p class="dialog-copy" data-i18n="trashCopy">Deleted items stay here until you permanently remove them.</p></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><div class="trash-toolbar"><strong id="trash-summary"></strong><button class="button danger-outline" id="empty-trash" type="button" data-action="empty-trash" data-i18n="emptyTrash">Empty trash</button></div><div id="trash-list" class="trash-list"></div><div id="trash-empty" class="empty-state trash-empty"><div class="empty-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" focusable="false"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5" /></svg></div><h3 data-i18n="trashIsEmpty">Trash is empty</h3><p data-i18n="trashIsEmptyCopy">Deleted sports, workouts, exercises, sessions, and media will appear here.</p></div><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="close">Close</button></div></form></dialog>
+    <dialog id="goal-dialog" class="editor-dialog"><form method="dialog" id="goal-form"><div class="dialog-heading"><div><p class="step" data-i18n="goal">Goal</p><h2 id="goal-dialog-title" data-i18n="newGoal">New goal</h2><p class="dialog-copy" data-i18n="goalDialogCopy">Every completed calendar workout fills one circle. Click the circles whenever you want to adjust the count yourself.</p></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><input type="hidden" name="id" /><label><span data-i18n="goalName">Goal name</span><input name="name" maxlength="80" required data-i18n-placeholder="goalNamePlaceholder" placeholder="For example, Complete 10 workouts" /></label><label><span data-i18n="targetWorkouts">Number of circles</span><input name="target" type="number" min="1" max="365" step="1" value="10" required /></label><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button><button class="button primary" value="default" data-i18n="saveGoal">Save goal</button></div></form></dialog>
+
+    <dialog id="trash-dialog" class="editor-dialog wide"><form method="dialog" id="trash-form"><div class="dialog-heading"><div><p class="step" data-i18n="recoverableItems">Recoverable items</p><h2 data-i18n="trash">Trash</h2><p class="dialog-copy" data-i18n="trashCopy">Deleted items stay here until you permanently remove them.</p></div><button class="close-button" value="cancel" aria-label="Close" data-i18n-aria-label="close">&times;</button></div><div class="trash-toolbar"><strong id="trash-summary"></strong><button class="button danger-outline" id="empty-trash" type="button" data-action="empty-trash" data-i18n="emptyTrash">Empty trash</button></div><div id="trash-list" class="trash-list"></div><div id="trash-empty" class="empty-state trash-empty"><div class="empty-icon" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 24 24" focusable="false"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5" /></svg></div><h3 data-i18n="trashIsEmpty">Trash is empty</h3><p data-i18n="trashIsEmptyCopy">Deleted sports, workouts, exercises, sessions, goals, and media will appear here.</p></div><div class="dialog-actions"><button class="button ghost" value="cancel" data-i18n="close">Close</button></div></form></dialog>
 
     <input id="media-input" class="sr-only" type="file" accept="image/*,video/*" multiple />
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
