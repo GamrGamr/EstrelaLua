@@ -33,7 +33,7 @@ const translations = {
     flexibleDetails: "Flexible details", flexibleDetailsCopy: "Add only what matters for this activity—pace, stroke, distance, court, rounds, equipment, or anything else.", addDetail: "Add detail", removeDetail: "Remove detail", detailLabel: "Detail", detailValue: "Value", detailLabelPlaceholder: "For example, Pace", detailValuePlaceholder: "For example, 5:00/km", pace: "Pace", laps: "Laps", rounds: "Rounds", stroke: "Stroke / style", equipment: "Equipment", surface: "Surface / court", poolLength: "Pool length", drill: "Drill",
     meals: "Meals", meal: "Meal", mealPlanning: "Meal planning", mealsIntro: "Build a private meal library and place breakfast, lunch, dinner, snacks, or any custom meal on your training calendar.", newMeal: "New meal", createMeal: "Create a meal", noMeals: "No meals yet", noMealsCopy: "Save a meal once, then add it to any day in the calendar.", mealName: "Meal name", mealNamePlaceholder: "For example, Oats with fruit", mealType: "Meal type", breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", otherMeal: "Other", foodsIngredients: "Foods / ingredients", foodsIngredientsPlaceholder: "Write the foods, quantities, or meal exactly as you prefer…", preparationOptional: "Preparation (optional)", saveMeal: "Save meal", scheduleMeal: "Schedule a meal", editMeal: "Edit meal", duplicateMeal: "Duplicate meal", deleteMeal: "Delete meal", mealSaved: "Meal saved.", mealSavedAndScheduled: "Meal saved and added to the calendar.", mealScheduled: "Meal added to the calendar.", mealScheduleUpdated: "Meal calendar entry updated.", mealCompleted: "Meal marked as eaten.", mealReopened: "Meal marked as not eaten.", markMealComplete: "Mark as eaten", markMealIncomplete: "Mark as not eaten", eaten: "Eaten", openMeal: "Open meal", editMealSchedule: "Edit meal date", removeMealFromCalendar: "Remove meal from calendar", confirmDeleteMeal: "Move this meal and its calendar entries to Trash?", confirmDeleteMealEntry: "Move this planned meal to Trash?", noMealsToSchedule: "Create a meal before adding one to the calendar.", addNewMealToCalendar: "Add this meal to the calendar", addNewMealToCalendarCopy: "Optionally plan its first date now.", firstMealDate: "First meal date (month/day/year)", mealNotes: "Meal notes (optional)", mealNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherMeal: "Schedule another meal", mealSingular: "meal", mealPlural: "meals", mealEntrySingular: "planned meal", mealEntryPlural: "planned meals", calendarItemSingular: "planned item", calendarItemPlural: "planned items", typeMeal: "Meal", typeMealEntry: "Calendar meal",
     supplements: "Supplements", supplement: "Supplement", supplementPlanning: "Supplement planning", supplementsIntro: "Build a private supplement library with amounts, timing, and instructions, then add each item to the shared calendar.", newSupplement: "New supplement", createSupplement: "Create a supplement", noSupplements: "No supplements yet", noSupplementsCopy: "Save a supplement once, then add it to any day in the calendar.", supplementName: "Supplement name", supplementNamePlaceholder: "For example, Creatine", amountOptional: "Amount (optional)", amountPlaceholder: "For example, 5 g", timingOptional: "Timing (optional)", timingPlaceholder: "For example, With breakfast", supplementInstructionsOptional: "Instructions (optional)", supplementInstructionsPlaceholder: "Add frequency, method, or other useful directions…", saveSupplement: "Save supplement", scheduleSupplement: "Schedule a supplement", editSupplement: "Edit supplement", duplicateSupplement: "Duplicate supplement", deleteSupplement: "Delete supplement", supplementSaved: "Supplement saved.", supplementSavedAndScheduled: "Supplement saved and added to the calendar.", supplementScheduled: "Supplement added to the calendar.", supplementScheduleUpdated: "Supplement calendar entry updated.", supplementCompleted: "Supplement marked as taken.", supplementReopened: "Supplement marked as not taken.", markSupplementComplete: "Mark as taken", markSupplementIncomplete: "Mark as not taken", taken: "Taken", openSupplement: "Open supplement", editSupplementSchedule: "Edit supplement date", removeSupplementFromCalendar: "Remove supplement from calendar", confirmDeleteSupplement: "Move this supplement and its calendar entries to Trash?", confirmDeleteSupplementEntry: "Move this planned supplement to Trash?", noSupplementsToSchedule: "Create a supplement before adding one to the calendar.", addNewSupplementToCalendar: "Add this supplement to the calendar", addNewSupplementToCalendarCopy: "Optionally plan its first date now.", firstSupplementDate: "First supplement date (month/day/year)", supplementNotes: "Supplement notes (optional)", supplementNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherSupplement: "Schedule another supplement", supplementSingular: "supplement", supplementPlural: "supplements", supplementEntrySingular: "planned supplement", supplementEntryPlural: "planned supplements", typeSupplement: "Supplement", typeSupplementEntry: "Calendar supplement",
-    repeatSchedule: "Repeat schedule", recurrenceMode: "Repeat", once: "Once", daily: "Daily", everyXDays: "Every X days", customDays: "Custom weekdays", repeatEvery: "Repeat every", daysUnit: "days", repeatUntil: "Repeat until (month/day/year)", chooseDays: "Choose days", mondayShort: "Mon", tuesdayShort: "Tue", wednesdayShort: "Wed", thursdayShort: "Thu", fridayShort: "Fri", saturdayShort: "Sat", sundayShort: "Sun", recurrenceHint: "Each occurrence is added to the calendar and can be completed separately.", endBeforeStart: "The repeat-until date must be the same as or later than the start date.", chooseWeekday: "Choose at least one weekday for a custom schedule.", recurrenceTooLong: "Choose a repeat period of no more than one year.", recurringEntriesCreated: "{count} calendar entries created.", recurringPlanSaved: "Workout plan saved to {count} calendar dates.", recurring: "Recurring"
+    repeatSchedule: "Repeat schedule", recurrenceMode: "Repeat", once: "Once", daily: "Daily", everyXDays: "Every X days", customDays: "Custom weekdays", timesPerDay: "Times per day", timesUnit: "times", repeatEvery: "Repeat every", daysUnit: "days", repeatUntil: "Repeat until (month/day/year)", chooseDays: "Choose days", mondayShort: "Mon", tuesdayShort: "Tue", wednesdayShort: "Wed", thursdayShort: "Thu", fridayShort: "Fri", saturdayShort: "Sat", sundayShort: "Sun", recurrenceHint: "Each occurrence is added to the calendar and can be completed separately.", recurrenceEditHint: "Saving replaces every unfinished occurrence in this recurring schedule. Completed entries are kept as history.", editRecurringSchedule: "Edit recurring schedule", endBeforeStart: "The repeat-until date must be the same as or later than the start date.", chooseWeekday: "Choose at least one weekday for a custom schedule.", recurrenceTooLong: "Choose a repeat period of no more than one year.", recurringEntriesCreated: "{count} calendar entries created.", recurringSeriesUpdated: "Recurring schedule updated with {count} unfinished entries.", recurringPlanSaved: "Workout plan saved to {count} calendar dates.", recurring: "Recurring"
   },
   pt: {
     description: "Organize desportos, treinos, exercícios, refeições, suplementos, objetivos pessoais e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
@@ -58,7 +58,7 @@ const translations = {
     flexibleDetails: "Detalhes flexíveis", flexibleDetailsCopy: "Adicione apenas o que interessa para esta atividade — ritmo, estilo, distância, campo, rondas, equipamento ou qualquer outro detalhe.", addDetail: "Adicionar detalhe", removeDetail: "Remover detalhe", detailLabel: "Detalhe", detailValue: "Valor", detailLabelPlaceholder: "Por exemplo, Ritmo", detailValuePlaceholder: "Por exemplo, 5:00/km", pace: "Ritmo", laps: "Voltas", rounds: "Rondas", stroke: "Estilo / técnica", equipment: "Equipamento", surface: "Superfície / campo", poolLength: "Comprimento da piscina", drill: "Exercício técnico",
     meals: "Refeições", meal: "Refeição", mealPlanning: "Planeamento de refeições", mealsIntro: "Crie uma biblioteca privada de refeições e coloque o pequeno-almoço, almoço, jantar, lanches ou qualquer refeição personalizada no calendário de treinos.", newMeal: "Nova refeição", createMeal: "Criar refeição", noMeals: "Ainda não existem refeições", noMealsCopy: "Guarde uma refeição uma vez e adicione-a a qualquer dia do calendário.", mealName: "Nome da refeição", mealNamePlaceholder: "Por exemplo, Papas de aveia com fruta", mealType: "Tipo de refeição", breakfast: "Pequeno-almoço", lunch: "Almoço", dinner: "Jantar", snack: "Lanche", otherMeal: "Outra", foodsIngredients: "Alimentos / ingredientes", foodsIngredientsPlaceholder: "Escreva os alimentos, quantidades ou a refeição exatamente como preferir…", preparationOptional: "Preparação (opcional)", saveMeal: "Guardar refeição", scheduleMeal: "Agendar refeição", editMeal: "Editar refeição", duplicateMeal: "Duplicar refeição", deleteMeal: "Eliminar refeição", mealSaved: "Refeição guardada.", mealSavedAndScheduled: "Refeição guardada e adicionada ao calendário.", mealScheduled: "Refeição adicionada ao calendário.", mealScheduleUpdated: "Agendamento da refeição atualizado.", mealCompleted: "Refeição marcada como consumida.", mealReopened: "Refeição marcada como não consumida.", markMealComplete: "Marcar como consumida", markMealIncomplete: "Marcar como não consumida", eaten: "Consumida", openMeal: "Abrir refeição", editMealSchedule: "Editar data da refeição", removeMealFromCalendar: "Remover refeição do calendário", confirmDeleteMeal: "Mover esta refeição e os respetivos agendamentos para o Lixo?", confirmDeleteMealEntry: "Mover esta refeição planeada para o Lixo?", noMealsToSchedule: "Crie uma refeição antes de a adicionar ao calendário.", addNewMealToCalendar: "Adicionar esta refeição ao calendário", addNewMealToCalendarCopy: "Planeie já a primeira data, se quiser.", firstMealDate: "Data da primeira refeição (mês/dia/ano)", mealNotes: "Notas da refeição (opcional)", mealNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherMeal: "Agendar outra refeição", mealSingular: "refeição", mealPlural: "refeições", mealEntrySingular: "refeição planeada", mealEntryPlural: "refeições planeadas", calendarItemSingular: "item planeado", calendarItemPlural: "itens planeados", typeMeal: "Refeição", typeMealEntry: "Refeição do calendário",
     supplements: "Suplementos", supplement: "Suplemento", supplementPlanning: "Planeamento de suplementos", supplementsIntro: "Crie uma biblioteca privada de suplementos com quantidades, horários e instruções e adicione cada item ao calendário partilhado.", newSupplement: "Novo suplemento", createSupplement: "Criar suplemento", noSupplements: "Ainda não existem suplementos", noSupplementsCopy: "Guarde um suplemento uma vez e adicione-o a qualquer dia do calendário.", supplementName: "Nome do suplemento", supplementNamePlaceholder: "Por exemplo, Creatina", amountOptional: "Quantidade (opcional)", amountPlaceholder: "Por exemplo, 5 g", timingOptional: "Horário (opcional)", timingPlaceholder: "Por exemplo, Ao pequeno-almoço", supplementInstructionsOptional: "Instruções (opcional)", supplementInstructionsPlaceholder: "Adicione a frequência, o modo de utilização ou outras indicações úteis…", saveSupplement: "Guardar suplemento", scheduleSupplement: "Agendar suplemento", editSupplement: "Editar suplemento", duplicateSupplement: "Duplicar suplemento", deleteSupplement: "Eliminar suplemento", supplementSaved: "Suplemento guardado.", supplementSavedAndScheduled: "Suplemento guardado e adicionado ao calendário.", supplementScheduled: "Suplemento adicionado ao calendário.", supplementScheduleUpdated: "Agendamento do suplemento atualizado.", supplementCompleted: "Suplemento marcado como tomado.", supplementReopened: "Suplemento marcado como não tomado.", markSupplementComplete: "Marcar como tomado", markSupplementIncomplete: "Marcar como não tomado", taken: "Tomado", openSupplement: "Abrir suplemento", editSupplementSchedule: "Editar data do suplemento", removeSupplementFromCalendar: "Remover suplemento do calendário", confirmDeleteSupplement: "Mover este suplemento e os respetivos agendamentos para o Lixo?", confirmDeleteSupplementEntry: "Mover este suplemento planeado para o Lixo?", noSupplementsToSchedule: "Crie um suplemento antes de o adicionar ao calendário.", addNewSupplementToCalendar: "Adicionar este suplemento ao calendário", addNewSupplementToCalendarCopy: "Planeie já a primeira data, se quiser.", firstSupplementDate: "Data do primeiro suplemento (mês/dia/ano)", supplementNotes: "Notas do suplemento (opcional)", supplementNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherSupplement: "Agendar outro suplemento", supplementSingular: "suplemento", supplementPlural: "suplementos", supplementEntrySingular: "suplemento planeado", supplementEntryPlural: "suplementos planeados", typeSupplement: "Suplemento", typeSupplementEntry: "Suplemento do calendário",
-    repeatSchedule: "Repetir agendamento", recurrenceMode: "Repetição", once: "Uma vez", daily: "Diariamente", everyXDays: "A cada X dias", customDays: "Dias da semana personalizados", repeatEvery: "Repetir a cada", daysUnit: "dias", repeatUntil: "Repetir até (mês/dia/ano)", chooseDays: "Escolher dias", mondayShort: "Seg", tuesdayShort: "Ter", wednesdayShort: "Qua", thursdayShort: "Qui", fridayShort: "Sex", saturdayShort: "Sáb", sundayShort: "Dom", recurrenceHint: "Cada ocorrência é adicionada ao calendário e pode ser concluída separadamente.", endBeforeStart: "A data final tem de ser igual ou posterior à data inicial.", chooseWeekday: "Escolha pelo menos um dia da semana para um agendamento personalizado.", recurrenceTooLong: "Escolha um período de repetição máximo de um ano.", recurringEntriesCreated: "Foram criadas {count} entradas no calendário.", recurringPlanSaved: "Plano de treino guardado em {count} datas do calendário.", recurring: "Recorrente"
+    repeatSchedule: "Repetir agendamento", recurrenceMode: "Repetição", once: "Uma vez", daily: "Diariamente", everyXDays: "A cada X dias", customDays: "Dias da semana personalizados", timesPerDay: "Vezes por dia", timesUnit: "vezes", repeatEvery: "Repetir a cada", daysUnit: "dias", repeatUntil: "Repetir até (mês/dia/ano)", chooseDays: "Escolher dias", mondayShort: "Seg", tuesdayShort: "Ter", wednesdayShort: "Qua", thursdayShort: "Qui", fridayShort: "Sex", saturdayShort: "Sáb", sundayShort: "Dom", recurrenceHint: "Cada ocorrência é adicionada ao calendário e pode ser concluída separadamente.", recurrenceEditHint: "Ao guardar, todas as ocorrências não concluídas deste agendamento recorrente são substituídas. As concluídas ficam guardadas no histórico.", editRecurringSchedule: "Editar agendamento recorrente", endBeforeStart: "A data final tem de ser igual ou posterior à data inicial.", chooseWeekday: "Escolha pelo menos um dia da semana para um agendamento personalizado.", recurrenceTooLong: "Escolha um período de repetição máximo de um ano.", recurringEntriesCreated: "Foram criadas {count} entradas no calendário.", recurringSeriesUpdated: "Agendamento recorrente atualizado com {count} entradas não concluídas.", recurringPlanSaved: "Plano de treino guardado em {count} datas do calendário.", recurring: "Recorrente"
   }
 };
 
@@ -144,11 +144,18 @@ function sanitiseExercise(item) {
     media: Array.isArray(item?.media) ? item.media.map(sanitiseMedia).filter((media) => media.id) : [], createdAt: item?.createdAt || now()
   };
 }
-function sanitiseSession(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), workoutId: clean(item?.workoutId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), plannerCreatedWorkout: Boolean(item?.plannerCreatedWorkout), plannerCreatedSport: Boolean(item?.plannerCreatedSport), createdAt: item?.createdAt || now() }; }
+function sanitiseRecurrence(value) {
+  if (!value || !["daily","interval","weekdays"].includes(value.mode)) return null;
+  const start = /^\d{4}-\d{2}-\d{2}$/.test(clean(value.start,10)) ? clean(value.start,10) : "";
+  const end = /^\d{4}-\d{2}-\d{2}$/.test(clean(value.end,10)) ? clean(value.end,10) : "";
+  if (!start || !end) return null;
+  return { mode: value.mode, timesPerDay: Math.max(1,Math.min(12,Math.round(Number(value.timesPerDay) || 1))), everyDays: Math.max(2,Math.min(365,Math.round(Number(value.everyDays) || 2))), weekdays: [...new Set(Array.isArray(value.weekdays) ? value.weekdays.map(Number).filter((day) => day >= 1 && day <= 7) : [])], start, end };
+}
+function sanitiseSession(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), workoutId: clean(item?.workoutId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), recurrence: sanitiseRecurrence(item?.recurrence), plannerCreatedWorkout: Boolean(item?.plannerCreatedWorkout), plannerCreatedSport: Boolean(item?.plannerCreatedSport), createdAt: item?.createdAt || now() }; }
 function sanitiseMeal(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,100), type: MEAL_TYPES.includes(item?.type) ? item.type : "otherMeal", description: clean(item?.description,1200), instructions: clean(item?.instructions,1200), notes: clean(item?.notes,500), createdAt: item?.createdAt || now() }; }
-function sanitiseMealEntry(item) { return { id: clean(item?.id,100) || id(), mealId: clean(item?.mealId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), createdAt: item?.createdAt || now() }; }
+function sanitiseMealEntry(item) { return { id: clean(item?.id,100) || id(), mealId: clean(item?.mealId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), recurrence: sanitiseRecurrence(item?.recurrence), createdAt: item?.createdAt || now() }; }
 function sanitiseSupplement(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,100), amount: clean(item?.amount,80), timing: clean(item?.timing,120), instructions: clean(item?.instructions,1200), notes: clean(item?.notes,500), createdAt: item?.createdAt || now() }; }
-function sanitiseSupplementEntry(item) { return { id: clean(item?.id,100) || id(), supplementId: clean(item?.supplementId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), createdAt: item?.createdAt || now() }; }
+function sanitiseSupplementEntry(item) { return { id: clean(item?.id,100) || id(), supplementId: clean(item?.supplementId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), seriesId: clean(item?.seriesId,100), recurrence: sanitiseRecurrence(item?.recurrence), createdAt: item?.createdAt || now() }; }
 function sanitiseGoal(item) {
   const target = Math.max(1,Math.min(365,Math.round(Number(item?.target) || 10)));
   const completedSessionIds = [...new Set(Array.isArray(item?.completedSessionIds) ? item.completedSessionIds.map((value) => clean(value,100)).filter(Boolean) : [])];
@@ -549,9 +556,10 @@ function renderAgenda() {
     if (calendarItem.notes) { const notes = document.createElement("p"); notes.textContent = calendarItem.notes; content.append(notes); }
     if (calendarItem.completed) { const badge = document.createElement("strong"); badge.className = "completed-label"; badge.textContent = t(entry.kind === "meal" ? "eaten" : entry.kind === "supplement" ? "taken" : "completed"); content.append(badge); }
     const actions = document.createElement("div"); actions.className = "agenda-actions";
-    if (entry.kind === "meal") actions.append(createAgendaButton(t("openMeal"),"open-meal",record.id),createAgendaButton(t("editMealSchedule"),"edit-meal-entry",calendarItem.id),createAgendaButton(t("removeMealFromCalendar"),"delete-meal-entry",calendarItem.id,true));
-    else if (entry.kind === "supplement") actions.append(createAgendaButton(t("openSupplement"),"open-supplement",record.id),createAgendaButton(t("editSupplementSchedule"),"edit-supplement-entry",calendarItem.id),createAgendaButton(t("removeSupplementFromCalendar"),"delete-supplement-entry",calendarItem.id,true));
-    else actions.append(createAgendaButton(t("openWorkout"), "open-session", calendarItem.id), createAgendaButton(t("editSchedule"), "edit-session", calendarItem.id), createAgendaButton(t("removeFromCalendar"), "delete-session", calendarItem.id, true));
+    const editLabel = calendarItem.seriesId ? t("editRecurringSchedule") : t(entry.kind === "meal" ? "editMealSchedule" : entry.kind === "supplement" ? "editSupplementSchedule" : "editSchedule");
+    if (entry.kind === "meal") actions.append(createAgendaButton(t("openMeal"),"open-meal",record.id),createAgendaButton(editLabel,"edit-meal-entry",calendarItem.id),createAgendaButton(t("removeMealFromCalendar"),"delete-meal-entry",calendarItem.id,true));
+    else if (entry.kind === "supplement") actions.append(createAgendaButton(t("openSupplement"),"open-supplement",record.id),createAgendaButton(editLabel,"edit-supplement-entry",calendarItem.id),createAgendaButton(t("removeSupplementFromCalendar"),"delete-supplement-entry",calendarItem.id,true));
+    else actions.append(createAgendaButton(t("openWorkout"), "open-session", calendarItem.id), createAgendaButton(editLabel, "edit-session", calendarItem.id), createAgendaButton(t("removeFromCalendar"), "delete-session", calendarItem.id, true));
     card.append(status,content,actions); elements.agendaList.append(card);
   }
   if (items.length) {
@@ -652,6 +660,10 @@ function setupRecurrenceForm(form, dateFieldName) {
     const option = recurrenceTextNode("option",key); option.value = value; mode.append(option);
   }
   modeLabel.append(mode);
+  const dailyFrequency = document.createElement("label"); dailyFrequency.className = "recurrence-daily"; dailyFrequency.append(recurrenceTextNode("span","timesPerDay"));
+  const dailyRow = document.createElement("span"); dailyRow.className = "recurrence-number-row";
+  const dailyInput = document.createElement("input"); dailyInput.name = "timesPerDay"; dailyInput.type = "number"; dailyInput.min = "1"; dailyInput.max = "12"; dailyInput.step = "1"; dailyInput.value = "1";
+  dailyRow.append(dailyInput,recurrenceTextNode("span","timesUnit")); dailyFrequency.append(dailyRow);
   const interval = document.createElement("label"); interval.className = "recurrence-interval"; interval.append(recurrenceTextNode("span","repeatEvery"));
   const intervalRow = document.createElement("span"); intervalRow.className = "recurrence-number-row";
   const intervalInput = document.createElement("input"); intervalInput.name = "repeatEveryDays"; intervalInput.type = "number"; intervalInput.min = "2"; intervalInput.max = "365"; intervalInput.step = "1"; intervalInput.value = "2";
@@ -665,7 +677,7 @@ function setupRecurrenceForm(form, dateFieldName) {
   }
   weekdays.append(picker);
   const hint = recurrenceTextNode("small","recurrenceHint"); hint.className = "recurrence-hint";
-  controls.append(legend,modeLabel,interval,weekdays,until,hint);
+  controls.append(legend,modeLabel,dailyFrequency,interval,weekdays,until,hint);
   dateInput.closest("label")?.after(controls);
   mode.addEventListener("change",() => updateRecurrenceControls(form));
   dateInput.addEventListener("change",() => updateRecurrenceControls(form));
@@ -674,9 +686,11 @@ function setupRecurrenceForm(form, dateFieldName) {
 function updateRecurrenceControls(form) {
   const controls = form.querySelector(".recurrence-controls"); if (!controls) return;
   const mode = form.elements.recurrenceMode?.value || "once";
+  controls.querySelector(".recurrence-daily").hidden = mode !== "daily";
   controls.querySelector(".recurrence-interval").hidden = mode !== "interval";
   controls.querySelector(".recurrence-weekdays").hidden = mode !== "weekdays";
   controls.querySelector(".recurrence-until").hidden = mode === "once";
+  form.elements.timesPerDay.required = mode === "daily";
   form.elements.repeatEveryDays.required = mode === "interval";
   form.elements.repeatUntil.required = mode !== "once";
   if (mode !== "once" && !form.elements.repeatUntil.value) {
@@ -685,13 +699,48 @@ function updateRecurrenceControls(form) {
   }
 }
 
-function resetRecurrenceForm(form, editing = false) {
+function resetRecurrenceForm(form, hidden = false) {
   const controls = form.querySelector(".recurrence-controls"); if (!controls) return;
-  controls.hidden = editing;
+  controls.hidden = hidden;
   form.elements.recurrenceMode.value = "once";
+  form.elements.timesPerDay.value = "1";
   form.elements.repeatEveryDays.value = "2";
   form.elements.repeatUntil.value = "";
   for (const checkbox of form.querySelectorAll('[name="recurrenceWeekday"]')) checkbox.checked = false;
+  const hint = controls.querySelector(".recurrence-hint"); hint.dataset.i18n = "recurrenceHint"; hint.textContent = t("recurrenceHint");
+  updateRecurrenceControls(form);
+}
+
+function recurrenceSeries(entry, collection) {
+  return entry?.seriesId ? collection.filter((item) => item.seriesId === entry.seriesId) : (entry ? [entry] : []);
+}
+
+function inferredRecurrence(entry, collection) {
+  const occurrences = recurrenceSeries(entry,collection).map((item) => item.date).filter(Boolean);
+  const dates = [...new Set(occurrences)].sort();
+  if (dates.length < 2) return null;
+  const counts = dates.map((date) => occurrences.filter((value) => value === date).length);
+  const timesPerDay = counts.every((count) => count === counts[0]) ? counts[0] : 1;
+  const gaps = dates.slice(1).map((date,index) => Math.round((parseIsoDate(date) - parseIsoDate(dates[index])) / 86400000));
+  let mode = "weekdays"; let everyDays = 2;
+  if (gaps.every((gap) => gap === 1)) mode = "daily";
+  else if (gaps.every((gap) => gap === gaps[0])) { mode = "interval"; everyDays = Math.max(2,gaps[0]); }
+  return { mode, timesPerDay: mode === "daily" ? timesPerDay : 1, everyDays, weekdays: [...new Set(dates.map((date) => parseIsoDate(date).getDay() || 7))], start: dates[0], end: dates.at(-1) };
+}
+
+function prepareRecurrenceEdit(form, dateFieldName, entry, collection) {
+  resetRecurrenceForm(form,false);
+  if (!entry) return;
+  const controls = form.querySelector(".recurrence-controls");
+  const rule = sanitiseRecurrence(entry.recurrence) || inferredRecurrence(entry,collection);
+  if (!rule) return;
+  form.elements[dateFieldName].value = rule.start;
+  form.elements.recurrenceMode.value = rule.mode;
+  form.elements.timesPerDay.value = String(rule.timesPerDay || 1);
+  form.elements.repeatEveryDays.value = String(rule.everyDays || 2);
+  form.elements.repeatUntil.value = rule.end;
+  for (const checkbox of form.querySelectorAll('[name="recurrenceWeekday"]')) checkbox.checked = rule.weekdays.includes(Number(checkbox.value));
+  const hint = controls.querySelector(".recurrence-hint"); hint.dataset.i18n = "recurrenceEditHint"; hint.textContent = t("recurrenceEditHint");
   updateRecurrenceControls(form);
 }
 
@@ -699,27 +748,57 @@ function recurrenceDates(form, dateFieldName) {
   const startValue = form.elements[dateFieldName]?.value || "";
   if (!/^\d{4}-\d{2}-\d{2}$/.test(startValue)) return null;
   const mode = form.elements.recurrenceMode?.value || "once";
-  if (mode === "once") return { dates: [startValue], seriesId: "" };
+  if (mode === "once") return { dates: [startValue], seriesId: "", rule: null };
   const endValue = form.elements.repeatUntil?.value || "";
   const start = parseIsoDate(startValue); const end = parseIsoDate(endValue);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(endValue) || end < start) { showToast(t("endBeforeStart"),true); return null; }
   if (end > addDays(start,366)) { showToast(t("recurrenceTooLong"),true); return null; }
   const weekdays = new Set(new FormData(form).getAll("recurrenceWeekday").map(Number));
   if (mode === "weekdays" && !weekdays.size) { showToast(t("chooseWeekday"),true); return null; }
+  const timesPerDay = Math.max(1,Math.min(12,Math.round(Number(form.elements.timesPerDay?.value) || 1)));
   const interval = Math.max(2,Math.min(365,Math.round(Number(form.elements.repeatEveryDays?.value) || 2)));
   const dates = [];
   for (let cursor = new Date(start), offset = 0; cursor <= end; cursor = addDays(cursor,1), offset += 1) {
     const weekday = cursor.getDay() || 7;
-    if (mode === "daily" || (mode === "interval" && offset % interval === 0) || (mode === "weekdays" && weekdays.has(weekday))) dates.push(toLocalIso(cursor));
+    const matches = mode === "daily" || (mode === "interval" && offset % interval === 0) || (mode === "weekdays" && weekdays.has(weekday));
+    if (matches) for (let occurrence = 0; occurrence < (mode === "daily" ? timesPerDay : 1); occurrence += 1) dates.push(toLocalIso(cursor));
   }
   if (!dates.length) { showToast(t("chooseWeekday"),true); return null; }
-  return { dates, seriesId: dates.length > 1 ? id() : "" };
+  return { dates, seriesId: dates.length > 1 ? id() : "", rule: { mode, timesPerDay, everyDays: interval, weekdays: [...weekdays], start: startValue, end: endValue } };
 }
 
 function addRecurringEntries(collection, recurrence, createEntry) {
   const baseTime = Date.now();
-  recurrence.dates.forEach((date,index) => collection.push(createEntry(date,recurrence.seriesId,new Date(baseTime + index).toISOString())));
+  recurrence.dates.forEach((date,index) => {
+    const entry = createEntry(date,recurrence.seriesId,new Date(baseTime + index).toISOString());
+    entry.recurrence = recurrence.rule ? cloneData(recurrence.rule) : null;
+    collection.push(entry);
+  });
   return recurrence.dates.length;
+}
+
+function replaceRecurringSeries(collection, existing, recurrence, createEntry) {
+  const related = recurrenceSeries(existing,collection);
+  const relatedIds = new Set(related.map((item) => item.id));
+  const completed = related.filter((item) => item.completed);
+  const completedCounts = completed.reduce((counts,item) => counts.set(item.date,(counts.get(item.date) || 0) + 1),new Map());
+  const dates = recurrence.dates.filter((date) => {
+    const count = completedCounts.get(date) || 0;
+    if (!count) return true;
+    completedCounts.set(date,count - 1); return false;
+  });
+  const total = completed.length + dates.length;
+  const seriesId = total > 1 ? (existing.seriesId || recurrence.seriesId || id()) : "";
+  for (const item of completed) { item.seriesId = seriesId; item.recurrence = recurrence.rule ? cloneData(recurrence.rule) : null; }
+  const next = collection.filter((item) => !relatedIds.has(item.id));
+  const baseTime = Date.now();
+  dates.forEach((date,index) => {
+    const item = createEntry(date,seriesId,new Date(baseTime + index).toISOString());
+    item.recurrence = recurrence.rule ? cloneData(recurrence.rule) : null;
+    next.push(item);
+  });
+  next.push(...completed);
+  return { collection: next, count: dates.length, firstDate: recurrence.dates[0] || completed[0]?.date || existing.date };
 }
 
 function recurringToast(count, fallbackKey = "sessionSaved") {
@@ -810,12 +889,12 @@ function openMealScheduleDialog(entry = null, mealId = null) {
   if (!state.meals.length) {
     openMealDialog(); elements.mealForm.elements.scheduleEnabled.checked = true; elements.mealForm.elements.scheduleDate.value = selectedDate; updateNewMealSchedule(); return;
   }
-  resetForm(elements.mealScheduleForm); elements.mealScheduleDialogTitle.textContent = entry ? t("editMealSchedule") : t("scheduleMeal");
+  resetForm(elements.mealScheduleForm); elements.mealScheduleDialogTitle.textContent = entry?.seriesId ? t("editRecurringSchedule") : entry ? t("editMealSchedule") : t("scheduleMeal");
   populateMealOptions(entry?.mealId || mealId || state.meals[0].id);
   elements.mealScheduleForm.elements.id.value = entry?.id || "";
   elements.mealScheduleForm.elements.date.value = entry?.date || selectedDate;
   elements.mealScheduleForm.elements.notes.value = entry?.notes || "";
-  resetRecurrenceForm(elements.mealScheduleForm,Boolean(entry));
+  prepareRecurrenceEdit(elements.mealScheduleForm,"date",entry,state.mealEntries);
   elements.mealScheduleDialog.showModal(); setTimeout(() => elements.mealScheduleForm.elements.date.focus(),0);
 }
 
@@ -847,12 +926,12 @@ function openSupplementScheduleDialog(entry = null, supplementId = null) {
   if (!state.supplements.length) {
     openSupplementDialog(); elements.supplementForm.elements.scheduleEnabled.checked = true; elements.supplementForm.elements.scheduleDate.value = selectedDate; updateNewSupplementSchedule(); return;
   }
-  resetForm(elements.supplementScheduleForm); elements.supplementScheduleDialogTitle.textContent = entry ? t("editSupplementSchedule") : t("scheduleSupplement");
+  resetForm(elements.supplementScheduleForm); elements.supplementScheduleDialogTitle.textContent = entry?.seriesId ? t("editRecurringSchedule") : entry ? t("editSupplementSchedule") : t("scheduleSupplement");
   populateSupplementOptions(entry?.supplementId || supplementId || state.supplements[0].id);
   elements.supplementScheduleForm.elements.id.value = entry?.id || "";
   elements.supplementScheduleForm.elements.date.value = entry?.date || selectedDate;
   elements.supplementScheduleForm.elements.notes.value = entry?.notes || "";
-  resetRecurrenceForm(elements.supplementScheduleForm,Boolean(entry));
+  prepareRecurrenceEdit(elements.supplementScheduleForm,"date",entry,state.supplementEntries);
   elements.supplementScheduleDialog.showModal(); setTimeout(() => elements.supplementScheduleForm.elements.date.focus(),0);
 }
 
@@ -896,14 +975,14 @@ function populateScheduleWorkouts(preferredWorkoutId) {
 function openScheduleDialog(session = null, workoutId = null) {
   if (!state.workouts.length) { showToast(t("noWorkoutsToSchedule"), true); return; }
   resetForm(elements.scheduleForm);
-  elements.scheduleDialogTitle.textContent = session ? t("editSchedule") : t("scheduleWorkout");
+  elements.scheduleDialogTitle.textContent = session?.seriesId ? t("editRecurringSchedule") : session ? t("editSchedule") : t("scheduleWorkout");
   const workout = state.workouts.find((item) => item.id === (session?.workoutId || workoutId || selectedWorkoutId)) || state.workouts[0];
   populateScheduleSports(session?.sportId || workout.sportId);
   populateScheduleWorkouts(session?.workoutId || workout.id);
   elements.scheduleForm.elements.id.value = session?.id || "";
   elements.scheduleForm.elements.date.value = session?.date || selectedDate;
   elements.scheduleForm.elements.notes.value = session?.notes || "";
-  resetRecurrenceForm(elements.scheduleForm,Boolean(session));
+  prepareRecurrenceEdit(elements.scheduleForm,"date",session,state.sessions);
   elements.scheduleDialog.showModal();
   setTimeout(() => elements.scheduleForm.elements.date.focus(), 0);
 }
@@ -1070,13 +1149,19 @@ function handleMealScheduleSubmit(event) {
   const values = formValues(elements.mealScheduleForm);
   if (!state.meals.some((item) => item.id === values.mealId)) { showToast(t("noMealsToSchedule"),true); return; }
   const existing = state.mealEntries.find((item) => item.id === values.id);
-  const recurrence = existing ? null : recurrenceDates(elements.mealScheduleForm,"date");
-  if (!existing && !recurrence) return;
+  const recurrence = recurrenceDates(elements.mealScheduleForm,"date"); if (!recurrence) return;
   const fields = { mealId: values.mealId, date: values.date, notes: clean(values.notes,500) };
-  if (existing) Object.assign(existing,fields);
-  const scheduledCount = existing ? 0 : addRecurringEntries(state.mealEntries,recurrence,(date,seriesId,createdAt) => ({ id: id(), mealId: values.mealId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
-  selectedDate = existing ? values.date : recurrence.dates[0]; calendarMonth = startOfMonth(parseIsoDate(selectedDate));
-  saveState(); elements.mealScheduleDialog.close(); render(); showToast(existing ? t("mealScheduleUpdated") : recurringToast(scheduledCount,"mealScheduled"));
+  let scheduledCount = 0; let updatedSeries = false;
+  if (existing && !existing.seriesId && recurrence.dates.length === 1) { Object.assign(existing,fields,{ seriesId: "", recurrence: null }); selectedDate = values.date; }
+  else if (existing) {
+    const result = replaceRecurringSeries(state.mealEntries,existing,recurrence,(date,seriesId,createdAt) => ({ id: id(), mealId: values.mealId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
+    state.mealEntries = result.collection; scheduledCount = result.count; selectedDate = result.firstDate; updatedSeries = true;
+  } else {
+    scheduledCount = addRecurringEntries(state.mealEntries,recurrence,(date,seriesId,createdAt) => ({ id: id(), mealId: values.mealId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
+    selectedDate = recurrence.dates[0];
+  }
+  calendarMonth = startOfMonth(parseIsoDate(selectedDate));
+  saveState(); elements.mealScheduleDialog.close(); render(); showToast(updatedSeries ? t("recurringSeriesUpdated").replace("{count}",String(scheduledCount)) : existing ? t("mealScheduleUpdated") : recurringToast(scheduledCount,"mealScheduled"));
 }
 
 function handleSupplementSubmit(event) {
@@ -1103,13 +1188,19 @@ function handleSupplementScheduleSubmit(event) {
   const values = formValues(elements.supplementScheduleForm);
   if (!state.supplements.some((item) => item.id === values.supplementId)) { showToast(t("noSupplementsToSchedule"),true); return; }
   const existing = state.supplementEntries.find((item) => item.id === values.id);
-  const recurrence = existing ? null : recurrenceDates(elements.supplementScheduleForm,"date");
-  if (!existing && !recurrence) return;
+  const recurrence = recurrenceDates(elements.supplementScheduleForm,"date"); if (!recurrence) return;
   const fields = { supplementId: values.supplementId, date: values.date, notes: clean(values.notes,500) };
-  if (existing) Object.assign(existing,fields);
-  const scheduledCount = existing ? 0 : addRecurringEntries(state.supplementEntries,recurrence,(date,seriesId,createdAt) => ({ id: id(), supplementId: values.supplementId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
-  selectedDate = existing ? values.date : recurrence.dates[0]; calendarMonth = startOfMonth(parseIsoDate(selectedDate));
-  saveState(); elements.supplementScheduleDialog.close(); render(); showToast(existing ? t("supplementScheduleUpdated") : recurringToast(scheduledCount,"supplementScheduled"));
+  let scheduledCount = 0; let updatedSeries = false;
+  if (existing && !existing.seriesId && recurrence.dates.length === 1) { Object.assign(existing,fields,{ seriesId: "", recurrence: null }); selectedDate = values.date; }
+  else if (existing) {
+    const result = replaceRecurringSeries(state.supplementEntries,existing,recurrence,(date,seriesId,createdAt) => ({ id: id(), supplementId: values.supplementId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
+    state.supplementEntries = result.collection; scheduledCount = result.count; selectedDate = result.firstDate; updatedSeries = true;
+  } else {
+    scheduledCount = addRecurringEntries(state.supplementEntries,recurrence,(date,seriesId,createdAt) => ({ id: id(), supplementId: values.supplementId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
+    selectedDate = recurrence.dates[0];
+  }
+  calendarMonth = startOfMonth(parseIsoDate(selectedDate));
+  saveState(); elements.supplementScheduleDialog.close(); render(); showToast(updatedSeries ? t("recurringSeriesUpdated").replace("{count}",String(scheduledCount)) : existing ? t("supplementScheduleUpdated") : recurringToast(scheduledCount,"supplementScheduled"));
 }
 
 function handleExerciseSubmit(event) {
@@ -1139,16 +1230,25 @@ function handleScheduleSubmit(event) {
   const workout = state.workouts.find((item) => item.id === values.workoutId && item.sportId === values.sportId);
   if (!workout) { showToast(t("noWorkoutsToSchedule"), true); return; }
   const existing = state.sessions.find((item) => item.id === values.id);
-  const recurrence = existing ? null : recurrenceDates(elements.scheduleForm,"date");
-  if (!existing && !recurrence) return;
-  if (existing) {
+  const recurrence = recurrenceDates(elements.scheduleForm,"date"); if (!recurrence) return;
+  let scheduledCount = 0; let updatedSeries = false;
+  if (existing && !existing.seriesId && recurrence.dates.length === 1) {
     const changedWorkout = existing.workoutId !== values.workoutId || existing.sportId !== values.sportId;
-    Object.assign(existing, { sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500) });
+    Object.assign(existing, { sportId: values.sportId, workoutId: values.workoutId, date: values.date, notes: clean(values.notes,500), seriesId: "", recurrence: null });
     if (changedWorkout) { existing.plannerCreatedWorkout = false; existing.plannerCreatedSport = false; }
+    selectedDate = values.date;
+  } else if (existing) {
+    const changedWorkout = existing.workoutId !== values.workoutId || existing.sportId !== values.sportId;
+    const plannerCreatedWorkout = changedWorkout ? false : existing.plannerCreatedWorkout;
+    const plannerCreatedSport = changedWorkout ? false : existing.plannerCreatedSport;
+    const result = replaceRecurringSeries(state.sessions,existing,recurrence,(date,seriesId,createdAt) => ({ id: id(), sportId: values.sportId, workoutId: values.workoutId, date, notes: clean(values.notes,500), completed: false, seriesId, plannerCreatedWorkout, plannerCreatedSport, createdAt }));
+    state.sessions = result.collection; scheduledCount = result.count; selectedDate = result.firstDate; updatedSeries = true;
+  } else {
+    scheduledCount = addRecurringEntries(state.sessions,recurrence,(date,seriesId,createdAt) => ({ id: id(), sportId: values.sportId, workoutId: values.workoutId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
+    selectedDate = recurrence.dates[0];
   }
-  const scheduledCount = existing ? 0 : addRecurringEntries(state.sessions,recurrence,(date,seriesId,createdAt) => ({ id: id(), sportId: values.sportId, workoutId: values.workoutId, date, notes: clean(values.notes,500), completed: false, seriesId, createdAt }));
-  selectedDate = existing ? values.date : recurrence.dates[0]; calendarMonth = startOfMonth(parseIsoDate(selectedDate));
-  saveState(); elements.scheduleDialog.close(); render(); showToast(existing ? t("sessionUpdated") : recurringToast(scheduledCount,"sessionSaved"));
+  calendarMonth = startOfMonth(parseIsoDate(selectedDate));
+  saveState(); elements.scheduleDialog.close(); render(); showToast(updatedSeries ? t("recurringSeriesUpdated").replace("{count}",String(scheduledCount)) : existing ? t("sessionUpdated") : recurringToast(scheduledCount,"sessionSaved"));
 }
 
 function addTrashItem(type, label, payload) {
