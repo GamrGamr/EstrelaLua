@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { calculateHomeEnergy } from "../tools/home-energy-calculator/calculations.js";
 import { buildProviderUrl, parseLocation } from "../tools/map-link-switcher/parser.js";
 import { calculateSplit } from "../tools/partilha-justa/partilha-justa-calculator.js";
-import { buildDestinationGuide, sourceLanguage, theForkSearchUrl } from "../tools/road-trip-roulette/guide-data.js";
+import { buildDestinationGuide, sourceLanguage } from "../tools/road-trip-roulette/guide-data.js";
 import { destinations, districts, findCandidates, googlePlaceUrl, starts, stopMapPoints, stopMapQueries } from "../tools/road-trip-roulette/engine.js";
 import { timerRecords } from "../tools/gta-online-timers/timer-data.js";
 import { timerTranslationsPt } from "../tools/gta-online-timers/timer-translations-pt.js";
@@ -123,9 +123,9 @@ check("Road catalogue retains broad origin and destination coverage", starts.len
 check("Every origin has candidates in all distance bands", starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDistance, maxDistance]) => findCandidates({ origin, minDistance, maxDistance }).length > 0)));
 check("Every origin has candidates in all time bands", starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDuration, maxDuration]) => findCandidates({ origin, minDuration, maxDuration }).length > 0)));
 check("Every road destination has bilingual content and exact map anchors", destinations.every((item) => item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3 && stopMapQueries[item.id]?.length === 3 && stopMapPoints[item.id]?.length === 3));
-check("Road food searches use TheFork and other guide ideas use Google Maps", destinations.every((destination) => buildDestinationGuide(destination, stopMapQueries[destination.id], stopMapPoints[destination.id]).full.every((item) => {
-  const provider = item.category === "eat" ? new URL(theForkSearchUrl()) : new URL(googlePlaceUrl(item.query, item.point, "pt"));
-  return item.sourceUrl.startsWith("https://") && (item.category === "eat" ? provider.hostname === "www.thefork.pt" : provider.hostname === "www.google.com" && provider.searchParams.get("query") === `${item.query}, Portugal`);
+check("Every full guide item has a source and Google Maps query", destinations.every((destination) => buildDestinationGuide(destination, stopMapQueries[destination.id], stopMapPoints[destination.id]).full.every((item) => {
+  const map = new URL(googlePlaceUrl(item.query, item.point, "pt"));
+  return item.sourceUrl.startsWith("https://") && map.hostname === "www.google.com" && map.searchParams.get("query") === `${item.query}, Portugal`;
 })));
 check("Road source language badges are valid", destinations.every((item) => ["PT", "EN", "ORIGINAL"].includes(sourceLanguage(typeof item.source === "object" ? (item.source.original || item.source.pt || item.source.en || Object.values(item.source)[0]) : item.source))));
 

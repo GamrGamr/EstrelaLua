@@ -1,4 +1,4 @@
-import { originalSourceLabel, originalSourceUrl } from "./engine.js?v=19";
+import { originalSourceLabel, originalSourceUrl } from "./engine.js?v=18";
 
 const text = (en, pt) => ({ en, pt });
 
@@ -56,8 +56,4 @@ export function sourceLanguage(url = "") {
   if (/\/(pt|pt-pt)(\/|$)/.test(value) || value.includes("pt.wikipedia.org")) return "PT";
   if (/\/(en)(\/|$)/.test(value) || value.includes("en.wikipedia.org")) return "EN";
   return "ORIGINAL";
-}
-
-export function theForkSearchUrl() {
-  return "https://www.thefork.pt/";
 }
