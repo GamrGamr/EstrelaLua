@@ -11,8 +11,8 @@ const MEAL_TYPES = ["breakfast","lunch","dinner","snack","otherMeal"];
 
 const translations = {
   en: {
-    description: "Organise sports, workouts, exercises, meals, personal goals, and a private week-by-day calendar on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
-    kicker: "Private training and meal library", intro: "Create any sport, organise workouts and meals, schedule them together, and follow your personal goals.", localTitle: "Stored only on this device", localCopy: "No account, uploads, analytics, or external requests.",
+    description: "Organise sports, workouts, exercises, meals, supplements, personal goals, and a private week-by-day calendar on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
+    kicker: "Private training, meal, and supplement library", intro: "Create any sport, organise workouts, meals, and supplements, schedule them together, and follow your personal goals.", localTitle: "Stored only on this device", localCopy: "No account, uploads, analytics, or external requests.",
     libraryTools: "Library tools", storageChecking: "Checking local storage…", export: "Export backup", import: "Import backup", newSport: "New sport", sports: "Sports", noSports: "No sports yet", noSportsCopy: "Start with any discipline—from gym training to swimming, running, or football.", createSport: "Create a sport",
     workouts: "Workouts", newWorkout: "New workout", noWorkouts: "No workouts here", noWorkoutsCopy: "Choose a sport and add its first workout.", createWorkout: "Create a workout", chooseWorkout: "Choose a workout", chooseWorkoutCopy: "Its exercises, instructions, images, and videos will appear here in training order.",
     trainingPlan: "Training plan", edit: "Edit", duplicate: "Duplicate", delete: "Delete", orderHint: "Use the arrows or drag cards to change the order.", addExercise: "Add exercise", noExercises: "No exercises yet", noExercisesCopy: "Add a free-form instruction or use the optional detail fields.", addFirstExercise: "Add first exercise",
@@ -26,16 +26,17 @@ const translations = {
     sportSaved: "Sport saved.", workoutSaved: "Workout saved.", exerciseSaved: "Exercise saved.", sportDuplicated: "Workout duplicated.", exerciseDuplicated: "Exercise duplicated.", deleted: "Deleted.", orderUpdated: "Exercise order updated.", mediaSaved: "Media saved locally.", mediaReplaced: "Media replaced.", backupReady: "Backup exported.", importComplete: "Backup imported.",
     unsupportedMedia: "Choose an image or video file.", fileTooLarge: "This file is larger than 250 MB.", storageError: "The browser could not save that file. Free some device storage and try again.", invalidBackup: "This is not a valid Training Atlas backup.", exportError: "The backup could not be created.",
     storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only",
-    viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout or meal to this day.", date: "Date (month/day/year)", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
-    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, meals, goals, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs related data that is also deleted. Recover the required items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
+    viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout, meal, or supplement to this day.", date: "Date (month/day/year)", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
+    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, meals, supplements, goals, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs related data that is also deleted. Recover the required items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
     planAndSchedule: "Build and schedule", planAndScheduleCopy: "Use something from your library or create the sport, workout, and exercises here.", sportSetup: "Sport setup", chooseOrCreateSport: "Choose a sport or create a new one.", createNewSportOption: "+ Create a new sport", workoutSetup: "Workout setup", chooseOrCreateWorkout: "Choose a workout or create a new one.", createNewWorkoutOption: "+ Create a new workout", exercisesOptional: "Exercises (optional)", exercisesOptionalCopy: "Add any exercises you already know. You can add more later.", addAnotherExercise: "Add another exercise", removeExercise: "Remove exercise", calendarDetailsCopy: "Choose the day and add any session-specific notes.", savePlanToCalendar: "Save plan to calendar", planSaved: "Workout plan saved to the calendar.", scheduleAnotherWorkout: "Schedule another workout", confirmDeleteOwnedPlan: "This calendar entry created a new library plan. Remove it from the calendar and move its workout, exercises, and any otherwise-empty new sport to Trash?",
     goals: "Goals", goal: "Goal", personalMilestones: "Personal milestones", goalsIntro: "Create a target and watch each circle fill as you complete workouts. You can also adjust progress manually.", newGoal: "New goal", createGoal: "Create a goal", noGoals: "No goals yet", noGoalsCopy: "Choose a personal target, such as completing 10 workouts, and build your streak one circle at a time.", goalDialogCopy: "Every completed calendar workout fills one circle. Click the circles whenever you want to adjust the count yourself.", goalName: "Goal name", goalNamePlaceholder: "For example, Complete 10 workouts", targetWorkouts: "Number of circles", saveGoal: "Save goal", editGoal: "Edit goal", deleteGoal: "Delete goal", confirmDeleteGoal: "Move this goal and its progress to Trash?", goalSaved: "Goal saved.", goalProgressUpdated: "Goal progress updated.", goalComplete: "Goal complete!", goalProgressHint: "Completed workouts fill circles automatically. Click a filled circle to remove one, or an empty circle to set that total.", goalSingular: "goal", goalPlural: "goals", typeGoal: "Goal",
     flexibleDetails: "Flexible details", flexibleDetailsCopy: "Add only what matters for this activity—pace, stroke, distance, court, rounds, equipment, or anything else.", addDetail: "Add detail", removeDetail: "Remove detail", detailLabel: "Detail", detailValue: "Value", detailLabelPlaceholder: "For example, Pace", detailValuePlaceholder: "For example, 5:00/km", pace: "Pace", laps: "Laps", rounds: "Rounds", stroke: "Stroke / style", equipment: "Equipment", surface: "Surface / court", poolLength: "Pool length", drill: "Drill",
-    meals: "Meals", meal: "Meal", mealPlanning: "Meal planning", mealsIntro: "Build a private meal library and place breakfast, lunch, dinner, snacks, or any custom meal on your training calendar.", newMeal: "New meal", createMeal: "Create a meal", noMeals: "No meals yet", noMealsCopy: "Save a meal once, then add it to any day in the calendar.", mealName: "Meal name", mealNamePlaceholder: "For example, Oats with fruit", mealType: "Meal type", breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", otherMeal: "Other", foodsIngredients: "Foods / ingredients", foodsIngredientsPlaceholder: "Write the foods, quantities, or meal exactly as you prefer…", preparationOptional: "Preparation (optional)", saveMeal: "Save meal", scheduleMeal: "Schedule a meal", editMeal: "Edit meal", duplicateMeal: "Duplicate meal", deleteMeal: "Delete meal", mealSaved: "Meal saved.", mealSavedAndScheduled: "Meal saved and added to the calendar.", mealScheduled: "Meal added to the calendar.", mealScheduleUpdated: "Meal calendar entry updated.", mealCompleted: "Meal marked as eaten.", mealReopened: "Meal marked as not eaten.", markMealComplete: "Mark as eaten", markMealIncomplete: "Mark as not eaten", eaten: "Eaten", openMeal: "Open meal", editMealSchedule: "Edit meal date", removeMealFromCalendar: "Remove meal from calendar", confirmDeleteMeal: "Move this meal and its calendar entries to Trash?", confirmDeleteMealEntry: "Move this planned meal to Trash?", noMealsToSchedule: "Create a meal before adding one to the calendar.", addNewMealToCalendar: "Add this meal to the calendar", addNewMealToCalendarCopy: "Optionally plan its first date now.", firstMealDate: "First meal date (month/day/year)", mealNotes: "Meal notes (optional)", mealNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherMeal: "Schedule another meal", mealSingular: "meal", mealPlural: "meals", mealEntrySingular: "planned meal", mealEntryPlural: "planned meals", calendarItemSingular: "planned item", calendarItemPlural: "planned items", typeMeal: "Meal", typeMealEntry: "Calendar meal"
+    meals: "Meals", meal: "Meal", mealPlanning: "Meal planning", mealsIntro: "Build a private meal library and place breakfast, lunch, dinner, snacks, or any custom meal on your training calendar.", newMeal: "New meal", createMeal: "Create a meal", noMeals: "No meals yet", noMealsCopy: "Save a meal once, then add it to any day in the calendar.", mealName: "Meal name", mealNamePlaceholder: "For example, Oats with fruit", mealType: "Meal type", breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", otherMeal: "Other", foodsIngredients: "Foods / ingredients", foodsIngredientsPlaceholder: "Write the foods, quantities, or meal exactly as you prefer…", preparationOptional: "Preparation (optional)", saveMeal: "Save meal", scheduleMeal: "Schedule a meal", editMeal: "Edit meal", duplicateMeal: "Duplicate meal", deleteMeal: "Delete meal", mealSaved: "Meal saved.", mealSavedAndScheduled: "Meal saved and added to the calendar.", mealScheduled: "Meal added to the calendar.", mealScheduleUpdated: "Meal calendar entry updated.", mealCompleted: "Meal marked as eaten.", mealReopened: "Meal marked as not eaten.", markMealComplete: "Mark as eaten", markMealIncomplete: "Mark as not eaten", eaten: "Eaten", openMeal: "Open meal", editMealSchedule: "Edit meal date", removeMealFromCalendar: "Remove meal from calendar", confirmDeleteMeal: "Move this meal and its calendar entries to Trash?", confirmDeleteMealEntry: "Move this planned meal to Trash?", noMealsToSchedule: "Create a meal before adding one to the calendar.", addNewMealToCalendar: "Add this meal to the calendar", addNewMealToCalendarCopy: "Optionally plan its first date now.", firstMealDate: "First meal date (month/day/year)", mealNotes: "Meal notes (optional)", mealNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherMeal: "Schedule another meal", mealSingular: "meal", mealPlural: "meals", mealEntrySingular: "planned meal", mealEntryPlural: "planned meals", calendarItemSingular: "planned item", calendarItemPlural: "planned items", typeMeal: "Meal", typeMealEntry: "Calendar meal",
+    supplements: "Supplements", supplement: "Supplement", supplementPlanning: "Supplement planning", supplementsIntro: "Build a private supplement library with amounts, timing, and instructions, then add each item to the shared calendar.", newSupplement: "New supplement", createSupplement: "Create a supplement", noSupplements: "No supplements yet", noSupplementsCopy: "Save a supplement once, then add it to any day in the calendar.", supplementName: "Supplement name", supplementNamePlaceholder: "For example, Creatine", amountOptional: "Amount (optional)", amountPlaceholder: "For example, 5 g", timingOptional: "Timing (optional)", timingPlaceholder: "For example, With breakfast", supplementInstructionsOptional: "Instructions (optional)", supplementInstructionsPlaceholder: "Add frequency, method, or other useful directions…", saveSupplement: "Save supplement", scheduleSupplement: "Schedule a supplement", editSupplement: "Edit supplement", duplicateSupplement: "Duplicate supplement", deleteSupplement: "Delete supplement", supplementSaved: "Supplement saved.", supplementSavedAndScheduled: "Supplement saved and added to the calendar.", supplementScheduled: "Supplement added to the calendar.", supplementScheduleUpdated: "Supplement calendar entry updated.", supplementCompleted: "Supplement marked as taken.", supplementReopened: "Supplement marked as not taken.", markSupplementComplete: "Mark as taken", markSupplementIncomplete: "Mark as not taken", taken: "Taken", openSupplement: "Open supplement", editSupplementSchedule: "Edit supplement date", removeSupplementFromCalendar: "Remove supplement from calendar", confirmDeleteSupplement: "Move this supplement and its calendar entries to Trash?", confirmDeleteSupplementEntry: "Move this planned supplement to Trash?", noSupplementsToSchedule: "Create a supplement before adding one to the calendar.", addNewSupplementToCalendar: "Add this supplement to the calendar", addNewSupplementToCalendarCopy: "Optionally plan its first date now.", firstSupplementDate: "First supplement date (month/day/year)", supplementNotes: "Supplement notes (optional)", supplementNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherSupplement: "Schedule another supplement", supplementSingular: "supplement", supplementPlural: "supplements", supplementEntrySingular: "planned supplement", supplementEntryPlural: "planned supplements", typeSupplement: "Supplement", typeSupplementEntry: "Calendar supplement"
   },
   pt: {
-    description: "Organize desportos, treinos, exercícios, refeições, objetivos pessoais e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
-    kicker: "Biblioteca privada de treinos e refeições", intro: "Crie qualquer desporto, organize treinos e refeições, agende-os em conjunto e acompanhe os seus objetivos pessoais.", localTitle: "Guardado apenas neste dispositivo", localCopy: "Sem conta, envios, análises ou pedidos externos.",
+    description: "Organize desportos, treinos, exercícios, refeições, suplementos, objetivos pessoais e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
+    kicker: "Biblioteca privada de treinos, refeições e suplementos", intro: "Crie qualquer desporto, organize treinos, refeições e suplementos, agende-os em conjunto e acompanhe os seus objetivos pessoais.", localTitle: "Guardado apenas neste dispositivo", localCopy: "Sem conta, envios, análises ou pedidos externos.",
     libraryTools: "Ferramentas da biblioteca", storageChecking: "A verificar armazenamento local…", export: "Exportar cópia", import: "Importar cópia", newSport: "Novo desporto", sports: "Desportos", noSports: "Ainda não existem desportos", noSportsCopy: "Comece por qualquer modalidade — ginásio, natação, corrida ou futebol.", createSport: "Criar desporto",
     workouts: "Treinos", newWorkout: "Novo treino", noWorkouts: "Ainda não existem treinos", noWorkoutsCopy: "Escolha um desporto e adicione o primeiro treino.", createWorkout: "Criar treino", chooseWorkout: "Escolha um treino", chooseWorkoutCopy: "Os exercícios, instruções, imagens e vídeos aparecem aqui pela ordem de execução.",
     trainingPlan: "Plano de treino", edit: "Editar", duplicate: "Duplicar", delete: "Eliminar", orderHint: "Use as setas ou arraste os cartões para alterar a ordem.", addExercise: "Adicionar exercício", noExercises: "Ainda não existem exercícios", noExercisesCopy: "Adicione uma descrição livre ou utilize os campos opcionais.", addFirstExercise: "Adicionar primeiro exercício",
@@ -49,12 +50,13 @@ const translations = {
     sportSaved: "Desporto guardado.", workoutSaved: "Treino guardado.", exerciseSaved: "Exercício guardado.", sportDuplicated: "Treino duplicado.", exerciseDuplicated: "Exercício duplicado.", deleted: "Eliminado.", orderUpdated: "Ordem dos exercícios atualizada.", mediaSaved: "Multimédia guardada localmente.", mediaReplaced: "Multimédia substituída.", backupReady: "Cópia exportada.", importComplete: "Cópia importada.",
     unsupportedMedia: "Escolha um ficheiro de imagem ou vídeo.", fileTooLarge: "Este ficheiro tem mais de 250 MB.", storageError: "O navegador não conseguiu guardar o ficheiro. Liberte espaço no dispositivo e tente novamente.", invalidBackup: "Esta não é uma cópia válida do Training Atlas.", exportError: "Não foi possível criar a cópia.",
     storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local",
-    viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino ou uma refeição a este dia.", date: "Data (mês/dia/ano)", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
-    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões, refeições, objetivos e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de dados relacionados que também foram eliminados. Recuperar os itens necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
+    viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino, uma refeição ou um suplemento a este dia.", date: "Data (mês/dia/ano)", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
+    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões, refeições, suplementos, objetivos e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de dados relacionados que também foram eliminados. Recuperar os itens necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
     planAndSchedule: "Criar e agendar", planAndScheduleCopy: "Utilize algo da sua biblioteca ou crie aqui o desporto, o treino e os exercícios.", sportSetup: "Configuração do desporto", chooseOrCreateSport: "Escolha um desporto ou crie um novo.", createNewSportOption: "+ Criar novo desporto", workoutSetup: "Configuração do treino", chooseOrCreateWorkout: "Escolha um treino ou crie um novo.", createNewWorkoutOption: "+ Criar novo treino", exercisesOptional: "Exercícios (opcional)", exercisesOptionalCopy: "Adicione os exercícios que já conhece. Pode acrescentar mais tarde.", addAnotherExercise: "Adicionar outro exercício", removeExercise: "Remover exercício", calendarDetailsCopy: "Escolha o dia e adicione notas específicas desta sessão.", savePlanToCalendar: "Guardar plano no calendário", planSaved: "Plano de treino guardado no calendário.", scheduleAnotherWorkout: "Agendar outro treino", confirmDeleteOwnedPlan: "Este agendamento criou um plano novo na Biblioteca. Removê-lo do calendário e mover o treino, os exercícios e qualquer desporto novo que fique vazio para o Lixo?",
     goals: "Objetivos", goal: "Objetivo", personalMilestones: "Metas pessoais", goalsIntro: "Crie uma meta e veja cada círculo ficar preenchido à medida que conclui treinos. Também pode ajustar o progresso manualmente.", newGoal: "Novo objetivo", createGoal: "Criar objetivo", noGoals: "Ainda não existem objetivos", noGoalsCopy: "Escolha uma meta pessoal, como concluir 10 treinos, e avance um círculo de cada vez.", goalDialogCopy: "Cada treino concluído no calendário preenche um círculo. Clique nos círculos sempre que quiser ajustar a contagem manualmente.", goalName: "Nome do objetivo", goalNamePlaceholder: "Por exemplo, Concluir 10 treinos", targetWorkouts: "Número de círculos", saveGoal: "Guardar objetivo", editGoal: "Editar objetivo", deleteGoal: "Eliminar objetivo", confirmDeleteGoal: "Mover este objetivo e o respetivo progresso para o Lixo?", goalSaved: "Objetivo guardado.", goalProgressUpdated: "Progresso do objetivo atualizado.", goalComplete: "Objetivo concluído!", goalProgressHint: "Os treinos concluídos preenchem círculos automaticamente. Clique num círculo preenchido para retirar um, ou num vazio para definir esse total.", goalSingular: "objetivo", goalPlural: "objetivos", typeGoal: "Objetivo",
     flexibleDetails: "Detalhes flexíveis", flexibleDetailsCopy: "Adicione apenas o que interessa para esta atividade — ritmo, estilo, distância, campo, rondas, equipamento ou qualquer outro detalhe.", addDetail: "Adicionar detalhe", removeDetail: "Remover detalhe", detailLabel: "Detalhe", detailValue: "Valor", detailLabelPlaceholder: "Por exemplo, Ritmo", detailValuePlaceholder: "Por exemplo, 5:00/km", pace: "Ritmo", laps: "Voltas", rounds: "Rondas", stroke: "Estilo / técnica", equipment: "Equipamento", surface: "Superfície / campo", poolLength: "Comprimento da piscina", drill: "Exercício técnico",
-    meals: "Refeições", meal: "Refeição", mealPlanning: "Planeamento de refeições", mealsIntro: "Crie uma biblioteca privada de refeições e coloque o pequeno-almoço, almoço, jantar, lanches ou qualquer refeição personalizada no calendário de treinos.", newMeal: "Nova refeição", createMeal: "Criar refeição", noMeals: "Ainda não existem refeições", noMealsCopy: "Guarde uma refeição uma vez e adicione-a a qualquer dia do calendário.", mealName: "Nome da refeição", mealNamePlaceholder: "Por exemplo, Papas de aveia com fruta", mealType: "Tipo de refeição", breakfast: "Pequeno-almoço", lunch: "Almoço", dinner: "Jantar", snack: "Lanche", otherMeal: "Outra", foodsIngredients: "Alimentos / ingredientes", foodsIngredientsPlaceholder: "Escreva os alimentos, quantidades ou a refeição exatamente como preferir…", preparationOptional: "Preparação (opcional)", saveMeal: "Guardar refeição", scheduleMeal: "Agendar refeição", editMeal: "Editar refeição", duplicateMeal: "Duplicar refeição", deleteMeal: "Eliminar refeição", mealSaved: "Refeição guardada.", mealSavedAndScheduled: "Refeição guardada e adicionada ao calendário.", mealScheduled: "Refeição adicionada ao calendário.", mealScheduleUpdated: "Agendamento da refeição atualizado.", mealCompleted: "Refeição marcada como consumida.", mealReopened: "Refeição marcada como não consumida.", markMealComplete: "Marcar como consumida", markMealIncomplete: "Marcar como não consumida", eaten: "Consumida", openMeal: "Abrir refeição", editMealSchedule: "Editar data da refeição", removeMealFromCalendar: "Remover refeição do calendário", confirmDeleteMeal: "Mover esta refeição e os respetivos agendamentos para o Lixo?", confirmDeleteMealEntry: "Mover esta refeição planeada para o Lixo?", noMealsToSchedule: "Crie uma refeição antes de a adicionar ao calendário.", addNewMealToCalendar: "Adicionar esta refeição ao calendário", addNewMealToCalendarCopy: "Planeie já a primeira data, se quiser.", firstMealDate: "Data da primeira refeição (mês/dia/ano)", mealNotes: "Notas da refeição (opcional)", mealNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherMeal: "Agendar outra refeição", mealSingular: "refeição", mealPlural: "refeições", mealEntrySingular: "refeição planeada", mealEntryPlural: "refeições planeadas", calendarItemSingular: "item planeado", calendarItemPlural: "itens planeados", typeMeal: "Refeição", typeMealEntry: "Refeição do calendário"
+    meals: "Refeições", meal: "Refeição", mealPlanning: "Planeamento de refeições", mealsIntro: "Crie uma biblioteca privada de refeições e coloque o pequeno-almoço, almoço, jantar, lanches ou qualquer refeição personalizada no calendário de treinos.", newMeal: "Nova refeição", createMeal: "Criar refeição", noMeals: "Ainda não existem refeições", noMealsCopy: "Guarde uma refeição uma vez e adicione-a a qualquer dia do calendário.", mealName: "Nome da refeição", mealNamePlaceholder: "Por exemplo, Papas de aveia com fruta", mealType: "Tipo de refeição", breakfast: "Pequeno-almoço", lunch: "Almoço", dinner: "Jantar", snack: "Lanche", otherMeal: "Outra", foodsIngredients: "Alimentos / ingredientes", foodsIngredientsPlaceholder: "Escreva os alimentos, quantidades ou a refeição exatamente como preferir…", preparationOptional: "Preparação (opcional)", saveMeal: "Guardar refeição", scheduleMeal: "Agendar refeição", editMeal: "Editar refeição", duplicateMeal: "Duplicar refeição", deleteMeal: "Eliminar refeição", mealSaved: "Refeição guardada.", mealSavedAndScheduled: "Refeição guardada e adicionada ao calendário.", mealScheduled: "Refeição adicionada ao calendário.", mealScheduleUpdated: "Agendamento da refeição atualizado.", mealCompleted: "Refeição marcada como consumida.", mealReopened: "Refeição marcada como não consumida.", markMealComplete: "Marcar como consumida", markMealIncomplete: "Marcar como não consumida", eaten: "Consumida", openMeal: "Abrir refeição", editMealSchedule: "Editar data da refeição", removeMealFromCalendar: "Remover refeição do calendário", confirmDeleteMeal: "Mover esta refeição e os respetivos agendamentos para o Lixo?", confirmDeleteMealEntry: "Mover esta refeição planeada para o Lixo?", noMealsToSchedule: "Crie uma refeição antes de a adicionar ao calendário.", addNewMealToCalendar: "Adicionar esta refeição ao calendário", addNewMealToCalendarCopy: "Planeie já a primeira data, se quiser.", firstMealDate: "Data da primeira refeição (mês/dia/ano)", mealNotes: "Notas da refeição (opcional)", mealNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherMeal: "Agendar outra refeição", mealSingular: "refeição", mealPlural: "refeições", mealEntrySingular: "refeição planeada", mealEntryPlural: "refeições planeadas", calendarItemSingular: "item planeado", calendarItemPlural: "itens planeados", typeMeal: "Refeição", typeMealEntry: "Refeição do calendário",
+    supplements: "Suplementos", supplement: "Suplemento", supplementPlanning: "Planeamento de suplementos", supplementsIntro: "Crie uma biblioteca privada de suplementos com quantidades, horários e instruções e adicione cada item ao calendário partilhado.", newSupplement: "Novo suplemento", createSupplement: "Criar suplemento", noSupplements: "Ainda não existem suplementos", noSupplementsCopy: "Guarde um suplemento uma vez e adicione-o a qualquer dia do calendário.", supplementName: "Nome do suplemento", supplementNamePlaceholder: "Por exemplo, Creatina", amountOptional: "Quantidade (opcional)", amountPlaceholder: "Por exemplo, 5 g", timingOptional: "Horário (opcional)", timingPlaceholder: "Por exemplo, Ao pequeno-almoço", supplementInstructionsOptional: "Instruções (opcional)", supplementInstructionsPlaceholder: "Adicione a frequência, o modo de utilização ou outras indicações úteis…", saveSupplement: "Guardar suplemento", scheduleSupplement: "Agendar suplemento", editSupplement: "Editar suplemento", duplicateSupplement: "Duplicar suplemento", deleteSupplement: "Eliminar suplemento", supplementSaved: "Suplemento guardado.", supplementSavedAndScheduled: "Suplemento guardado e adicionado ao calendário.", supplementScheduled: "Suplemento adicionado ao calendário.", supplementScheduleUpdated: "Agendamento do suplemento atualizado.", supplementCompleted: "Suplemento marcado como tomado.", supplementReopened: "Suplemento marcado como não tomado.", markSupplementComplete: "Marcar como tomado", markSupplementIncomplete: "Marcar como não tomado", taken: "Tomado", openSupplement: "Abrir suplemento", editSupplementSchedule: "Editar data do suplemento", removeSupplementFromCalendar: "Remover suplemento do calendário", confirmDeleteSupplement: "Mover este suplemento e os respetivos agendamentos para o Lixo?", confirmDeleteSupplementEntry: "Mover este suplemento planeado para o Lixo?", noSupplementsToSchedule: "Crie um suplemento antes de o adicionar ao calendário.", addNewSupplementToCalendar: "Adicionar este suplemento ao calendário", addNewSupplementToCalendarCopy: "Planeie já a primeira data, se quiser.", firstSupplementDate: "Data do primeiro suplemento (mês/dia/ano)", supplementNotes: "Notas do suplemento (opcional)", supplementNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherSupplement: "Agendar outro suplemento", supplementSingular: "suplemento", supplementPlural: "suplementos", supplementEntrySingular: "suplemento planeado", supplementEntryPlural: "suplementos planeados", typeSupplement: "Suplemento", typeSupplementEntry: "Suplemento do calendário"
   }
 };
 
@@ -64,7 +66,7 @@ const now = () => new Date().toISOString();
 const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 const clean = (value, max = 2000) => String(value ?? "").trim().slice(0, max);
 const cloneData = (value) => JSON.parse(JSON.stringify(value));
-const emptyState = () => ({ version: 5, sports: [], workouts: [], exercises: [], sessions: [], meals: [], mealEntries: [], goals: [], trash: [] });
+const emptyState = () => ({ version: 6, sports: [], workouts: [], exercises: [], sessions: [], meals: [], mealEntries: [], supplements: [], supplementEntries: [], goals: [], trash: [] });
 
 let language = getLanguage();
 let state = loadState();
@@ -82,8 +84,8 @@ const objectUrls = new Set();
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), exerciseDetails: $("#exercise-details"), customDetailTemplate: $("#custom-detail-template"), detailLabelOptions: $("#detail-label-options"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), mealDialog: $("#meal-dialog"), mealForm: $("#meal-form"), mealDialogTitle: $("#meal-dialog-title"), mealSchedule: $("#new-meal-schedule"), mealDate: $("#new-meal-date"), mealScheduleDialog: $("#meal-schedule-dialog"), mealScheduleForm: $("#meal-schedule-form"), mealScheduleDialogTitle: $("#meal-schedule-dialog-title"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
-  libraryView: $("#library-view"), calendarView: $("#calendar-view"), mealsView: $("#meals-view"), mealsList: $("#meals-list"), mealsEmpty: $("#meals-empty"), goalsView: $("#goals-view"), goalsList: $("#goals-list"), goalsEmpty: $("#goals-empty"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), exerciseDetails: $("#exercise-details"), customDetailTemplate: $("#custom-detail-template"), detailLabelOptions: $("#detail-label-options"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), mealDialog: $("#meal-dialog"), mealForm: $("#meal-form"), mealDialogTitle: $("#meal-dialog-title"), mealSchedule: $("#new-meal-schedule"), mealDate: $("#new-meal-date"), mealScheduleDialog: $("#meal-schedule-dialog"), mealScheduleForm: $("#meal-schedule-form"), mealScheduleDialogTitle: $("#meal-schedule-dialog-title"), supplementDialog: $("#supplement-dialog"), supplementForm: $("#supplement-form"), supplementDialogTitle: $("#supplement-dialog-title"), supplementSchedule: $("#new-supplement-schedule"), supplementDate: $("#new-supplement-date"), supplementScheduleDialog: $("#supplement-schedule-dialog"), supplementScheduleForm: $("#supplement-schedule-form"), supplementScheduleDialogTitle: $("#supplement-schedule-dialog-title"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
+  libraryView: $("#library-view"), calendarView: $("#calendar-view"), mealsView: $("#meals-view"), mealsList: $("#meals-list"), mealsEmpty: $("#meals-empty"), supplementsView: $("#supplements-view"), supplementsList: $("#supplements-list"), supplementsEmpty: $("#supplements-empty"), goalsView: $("#goals-view"), goalsList: $("#goals-list"), goalsEmpty: $("#goals-empty"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
 
@@ -109,8 +111,9 @@ function formatDate(date, options) { return new Intl.DateTimeFormat(dateLocale()
 function capitalise(value) { return value ? value[0].toLocaleUpperCase(dateLocale()) + value.slice(1) : value; }
 function sessionsForDate(date) { return state.sessions.filter((session) => session.date === date).sort((a,b) => a.createdAt.localeCompare(b.createdAt)); }
 function mealEntriesForDate(date) { return state.mealEntries.filter((entry) => entry.date === date).sort((a,b) => a.createdAt.localeCompare(b.createdAt)); }
+function supplementEntriesForDate(date) { return state.supplementEntries.filter((entry) => entry.date === date).sort((a,b) => a.createdAt.localeCompare(b.createdAt)); }
 function calendarItemsForDate(date) {
-  return [...sessionsForDate(date).map((item) => ({ kind: "workout", item })), ...mealEntriesForDate(date).map((item) => ({ kind: "meal", item }))]
+  return [...sessionsForDate(date).map((item) => ({ kind: "workout", item })), ...mealEntriesForDate(date).map((item) => ({ kind: "meal", item })), ...supplementEntriesForDate(date).map((item) => ({ kind: "supplement", item }))]
     .sort((a,b) => a.item.createdAt.localeCompare(b.item.createdAt));
 }
 
@@ -142,6 +145,8 @@ function sanitiseExercise(item) {
 function sanitiseSession(item) { return { id: clean(item?.id,100) || id(), sportId: clean(item?.sportId,100), workoutId: clean(item?.workoutId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), plannerCreatedWorkout: Boolean(item?.plannerCreatedWorkout), plannerCreatedSport: Boolean(item?.plannerCreatedSport), createdAt: item?.createdAt || now() }; }
 function sanitiseMeal(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,100), type: MEAL_TYPES.includes(item?.type) ? item.type : "otherMeal", description: clean(item?.description,1200), instructions: clean(item?.instructions,1200), notes: clean(item?.notes,500), createdAt: item?.createdAt || now() }; }
 function sanitiseMealEntry(item) { return { id: clean(item?.id,100) || id(), mealId: clean(item?.mealId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), createdAt: item?.createdAt || now() }; }
+function sanitiseSupplement(item) { return { id: clean(item?.id,100) || id(), name: clean(item?.name,100), amount: clean(item?.amount,80), timing: clean(item?.timing,120), instructions: clean(item?.instructions,1200), notes: clean(item?.notes,500), createdAt: item?.createdAt || now() }; }
+function sanitiseSupplementEntry(item) { return { id: clean(item?.id,100) || id(), supplementId: clean(item?.supplementId,100), date: /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "", notes: clean(item?.notes,500), completed: Boolean(item?.completed), createdAt: item?.createdAt || now() }; }
 function sanitiseGoal(item) {
   const target = Math.max(1,Math.min(365,Math.round(Number(item?.target) || 10)));
   const completedSessionIds = [...new Set(Array.isArray(item?.completedSessionIds) ? item.completedSessionIds.map((value) => clean(value,100)).filter(Boolean) : [])];
@@ -150,7 +155,7 @@ function sanitiseGoal(item) {
 }
 
 function sanitiseTrashItem(item) {
-  const type = ["sport","workout","exercise","session","meal","mealEntry","media","goal"].includes(item?.type) ? item.type : "";
+  const type = ["sport","workout","exercise","session","meal","mealEntry","supplement","supplementEntry","media","goal"].includes(item?.type) ? item.type : "";
   if (!type || !item?.payload || typeof item.payload !== "object") return null;
   const payload = {};
   if (item.payload.sport) payload.sport = sanitiseSport(item.payload.sport);
@@ -159,12 +164,15 @@ function sanitiseTrashItem(item) {
   if (item.payload.session) payload.session = sanitiseSession(item.payload.session);
   if (item.payload.meal) payload.meal = sanitiseMeal(item.payload.meal);
   if (item.payload.mealEntry) payload.mealEntry = sanitiseMealEntry(item.payload.mealEntry);
+  if (item.payload.supplement) payload.supplement = sanitiseSupplement(item.payload.supplement);
+  if (item.payload.supplementEntry) payload.supplementEntry = sanitiseSupplementEntry(item.payload.supplementEntry);
   if (item.payload.media) payload.media = sanitiseMedia(item.payload.media);
   if (item.payload.goal) payload.goal = sanitiseGoal(item.payload.goal);
   payload.workouts = Array.isArray(item.payload.workouts) ? item.payload.workouts.map(sanitiseWorkout).filter((value) => value.name) : [];
   payload.exercises = Array.isArray(item.payload.exercises) ? item.payload.exercises.map(sanitiseExercise).filter((value) => value.name) : [];
   payload.sessions = Array.isArray(item.payload.sessions) ? item.payload.sessions.map(sanitiseSession).filter((value) => value.date) : [];
   payload.mealEntries = Array.isArray(item.payload.mealEntries) ? item.payload.mealEntries.map(sanitiseMealEntry).filter((value) => value.date) : [];
+  payload.supplementEntries = Array.isArray(item.payload.supplementEntries) ? item.payload.supplementEntries.map(sanitiseSupplementEntry).filter((value) => value.date) : [];
   return { id: clean(item.id,100) || id(), type, label: clean(item.label,120) || type, deletedAt: item.deletedAt || now(), payload };
 }
 
@@ -179,9 +187,12 @@ function normaliseState(input) {
   const meals = Array.isArray(input.meals) ? input.meals.map(sanitiseMeal).filter((item) => item.name) : [];
   const mealIds = new Set(meals.map((item) => item.id));
   const mealEntries = Array.isArray(input.mealEntries) ? input.mealEntries.map(sanitiseMealEntry).filter((item) => item.date && mealIds.has(item.mealId)) : [];
+  const supplements = Array.isArray(input.supplements) ? input.supplements.map(sanitiseSupplement).filter((item) => item.name) : [];
+  const supplementIds = new Set(supplements.map((item) => item.id));
+  const supplementEntries = Array.isArray(input.supplementEntries) ? input.supplementEntries.map(sanitiseSupplementEntry).filter((item) => item.date && supplementIds.has(item.supplementId)) : [];
   const goals = Array.isArray(input.goals) ? input.goals.map(sanitiseGoal).filter((item) => item.name) : [];
   const trash = Array.isArray(input.trash) ? input.trash.map(sanitiseTrashItem).filter(Boolean) : [];
-  return { version: 5, sports, workouts, exercises, sessions, meals, mealEntries, goals, trash };
+  return { version: 6, sports, workouts, exercises, sessions, meals, mealEntries, supplements, supplementEntries, goals, trash };
 }
 
 function saveState() {
@@ -193,7 +204,7 @@ function saveState() {
 function plural(count, singularKey, pluralKey) { return `${count} ${t(count === 1 ? singularKey : pluralKey)}`; }
 
 function updateSummary() {
-  elements.summary.textContent = [plural(state.sports.length, "sportSingular", "sportPlural"), plural(state.workouts.length, "workoutSingular", "workoutPlural"), plural(state.exercises.length, "exerciseSingular", "exercisePlural"), plural(state.sessions.length, "sessionSingular", "sessionPlural"), plural(state.meals.length, "mealSingular", "mealPlural"), plural(state.goals.length, "goalSingular", "goalPlural")].join(" · ");
+  elements.summary.textContent = [plural(state.sports.length, "sportSingular", "sportPlural"), plural(state.workouts.length, "workoutSingular", "workoutPlural"), plural(state.exercises.length, "exerciseSingular", "exercisePlural"), plural(state.sessions.length, "sessionSingular", "sessionPlural"), plural(state.meals.length, "mealSingular", "mealPlural"), plural(state.supplements.length, "supplementSingular", "supplementPlural"), plural(state.goals.length, "goalSingular", "goalPlural")].join(" · ");
   elements.trashCount.textContent = String(state.trash.length);
 }
 
@@ -264,6 +275,7 @@ function render() {
   renderPlan();
   renderCalendar();
   renderMeals();
+  renderSupplements();
   renderGoals();
   renderTrash();
   renderView();
@@ -275,6 +287,7 @@ function renderView() {
   elements.libraryView.hidden = activeView !== "library";
   elements.calendarView.hidden = activeView !== "calendar";
   elements.mealsView.hidden = activeView !== "meals";
+  elements.supplementsView.hidden = activeView !== "supplements";
   elements.goalsView.hidden = activeView !== "goals";
   $$('[data-view]').forEach((button) => {
     const selected = button.dataset.view === activeView;
@@ -283,10 +296,11 @@ function renderView() {
 }
 
 function setView(view) {
-  activeView = ["library","calendar","meals","goals"].includes(view) ? view : "library";
+  activeView = ["library","calendar","meals","supplements","goals"].includes(view) ? view : "library";
   renderView();
   if (activeView === "calendar") renderCalendar();
   if (activeView === "meals") renderMeals();
+  if (activeView === "supplements") renderSupplements();
   if (activeView === "goals") renderGoals();
 }
 
@@ -373,6 +387,30 @@ function renderMeals() {
   }
 }
 
+function renderSupplements() {
+  elements.supplementsList.replaceChildren();
+  elements.supplementsList.hidden = state.supplements.length === 0;
+  elements.supplementsEmpty.hidden = state.supplements.length > 0;
+  for (const supplement of state.supplements) {
+    const card = document.createElement("article"); card.className = "supplement-card";
+    const header = document.createElement("header"); header.className = "supplement-card-header";
+    const copy = document.createElement("div");
+    const title = document.createElement("h3"); title.textContent = supplement.name; copy.append(title);
+    const actions = document.createElement("div"); actions.className = "supplement-card-actions";
+    actions.append(createActionButton(t("scheduleSupplement"),"calendar","schedule-supplement",supplement.id),createActionButton(t("editSupplement"),"✎","edit-supplement",supplement.id),createActionButton(t("duplicateSupplement"),"⧉","duplicate-supplement",supplement.id),createActionButton(t("deleteSupplement"),"×","delete-supplement",supplement.id,"danger"));
+    header.append(copy,actions); card.append(header);
+    for (const [key,value] of [["amountOptional",supplement.amount],["timingOptional",supplement.timing],["supplementInstructionsOptional",supplement.instructions],["notes",supplement.notes]]) {
+      if (!value) continue;
+      const section = document.createElement("div"); section.className = "supplement-detail";
+      const label = document.createElement("strong"); label.textContent = t(key).replace(/\s*\([^)]*\)$/s,"");
+      const text = document.createElement("span"); text.textContent = value; section.append(label,text); card.append(section);
+    }
+    const planned = state.supplementEntries.filter((entry) => entry.supplementId === supplement.id).length;
+    const footer = document.createElement("div"); footer.className = "supplement-card-footer"; footer.textContent = plural(planned,"supplementEntrySingular","supplementEntryPlural"); card.append(footer);
+    elements.supplementsList.append(card);
+  }
+}
+
 function goalProgress(goal) { return Math.min(goal.target,goal.completedSessionIds.length + goal.manualProgress); }
 
 function renderGoals() {
@@ -450,7 +488,7 @@ function renderWeek() {
     const number = document.createElement("strong"); number.textContent = date.getDate();
     const count = document.createElement("span"); count.className = "week-day-count"; count.textContent = items.length ? String(items.length) : "—";
     const dots = document.createElement("span"); dots.className = "week-session-dots";
-    for (const entry of items.slice(0, 4)) { const dot = document.createElement("i"); dot.className = `${entry.kind === "meal" ? "meal" : ""}${entry.item.completed ? " done" : ""}`.trim(); dots.append(dot); }
+    for (const entry of items.slice(0, 4)) { const dot = document.createElement("i"); dot.className = `${entry.kind === "workout" ? "" : entry.kind}${entry.item.completed ? " done" : ""}`.trim(); dots.append(dot); }
     button.append(weekday, number, count, dots);
     elements.weekDays.append(button);
   }
@@ -476,9 +514,9 @@ function renderMonth() {
     const number = document.createElement("span"); number.className = "calendar-day-number"; number.textContent = date.getDate(); button.append(number);
     const entries = document.createElement("span"); entries.className = "calendar-entries";
     for (const entry of items.slice(0, 3)) {
-      const record = entry.kind === "meal" ? state.meals.find((item) => item.id === entry.item.mealId) : state.workouts.find((item) => item.id === entry.item.workoutId);
+      const record = entry.kind === "meal" ? state.meals.find((item) => item.id === entry.item.mealId) : entry.kind === "supplement" ? state.supplements.find((item) => item.id === entry.item.supplementId) : state.workouts.find((item) => item.id === entry.item.workoutId);
       if (!record) continue;
-      const chip = document.createElement("span"); chip.className = `calendar-chip${entry.kind === "meal" ? " meal" : ""}${entry.item.completed ? " completed" : ""}`; chip.textContent = `${entry.item.completed ? "✓ " : ""}${record.name}`; entries.append(chip);
+      const chip = document.createElement("span"); chip.className = `calendar-chip${entry.kind === "workout" ? "" : ` ${entry.kind}`}${entry.item.completed ? " completed" : ""}`; chip.textContent = `${entry.item.completed ? "✓ " : ""}${record.name}`; entries.append(chip);
     }
     if (items.length > 3) { const more = document.createElement("span"); more.className = "calendar-more"; more.textContent = `+${items.length - 3}`; entries.append(more); }
     button.append(entries); elements.calendarGrid.append(button);
@@ -495,20 +533,21 @@ function renderAgenda() {
   for (const entry of items) {
     const calendarItem = entry.item;
     const sport = entry.kind === "workout" ? state.sports.find((item) => item.id === calendarItem.sportId) : null;
-    const record = entry.kind === "meal" ? state.meals.find((item) => item.id === calendarItem.mealId) : state.workouts.find((item) => item.id === calendarItem.workoutId);
+    const record = entry.kind === "meal" ? state.meals.find((item) => item.id === calendarItem.mealId) : entry.kind === "supplement" ? state.supplements.find((item) => item.id === calendarItem.supplementId) : state.workouts.find((item) => item.id === calendarItem.workoutId);
     if (!record || (entry.kind === "workout" && !sport)) continue;
-    const card = document.createElement("article"); card.className = `agenda-item${entry.kind === "meal" ? " meal" : ""}${calendarItem.completed ? " completed" : ""}`;
-    const status = document.createElement("button"); status.type = "button"; status.className = "completion-toggle"; status.dataset.action = entry.kind === "meal" ? "toggle-meal-entry" : "toggle-session"; status.dataset.id = calendarItem.id;
-    const statusKey = entry.kind === "meal" ? (calendarItem.completed ? "markMealIncomplete" : "markMealComplete") : (calendarItem.completed ? "markIncomplete" : "markComplete");
+    const card = document.createElement("article"); card.className = `agenda-item${entry.kind === "workout" ? "" : ` ${entry.kind}`}${calendarItem.completed ? " completed" : ""}`;
+    const status = document.createElement("button"); status.type = "button"; status.className = "completion-toggle"; status.dataset.action = entry.kind === "meal" ? "toggle-meal-entry" : entry.kind === "supplement" ? "toggle-supplement-entry" : "toggle-session"; status.dataset.id = calendarItem.id;
+    const statusKey = entry.kind === "meal" ? (calendarItem.completed ? "markMealIncomplete" : "markMealComplete") : entry.kind === "supplement" ? (calendarItem.completed ? "markSupplementIncomplete" : "markSupplementComplete") : (calendarItem.completed ? "markIncomplete" : "markComplete");
     status.setAttribute("aria-label", t(statusKey)); status.title = t(statusKey); status.textContent = calendarItem.completed ? "✓" : "";
     const content = document.createElement("div"); content.className = "agenda-content";
-    const eyebrow = document.createElement("span"); eyebrow.textContent = entry.kind === "meal" ? `${t("meal")} · ${t(record.type)}` : sport.name;
+    const eyebrow = document.createElement("span"); eyebrow.textContent = entry.kind === "meal" ? `${t("meal")} · ${t(record.type)}` : entry.kind === "supplement" ? [t("supplement"),record.amount,record.timing].filter(Boolean).join(" · ") : sport.name;
     const title = document.createElement("h3"); title.textContent = record.name;
     content.append(eyebrow,title);
     if (calendarItem.notes) { const notes = document.createElement("p"); notes.textContent = calendarItem.notes; content.append(notes); }
-    if (calendarItem.completed) { const badge = document.createElement("strong"); badge.className = "completed-label"; badge.textContent = t(entry.kind === "meal" ? "eaten" : "completed"); content.append(badge); }
+    if (calendarItem.completed) { const badge = document.createElement("strong"); badge.className = "completed-label"; badge.textContent = t(entry.kind === "meal" ? "eaten" : entry.kind === "supplement" ? "taken" : "completed"); content.append(badge); }
     const actions = document.createElement("div"); actions.className = "agenda-actions";
     if (entry.kind === "meal") actions.append(createAgendaButton(t("openMeal"),"open-meal",record.id),createAgendaButton(t("editMealSchedule"),"edit-meal-entry",calendarItem.id),createAgendaButton(t("removeMealFromCalendar"),"delete-meal-entry",calendarItem.id,true));
+    else if (entry.kind === "supplement") actions.append(createAgendaButton(t("openSupplement"),"open-supplement",record.id),createAgendaButton(t("editSupplementSchedule"),"edit-supplement-entry",calendarItem.id),createAgendaButton(t("removeSupplementFromCalendar"),"delete-supplement-entry",calendarItem.id,true));
     else actions.append(createAgendaButton(t("openWorkout"), "open-session", calendarItem.id), createAgendaButton(t("editSchedule"), "edit-session", calendarItem.id), createAgendaButton(t("removeFromCalendar"), "delete-session", calendarItem.id, true));
     card.append(status,content,actions); elements.agendaList.append(card);
   }
@@ -516,7 +555,8 @@ function renderAgenda() {
     const addActions = document.createElement("div"); addActions.className = "agenda-add-actions";
     const addWorkout = document.createElement("button"); addWorkout.type = "button"; addWorkout.className = "button secondary"; addWorkout.dataset.action = "quick-plan"; addWorkout.textContent = t("scheduleAnotherWorkout");
     const addMeal = document.createElement("button"); addMeal.type = "button"; addMeal.className = "button secondary"; addMeal.dataset.action = "schedule-meal"; addMeal.textContent = t("scheduleAnotherMeal");
-    addActions.append(addWorkout,addMeal); elements.agendaList.append(addActions);
+    const addSupplement = document.createElement("button"); addSupplement.type = "button"; addSupplement.className = "button secondary"; addSupplement.dataset.action = "schedule-supplement"; addSupplement.textContent = t("scheduleAnotherSupplement");
+    addActions.append(addWorkout,addMeal,addSupplement); elements.agendaList.append(addActions);
   }
 }
 
@@ -680,6 +720,40 @@ function openMealScheduleDialog(entry = null, mealId = null) {
   elements.mealScheduleForm.elements.date.value = entry?.date || selectedDate;
   elements.mealScheduleForm.elements.notes.value = entry?.notes || "";
   elements.mealScheduleDialog.showModal(); setTimeout(() => elements.mealScheduleForm.elements.date.focus(),0);
+}
+
+function openSupplementDialog(supplement = null) {
+  resetForm(elements.supplementForm); elements.supplementDialogTitle.textContent = supplement ? t("editSupplement") : t("newSupplement");
+  if (supplement) for (const key of ["id","name","amount","timing","instructions","notes"]) elements.supplementForm.elements[key].value = supplement[key] || "";
+  elements.supplementSchedule.hidden = Boolean(supplement);
+  elements.supplementForm.elements.scheduleEnabled.checked = false;
+  elements.supplementForm.elements.scheduleDate.value = selectedDate;
+  updateNewSupplementSchedule();
+  elements.supplementDialog.showModal(); setTimeout(() => elements.supplementForm.elements.name.focus(),0);
+}
+
+function updateNewSupplementSchedule() {
+  const enabled = !elements.supplementSchedule.hidden && elements.supplementForm.elements.scheduleEnabled.checked;
+  elements.supplementDate.hidden = !enabled;
+  elements.supplementForm.elements.scheduleDate.required = enabled;
+}
+
+function populateSupplementOptions(preferredSupplementId) {
+  const select = elements.supplementScheduleForm.elements.supplementId; select.replaceChildren();
+  for (const supplement of state.supplements) { const option = document.createElement("option"); option.value = supplement.id; option.textContent = [supplement.name,supplement.amount,supplement.timing].filter(Boolean).join(" · "); select.append(option); }
+  if ([...select.options].some((option) => option.value === preferredSupplementId)) select.value = preferredSupplementId;
+}
+
+function openSupplementScheduleDialog(entry = null, supplementId = null) {
+  if (!state.supplements.length) {
+    openSupplementDialog(); elements.supplementForm.elements.scheduleEnabled.checked = true; elements.supplementForm.elements.scheduleDate.value = selectedDate; updateNewSupplementSchedule(); return;
+  }
+  resetForm(elements.supplementScheduleForm); elements.supplementScheduleDialogTitle.textContent = entry ? t("editSupplementSchedule") : t("scheduleSupplement");
+  populateSupplementOptions(entry?.supplementId || supplementId || state.supplements[0].id);
+  elements.supplementScheduleForm.elements.id.value = entry?.id || "";
+  elements.supplementScheduleForm.elements.date.value = entry?.date || selectedDate;
+  elements.supplementScheduleForm.elements.notes.value = entry?.notes || "";
+  elements.supplementScheduleDialog.showModal(); setTimeout(() => elements.supplementScheduleForm.elements.date.focus(),0);
 }
 
 function openExerciseDialog(exercise = null) {
@@ -895,6 +969,34 @@ function handleMealScheduleSubmit(event) {
   saveState(); elements.mealScheduleDialog.close(); render(); showToast(t(existing ? "mealScheduleUpdated" : "mealScheduled"));
 }
 
+function handleSupplementSubmit(event) {
+  event.preventDefault(); if (!elements.supplementForm.reportValidity()) return;
+  const values = formValues(elements.supplementForm); const existing = state.supplements.find((item) => item.id === values.id);
+  const fields = { name: clean(values.name,100), amount: clean(values.amount,80), timing: clean(values.timing,120), instructions: clean(values.instructions,1200), notes: clean(values.notes,500) };
+  let scheduled = false;
+  if (existing) Object.assign(existing,fields);
+  else {
+    const supplement = { id: id(), ...fields, createdAt: now() }; state.supplements.push(supplement);
+    if (values.scheduleEnabled === "on" && /^\d{4}-\d{2}-\d{2}$/.test(values.scheduleDate || "")) {
+      state.supplementEntries.push({ id: id(), supplementId: supplement.id, date: values.scheduleDate, notes: "", completed: false, createdAt: now() });
+      selectedDate = values.scheduleDate; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); scheduled = true;
+    }
+  }
+  saveState(); elements.supplementDialog.close(); render(); showToast(t(scheduled ? "supplementSavedAndScheduled" : "supplementSaved"));
+}
+
+function handleSupplementScheduleSubmit(event) {
+  event.preventDefault(); if (!elements.supplementScheduleForm.reportValidity()) return;
+  const values = formValues(elements.supplementScheduleForm);
+  if (!state.supplements.some((item) => item.id === values.supplementId)) { showToast(t("noSupplementsToSchedule"),true); return; }
+  const existing = state.supplementEntries.find((item) => item.id === values.id);
+  const fields = { supplementId: values.supplementId, date: values.date, notes: clean(values.notes,500) };
+  if (existing) Object.assign(existing,fields);
+  else state.supplementEntries.push({ id: id(), ...fields, completed: false, createdAt: now() });
+  selectedDate = values.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate));
+  saveState(); elements.supplementScheduleDialog.close(); render(); showToast(t(existing ? "supplementScheduleUpdated" : "supplementScheduled"));
+}
+
 function handleExerciseSubmit(event) {
   event.preventDefault(); if (!elements.exerciseForm.reportValidity()) return;
   const values = formValues(elements.exerciseForm); const existing = state.exercises.find((item) => item.id === values.id);
@@ -997,6 +1099,21 @@ function trashMealEntry(entryId) {
   state.mealEntries = state.mealEntries.filter((item) => item.id !== entryId); return true;
 }
 
+function trashSupplement(supplementId) {
+  const supplement = state.supplements.find((item) => item.id === supplementId); if (!supplement) return false;
+  const supplementEntries = state.supplementEntries.filter((item) => item.supplementId === supplementId);
+  addTrashItem("supplement",supplement.name,{ supplement, supplementEntries });
+  state.supplementEntries = state.supplementEntries.filter((item) => item.supplementId !== supplementId);
+  state.supplements = state.supplements.filter((item) => item.id !== supplementId); return true;
+}
+
+function trashSupplementEntry(entryId) {
+  const supplementEntry = state.supplementEntries.find((item) => item.id === entryId); if (!supplementEntry) return false;
+  const supplement = state.supplements.find((item) => item.id === supplementEntry.supplementId);
+  addTrashItem("supplementEntry",supplement?.name || t("typeSupplementEntry"),{ supplement, supplementEntry });
+  state.supplementEntries = state.supplementEntries.filter((item) => item.id !== entryId); return true;
+}
+
 function createdTogether(first, second, limit = 2000) {
   const firstTime = Date.parse(first?.createdAt || "");
   const secondTime = Date.parse(second?.createdAt || "");
@@ -1040,6 +1157,7 @@ function sportSnapshot(sportId, fallback = {}) { return state.trash.find((item) 
 function workoutSnapshot(workoutId, fallback = {}) { return state.trash.find((item) => item.type === "workout" && item.payload.workout?.id === workoutId)?.payload.workout || fallback.workout || state.trash.map((item) => item.payload.workout).find((item) => item?.id === workoutId) || state.trash.flatMap((item) => item.payload.workouts || []).find((item) => item.id === workoutId); }
 function exerciseSnapshot(exerciseId, fallback = {}) { return state.trash.find((item) => item.type === "exercise" && item.payload.exercise?.id === exerciseId)?.payload.exercise || fallback.exercise || state.trash.map((item) => item.payload.exercise).find((item) => item?.id === exerciseId) || state.trash.flatMap((item) => item.payload.exercises || []).find((item) => item.id === exerciseId); }
 function mealSnapshot(mealId, fallback = {}) { return state.trash.find((item) => item.type === "meal" && item.payload.meal?.id === mealId)?.payload.meal || fallback.meal || state.trash.map((item) => item.payload.meal).find((item) => item?.id === mealId); }
+function supplementSnapshot(supplementId, fallback = {}) { return state.trash.find((item) => item.type === "supplement" && item.payload.supplement?.id === supplementId)?.payload.supplement || fallback.supplement || state.trash.map((item) => item.payload.supplement).find((item) => item?.id === supplementId); }
 
 function restoreSportEntry(entry) {
   const payload = entry.payload; if (!payload.sport) return false;
@@ -1098,16 +1216,32 @@ function restoreMealById(mealId, fallback = {}) {
   const meal = mealSnapshot(mealId,fallback); if (!meal) return false; pushUnique(state.meals,meal); return true;
 }
 
+function restoreSupplementEntry(entry) {
+  const payload = entry.payload; if (!payload.supplement) return false;
+  pushUnique(state.supplements,payload.supplement);
+  for (const supplementEntry of payload.supplementEntries || []) pushUnique(state.supplementEntries,supplementEntry);
+  removeTrashEntry(entry.id); return true;
+}
+
+function restoreSupplementById(supplementId, fallback = {}) {
+  if (state.supplements.some((item) => item.id === supplementId)) return true;
+  const entry = state.trash.find((item) => item.type === "supplement" && item.payload.supplement?.id === supplementId);
+  if (entry) return restoreSupplementEntry(entry);
+  const supplement = supplementSnapshot(supplementId,fallback); if (!supplement) return false; pushUnique(state.supplements,supplement); return true;
+}
+
 function missingParentCount(entry) {
   const payload = entry.payload; let count = 0;
   const sportId = payload.sport?.id || payload.workout?.sportId || payload.session?.sportId;
   const workoutId = payload.workout?.id || payload.exercise?.workoutId || payload.session?.workoutId;
   const exerciseId = payload.exercise?.id;
   const mealId = payload.meal?.id || payload.mealEntry?.mealId;
+  const supplementId = payload.supplement?.id || payload.supplementEntry?.supplementId;
   if (sportId && !state.sports.some((item) => item.id === sportId)) count += 1;
   if (["exercise","session","media"].includes(entry.type) && workoutId && !state.workouts.some((item) => item.id === workoutId)) count += 1;
   if (entry.type === "media" && exerciseId && !state.exercises.some((item) => item.id === exerciseId)) count += 1;
   if (entry.type === "mealEntry" && mealId && !state.meals.some((item) => item.id === mealId)) count += 1;
+  if (entry.type === "supplementEntry" && supplementId && !state.supplements.some((item) => item.id === supplementId)) count += 1;
   return count;
 }
 
@@ -1135,6 +1269,14 @@ function restoreTrashItem(entryId) {
     const mealEntry = entry.payload.mealEntry;
     restored = Boolean(mealEntry && restoreMealById(mealEntry.mealId,entry.payload));
     if (restored) { pushUnique(state.mealEntries,mealEntry); removeTrashEntry(entry.id); }
+  }
+  if (entry.type === "supplement") {
+    restored = restoreSupplementEntry(entry);
+  }
+  if (entry.type === "supplementEntry") {
+    const supplementEntry = entry.payload.supplementEntry;
+    restored = Boolean(supplementEntry && restoreSupplementById(supplementEntry.supplementId,entry.payload));
+    if (restored) { pushUnique(state.supplementEntries,supplementEntry); removeTrashEntry(entry.id); }
   }
   if (entry.type === "media") {
     const { exercise, media } = entry.payload;
@@ -1200,6 +1342,12 @@ function duplicateMeal(mealId) {
   saveState(); render(); showToast(t("mealSaved"));
 }
 
+function duplicateSupplement(supplementId) {
+  const source = state.supplements.find((item) => item.id === supplementId); if (!source) return;
+  state.supplements.push({ ...source, id: id(), name: `${source.name} (${t("copiedSuffix")})`, createdAt: now() });
+  saveState(); render(); showToast(t("supplementSaved"));
+}
+
 function moveExercise(exerciseId, delta) {
   const ordered = state.exercises.filter((item) => item.workoutId === selectedWorkoutId).sort((a,b) => a.order-b.order);
   const index = ordered.findIndex((item) => item.id === exerciseId); const next = index + delta;
@@ -1214,6 +1362,7 @@ async function handleAction(action, target) {
   if (action === "new-workout") return openWorkoutDialog();
   if (action === "new-exercise") return openExerciseDialog();
   if (action === "new-meal") return openMealDialog();
+  if (action === "new-supplement") return openSupplementDialog();
   if (action === "new-goal") return openGoalDialog();
   if (action === "new-session" || action === "quick-plan") return openPlannerDialog();
   if (action === "add-planner-exercise") { addPlannerExercise(); return; }
@@ -1226,6 +1375,7 @@ async function handleAction(action, target) {
   if (action === "empty-trash") { if (!state.trash.length || !confirm(t("confirmEmptyTrash"))) return; await emptyTrash(); saveState(); render(); refreshStorage(); showToast(t("trashCleared")); return; }
   if (action === "schedule-workout") return openScheduleDialog(null, itemId || selectedWorkoutId);
   if (action === "schedule-meal") return openMealScheduleDialog(null,itemId);
+  if (action === "schedule-supplement") return openSupplementScheduleDialog(null,itemId);
   if (action === "select-date") { selectedDate = target.dataset.date; calendarMonth = startOfMonth(parseIsoDate(selectedDate)); renderCalendar(); return; }
   if (action === "today") { selectedDate = toLocalIso(new Date()); calendarMonth = startOfMonth(new Date()); renderCalendar(); return; }
   if (action === "previous-week" || action === "next-week") { selectedDate = toLocalIso(addDays(parseIsoDate(selectedDate), action === "previous-week" ? -7 : 7)); calendarMonth = startOfMonth(parseIsoDate(selectedDate)); renderCalendar(); return; }
@@ -1236,20 +1386,25 @@ async function handleAction(action, target) {
   if (action === "edit-workout") return openWorkoutDialog(state.workouts.find((item) => item.id === (itemId || selectedWorkoutId)));
   if (action === "edit-exercise") return openExerciseDialog(state.exercises.find((item) => item.id === itemId));
   if (action === "edit-meal") return openMealDialog(state.meals.find((item) => item.id === itemId));
+  if (action === "edit-supplement") return openSupplementDialog(state.supplements.find((item) => item.id === itemId));
   if (action === "edit-goal") return openGoalDialog(state.goals.find((item) => item.id === itemId));
   if (action === "duplicate-workout") return duplicateWorkout(itemId || selectedWorkoutId);
   if (action === "duplicate-exercise") { const clone = await duplicateExercise(itemId); if (clone) { saveState(); render(); showToast(t("exerciseDuplicated")); } return; }
   if (action === "duplicate-meal") return duplicateMeal(itemId);
+  if (action === "duplicate-supplement") return duplicateSupplement(itemId);
   if (action === "move-up") return moveExercise(itemId,-1);
   if (action === "move-down") return moveExercise(itemId,1);
   if (action === "add-media" || action === "replace-media") { mediaTarget = { exerciseId: itemId, replaceId: target.dataset.mediaId || null }; elements.mediaInput.multiple = action === "add-media"; elements.mediaInput.value = ""; elements.mediaInput.click(); return; }
   if (action === "remove-media") return removeMediaItem(itemId,target.dataset.mediaId);
   if (action === "edit-session") return openScheduleDialog(state.sessions.find((item) => item.id === itemId));
   if (action === "edit-meal-entry") return openMealScheduleDialog(state.mealEntries.find((item) => item.id === itemId));
+  if (action === "edit-supplement-entry") return openSupplementScheduleDialog(state.supplementEntries.find((item) => item.id === itemId));
   if (action === "open-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; selectedSportId = session.sportId; selectedWorkoutId = session.workoutId; activeView = "library"; render(); return; }
   if (action === "open-meal") { if (!state.meals.some((item) => item.id === itemId)) return; activeView = "meals"; render(); return; }
+  if (action === "open-supplement") { if (!state.supplements.some((item) => item.id === itemId)) return; activeView = "supplements"; render(); return; }
   if (action === "toggle-session") { const session = state.sessions.find((item) => item.id === itemId); if (!session) return; session.completed = !session.completed; syncGoalsWithSession(session); saveState(); renderCalendar(); renderGoals(); updateSummary(); showToast(t(session.completed ? "sessionCompleted" : "sessionReopened")); return; }
   if (action === "toggle-meal-entry") { const entry = state.mealEntries.find((item) => item.id === itemId); if (!entry) return; entry.completed = !entry.completed; saveState(); renderCalendar(); showToast(t(entry.completed ? "mealCompleted" : "mealReopened")); return; }
+  if (action === "toggle-supplement-entry") { const entry = state.supplementEntries.find((item) => item.id === itemId); if (!entry) return; entry.completed = !entry.completed; saveState(); renderCalendar(); showToast(t(entry.completed ? "supplementCompleted" : "supplementReopened")); return; }
   if (action === "set-goal-progress") { if (setGoalProgress(itemId,target.dataset.progress)) { saveState(); renderGoals(); showToast(t("goalProgressUpdated")); } return; }
   if (action === "delete-session") {
     const scope = sessionRemovalScope(itemId); if (!scope) return;
@@ -1260,6 +1415,8 @@ async function handleAction(action, target) {
   if (action === "delete-exercise") { if (!confirm(t("confirmDeleteExercise"))) return; if (trashExercise(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-meal-entry") { if (!confirm(t("confirmDeleteMealEntry"))) return; if (trashMealEntry(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-meal") { if (!confirm(t("confirmDeleteMeal"))) return; if (trashMeal(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-supplement-entry") { if (!confirm(t("confirmDeleteSupplementEntry"))) return; if (trashSupplementEntry(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-supplement") { if (!confirm(t("confirmDeleteSupplement"))) return; if (trashSupplement(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-goal") { if (!confirm(t("confirmDeleteGoal"))) return; if (trashGoal(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-workout") { const workoutId = itemId || selectedWorkoutId; if (!confirm(t("confirmDeleteWorkout"))) return; if (trashWorkout(workoutId)) { if (selectedWorkoutId === workoutId) selectedWorkoutId = null; saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-sport") { if (!confirm(t("confirmDeleteSport"))) return; if (trashSport(itemId)) { if (selectedSportId === itemId) { selectedSportId = null; selectedWorkoutId = null; } saveState(); render(); showToast(t("movedToTrash")); } }
@@ -1299,7 +1456,7 @@ async function exportBackup() {
   try {
     const records = await getAllMedia(); const media = [];
     for (const record of records) media.push({ id: record.id, exerciseId: record.exerciseId, name: record.name, type: record.type, size: record.size, createdAt: record.createdAt, data: await blobToDataUrl(record.blob) });
-    const payload = { app: "training-atlas", version: 5, exportedAt: now(), library: state, media };
+    const payload = { app: "training-atlas", version: 6, exportedAt: now(), library: state, media };
     const blob = new Blob([JSON.stringify(payload)], { type: "application/json" }); const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = `training-atlas-backup-${new Date().toISOString().slice(0,10)}.json`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url),1000); showToast(t("backupReady"));
   } catch { showToast(t("exportError"),true); }
 }
@@ -1339,6 +1496,9 @@ elements.exerciseForm.addEventListener("submit",handleExerciseSubmit);
 elements.mealForm.addEventListener("submit",handleMealSubmit);
 elements.mealForm.elements.scheduleEnabled.addEventListener("change",updateNewMealSchedule);
 elements.mealScheduleForm.addEventListener("submit",handleMealScheduleSubmit);
+elements.supplementForm.addEventListener("submit",handleSupplementSubmit);
+elements.supplementForm.elements.scheduleEnabled.addEventListener("change",updateNewSupplementSchedule);
+elements.supplementScheduleForm.addEventListener("submit",handleSupplementScheduleSubmit);
 elements.goalForm.addEventListener("submit",handleGoalSubmit);
 elements.scheduleForm.addEventListener("submit",handleScheduleSubmit);
 elements.scheduleForm.elements.sportId.addEventListener("change",() => populateScheduleWorkouts());
@@ -1346,7 +1506,7 @@ elements.plannerForm.addEventListener("submit",handlePlannerSubmit);
 elements.plannerForm.elements.sportChoice.addEventListener("change",() => updatePlannerSportChoice());
 elements.plannerForm.elements.workoutChoice.addEventListener("change",syncPlannerWorkoutFields);
 elements.plannerForm.addEventListener("input",(event) => { if (event.target.name === "plannerExerciseName") event.target.setCustomValidity(""); });
-for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.mealDialog,elements.mealScheduleDialog,elements.plannerDialog,elements.goalDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
+for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.mealDialog,elements.mealScheduleDialog,elements.supplementDialog,elements.supplementScheduleDialog,elements.plannerDialog,elements.goalDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
 elements.mediaInput.addEventListener("change", () => handleMediaFiles(elements.mediaInput.files));
 $("#export-backup").addEventListener("click",exportBackup);
 elements.importInput.addEventListener("change",() => importBackup(elements.importInput.files[0]));
