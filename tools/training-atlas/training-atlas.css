@@ -272,6 +272,22 @@ input:focus, textarea:focus, select:focus { border-color: var(--teal); box-shado
 .dialog-actions { justify-content: flex-end; padding-top: 4px; }
 .inline-schedule { display: grid; gap: 12px; border: 1px solid #bcd8d1; border-radius: 15px; padding: 14px; background: #eff9f5; }
 .inline-schedule[hidden], .inline-schedule [hidden] { display: none; }
+.recurrence-controls { display: grid; gap: 12px; min-width: 0; margin: 0; border: 1px solid #bcd8d1; border-radius: 15px; padding: 14px; background: #f4faf7; }
+.recurrence-controls[hidden], .recurrence-controls [hidden] { display: none; }
+.recurrence-controls legend { padding: 0 7px; color: var(--teal); font-size: 10px; font-weight: 950; letter-spacing: .08em; text-transform: uppercase; }
+.recurrence-number-row { display: flex; align-items: center; gap: 9px; }
+.recurrence-number-row input { width: 100px; }
+.recurrence-number-row > span { color: var(--muted); font-size: 11px; font-weight: 800; }
+.recurrence-weekdays { display: grid; gap: 7px; }
+.recurrence-weekdays > span { color: var(--muted); font-size: 11px; font-weight: 850; }
+.weekday-picker { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 6px; }
+.weekday-picker label { display: block; min-width: 0; }
+.weekday-picker input { position: absolute; width: 1px; height: 1px; min-height: 0; opacity: 0; pointer-events: none; }
+.weekday-picker span { display: grid; place-items: center; min-height: 38px; border: 1px solid #bfd1ca; border-radius: 999px; padding: 5px 3px; color: var(--teal); background: white; font-size: 9px; font-weight: 950; cursor: pointer; transition: border-color .15s,background .15s,color .15s,transform .15s; }
+.weekday-picker input:focus-visible + span { outline: 3px solid rgba(13,105,113,.16); outline-offset: 2px; }
+.weekday-picker input:checked + span { border-color: var(--teal); color: white; background: var(--teal); transform: translateY(-1px); }
+.recurrence-hint { color: var(--muted); font-size: 10px; font-weight: 550; line-height: 1.45; }
+.recurring-label { display: inline-flex !important; width: fit-content; margin: 0 0 7px !important; border-radius: 999px; padding: 4px 7px; color: #805000 !important; background: #fff0bd; font-size: 8px !important; letter-spacing: .07em; }
 .check-row { display: flex; align-items: flex-start; gap: 11px; color: var(--ink); }
 .check-row input { flex: 0 0 auto; width: 18px; min-height: 18px; margin-top: 2px; accent-color: var(--teal); }
 .check-row strong, .check-row small { display: block; }
@@ -386,6 +402,7 @@ footer div { display: flex; gap: 18px; }
 @media (max-width: 520px) {
   .view-switch { border-radius: 20px; }
   .view-switch button { min-width: 0; min-height: 48px; flex-direction: column; gap: 2px; padding: 4px 2px; font-size: 8px; line-height: 1.1; }
+  .weekday-picker { grid-template-columns: repeat(4,minmax(0,1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
