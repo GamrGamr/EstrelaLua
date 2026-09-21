@@ -11,7 +11,7 @@ const MEAL_TYPES = ["breakfast","lunch","dinner","snack","otherMeal"];
 
 const translations = {
   en: {
-    description: "Organise sports, workouts, exercises, meals, supplements, personal goals, and a private week-by-day calendar on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
+    description: "Organise sports, workouts, exercises, meals, supplements, goals, personal progress, and a private week-by-day calendar on this device.", skip: "Skip to organiser", home: "EstrelaLuaApps home", nav: "Application navigation", allApps: "All apps", about: "About",
     kicker: "Private training, meal, and supplement library", intro: "Create any sport, organise workouts, meals, and supplements, schedule them together, and follow your personal goals.", localTitle: "Stored only on this device", localCopy: "No account, uploads, analytics, or external requests.",
     libraryTools: "Library tools", storageChecking: "Checking local storage…", export: "Export backup", import: "Import backup", newSport: "New sport", sports: "Sports", noSports: "No sports yet", noSportsCopy: "Start with any discipline—from gym training to swimming, running, or football.", createSport: "Create a sport",
     workouts: "Workouts", newWorkout: "New workout", noWorkouts: "No workouts here", noWorkoutsCopy: "Choose a sport and add its first workout.", createWorkout: "Create a workout", chooseWorkout: "Choose a workout", chooseWorkoutCopy: "Its exercises, instructions, images, and videos will appear here in training order.",
@@ -27,16 +27,17 @@ const translations = {
     unsupportedMedia: "Choose an image or video file.", fileTooLarge: "This file is larger than 250 MB.", storageError: "The browser could not save that file. Free some device storage and try again.", invalidBackup: "This is not a valid Training Atlas backup.", exportError: "The backup could not be created.",
     storageUsed: "used locally", storageUnavailable: "Local storage available", noDescription: "No description", unnamedMedia: "Media", loading: "Loading…", requiredName: "Add a name before saving.", copiedSuffix: "copy", footerLocal: "Local only",
     viewSwitch: "Training Atlas views", library: "Library", calendar: "Calendar", schedule: "Schedule", scheduleWorkout: "Schedule a workout", addWorkout: "Add workout", weeklyPlan: "Weekly plan", monthlyCalendar: "Monthly calendar", selectedDay: "Selected day", today: "Today", previousWeek: "Previous week", nextWeek: "Next week", previousMonth: "Previous month", nextMonth: "Next month", nothingPlanned: "Nothing planned", nothingPlannedCopy: "Add a workout, meal, or supplement to this day.", date: "Date (month/day/year)", sessionNotes: "Session notes (optional)", sessionNotesPlaceholder: "Add anything specific for this day…", saveToCalendar: "Save to calendar", editSchedule: "Edit schedule", markComplete: "Mark complete", markIncomplete: "Mark incomplete", completed: "Completed", openWorkout: "Open workout", removeFromCalendar: "Remove from calendar", sessionSaved: "Workout added to the calendar.", sessionUpdated: "Calendar entry updated.", sessionCompleted: "Workout completed.", sessionReopened: "Workout marked as not completed.", confirmDeleteSession: "Move this calendar session to Trash?", sessionSingular: "planned session", sessionPlural: "planned sessions", noWorkoutsToSchedule: "Create a workout before using the calendar.", weekOf: "Week of",
-    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, meals, supplements, goals, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs related data that is also deleted. Recover the required items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
+    addNewWorkoutToCalendar: "Add this workout to the calendar", addNewWorkoutToCalendarCopy: "Optionally schedule its first session now.", firstSessionDate: "First session date (month/day/year)", workoutSavedAndScheduled: "Workout saved and added to the calendar.", trash: "Trash", recoverableItems: "Recoverable items", trashCopy: "Deleted items stay here until you permanently remove them.", emptyTrash: "Empty trash", trashIsEmpty: "Trash is empty", trashIsEmptyCopy: "Deleted sports, workouts, exercises, sessions, meals, supplements, goals, measurements, and media will appear here.", trashItemSingular: "item", trashItemPlural: "items", deletedOn: "Deleted", restore: "Recover", permanentlyDelete: "Delete permanently", confirmPermanentDelete: "Permanently delete this item? This cannot be undone.", confirmEmptyTrash: "Permanently delete everything in Trash? This cannot be undone.", restoreWithParents: "This item needs related data that is also deleted. Recover the required items and their contents too?", cannotRestore: "This item cannot be recovered because its required parent data is unavailable.", movedToTrash: "Moved to Trash.", restoredFromTrash: "Recovered from Trash.", permanentlyDeleted: "Permanently deleted.", trashCleared: "Trash emptied.", typeSport: "Sport", typeWorkout: "Workout", typeExercise: "Exercise", typeSession: "Calendar session", typeMedia: "Media",
     planAndSchedule: "Build and schedule", planAndScheduleCopy: "Use something from your library or create the sport, workout, and exercises here.", sportSetup: "Sport setup", chooseOrCreateSport: "Choose a sport or create a new one.", createNewSportOption: "+ Create a new sport", workoutSetup: "Workout setup", chooseOrCreateWorkout: "Choose a workout or create a new one.", createNewWorkoutOption: "+ Create a new workout", exercisesOptional: "Exercises (optional)", exercisesOptionalCopy: "Add any exercises you already know. You can add more later.", addAnotherExercise: "Add another exercise", removeExercise: "Remove exercise", calendarDetailsCopy: "Choose the day and add any session-specific notes.", savePlanToCalendar: "Save plan to calendar", planSaved: "Workout plan saved to the calendar.", scheduleAnotherWorkout: "Schedule another workout", confirmDeleteOwnedPlan: "This calendar entry created a new library plan. Remove it from the calendar and move its workout, exercises, and any otherwise-empty new sport to Trash?",
     goals: "Goals", goal: "Goal", personalMilestones: "Personal milestones", goalsIntro: "Create a target and watch each circle fill as you complete workouts. You can also adjust progress manually.", newGoal: "New goal", createGoal: "Create a goal", noGoals: "No goals yet", noGoalsCopy: "Choose a personal target, such as completing 10 workouts, and build your streak one circle at a time.", goalDialogCopy: "Every completed calendar workout fills one circle. Click the circles whenever you want to adjust the count yourself.", goalName: "Goal name", goalNamePlaceholder: "For example, Complete 10 workouts", targetWorkouts: "Number of circles", saveGoal: "Save goal", editGoal: "Edit goal", deleteGoal: "Delete goal", confirmDeleteGoal: "Move this goal and its progress to Trash?", goalSaved: "Goal saved.", goalProgressUpdated: "Goal progress updated.", goalComplete: "Goal complete!", goalProgressHint: "Completed workouts fill circles automatically. Click a filled circle to remove one, or an empty circle to set that total.", goalSingular: "goal", goalPlural: "goals", typeGoal: "Goal",
+    progress: "Progress", personalProgress: "Personal progress", progressIntro: "Keep the basics simple, add only the measurements that matter to you, and compare saved backups without replacing anything.", profile: "Profile", basics: "Basics", editProfile: "Edit profile", profileOptionalCopy: "Everything is optional and remains only on this device.", nicknameOptional: "Name or nickname (optional)", heightOptional: "Height (optional)", weightOptional: "Weight (optional)", unit: "Unit", saveProfile: "Save profile", profileSaved: "Profile saved.", profileNotSet: "Add only the basic information you want to keep here.", notSet: "Not set", lastUpdated: "Last updated", fullyCustom: "Fully custom", myMeasurements: "My measurements", newMeasurement: "New measurement", addMeasurement: "Add measurement", addFirstMeasurement: "Add first measurement", noMeasurements: "No measurements yet", noMeasurementsCopy: "Add anything useful to you, such as weight, waist, 5K time, swimming pace, or maximum push-ups.", measurement: "Measurement", measurementDialogCopy: "Use any name, value, and unit that make sense for your sport or routine.", measurementName: "Measurement name", measurementNamePlaceholder: "For example, Waist or 5K time", value: "Value", measurementValuePlaceholder: "For example, 84 or 24:10", unitOptional: "Unit (optional)", measurementUnitPlaceholder: "cm, min, reps…", measurementDate: "Measurement date (month/day/year)", saveMeasurement: "Save measurement", updateMeasurement: "Update measurement", measurementSaved: "Measurement saved.", deleteMeasurement: "Delete measurement", deleteMeasurementEntry: "Delete this value", confirmDeleteMeasurement: "Move this measurement and its history to Trash?", confirmDeleteMeasurementEntry: "Move this dated value to Trash?", typeProgressMetric: "Measurement", typeProgressEntry: "Measurement value", safeComparison: "Safe comparison", compareBackups: "Compare backups", compareBackupsCopy: "Choose two Training Atlas backups, or use your current progress on either side. Nothing is imported or replaced automatically.", earlierSnapshot: "Earlier snapshot", laterSnapshot: "Later snapshot", nothingSelected: "Nothing selected", chooseBackup: "Choose backup", useCurrentProgress: "Use current progress", currentProgress: "Current progress", comparisonWaiting: "Choose both snapshots to start the comparison.", comparisonNoData: "Neither snapshot contains progress information yet.", comparisonInvalidBackup: "Choose a valid Training Atlas backup.", comparisonMeasurementFound: "The later snapshot contains a measurement that is not in the earlier snapshot or your current progress.", addToMyProgress: "Add to my progress", compareOnly: "Compare only", ignore: "Ignore", measurementAddedFromBackup: "Measurement added to your progress.", comparisonField: "Measurement", comparisonEarlier: "Earlier", comparisonLater: "Later", comparisonChange: "Change", missingFromSnapshot: "Not in snapshot", noComparableValue: "—", snapshotLoaded: "Snapshot loaded.", compareSummary: "Comparison between {before} and {after}",
     flexibleDetails: "Flexible details", flexibleDetailsCopy: "Add only what matters for this activity—pace, stroke, distance, court, rounds, equipment, or anything else.", addDetail: "Add detail", removeDetail: "Remove detail", detailLabel: "Detail", detailValue: "Value", detailLabelPlaceholder: "For example, Pace", detailValuePlaceholder: "For example, 5:00/km", pace: "Pace", laps: "Laps", rounds: "Rounds", stroke: "Stroke / style", equipment: "Equipment", surface: "Surface / court", poolLength: "Pool length", drill: "Drill",
     meals: "Meals", meal: "Meal", mealPlanning: "Meal planning", mealsIntro: "Build a private meal library and place breakfast, lunch, dinner, snacks, or any custom meal on your training calendar.", newMeal: "New meal", createMeal: "Create a meal", noMeals: "No meals yet", noMealsCopy: "Save a meal once, then add it to any day in the calendar.", mealName: "Meal name", mealNamePlaceholder: "For example, Oats with fruit", mealType: "Meal type", breakfast: "Breakfast", lunch: "Lunch", dinner: "Dinner", snack: "Snack", otherMeal: "Other", foodsIngredients: "Foods / ingredients", foodsIngredientsPlaceholder: "Write the foods, quantities, or meal exactly as you prefer…", preparationOptional: "Preparation (optional)", saveMeal: "Save meal", scheduleMeal: "Schedule a meal", editMeal: "Edit meal", duplicateMeal: "Duplicate meal", deleteMeal: "Delete meal", mealSaved: "Meal saved.", mealSavedAndScheduled: "Meal saved and added to the calendar.", mealScheduled: "Meal added to the calendar.", mealScheduleUpdated: "Meal calendar entry updated.", mealCompleted: "Meal marked as eaten.", mealReopened: "Meal marked as not eaten.", markMealComplete: "Mark as eaten", markMealIncomplete: "Mark as not eaten", eaten: "Eaten", openMeal: "Open meal", editMealSchedule: "Edit meal date", removeMealFromCalendar: "Remove meal from calendar", confirmDeleteMeal: "Move this meal and its calendar entries to Trash?", confirmDeleteMealEntry: "Move this planned meal to Trash?", noMealsToSchedule: "Create a meal before adding one to the calendar.", addNewMealToCalendar: "Add this meal to the calendar", addNewMealToCalendarCopy: "Optionally plan its first date now.", firstMealDate: "First meal date (month/day/year)", mealNotes: "Meal notes (optional)", mealNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherMeal: "Schedule another meal", mealSingular: "meal", mealPlural: "meals", mealEntrySingular: "planned meal", mealEntryPlural: "planned meals", calendarItemSingular: "planned item", calendarItemPlural: "planned items", typeMeal: "Meal", typeMealEntry: "Calendar meal",
     supplements: "Supplements", supplement: "Supplement", supplementPlanning: "Supplement planning", supplementsIntro: "Build a private supplement library with amounts, timing, and instructions, then add each item to the shared calendar.", newSupplement: "New supplement", createSupplement: "Create a supplement", noSupplements: "No supplements yet", noSupplementsCopy: "Save a supplement once, then add it to any day in the calendar.", supplementName: "Supplement name", supplementNamePlaceholder: "For example, Creatine", amountOptional: "Amount (optional)", amountPlaceholder: "For example, 5 g", timingOptional: "Timing (optional)", timingPlaceholder: "For example, With breakfast", supplementInstructionsOptional: "Instructions (optional)", supplementInstructionsPlaceholder: "Add frequency, method, or other useful directions…", saveSupplement: "Save supplement", scheduleSupplement: "Schedule a supplement", editSupplement: "Edit supplement", duplicateSupplement: "Duplicate supplement", deleteSupplement: "Delete supplement", supplementSaved: "Supplement saved.", supplementSavedAndScheduled: "Supplement saved and added to the calendar.", supplementScheduled: "Supplement added to the calendar.", supplementScheduleUpdated: "Supplement calendar entry updated.", supplementCompleted: "Supplement marked as taken.", supplementReopened: "Supplement marked as not taken.", markSupplementComplete: "Mark as taken", markSupplementIncomplete: "Mark as not taken", taken: "Taken", openSupplement: "Open supplement", editSupplementSchedule: "Edit supplement date", removeSupplementFromCalendar: "Remove supplement from calendar", confirmDeleteSupplement: "Move this supplement and its calendar entries to Trash?", confirmDeleteSupplementEntry: "Move this planned supplement to Trash?", removeSupplementScheduleTitle: "Remove recurring supplement", removeSupplementScheduleCopy: "Choose whether to remove this supplement only from the selected day or from this and every future day in the recurring schedule.", removeOnlyThisDay: "Only this day", removeThisAndFuture: "This and all future days", noSupplementsToSchedule: "Create a supplement before adding one to the calendar.", addNewSupplementToCalendar: "Add this supplement to the calendar", addNewSupplementToCalendarCopy: "Optionally plan its first date now.", firstSupplementDate: "First supplement date (month/day/year)", supplementNotes: "Supplement notes (optional)", supplementNotesPlaceholder: "Add anything specific for this day…", scheduleAnotherSupplement: "Schedule another supplement", supplementSingular: "supplement", supplementPlural: "supplements", supplementEntrySingular: "planned supplement", supplementEntryPlural: "planned supplements", typeSupplement: "Supplement", typeSupplementEntry: "Calendar supplement",
     repeatSchedule: "Repeat schedule", recurrenceMode: "Repeat", once: "Once", daily: "Daily", everyXDays: "Every X days", customDays: "Custom weekdays", timesPerDay: "Times per day", timesUnit: "times", repeatEvery: "Repeat every", daysUnit: "days", repeatUntil: "Repeat until (month/day/year)", chooseDays: "Choose days", mondayShort: "Mon", tuesdayShort: "Tue", wednesdayShort: "Wed", thursdayShort: "Thu", fridayShort: "Fri", saturdayShort: "Sat", sundayShort: "Sun", recurrenceHint: "Each occurrence is added to the calendar and can be completed separately.", recurrenceEditHint: "Saving replaces every unfinished occurrence in this recurring schedule. Completed entries are kept as history.", editRecurringSchedule: "Edit recurring schedule", endBeforeStart: "The repeat-until date must be the same as or later than the start date.", chooseWeekday: "Choose at least one weekday for a custom schedule.", recurrenceTooLong: "Choose a repeat period of no more than one year.", recurringEntriesCreated: "{count} calendar entries created.", recurringSeriesUpdated: "Recurring schedule updated with {count} unfinished entries.", recurringPlanSaved: "Workout plan saved to {count} calendar dates.", recurring: "Recurring"
   },
   pt: {
-    description: "Organize desportos, treinos, exercícios, refeições, suplementos, objetivos pessoais e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
+    description: "Organize desportos, treinos, exercícios, refeições, suplementos, objetivos, progresso pessoal e um calendário privado por semana e dia neste dispositivo.", skip: "Saltar para o organizador", home: "Página inicial da EstrelaLuaApps", nav: "Navegação da aplicação", allApps: "Todas as apps", about: "Sobre",
     kicker: "Biblioteca privada de treinos, refeições e suplementos", intro: "Crie qualquer desporto, organize treinos, refeições e suplementos, agende-os em conjunto e acompanhe os seus objetivos pessoais.", localTitle: "Guardado apenas neste dispositivo", localCopy: "Sem conta, envios, análises ou pedidos externos.",
     libraryTools: "Ferramentas da biblioteca", storageChecking: "A verificar armazenamento local…", export: "Exportar cópia", import: "Importar cópia", newSport: "Novo desporto", sports: "Desportos", noSports: "Ainda não existem desportos", noSportsCopy: "Comece por qualquer modalidade — ginásio, natação, corrida ou futebol.", createSport: "Criar desporto",
     workouts: "Treinos", newWorkout: "Novo treino", noWorkouts: "Ainda não existem treinos", noWorkoutsCopy: "Escolha um desporto e adicione o primeiro treino.", createWorkout: "Criar treino", chooseWorkout: "Escolha um treino", chooseWorkoutCopy: "Os exercícios, instruções, imagens e vídeos aparecem aqui pela ordem de execução.",
@@ -52,9 +53,10 @@ const translations = {
     unsupportedMedia: "Escolha um ficheiro de imagem ou vídeo.", fileTooLarge: "Este ficheiro tem mais de 250 MB.", storageError: "O navegador não conseguiu guardar o ficheiro. Liberte espaço no dispositivo e tente novamente.", invalidBackup: "Esta não é uma cópia válida do Training Atlas.", exportError: "Não foi possível criar a cópia.",
     storageUsed: "utilizados localmente", storageUnavailable: "Armazenamento local disponível", noDescription: "Sem descrição", unnamedMedia: "Multimédia", loading: "A carregar…", requiredName: "Adicione um nome antes de guardar.", copiedSuffix: "cópia", footerLocal: "Apenas local",
     viewSwitch: "Vistas do Training Atlas", library: "Biblioteca", calendar: "Calendário", schedule: "Agendar", scheduleWorkout: "Agendar um treino", addWorkout: "Adicionar treino", weeklyPlan: "Plano semanal", monthlyCalendar: "Calendário mensal", selectedDay: "Dia selecionado", today: "Hoje", previousWeek: "Semana anterior", nextWeek: "Semana seguinte", previousMonth: "Mês anterior", nextMonth: "Mês seguinte", nothingPlanned: "Nada planeado", nothingPlannedCopy: "Adicione um treino, uma refeição ou um suplemento a este dia.", date: "Data (mês/dia/ano)", sessionNotes: "Notas da sessão (opcional)", sessionNotesPlaceholder: "Adicione algo específico para este dia…", saveToCalendar: "Guardar no calendário", editSchedule: "Editar agendamento", markComplete: "Marcar como concluído", markIncomplete: "Marcar como não concluído", completed: "Concluído", openWorkout: "Abrir treino", removeFromCalendar: "Remover do calendário", sessionSaved: "Treino adicionado ao calendário.", sessionUpdated: "Agendamento atualizado.", sessionCompleted: "Treino concluído.", sessionReopened: "Treino marcado como não concluído.", confirmDeleteSession: "Mover esta sessão do calendário para o Lixo?", sessionSingular: "sessão planeada", sessionPlural: "sessões planeadas", noWorkoutsToSchedule: "Crie um treino antes de utilizar o calendário.", weekOf: "Semana de",
-    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões, refeições, suplementos, objetivos e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de dados relacionados que também foram eliminados. Recuperar os itens necessários e o respetivo conteúdo?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
+    addNewWorkoutToCalendar: "Adicionar este treino ao calendário", addNewWorkoutToCalendarCopy: "Agende já a primeira sessão, se quiser.", firstSessionDate: "Data da primeira sessão (mês/dia/ano)", workoutSavedAndScheduled: "Treino guardado e adicionado ao calendário.", trash: "Lixo", recoverableItems: "Itens recuperáveis", trashCopy: "Os itens eliminados permanecem aqui até serem removidos permanentemente.", emptyTrash: "Esvaziar lixo", trashIsEmpty: "O lixo está vazio", trashIsEmptyCopy: "Os desportos, treinos, exercícios, sessões, refeições, suplementos, objetivos, medições e ficheiros eliminados aparecem aqui.", trashItemSingular: "item", trashItemPlural: "itens", deletedOn: "Eliminado", restore: "Recuperar", permanentlyDelete: "Eliminar permanentemente", confirmPermanentDelete: "Eliminar este item permanentemente? Esta ação não pode ser anulada.", confirmEmptyTrash: "Eliminar permanentemente tudo o que está no Lixo? Esta ação não pode ser anulada.", restoreWithParents: "Este item precisa de dados relacionados que também foram eliminados. Recuperar os itens necessários e o respetivo conteúdo também?", cannotRestore: "Não é possível recuperar este item porque faltam os dados do elemento-pai necessário.", movedToTrash: "Movido para o Lixo.", restoredFromTrash: "Recuperado do Lixo.", permanentlyDeleted: "Eliminado permanentemente.", trashCleared: "Lixo esvaziado.", typeSport: "Desporto", typeWorkout: "Treino", typeExercise: "Exercício", typeSession: "Sessão do calendário", typeMedia: "Multimédia",
     planAndSchedule: "Criar e agendar", planAndScheduleCopy: "Utilize algo da sua biblioteca ou crie aqui o desporto, o treino e os exercícios.", sportSetup: "Configuração do desporto", chooseOrCreateSport: "Escolha um desporto ou crie um novo.", createNewSportOption: "+ Criar novo desporto", workoutSetup: "Configuração do treino", chooseOrCreateWorkout: "Escolha um treino ou crie um novo.", createNewWorkoutOption: "+ Criar novo treino", exercisesOptional: "Exercícios (opcional)", exercisesOptionalCopy: "Adicione os exercícios que já conhece. Pode acrescentar mais tarde.", addAnotherExercise: "Adicionar outro exercício", removeExercise: "Remover exercício", calendarDetailsCopy: "Escolha o dia e adicione notas específicas desta sessão.", savePlanToCalendar: "Guardar plano no calendário", planSaved: "Plano de treino guardado no calendário.", scheduleAnotherWorkout: "Agendar outro treino", confirmDeleteOwnedPlan: "Este agendamento criou um plano novo na Biblioteca. Removê-lo do calendário e mover o treino, os exercícios e qualquer desporto novo que fique vazio para o Lixo?",
     goals: "Objetivos", goal: "Objetivo", personalMilestones: "Metas pessoais", goalsIntro: "Crie uma meta e veja cada círculo ficar preenchido à medida que conclui treinos. Também pode ajustar o progresso manualmente.", newGoal: "Novo objetivo", createGoal: "Criar objetivo", noGoals: "Ainda não existem objetivos", noGoalsCopy: "Escolha uma meta pessoal, como concluir 10 treinos, e avance um círculo de cada vez.", goalDialogCopy: "Cada treino concluído no calendário preenche um círculo. Clique nos círculos sempre que quiser ajustar a contagem manualmente.", goalName: "Nome do objetivo", goalNamePlaceholder: "Por exemplo, Concluir 10 treinos", targetWorkouts: "Número de círculos", saveGoal: "Guardar objetivo", editGoal: "Editar objetivo", deleteGoal: "Eliminar objetivo", confirmDeleteGoal: "Mover este objetivo e o respetivo progresso para o Lixo?", goalSaved: "Objetivo guardado.", goalProgressUpdated: "Progresso do objetivo atualizado.", goalComplete: "Objetivo concluído!", goalProgressHint: "Os treinos concluídos preenchem círculos automaticamente. Clique num círculo preenchido para retirar um, ou num vazio para definir esse total.", goalSingular: "objetivo", goalPlural: "objetivos", typeGoal: "Objetivo",
+    progress: "Progresso", personalProgress: "Progresso pessoal", progressIntro: "Mantenha o essencial simples, adicione apenas as medições importantes para si e compare cópias guardadas sem substituir nada.", profile: "Perfil", basics: "Dados básicos", editProfile: "Editar perfil", profileOptionalCopy: "Tudo é opcional e permanece apenas neste dispositivo.", nicknameOptional: "Nome ou alcunha (opcional)", heightOptional: "Altura (opcional)", weightOptional: "Peso (opcional)", unit: "Unidade", saveProfile: "Guardar perfil", profileSaved: "Perfil guardado.", profileNotSet: "Adicione apenas os dados básicos que quiser guardar aqui.", notSet: "Não definido", lastUpdated: "Última atualização", fullyCustom: "Totalmente personalizável", myMeasurements: "As minhas medições", newMeasurement: "Nova medição", addMeasurement: "Adicionar medição", addFirstMeasurement: "Adicionar primeira medição", noMeasurements: "Ainda não existem medições", noMeasurementsCopy: "Adicione o que lhe for útil, como peso, cintura, tempo de 5 km, ritmo de natação ou máximo de flexões.", measurement: "Medição", measurementDialogCopy: "Utilize qualquer nome, valor e unidade que faça sentido para o seu desporto ou rotina.", measurementName: "Nome da medição", measurementNamePlaceholder: "Por exemplo, Cintura ou tempo de 5 km", value: "Valor", measurementValuePlaceholder: "Por exemplo, 84 ou 24:10", unitOptional: "Unidade (opcional)", measurementUnitPlaceholder: "cm, min, repetições…", measurementDate: "Data da medição (mês/dia/ano)", saveMeasurement: "Guardar medição", updateMeasurement: "Atualizar medição", measurementSaved: "Medição guardada.", deleteMeasurement: "Eliminar medição", deleteMeasurementEntry: "Eliminar este valor", confirmDeleteMeasurement: "Mover esta medição e o respetivo histórico para o Lixo?", confirmDeleteMeasurementEntry: "Mover este valor com data para o Lixo?", typeProgressMetric: "Medição", typeProgressEntry: "Valor de medição", safeComparison: "Comparação segura", compareBackups: "Comparar cópias", compareBackupsCopy: "Escolha duas cópias do Training Atlas ou utilize o progresso atual num dos lados. Nada é importado ou substituído automaticamente.", earlierSnapshot: "Registo anterior", laterSnapshot: "Registo posterior", nothingSelected: "Nada selecionado", chooseBackup: "Escolher cópia", useCurrentProgress: "Utilizar progresso atual", currentProgress: "Progresso atual", comparisonWaiting: "Escolha os dois registos para iniciar a comparação.", comparisonNoData: "Nenhum dos registos contém ainda informações de progresso.", comparisonInvalidBackup: "Escolha uma cópia válida do Training Atlas.", comparisonMeasurementFound: "O registo posterior contém uma medição que não existe no registo anterior nem no seu progresso atual.", addToMyProgress: "Adicionar ao meu progresso", compareOnly: "Apenas comparar", ignore: "Ignorar", measurementAddedFromBackup: "Medição adicionada ao seu progresso.", comparisonField: "Medição", comparisonEarlier: "Anterior", comparisonLater: "Posterior", comparisonChange: "Alteração", missingFromSnapshot: "Não existe no registo", noComparableValue: "—", snapshotLoaded: "Registo carregado.", compareSummary: "Comparação entre {before} e {after}",
     flexibleDetails: "Detalhes flexíveis", flexibleDetailsCopy: "Adicione apenas o que interessa para esta atividade — ritmo, estilo, distância, campo, rondas, equipamento ou qualquer outro detalhe.", addDetail: "Adicionar detalhe", removeDetail: "Remover detalhe", detailLabel: "Detalhe", detailValue: "Valor", detailLabelPlaceholder: "Por exemplo, Ritmo", detailValuePlaceholder: "Por exemplo, 5:00/km", pace: "Ritmo", laps: "Voltas", rounds: "Rondas", stroke: "Estilo / técnica", equipment: "Equipamento", surface: "Superfície / campo", poolLength: "Comprimento da piscina", drill: "Exercício técnico",
     meals: "Refeições", meal: "Refeição", mealPlanning: "Planeamento de refeições", mealsIntro: "Crie uma biblioteca privada de refeições e coloque o pequeno-almoço, almoço, jantar, lanches ou qualquer refeição personalizada no calendário de treinos.", newMeal: "Nova refeição", createMeal: "Criar refeição", noMeals: "Ainda não existem refeições", noMealsCopy: "Guarde uma refeição uma vez e adicione-a a qualquer dia do calendário.", mealName: "Nome da refeição", mealNamePlaceholder: "Por exemplo, Papas de aveia com fruta", mealType: "Tipo de refeição", breakfast: "Pequeno-almoço", lunch: "Almoço", dinner: "Jantar", snack: "Lanche", otherMeal: "Outra", foodsIngredients: "Alimentos / ingredientes", foodsIngredientsPlaceholder: "Escreva os alimentos, quantidades ou a refeição exatamente como preferir…", preparationOptional: "Preparação (opcional)", saveMeal: "Guardar refeição", scheduleMeal: "Agendar refeição", editMeal: "Editar refeição", duplicateMeal: "Duplicar refeição", deleteMeal: "Eliminar refeição", mealSaved: "Refeição guardada.", mealSavedAndScheduled: "Refeição guardada e adicionada ao calendário.", mealScheduled: "Refeição adicionada ao calendário.", mealScheduleUpdated: "Agendamento da refeição atualizado.", mealCompleted: "Refeição marcada como consumida.", mealReopened: "Refeição marcada como não consumida.", markMealComplete: "Marcar como consumida", markMealIncomplete: "Marcar como não consumida", eaten: "Consumida", openMeal: "Abrir refeição", editMealSchedule: "Editar data da refeição", removeMealFromCalendar: "Remover refeição do calendário", confirmDeleteMeal: "Mover esta refeição e os respetivos agendamentos para o Lixo?", confirmDeleteMealEntry: "Mover esta refeição planeada para o Lixo?", noMealsToSchedule: "Crie uma refeição antes de a adicionar ao calendário.", addNewMealToCalendar: "Adicionar esta refeição ao calendário", addNewMealToCalendarCopy: "Planeie já a primeira data, se quiser.", firstMealDate: "Data da primeira refeição (mês/dia/ano)", mealNotes: "Notas da refeição (opcional)", mealNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherMeal: "Agendar outra refeição", mealSingular: "refeição", mealPlural: "refeições", mealEntrySingular: "refeição planeada", mealEntryPlural: "refeições planeadas", calendarItemSingular: "item planeado", calendarItemPlural: "itens planeados", typeMeal: "Refeição", typeMealEntry: "Refeição do calendário",
     supplements: "Suplementos", supplement: "Suplemento", supplementPlanning: "Planeamento de suplementos", supplementsIntro: "Crie uma biblioteca privada de suplementos com quantidades, horários e instruções e adicione cada item ao calendário partilhado.", newSupplement: "Novo suplemento", createSupplement: "Criar suplemento", noSupplements: "Ainda não existem suplementos", noSupplementsCopy: "Guarde um suplemento uma vez e adicione-o a qualquer dia do calendário.", supplementName: "Nome do suplemento", supplementNamePlaceholder: "Por exemplo, Creatina", amountOptional: "Quantidade (opcional)", amountPlaceholder: "Por exemplo, 5 g", timingOptional: "Horário (opcional)", timingPlaceholder: "Por exemplo, Ao pequeno-almoço", supplementInstructionsOptional: "Instruções (opcional)", supplementInstructionsPlaceholder: "Adicione a frequência, o modo de utilização ou outras indicações úteis…", saveSupplement: "Guardar suplemento", scheduleSupplement: "Agendar suplemento", editSupplement: "Editar suplemento", duplicateSupplement: "Duplicar suplemento", deleteSupplement: "Eliminar suplemento", supplementSaved: "Suplemento guardado.", supplementSavedAndScheduled: "Suplemento guardado e adicionado ao calendário.", supplementScheduled: "Suplemento adicionado ao calendário.", supplementScheduleUpdated: "Agendamento do suplemento atualizado.", supplementCompleted: "Suplemento marcado como tomado.", supplementReopened: "Suplemento marcado como não tomado.", markSupplementComplete: "Marcar como tomado", markSupplementIncomplete: "Marcar como não tomado", taken: "Tomado", openSupplement: "Abrir suplemento", editSupplementSchedule: "Editar data do suplemento", removeSupplementFromCalendar: "Remover suplemento do calendário", confirmDeleteSupplement: "Mover este suplemento e os respetivos agendamentos para o Lixo?", confirmDeleteSupplementEntry: "Mover este suplemento planeado para o Lixo?", removeSupplementScheduleTitle: "Remover suplemento recorrente", removeSupplementScheduleCopy: "Escolha se pretende remover este suplemento apenas do dia selecionado ou deste e de todos os dias futuros do agendamento recorrente.", removeOnlyThisDay: "Apenas este dia", removeThisAndFuture: "Este e todos os dias futuros", noSupplementsToSchedule: "Crie um suplemento antes de o adicionar ao calendário.", addNewSupplementToCalendar: "Adicionar este suplemento ao calendário", addNewSupplementToCalendarCopy: "Planeie já a primeira data, se quiser.", firstSupplementDate: "Data do primeiro suplemento (mês/dia/ano)", supplementNotes: "Notas do suplemento (opcional)", supplementNotesPlaceholder: "Adicione algo específico para este dia…", scheduleAnotherSupplement: "Agendar outro suplemento", supplementSingular: "suplemento", supplementPlural: "suplementos", supplementEntrySingular: "suplemento planeado", supplementEntryPlural: "suplementos planeados", typeSupplement: "Suplemento", typeSupplementEntry: "Suplemento do calendário",
@@ -68,7 +70,8 @@ const now = () => new Date().toISOString();
 const id = () => globalThis.crypto?.randomUUID?.() || `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
 const clean = (value, max = 2000) => String(value ?? "").trim().slice(0, max);
 const cloneData = (value) => JSON.parse(JSON.stringify(value));
-const emptyState = () => ({ version: 6, sports: [], workouts: [], exercises: [], sessions: [], meals: [], mealEntries: [], supplements: [], supplementEntries: [], goals: [], trash: [] });
+const emptyProgressProfile = () => ({ nickname: "", heightValue: "", heightUnit: "cm", weightValue: "", weightUnit: "kg", updatedAt: "" });
+const emptyState = () => ({ version: 7, sports: [], workouts: [], exercises: [], sessions: [], meals: [], mealEntries: [], supplements: [], supplementEntries: [], goals: [], progressProfile: emptyProgressProfile(), progressMetrics: [], trash: [] });
 
 let language = getLanguage();
 let state = loadState();
@@ -81,13 +84,14 @@ let toastTimer;
 let mediaTarget = null;
 let draggedExerciseId = null;
 let planRenderToken = 0;
+let progressComparison = { before: null, after: null, decisions: {} };
 const objectUrls = new Set();
 
 const elements = {
   sportsList: $("#sports-list"), sportsEmpty: $("#sports-empty"), workoutsList: $("#workouts-list"), workoutsEmpty: $("#workouts-empty"), activeSportName: $("#active-sport-name"),
   planEmpty: $("#plan-empty"), planView: $("#plan-view"), planTitle: $("#plan-title"), planDescription: $("#plan-description"), planMeta: $("#plan-meta"), workoutNotes: $("#workout-notes"), exerciseCount: $("#exercise-count"), exerciseList: $("#exercise-list"), exercisesEmpty: $("#exercises-empty"),
-  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), exerciseDetails: $("#exercise-details"), customDetailTemplate: $("#custom-detail-template"), detailLabelOptions: $("#detail-label-options"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), mealDialog: $("#meal-dialog"), mealForm: $("#meal-form"), mealDialogTitle: $("#meal-dialog-title"), mealSchedule: $("#new-meal-schedule"), mealDate: $("#new-meal-date"), mealScheduleDialog: $("#meal-schedule-dialog"), mealScheduleForm: $("#meal-schedule-form"), mealScheduleDialogTitle: $("#meal-schedule-dialog-title"), supplementDialog: $("#supplement-dialog"), supplementForm: $("#supplement-form"), supplementDialogTitle: $("#supplement-dialog-title"), supplementSchedule: $("#new-supplement-schedule"), supplementDate: $("#new-supplement-date"), supplementScheduleDialog: $("#supplement-schedule-dialog"), supplementScheduleForm: $("#supplement-schedule-form"), supplementScheduleDialogTitle: $("#supplement-schedule-dialog-title"), supplementRemoveDialog: $("#supplement-remove-dialog"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
-  libraryView: $("#library-view"), calendarView: $("#calendar-view"), mealsView: $("#meals-view"), mealsList: $("#meals-list"), mealsEmpty: $("#meals-empty"), supplementsView: $("#supplements-view"), supplementsList: $("#supplements-list"), supplementsEmpty: $("#supplements-empty"), goalsView: $("#goals-view"), goalsList: $("#goals-list"), goalsEmpty: $("#goals-empty"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
+  sportDialog: $("#sport-dialog"), sportForm: $("#sport-form"), sportDialogTitle: $("#sport-dialog-title"), workoutDialog: $("#workout-dialog"), workoutForm: $("#workout-form"), workoutDialogTitle: $("#workout-dialog-title"), workoutSchedule: $("#new-workout-schedule"), workoutDate: $("#new-workout-date"), exerciseDialog: $("#exercise-dialog"), exerciseForm: $("#exercise-form"), exerciseDialogTitle: $("#exercise-dialog-title"), exerciseDetails: $("#exercise-details"), customDetailTemplate: $("#custom-detail-template"), detailLabelOptions: $("#detail-label-options"), scheduleDialog: $("#schedule-dialog"), scheduleForm: $("#schedule-form"), scheduleDialogTitle: $("#schedule-dialog-title"), mealDialog: $("#meal-dialog"), mealForm: $("#meal-form"), mealDialogTitle: $("#meal-dialog-title"), mealSchedule: $("#new-meal-schedule"), mealDate: $("#new-meal-date"), mealScheduleDialog: $("#meal-schedule-dialog"), mealScheduleForm: $("#meal-schedule-form"), mealScheduleDialogTitle: $("#meal-schedule-dialog-title"), supplementDialog: $("#supplement-dialog"), supplementForm: $("#supplement-form"), supplementDialogTitle: $("#supplement-dialog-title"), supplementSchedule: $("#new-supplement-schedule"), supplementDate: $("#new-supplement-date"), supplementScheduleDialog: $("#supplement-schedule-dialog"), supplementScheduleForm: $("#supplement-schedule-form"), supplementScheduleDialogTitle: $("#supplement-schedule-dialog-title"), supplementRemoveDialog: $("#supplement-remove-dialog"), plannerDialog: $("#planner-dialog"), plannerForm: $("#planner-form"), plannerNewSport: $("#planner-new-sport"), plannerNewWorkout: $("#planner-new-workout"), plannerExercises: $("#planner-exercises"), plannerExerciseTemplate: $("#planner-exercise-template"), goalDialog: $("#goal-dialog"), goalForm: $("#goal-form"), goalDialogTitle: $("#goal-dialog-title"), progressProfileDialog: $("#progress-profile-dialog"), progressProfileForm: $("#progress-profile-form"), progressMetricDialog: $("#progress-metric-dialog"), progressMetricForm: $("#progress-metric-form"), progressMetricDialogTitle: $("#progress-metric-dialog-title"), trashDialog: $("#trash-dialog"), trashList: $("#trash-list"), trashEmpty: $("#trash-empty"), trashCount: $("#trash-count"), trashSummary: $("#trash-summary"), emptyTrash: $("#empty-trash"),
+  libraryView: $("#library-view"), calendarView: $("#calendar-view"), mealsView: $("#meals-view"), mealsList: $("#meals-list"), mealsEmpty: $("#meals-empty"), supplementsView: $("#supplements-view"), supplementsList: $("#supplements-list"), supplementsEmpty: $("#supplements-empty"), goalsView: $("#goals-view"), goalsList: $("#goals-list"), goalsEmpty: $("#goals-empty"), progressView: $("#progress-view"), progressProfileSummary: $("#progress-profile-summary"), progressMetricsList: $("#progress-metrics-list"), progressMetricsEmpty: $("#progress-metrics-empty"), comparisonResults: $("#progress-comparison-results"), comparisonBeforeName: $("#comparison-before-name"), comparisonAfterName: $("#comparison-after-name"), comparisonBeforeInput: $("#compare-backup-before"), comparisonAfterInput: $("#compare-backup-after"), weekTitle: $("#week-title"), weekDays: $("#week-days"), monthTitle: $("#month-title"), calendarWeekdays: $("#calendar-weekdays"), calendarGrid: $("#calendar-grid"), agendaTitle: $("#agenda-title"), agendaList: $("#agenda-list"), agendaEmpty: $("#agenda-empty"),
   mediaInput: $("#media-input"), toast: $("#toast"), summary: $("#summary-counts"), storage: $("#storage-status"), importInput: $("#import-backup")
 };
 
@@ -163,8 +167,31 @@ function sanitiseGoal(item) {
   return { id: clean(item?.id,100) || id(), name: clean(item?.name,80), target, manualProgress, completedSessionIds, createdAt: item?.createdAt || now() };
 }
 
+function sanitiseProgressProfile(item) {
+  const numeric = (value,max) => { const cleaned = clean(value,24); const number = Number(cleaned); return cleaned && Number.isFinite(number) && number >= 0 && number <= max ? String(number) : ""; };
+  return {
+    nickname: clean(item?.nickname,60),
+    heightValue: numeric(item?.heightValue,300),
+    heightUnit: ["cm","in"].includes(item?.heightUnit) ? item.heightUnit : "cm",
+    weightValue: numeric(item?.weightValue,1500),
+    weightUnit: ["kg","lb"].includes(item?.weightUnit) ? item.weightUnit : "kg",
+    updatedAt: item?.updatedAt || ""
+  };
+}
+
+function sanitiseProgressEntry(item) {
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(clean(item?.date,10)) ? clean(item.date,10) : "";
+  const value = clean(item?.value,80);
+  return date && value ? { id: clean(item?.id,100) || id(), date, value, unit: clean(item?.unit,24), createdAt: item?.createdAt || now() } : null;
+}
+
+function sanitiseProgressMetric(item) {
+  const entries = Array.isArray(item?.entries) ? item.entries.map(sanitiseProgressEntry).filter(Boolean).sort((a,b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt)) : [];
+  return { id: clean(item?.id,100) || id(), label: clean(item?.label,60), unit: clean(item?.unit,24), entries, createdAt: item?.createdAt || now() };
+}
+
 function sanitiseTrashItem(item) {
-  const type = ["sport","workout","exercise","session","meal","mealEntry","supplement","supplementEntry","media","goal"].includes(item?.type) ? item.type : "";
+  const type = ["sport","workout","exercise","session","meal","mealEntry","supplement","supplementEntry","media","goal","progressMetric","progressEntry"].includes(item?.type) ? item.type : "";
   if (!type || !item?.payload || typeof item.payload !== "object") return null;
   const payload = {};
   if (item.payload.sport) payload.sport = sanitiseSport(item.payload.sport);
@@ -177,6 +204,8 @@ function sanitiseTrashItem(item) {
   if (item.payload.supplementEntry) payload.supplementEntry = sanitiseSupplementEntry(item.payload.supplementEntry);
   if (item.payload.media) payload.media = sanitiseMedia(item.payload.media);
   if (item.payload.goal) payload.goal = sanitiseGoal(item.payload.goal);
+  if (item.payload.progressMetric) payload.progressMetric = sanitiseProgressMetric(item.payload.progressMetric);
+  if (item.payload.progressEntry) payload.progressEntry = sanitiseProgressEntry(item.payload.progressEntry);
   payload.workouts = Array.isArray(item.payload.workouts) ? item.payload.workouts.map(sanitiseWorkout).filter((value) => value.name) : [];
   payload.exercises = Array.isArray(item.payload.exercises) ? item.payload.exercises.map(sanitiseExercise).filter((value) => value.name) : [];
   payload.sessions = Array.isArray(item.payload.sessions) ? item.payload.sessions.map(sanitiseSession).filter((value) => value.date) : [];
@@ -200,8 +229,10 @@ function normaliseState(input) {
   const supplementIds = new Set(supplements.map((item) => item.id));
   const supplementEntries = Array.isArray(input.supplementEntries) ? input.supplementEntries.map(sanitiseSupplementEntry).filter((item) => item.date && supplementIds.has(item.supplementId)) : [];
   const goals = Array.isArray(input.goals) ? input.goals.map(sanitiseGoal).filter((item) => item.name) : [];
+  const progressProfile = sanitiseProgressProfile(input.progressProfile);
+  const progressMetrics = Array.isArray(input.progressMetrics) ? input.progressMetrics.map(sanitiseProgressMetric).filter((item) => item.label) : [];
   const trash = Array.isArray(input.trash) ? input.trash.map(sanitiseTrashItem).filter(Boolean) : [];
-  return { version: 6, sports, workouts, exercises, sessions, meals, mealEntries, supplements, supplementEntries, goals, trash };
+  return { version: 7, sports, workouts, exercises, sessions, meals, mealEntries, supplements, supplementEntries, goals, progressProfile, progressMetrics, trash };
 }
 
 function saveState() {
@@ -286,6 +317,7 @@ function render() {
   renderMeals();
   renderSupplements();
   renderGoals();
+  renderProgress();
   renderTrash();
   renderView();
   updateSummary();
@@ -298,6 +330,7 @@ function renderView() {
   elements.mealsView.hidden = activeView !== "meals";
   elements.supplementsView.hidden = activeView !== "supplements";
   elements.goalsView.hidden = activeView !== "goals";
+  elements.progressView.hidden = activeView !== "progress";
   $$('[data-view]').forEach((button) => {
     const selected = button.dataset.view === activeView;
     button.setAttribute("aria-selected", String(selected));
@@ -305,12 +338,13 @@ function renderView() {
 }
 
 function setView(view) {
-  activeView = ["library","calendar","meals","supplements","goals"].includes(view) ? view : "library";
+  activeView = ["library","calendar","meals","supplements","goals","progress"].includes(view) ? view : "library";
   renderView();
   if (activeView === "calendar") renderCalendar();
   if (activeView === "meals") renderMeals();
   if (activeView === "supplements") renderSupplements();
   if (activeView === "goals") renderGoals();
+  if (activeView === "progress") renderProgress();
 }
 
 function createCalendarIcon() {
@@ -451,6 +485,141 @@ function renderGoals() {
     card.append(header,dots,footer); elements.goalsList.append(card);
   }
 }
+
+function progressMetricKey(metric) { return clean(metric?.label,60).toLocaleLowerCase().replace(/\s+/g," "); }
+function latestProgressEntry(metric) { return [...(metric?.entries || [])].sort((a,b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt))[0] || null; }
+function progressValue(value,unit = "") { return value ? `${value}${unit ? ` ${unit}` : ""}` : t("notSet"); }
+function optionalLabel(key) { return t(key).replace(/\s*\([^)]*\)$/s,""); }
+
+function renderProgressProfile() {
+  const profile = state.progressProfile;
+  elements.progressProfileSummary.replaceChildren();
+  const hasProfile = Boolean(profile.nickname || profile.heightValue || profile.weightValue);
+  if (!hasProfile) {
+    const empty = document.createElement("p"); empty.className = "profile-placeholder"; empty.textContent = t("profileNotSet"); elements.progressProfileSummary.append(empty); return;
+  }
+  if (profile.nickname) { const name = document.createElement("h4"); name.className = "profile-name"; name.textContent = profile.nickname; elements.progressProfileSummary.append(name); }
+  const facts = document.createElement("div"); facts.className = "profile-facts";
+  for (const [label,value] of [[optionalLabel("heightOptional"),progressValue(profile.heightValue,profile.heightUnit)],[t("weight"),progressValue(profile.weightValue,profile.weightUnit)]]) {
+    const card = document.createElement("div"); card.className = "profile-fact";
+    const name = document.createElement("span"); name.textContent = label;
+    const amount = document.createElement("strong"); amount.textContent = value; card.append(name,amount); facts.append(card);
+  }
+  elements.progressProfileSummary.append(facts);
+  if (profile.updatedAt) { const updated = document.createElement("p"); updated.className = "profile-placeholder"; updated.textContent = `${t("lastUpdated")}: ${formatDate(new Date(profile.updatedAt),{ day:"numeric",month:"short",year:"numeric" })}`; elements.progressProfileSummary.append(updated); }
+}
+
+function renderProgressMetrics() {
+  elements.progressMetricsList.replaceChildren();
+  elements.progressMetricsList.hidden = state.progressMetrics.length === 0;
+  elements.progressMetricsEmpty.hidden = state.progressMetrics.length > 0;
+  for (const metric of state.progressMetrics) {
+    const latest = latestProgressEntry(metric);
+    const card = document.createElement("article"); card.className = "progress-metric";
+    const header = document.createElement("header"); header.className = "progress-metric-header";
+    const copy = document.createElement("div");
+    const title = document.createElement("h4"); title.textContent = metric.label;
+    const current = document.createElement("p"); current.className = "progress-latest"; current.textContent = latest ? progressValue(latest.value,latest.unit || metric.unit) : t("notSet"); copy.append(title,current);
+    const actions = document.createElement("div"); actions.className = "progress-metric-actions";
+    const update = document.createElement("button"); update.type = "button"; update.dataset.action = "edit-progress-metric"; update.dataset.id = metric.id; update.textContent = t("updateMeasurement");
+    const remove = document.createElement("button"); remove.type = "button"; remove.className = "danger"; remove.dataset.action = "delete-progress-metric"; remove.dataset.id = metric.id; remove.textContent = t("delete"); actions.append(update,remove); header.append(copy,actions); card.append(header);
+    if (metric.entries.length) {
+      const history = document.createElement("div"); history.className = "metric-history";
+      for (const entry of [...metric.entries].sort((a,b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt)).slice(0,6)) {
+        const row = document.createElement("div"); row.className = "metric-history-row";
+        const date = document.createElement("span"); date.textContent = formatDate(parseIsoDate(entry.date),{ day:"numeric",month:"short",year:"numeric" });
+        const value = document.createElement("strong"); value.textContent = progressValue(entry.value,entry.unit || metric.unit);
+        const removeEntry = document.createElement("button"); removeEntry.type = "button"; removeEntry.dataset.action = "delete-progress-entry"; removeEntry.dataset.id = metric.id; removeEntry.dataset.entryId = entry.id; removeEntry.setAttribute("aria-label",t("deleteMeasurementEntry")); removeEntry.title = t("deleteMeasurementEntry"); removeEntry.textContent = "×";
+        row.append(date,value,removeEntry); history.append(row);
+      }
+      card.append(history);
+    }
+    elements.progressMetricsList.append(card);
+  }
+}
+
+function progressSnapshot(label,library = state,exportedAt = "") {
+  return { label, exportedAt, profile: sanitiseProgressProfile(library.progressProfile), metrics: Array.isArray(library.progressMetrics) ? library.progressMetrics.map(sanitiseProgressMetric).filter((metric) => metric.label) : [] };
+}
+
+function findProgressMetric(metrics,target) {
+  return metrics.find((metric) => metric.id === target.id) || metrics.find((metric) => progressMetricKey(metric) === progressMetricKey(target));
+}
+
+function comparableNumber(value) {
+  const normalised = String(value ?? "").trim().replace(",",".");
+  return /^-?\d+(?:\.\d+)?$/.test(normalised) ? Number(normalised) : null;
+}
+
+function convertProgressValue(value,fromUnit,toUnit) {
+  const number = comparableNumber(value); if (number === null) return null;
+  const from = clean(fromUnit,24).toLowerCase(); const to = clean(toUnit,24).toLowerCase();
+  if (from === to) return number;
+  if (from === "kg" && to === "lb") return number * 2.2046226218;
+  if (from === "lb" && to === "kg") return number / 2.2046226218;
+  if (from === "cm" && to === "in") return number / 2.54;
+  if (from === "in" && to === "cm") return number * 2.54;
+  return null;
+}
+
+function comparisonDelta(beforeValue,beforeUnit,afterValue,afterUnit) {
+  const before = convertProgressValue(beforeValue,beforeUnit,afterUnit); const after = comparableNumber(afterValue);
+  if (before === null || after === null) return { text: t("noComparableValue"), className: "" };
+  const delta = after - before; const rounded = Math.round(delta * 100) / 100;
+  return { text: `${rounded > 0 ? "+" : ""}${rounded}${afterUnit ? ` ${afterUnit}` : ""}`, className: rounded > 0 ? "positive" : rounded < 0 ? "negative" : "" };
+}
+
+function comparisonRow(label,beforeValue,beforeUnit,afterValue,afterUnit) {
+  const delta = beforeValue && afterValue ? comparisonDelta(beforeValue,beforeUnit,afterValue,afterUnit) : { text:t("noComparableValue"),className:"" };
+  return { label, before: beforeValue ? progressValue(beforeValue,beforeUnit) : t("missingFromSnapshot"), after: afterValue ? progressValue(afterValue,afterUnit) : t("missingFromSnapshot"), delta };
+}
+
+function renderProgressComparison() {
+  const before = progressComparison.before; const after = progressComparison.after;
+  elements.comparisonBeforeName.textContent = before?.label || t("nothingSelected");
+  elements.comparisonAfterName.textContent = after?.label || t("nothingSelected");
+  elements.comparisonResults.replaceChildren(); elements.comparisonResults.hidden = false;
+  if (!before || !after) { const waiting = document.createElement("p"); waiting.className = "comparison-status"; waiting.textContent = t("comparisonWaiting"); elements.comparisonResults.append(waiting); return; }
+  const summary = document.createElement("p"); summary.className = "comparison-status"; summary.textContent = t("compareSummary").replace("{before}",before.label).replace("{after}",after.label); elements.comparisonResults.append(summary);
+  const hasData = [before,after].some((snapshot) => snapshot.profile.nickname || snapshot.profile.heightValue || snapshot.profile.weightValue || snapshot.metrics.length);
+  if (!hasData) { const empty = document.createElement("p"); empty.className = "comparison-status"; empty.textContent = t("comparisonNoData"); elements.comparisonResults.append(empty); return; }
+
+  const prompts = document.createElement("div"); prompts.className = "comparison-prompts";
+  for (const metric of after.metrics) {
+    const existedBefore = findProgressMetric(before.metrics,metric); const existsNow = findProgressMetric(state.progressMetrics,metric); const decision = progressComparison.decisions[metric.id];
+    if (existedBefore || existsNow || decision) continue;
+    const prompt = document.createElement("article"); prompt.className = "comparison-prompt";
+    const copy = document.createElement("div"); const title = document.createElement("h4"); title.textContent = metric.label; const text = document.createElement("p"); text.textContent = t("comparisonMeasurementFound"); copy.append(title,text);
+    const actions = document.createElement("div"); actions.className = "comparison-prompt-actions";
+    for (const [choice,label,className] of [["add","addToMyProgress","primary"],["compare","compareOnly","secondary"],["ignore","ignore","ghost"]]) { const button = document.createElement("button"); button.type = "button"; button.className = `button ${className}`; button.dataset.action = "comparison-metric-decision"; button.dataset.id = metric.id; button.dataset.decision = choice; button.textContent = t(label); actions.append(button); }
+    prompt.append(copy,actions); prompts.append(prompt);
+  }
+  if (prompts.children.length) elements.comparisonResults.append(prompts);
+
+  const rows = [];
+  const profilePairs = [[optionalLabel("heightOptional"),"heightValue","heightUnit"],[t("weight"),"weightValue","weightUnit"]];
+  for (const [label,valueKey,unitKey] of profilePairs) if (before.profile[valueKey] || after.profile[valueKey]) rows.push(comparisonRow(label,before.profile[valueKey],before.profile[unitKey],after.profile[valueKey],after.profile[unitKey]));
+  for (const metric of after.metrics) {
+    const earlier = findProgressMetric(before.metrics,metric); const current = findProgressMetric(state.progressMetrics,metric); const decision = progressComparison.decisions[metric.id];
+    if (!earlier && !current && !["add","compare"].includes(decision)) continue;
+    const earlierEntry = latestProgressEntry(earlier); const laterEntry = latestProgressEntry(metric);
+    rows.push(comparisonRow(metric.label,earlierEntry?.value,earlierEntry?.unit || earlier?.unit || metric.unit,laterEntry?.value,laterEntry?.unit || metric.unit));
+  }
+  for (const metric of before.metrics) {
+    if (findProgressMetric(after.metrics,metric)) continue;
+    const earlierEntry = latestProgressEntry(metric); rows.push(comparisonRow(metric.label,earlierEntry?.value,earlierEntry?.unit || metric.unit,"",metric.unit));
+  }
+  if (!rows.length) return;
+  const wrap = document.createElement("div"); wrap.className = "comparison-table-wrap";
+  const table = document.createElement("table"); table.className = "comparison-table";
+  const head = document.createElement("thead"); const headerRow = document.createElement("tr");
+  for (const label of [t("comparisonField"),t("comparisonEarlier"),t("comparisonLater"),t("comparisonChange")]) { const cell = document.createElement("th"); cell.scope = "col"; cell.textContent = label; headerRow.append(cell); }
+  head.append(headerRow); const body = document.createElement("tbody");
+  for (const row of rows) { const tr = document.createElement("tr"); for (const value of [row.label,row.before,row.after]) { const td = document.createElement("td"); td.textContent = value; tr.append(td); } const change = document.createElement("td"); change.className = `comparison-change ${row.delta.className}`.trim(); change.textContent = row.delta.text; tr.append(change); body.append(tr); }
+  table.append(head,body); wrap.append(table); elements.comparisonResults.append(wrap);
+}
+
+function renderProgress() { renderProgressProfile(); renderProgressMetrics(); renderProgressComparison(); }
 
 function renderTrash() {
   const items = [...state.trash].sort((a,b) => String(b.deletedAt).localeCompare(String(a.deletedAt)));
@@ -644,7 +813,7 @@ async function renderExerciseMedia(exercise, token) {
 }
 
 function formValues(form) { return Object.fromEntries(new FormData(form).entries()); }
-function resetForm(form) { form.reset(); form.elements.id.value = ""; }
+function resetForm(form) { form.reset(); if (form.elements.id) form.elements.id.value = ""; }
 
 function recurrenceTextNode(tag, key) {
   const node = document.createElement(tag); node.dataset.i18n = key; node.textContent = t(key); return node;
@@ -972,6 +1141,24 @@ function openGoalDialog(goal = null) {
   elements.goalDialog.showModal(); setTimeout(() => elements.goalForm.elements.name.focus(),0);
 }
 
+function openProgressProfileDialog() {
+  resetForm(elements.progressProfileForm);
+  const profile = state.progressProfile;
+  for (const key of ["nickname","heightValue","heightUnit","weightValue","weightUnit"]) elements.progressProfileForm.elements[key].value = profile[key] || (key === "heightUnit" ? "cm" : key === "weightUnit" ? "kg" : "");
+  elements.progressProfileDialog.showModal(); setTimeout(() => elements.progressProfileForm.elements.nickname.focus(),0);
+}
+
+function openProgressMetricDialog(metric = null) {
+  resetForm(elements.progressMetricForm);
+  elements.progressMetricDialogTitle.textContent = metric ? t("updateMeasurement") : t("newMeasurement");
+  elements.progressMetricForm.elements.id.value = metric?.id || "";
+  elements.progressMetricForm.elements.label.value = metric?.label || "";
+  elements.progressMetricForm.elements.unit.value = metric?.unit || "";
+  elements.progressMetricForm.elements.value.value = latestProgressEntry(metric)?.value || "";
+  elements.progressMetricForm.elements.date.value = toLocalIso(new Date());
+  elements.progressMetricDialog.showModal(); setTimeout(() => elements.progressMetricForm.elements.label.focus(),0);
+}
+
 function populateScheduleSports(preferredSportId) {
   const select = elements.scheduleForm.elements.sportId;
   select.replaceChildren();
@@ -1248,6 +1435,28 @@ function handleGoalSubmit(event) {
   saveState(); elements.goalDialog.close(); render(); showToast(t("goalSaved"));
 }
 
+function handleProgressProfileSubmit(event) {
+  event.preventDefault(); if (!elements.progressProfileForm.reportValidity()) return;
+  const values = formValues(elements.progressProfileForm);
+  state.progressProfile = sanitiseProgressProfile({ ...values, updatedAt: now() });
+  saveState(); elements.progressProfileDialog.close(); renderProgress(); showToast(t("profileSaved"));
+}
+
+function handleProgressMetricSubmit(event) {
+  event.preventDefault(); if (!elements.progressMetricForm.reportValidity()) return;
+  const values = formValues(elements.progressMetricForm);
+  const fields = { label: clean(values.label,60), unit: clean(values.unit,24) };
+  const entry = { id: id(), date: values.date, value: clean(values.value,80), unit: fields.unit, createdAt: now() };
+  const existing = state.progressMetrics.find((metric) => metric.id === values.id);
+  if (existing) {
+    Object.assign(existing,fields);
+    const sameDate = existing.entries.find((item) => item.date === entry.date);
+    if (sameDate) Object.assign(sameDate,{ value:entry.value,unit:entry.unit }); else existing.entries.push(entry);
+    existing.entries.sort((a,b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt));
+  } else state.progressMetrics.push({ id:id(), ...fields, entries:[entry], createdAt:now() });
+  saveState(); elements.progressMetricDialog.close(); renderProgress(); renderTrash(); showToast(t("measurementSaved"));
+}
+
 function handleScheduleSubmit(event) {
   event.preventDefault(); if (!elements.scheduleForm.reportValidity()) return;
   const values = formValues(elements.scheduleForm);
@@ -1323,6 +1532,19 @@ function trashGoal(goalId) {
   const goal = state.goals.find((item) => item.id === goalId); if (!goal) return false;
   addTrashItem("goal",goal.name,{ goal });
   state.goals = state.goals.filter((item) => item.id !== goalId); return true;
+}
+
+function trashProgressMetric(metricId) {
+  const progressMetric = state.progressMetrics.find((item) => item.id === metricId); if (!progressMetric) return false;
+  addTrashItem("progressMetric",progressMetric.label,{ progressMetric });
+  state.progressMetrics = state.progressMetrics.filter((item) => item.id !== metricId); return true;
+}
+
+function trashProgressEntry(metricId,entryId) {
+  const progressMetric = state.progressMetrics.find((item) => item.id === metricId); if (!progressMetric) return false;
+  const progressEntry = progressMetric.entries.find((item) => item.id === entryId); if (!progressEntry) return false;
+  addTrashItem("progressEntry",`${progressMetric.label} · ${progressValue(progressEntry.value,progressEntry.unit || progressMetric.unit)}`,{ progressMetric:{ ...progressMetric, entries:[] }, progressEntry });
+  progressMetric.entries = progressMetric.entries.filter((item) => item.id !== entryId); return true;
 }
 
 function trashMeal(mealId) {
@@ -1537,6 +1759,21 @@ function restoreTrashItem(entryId) {
     restored = Boolean(goal);
     if (restored) { pushUnique(state.goals,goal); removeTrashEntry(entry.id); }
   }
+  if (entry.type === "progressMetric") {
+    const metric = entry.payload.progressMetric;
+    restored = Boolean(metric);
+    if (restored) { pushUnique(state.progressMetrics,metric); removeTrashEntry(entry.id); }
+  }
+  if (entry.type === "progressEntry") {
+    const metric = entry.payload.progressMetric; const progressEntry = entry.payload.progressEntry;
+    restored = Boolean(metric && progressEntry);
+    if (restored) {
+      let active = state.progressMetrics.find((item) => item.id === metric.id) || state.progressMetrics.find((item) => progressMetricKey(item) === progressMetricKey(metric));
+      if (!active) { active = cloneData(metric); active.entries = []; state.progressMetrics.push(active); }
+      if (!active.entries.some((item) => item.id === progressEntry.id)) active.entries.push(cloneData(progressEntry));
+      active.entries.sort((a,b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt)); removeTrashEntry(entry.id);
+    }
+  }
   if (entry.type === "meal") {
     restored = restoreMealEntry(entry);
   }
@@ -1640,6 +1877,11 @@ async function handleAction(action, target) {
   if (action === "new-meal") return openMealDialog();
   if (action === "new-supplement") return openSupplementDialog();
   if (action === "new-goal") return openGoalDialog();
+  if (action === "new-progress-metric") return openProgressMetricDialog();
+  if (action === "edit-progress-profile") return openProgressProfileDialog();
+  if (action === "edit-progress-metric") return openProgressMetricDialog(state.progressMetrics.find((item) => item.id === itemId));
+  if (action === "use-current-comparison") { useCurrentComparison(target.dataset.side); return; }
+  if (action === "comparison-metric-decision") { decideComparisonMetric(itemId,target.dataset.decision); return; }
   if (action === "new-session" || action === "quick-plan") return openPlannerDialog();
   if (action === "add-planner-exercise") { addPlannerExercise(); return; }
   if (action === "remove-planner-exercise") { target.closest(".planner-exercise")?.remove(); if (!elements.plannerExercises.children.length) addPlannerExercise(); else updatePlannerExerciseNumbers(); return; }
@@ -1698,6 +1940,8 @@ async function handleAction(action, target) {
   if (action === "delete-supplement-entry") return openSupplementRemovalDialog(itemId);
   if (action === "delete-supplement") { if (!confirm(t("confirmDeleteSupplement"))) return; if (trashSupplement(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-goal") { if (!confirm(t("confirmDeleteGoal"))) return; if (trashGoal(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-progress-entry") { if (!confirm(t("confirmDeleteMeasurementEntry"))) return; if (trashProgressEntry(itemId,target.dataset.entryId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
+  if (action === "delete-progress-metric") { if (!confirm(t("confirmDeleteMeasurement"))) return; if (trashProgressMetric(itemId)) { saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-workout") { const workoutId = itemId || selectedWorkoutId; if (!confirm(t("confirmDeleteWorkout"))) return; if (trashWorkout(workoutId)) { if (selectedWorkoutId === workoutId) selectedWorkoutId = null; saveState(); render(); showToast(t("movedToTrash")); } return; }
   if (action === "delete-sport") { if (!confirm(t("confirmDeleteSport"))) return; if (trashSport(itemId)) { if (selectedSportId === itemId) { selectedSportId = null; selectedWorkoutId = null; } saveState(); render(); showToast(t("movedToTrash")); } }
 }
@@ -1736,7 +1980,7 @@ async function exportBackup() {
   try {
     const records = await getAllMedia(); const media = [];
     for (const record of records) media.push({ id: record.id, exerciseId: record.exerciseId, name: record.name, type: record.type, size: record.size, createdAt: record.createdAt, data: await blobToDataUrl(record.blob) });
-    const payload = { app: "training-atlas", version: 6, exportedAt: now(), library: state, media };
+    const payload = { app: "training-atlas", version: 7, exportedAt: now(), library: state, media };
     const blob = new Blob([JSON.stringify(payload)], { type: "application/json" }); const url = URL.createObjectURL(blob); const anchor = document.createElement("a"); anchor.href = url; anchor.download = `training-atlas-backup-${new Date().toISOString().slice(0,10)}.json`; anchor.click(); setTimeout(() => URL.revokeObjectURL(url),1000); showToast(t("backupReady"));
   } catch { showToast(t("exportError"),true); }
 }
@@ -1756,6 +2000,30 @@ async function importBackup(file) {
     state = nextState; selectedSportId = state.sports[0]?.id || null; selectedWorkoutId = state.workouts.find((item) => item.sportId === selectedSportId)?.id || null; saveState(); render(); showToast(t("importComplete"));
   } catch { showToast(t("invalidBackup"),true); }
   finally { elements.importInput.value = ""; }
+}
+
+async function loadComparisonBackup(file,side) {
+  if (!file || !["before","after"].includes(side)) return;
+  try {
+    const payload = JSON.parse(await file.text());
+    if (payload?.app !== "training-atlas" || !payload.library) throw new Error("Invalid backup");
+    progressComparison[side] = progressSnapshot(file.name,payload.library,payload.exportedAt || ""); progressComparison.decisions = {};
+    renderProgressComparison(); showToast(t("snapshotLoaded"));
+  } catch { showToast(t("comparisonInvalidBackup"),true); }
+  finally { if (side === "before") elements.comparisonBeforeInput.value = ""; else elements.comparisonAfterInput.value = ""; }
+}
+
+function useCurrentComparison(side) {
+  if (!["before","after"].includes(side)) return;
+  progressComparison[side] = progressSnapshot(t("currentProgress"),state,now()); progressComparison.decisions = {}; renderProgressComparison();
+}
+
+function decideComparisonMetric(metricId,decision) {
+  const metric = progressComparison.after?.metrics.find((item) => item.id === metricId); if (!metric || !["add","compare","ignore"].includes(decision)) return;
+  if (decision === "add" && !findProgressMetric(state.progressMetrics,metric)) {
+    const clone = cloneData(metric); if (state.progressMetrics.some((item) => item.id === clone.id)) clone.id = id(); state.progressMetrics.push(clone); saveState(); showToast(t("measurementAddedFromBackup"));
+  }
+  progressComparison.decisions[metricId] = decision; renderProgress();
 }
 
 function applyLanguage(next) {
@@ -1780,16 +2048,20 @@ elements.supplementForm.addEventListener("submit",handleSupplementSubmit);
 elements.supplementForm.elements.scheduleEnabled.addEventListener("change",updateNewSupplementSchedule);
 elements.supplementScheduleForm.addEventListener("submit",handleSupplementScheduleSubmit);
 elements.goalForm.addEventListener("submit",handleGoalSubmit);
+elements.progressProfileForm.addEventListener("submit",handleProgressProfileSubmit);
+elements.progressMetricForm.addEventListener("submit",handleProgressMetricSubmit);
 elements.scheduleForm.addEventListener("submit",handleScheduleSubmit);
 elements.scheduleForm.elements.sportId.addEventListener("change",() => populateScheduleWorkouts());
 elements.plannerForm.addEventListener("submit",handlePlannerSubmit);
 elements.plannerForm.elements.sportChoice.addEventListener("change",() => updatePlannerSportChoice());
 elements.plannerForm.elements.workoutChoice.addEventListener("change",syncPlannerWorkoutFields);
 elements.plannerForm.addEventListener("input",(event) => { if (event.target.name === "plannerExerciseName") event.target.setCustomValidity(""); });
-for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.mealDialog,elements.mealScheduleDialog,elements.supplementDialog,elements.supplementScheduleDialog,elements.plannerDialog,elements.goalDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
+for (const dialog of [elements.sportDialog,elements.workoutDialog,elements.exerciseDialog,elements.scheduleDialog,elements.mealDialog,elements.mealScheduleDialog,elements.supplementDialog,elements.supplementScheduleDialog,elements.supplementRemoveDialog,elements.plannerDialog,elements.goalDialog,elements.progressProfileDialog,elements.progressMetricDialog,elements.trashDialog]) for (const button of $$('button[value="cancel"]',dialog)) button.addEventListener("click",(event) => { event.preventDefault(); dialog.close(); });
 elements.mediaInput.addEventListener("change", () => handleMediaFiles(elements.mediaInput.files));
 $("#export-backup").addEventListener("click",exportBackup);
 elements.importInput.addEventListener("change",() => importBackup(elements.importInput.files[0]));
+elements.comparisonBeforeInput.addEventListener("change",() => loadComparisonBackup(elements.comparisonBeforeInput.files[0],"before"));
+elements.comparisonAfterInput.addEventListener("change",() => loadComparisonBackup(elements.comparisonAfterInput.files[0],"after"));
 
 elements.exerciseList.addEventListener("dragstart",(event) => { const card = event.target.closest(".exercise-card"); if (!card) return; draggedExerciseId = card.dataset.id; card.classList.add("dragging"); event.dataTransfer.effectAllowed = "move"; });
 elements.exerciseList.addEventListener("dragend",(event) => { event.target.closest(".exercise-card")?.classList.remove("dragging"); $$(".drag-over",elements.exerciseList).forEach((item) => item.classList.remove("drag-over")); draggedExerciseId = null; });
