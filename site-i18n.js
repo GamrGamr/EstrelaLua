@@ -337,7 +337,7 @@ const pairs = [
   ["Private backup and restore", "Cópia de segurança e restauro privados"],
   ["Optional height, weight, and custom measurements", "Altura, peso e medições personalizadas opcionais"],
   ["Compare two backups without importing them", "Comparar duas cópias sem as importar"],
-  ["Add, compare, or ignore newly detected measurements", "Adicionar, comparar ou ignorar novas medições detetadas"],
+  ["Match renamed or misspelled measurements during comparison", "Associar medições renomeadas ou com erros de escrita durante a comparação"],
   ["Your Training Atlas data stays private", "Os seus dados do Training Atlas mantêm-se privados"],
   ["Plans, meals, supplements, calendar entries, goals, progress, deleted items, and media are stored only in this browser on this device. Nothing is uploaded, no account is required, and the app makes no external requests.", "Os planos, refeições, suplementos, entradas do calendário, objetivos, progresso, elementos eliminados e ficheiros multimédia são guardados apenas neste navegador e dispositivo. Nada é enviado, não é necessária uma conta e a app não faz pedidos externos."],
   ["Your training library stays private", "A sua biblioteca de treinos mantém-se privada"],
