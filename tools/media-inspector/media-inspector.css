@@ -157,6 +157,14 @@ main { width: var(--shell); margin: 0 auto; }
 .timeline-item::before { content: ""; position: absolute; width: 9px; height: 9px; left: -25px; top: 15px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 5px var(--panel); }
 .timeline-item span { display: block; color: var(--muted); font-size: .76rem; }
 .timeline-item strong { display: block; margin-top: 4px; line-height: 1.45; }
+.location-links { display: grid; grid-template-columns: minmax(180px, .7fr) 1.3fr; gap: 18px; align-items: center; margin: 0 22px 22px; padding: 17px; border: 1px solid rgba(46,211,198,.25); border-radius: 15px; background: rgba(46,211,198,.055); }
+.location-links[hidden] { display: none; }
+.location-links h3 { margin: 0; font-size: .9rem; }
+.location-links p { margin: 6px 0 0; color: var(--muted); font-size: .75rem; line-height: 1.45; }
+.location-link-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.location-link-list a { min-height: 38px; display: inline-flex; align-items: center; gap: 7px; padding: 0 13px; color: var(--text); border: 1px solid var(--line-strong); border-radius: 999px; background: var(--night-soft); font-size: .75rem; font-weight: 800; text-decoration: none; transition: border-color .18s, transform .18s, background .18s; }
+.location-link-list a:hover { transform: translateY(-1px); border-color: var(--teal); background: rgba(46,211,198,.09); }
+.location-link-list a:focus-visible { outline: 3px solid rgba(86,188,233,.35); outline-offset: 2px; }
 .map-actions { margin: 0 22px 22px; padding: 17px; border: 1px solid rgba(86,188,233,.22); border-radius: 15px; background: rgba(86,188,233,.055); }
 .map-actions p { margin: 0 0 14px; color: var(--muted); font-size: .8rem; line-height: 1.5; }
 .map-shell { position: relative; margin: 0 22px 22px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; }
@@ -247,7 +255,9 @@ footer a:hover { color: var(--text); }
   .privacy-panel, .advanced-report { padding: 20px 16px; }
   .field-grid { grid-template-columns: 1fr; margin-inline: 14px; }
   .metadata-section > summary { padding-inline: 14px; }
-  .timeline, .map-actions, .map-shell, .track-list { margin-inline: 14px; }
+  .timeline, .location-links, .map-actions, .map-shell, .track-list { margin-inline: 14px; }
+  .location-links { grid-template-columns: 1fr; }
+  .location-link-list { justify-content: flex-start; }
   .track-card dl { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .advanced-heading { grid-template-columns: 1fr; gap: 12px; }
   .raw-controls { grid-template-columns: 1fr; }

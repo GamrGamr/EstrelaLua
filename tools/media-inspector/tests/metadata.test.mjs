@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { URL } from "node:url";
 
 import {
   compassDirection,
@@ -12,6 +13,7 @@ import {
 } from "../dist/lib/formatters.js";
 import { detectMedia, isValidCoordinate } from "../dist/lib/file-signature.js";
 import { inspectMedia } from "../dist/lib/inspector.js";
+import { buildNavigationLinks } from "../dist/lib/navigation-links.js";
 import { normaliseImage, normaliseVideo } from "../dist/lib/normalizer.js";
 
 const jpegDetected = { kind: "image", format: "JPEG", extension: "jpg", mimeType: "image/jpeg", confidence: "signature" };
@@ -45,6 +47,20 @@ test("validates coordinate boundaries", () => {
   assert.equal(isValidCoordinate(90, 180), true);
   assert.equal(isValidCoordinate(90.01, 0), false);
   assert.equal(isValidCoordinate(0, -180.01), false);
+});
+
+test("builds safe navigation links only for valid photo coordinates", () => {
+  const links = buildNavigationLinks(38.7223, -9.1393);
+  assert.equal(new URL(links.googleMaps).searchParams.get("query"), "38.7223,-9.1393");
+  assert.equal(new URL(links.waze).searchParams.get("ll"), "38.7223,-9.1393");
+  assert.equal(new URL(links.waze).searchParams.get("navigate"), "yes");
+  assert.equal(new URL(links.appleMaps).pathname, "/place");
+  assert.equal(new URL(links.appleMaps).searchParams.get("coordinate"), "38.7223,-9.1393");
+  assert.equal(new URL(links.openStreetMap).searchParams.get("mlat"), "38.7223");
+  assert.equal(new URL(links.openStreetMap).searchParams.get("mlon"), "-9.1393");
+  assert.equal(new URL(links.openStreetMap).searchParams.get("zoom"), "16");
+  assert.equal(buildNavigationLinks(90.01, 0), undefined);
+  assert.equal(buildNavigationLinks(Number.NaN, 0), undefined);
 });
 
 test("converts compass bearings in both languages", () => {

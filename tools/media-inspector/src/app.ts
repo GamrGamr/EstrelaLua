@@ -23,6 +23,7 @@ import {
 } from "./lib/formatters.js";
 import { inspectMedia } from "./lib/inspector.js";
 import { createPrivacyMap, destroyPrivacyMap } from "./lib/map-viewer.js";
+import { buildNavigationLinks } from "./lib/navigation-links.js";
 import { renderRawExplorer } from "./lib/raw-explorer.js";
 
 interface I18nCore {
@@ -323,16 +324,19 @@ function renderDates(data: MediaMetadata): void {
 
 function renderLocation(data: MediaMetadata): void {
   const section = element<HTMLDetailsElement>("#location-section");
+  const locationLinks = element<HTMLElement>("#location-links");
   const actions = element<HTMLElement>("#map-actions");
   const mapShell = element<HTMLElement>("#map-shell");
   if (!data.location) {
     renderFields("#location-fields", [], t("noGps"));
+    locationLinks.hidden = true;
     actions.hidden = true;
     mapShell.hidden = true;
     section.open = false;
     return;
   }
   const location = data.location;
+  const navigationLinks = buildNavigationLinks(location.latitude, location.longitude);
   const fields: DisplayField[] = [
     { key: "latitude", labelKey: "latitude", value: formatCoordinate(location.latitude, language), explanationKey: "gpsHelp", sensitive: true },
     { key: "longitude", labelKey: "longitude", value: formatCoordinate(location.longitude, language), explanationKey: "gpsHelp", sensitive: true },
@@ -356,6 +360,13 @@ function renderLocation(data: MediaMetadata): void {
     addText(copy, "strong", compassDirection(location.direction, language));
     visual.append(arrow, copy);
     element<HTMLElement>("#location-fields").append(visual);
+  }
+  locationLinks.hidden = !navigationLinks;
+  if (navigationLinks) {
+    element<HTMLAnchorElement>("#open-google-maps").href = navigationLinks.googleMaps;
+    element<HTMLAnchorElement>("#open-waze").href = navigationLinks.waze;
+    element<HTMLAnchorElement>("#open-apple-maps").href = navigationLinks.appleMaps;
+    element<HTMLAnchorElement>("#open-openstreetmap").href = navigationLinks.openStreetMap;
   }
   actions.hidden = mapLoaded;
   mapShell.hidden = !mapLoaded;

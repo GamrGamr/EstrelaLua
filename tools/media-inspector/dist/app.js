@@ -2,6 +2,7 @@ import { translations, createTranslator } from "./translations.js";
 import { compassDirection, firstText, formatAperture, formatAspectRatio, formatBitRate, formatCoordinate, formatDateValue, formatDuration, formatFileSize, formatFocalLength, formatShutterSpeed, serialiseMetadata, } from "./lib/formatters.js";
 import { inspectMedia } from "./lib/inspector.js";
 import { createPrivacyMap, destroyPrivacyMap } from "./lib/map-viewer.js";
+import { buildNavigationLinks } from "./lib/navigation-links.js";
 import { renderRawExplorer } from "./lib/raw-explorer.js";
 const coreUrl = new URL("../../../assets/i18n-core.js", import.meta.url).href;
 const i18n = await import(coreUrl);
@@ -300,16 +301,19 @@ function renderDates(data) {
 }
 function renderLocation(data) {
     const section = element("#location-section");
+    const locationLinks = element("#location-links");
     const actions = element("#map-actions");
     const mapShell = element("#map-shell");
     if (!data.location) {
         renderFields("#location-fields", [], t("noGps"));
+        locationLinks.hidden = true;
         actions.hidden = true;
         mapShell.hidden = true;
         section.open = false;
         return;
     }
     const location = data.location;
+    const navigationLinks = buildNavigationLinks(location.latitude, location.longitude);
     const fields = [
         { key: "latitude", labelKey: "latitude", value: formatCoordinate(location.latitude, language), explanationKey: "gpsHelp", sensitive: true },
         { key: "longitude", labelKey: "longitude", value: formatCoordinate(location.longitude, language), explanationKey: "gpsHelp", sensitive: true },
@@ -338,6 +342,13 @@ function renderLocation(data) {
         addText(copy, "strong", compassDirection(location.direction, language));
         visual.append(arrow, copy);
         element("#location-fields").append(visual);
+    }
+    locationLinks.hidden = !navigationLinks;
+    if (navigationLinks) {
+        element("#open-google-maps").href = navigationLinks.googleMaps;
+        element("#open-waze").href = navigationLinks.waze;
+        element("#open-apple-maps").href = navigationLinks.appleMaps;
+        element("#open-openstreetmap").href = navigationLinks.openStreetMap;
     }
     actions.hidden = mapLoaded;
     mapShell.hidden = !mapLoaded;

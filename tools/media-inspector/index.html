@@ -9,8 +9,8 @@
     <link rel="icon" href="../../assets/media-inspector-icon.ico" sizes="256x256" type="image/x-icon" />
     <link rel="stylesheet" href="vendor/maplibre-gl.css?v=1" />
     <link rel="stylesheet" href="../../assets/language-switch.css" />
-    <link rel="stylesheet" href="media-inspector.css?v=1" />
-    <script type="module" src="dist/app.js?v=1"></script>
+    <link rel="stylesheet" href="media-inspector.css?v=2" />
+    <script type="module" src="dist/app.js?v=2"></script>
   </head>
   <body>
     <a class="skip-link" href="#inspector" data-i18n="skip">Skip to file inspector</a>
@@ -140,6 +140,18 @@
               <details id="location-section" class="metadata-section">
                 <summary><span class="section-icon" aria-hidden="true">05</span><h2 data-i18n="locationSection">Location</h2><span class="summary-chevron" aria-hidden="true">⌄</span></summary>
                 <div id="location-fields" class="field-grid"></div>
+                <section id="location-links" class="location-links" aria-labelledby="location-links-title" hidden>
+                  <div>
+                    <h3 id="location-links-title" data-i18n="openLocation">Open location in</h3>
+                    <p data-i18n="navigationPrivacy">Your coordinates are shared with a map provider only after you open its link.</p>
+                  </div>
+                  <div class="location-link-list">
+                    <a id="open-google-maps" href="#" target="_blank" rel="noopener noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
+                    <a id="open-waze" href="#" target="_blank" rel="noopener noreferrer">Waze <span aria-hidden="true">↗</span></a>
+                    <a id="open-apple-maps" href="#" target="_blank" rel="noopener noreferrer">Apple Maps <span aria-hidden="true">↗</span></a>
+                    <a id="open-openstreetmap" href="#" target="_blank" rel="noopener noreferrer">OpenStreetMap <span aria-hidden="true">↗</span></a>
+                  </div>
+                </section>
                 <div id="map-actions" class="map-actions" hidden>
                   <p data-i18n="mapPrivacy">Loading the map sends map-tile and approximate location requests to OpenStreetMap. Your original media is never sent.</p>
                   <button id="request-map" type="button" class="secondary-button" data-i18n="loadMap">Load interactive map</button>
