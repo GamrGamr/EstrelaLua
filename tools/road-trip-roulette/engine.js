@@ -1,5 +1,6 @@
 import { additionalDestinations, additionalStopMapPoints, additionalStopMapQueries } from "./expanded-destinations.js";
 import { catalogueExpansionDestinations, catalogueExpansionStopMapPoints, catalogueExpansionStopMapQueries } from "./catalogue-expansion-2026-08-04.js";
+import { octoberExpansionDestinations, octoberExpansionStopMapPoints, octoberExpansionStopMapQueries } from "./catalogue-expansion-2026-10-12.js";
 
 export const districts = [
   { id: "aveiro", name: "Aveiro" },
@@ -411,6 +412,7 @@ export const destinations = [
 
 destinations.push(...additionalDestinations);
 destinations.push(...catalogueExpansionDestinations);
+destinations.push(...octoberExpansionDestinations);
 
 const wikipediaSource = (enTitle, ptTitle = enTitle) => ({
   en: `https://en.wikipedia.org/wiki/${encodeURIComponent(enTitle.replaceAll(" ", "_"))}`,
@@ -556,6 +558,7 @@ export const stopMapQueries = {
   estoi: ["Palácio de Estoi", "Ruínas Romanas de Milreu", "Igreja Matriz de Estoi"],
   ...additionalStopMapQueries,
   ...catalogueExpansionStopMapQueries,
+  ...octoberExpansionStopMapQueries,
 };
 
 export const stopMapPoints = {
@@ -624,6 +627,7 @@ export const stopMapPoints = {
   estoi: [{ lat: 37.097111, lon: -7.896496 }, { lat: 37.095167, lon: -7.904026 }, { lat: 37.094267, lon: -7.894888 }],
   ...additionalStopMapPoints,
   ...catalogueExpansionStopMapPoints,
+  ...octoberExpansionStopMapPoints,
 };
 
 const toRadians = (degrees) => degrees * (Math.PI / 180);

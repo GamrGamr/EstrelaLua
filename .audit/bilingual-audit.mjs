@@ -6,7 +6,8 @@ import { calculateHomeEnergy } from "../tools/home-energy-calculator/calculation
 import { buildProviderUrl, parseLocation } from "../tools/map-link-switcher/parser.js";
 import { calculateSplit } from "../tools/partilha-justa/partilha-justa-calculator.js";
 import { buildDestinationGuide, sourceLanguage } from "../tools/road-trip-roulette/guide-data.js";
-import { destinations, districts, findCandidates, googlePlaceUrl, starts, stopMapPoints, stopMapQueries } from "../tools/road-trip-roulette/engine.js";
+import { destinations, districts, findCandidates, googlePlaceUrl, haversineKm, starts, stopMapPoints, stopMapQueries } from "../tools/road-trip-roulette/engine.js";
+import { octoberExpansionDestinations, octoberExpansionStopMapPoints, octoberExpansionStopMapQueries } from "../tools/road-trip-roulette/catalogue-expansion-2026-10-12.js";
 import { timerRecords } from "../tools/gta-online-timers/timer-data.js";
 import { timerTranslationsPt } from "../tools/gta-online-timers/timer-translations-pt.js";
 import { translations as mediaInspectorTranslations } from "../tools/media-inspector/dist/translations.js";
@@ -138,7 +139,12 @@ check("Every GTA timer has a complete Portuguese translation", timerRecords.ever
 check("Every GTA source uses HTTPS", timerRecords.every((record) => record.sources.every((source) => source.url.startsWith("https://"))));
 
 check("Road catalogue covers all mainland districts", districts.length === 18 && districts.every((district) => starts.some((start) => start.districtId === district.id)));
-check("Road catalogue retains broad origin and destination coverage", starts.length >= 280 && destinations.length >= 135);
+check("Road catalogue has the audited origin and destination totals", starts.length === 283 && destinations.length === 171, `${starts.length} origins; ${destinations.length} destinations`);
+check("Road destination IDs are unique", new Set(destinations.map((item) => item.id)).size === destinations.length);
+check("October road expansion has two destinations per mainland district", octoberExpansionDestinations.length === 36 && districts.every((district) => octoberExpansionDestinations.filter((item) => item.district === district.name).length === 2));
+check("October road expansion has 108 unique stop targets", octoberExpansionDestinations.flatMap((item) => octoberExpansionStopMapQueries[item.id]).length === 108 && new Set(octoberExpansionDestinations.flatMap((item) => octoberExpansionStopMapQueries[item.id].map((query) => query.toLocaleLowerCase("pt-PT")))).size === 108);
+check("October road stops use valid nearby mainland coordinates", octoberExpansionDestinations.every((item) => octoberExpansionStopMapPoints[item.id]?.length === 3 && octoberExpansionStopMapPoints[item.id].every((point) => Number.isFinite(point.lat) && Number.isFinite(point.lon) && point.lat >= 36.9 && point.lat <= 42.2 && point.lon >= -9.6 && point.lon <= -6.1 && haversineKm(item, point) <= 30)));
+check("Road destination moods stay within supported filters", destinations.every((item) => item.vibes.every((vibe) => ["coast", "nature", "history", "food", "viewpoint"].includes(vibe))));
 check("Every origin has candidates in all distance bands", starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDistance, maxDistance]) => findCandidates({ origin, minDistance, maxDistance }).length > 0)));
 check("Every origin has candidates in all time bands", starts.every((origin) => [[0, 90], [90, 180], [180, 360]].every(([minDuration, maxDuration]) => findCandidates({ origin, minDuration, maxDuration }).length > 0)));
 check("Every road destination has bilingual content and exact map anchors", destinations.every((item) => item.copy?.en && item.copy?.pt && item.stops?.en?.length === 3 && item.stops?.pt?.length === 3 && stopMapQueries[item.id]?.length === 3 && stopMapPoints[item.id]?.length === 3));
