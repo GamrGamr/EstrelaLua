@@ -1,0 +1,48 @@
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    cursor: url("cursors/cursor-default.png") 1 1, default;
+  }
+
+  :where(
+    p, h1, h2, h3, h4, h5, h6,
+    li, dt, dd, blockquote, figcaption,
+    span, strong, em, small, code, pre,
+    th, td, time, label
+  ) {
+    cursor: url("cursors/cursor-text.png") 16 16, text !important;
+  }
+
+  :where(
+    input:not([type]),
+    input[type="text"], input[type="email"], input[type="password"],
+    input[type="search"], input[type="tel"], input[type="url"],
+    input[type="number"], input[type="date"], input[type="time"],
+    input[type="datetime-local"], input[type="month"], input[type="week"],
+    textarea, [contenteditable]:not([contenteditable="false"]), [role="textbox"]
+  ) {
+    cursor: url("cursors/cursor-text.png") 16 16, text !important;
+  }
+
+  :where(
+    a, button, summary, select,
+    input[type="button"], input[type="submit"], input[type="reset"],
+    input[type="checkbox"], input[type="radio"], input[type="file"],
+    [role="button"], [role="link"], label[for]
+  ),
+  :where(
+    a, button, summary, select,
+    input[type="button"], input[type="submit"], input[type="reset"],
+    input[type="checkbox"], input[type="radio"], input[type="file"],
+    [role="button"], [role="link"], label[for]
+  ) * {
+    cursor: url("cursors/cursor-pointer.png") 14 1, pointer !important;
+  }
+
+  :where(button, input, select, textarea, [role="button"]):disabled,
+  :where(button, input, select, textarea, [role="button"]):disabled *,
+  :where([aria-disabled="true"]),
+  :where([aria-disabled="true"]) * {
+    cursor: not-allowed !important;
+  }
+}

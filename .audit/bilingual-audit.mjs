@@ -23,7 +23,7 @@ const walk = (folder) => readdirSync(folder).flatMap((name) => {
 });
 
 const htmlFiles = walk(root).filter((file) => extname(file) === ".html");
-const publicHtml = htmlFiles.filter((file) => !file.endsWith("tests.html"));
+const publicHtml = htmlFiles.filter((file) => !file.endsWith("tests.html") && !/[\\/]node_modules[\\/]/.test(file));
 const localMissing = [];
 for (const file of htmlFiles) {
   const source = readFileSync(file, "utf8");
@@ -36,6 +36,17 @@ for (const file of htmlFiles) {
   }
 }
 check("All local HTML assets and links resolve", localMissing.length === 0, localMissing.join("; "));
+
+const cursorFiles = ["cursor-default.png", "cursor-text.png", "cursor-pointer.png"].map((name) => join(root, "assets", "cursors", name));
+const isRgbaCursor = (file) => {
+  if (!existsSync(file)) return false;
+  const png = readFileSync(file);
+  return png.length > 25 && png.subarray(1, 4).toString() === "PNG" && png.readUInt32BE(16) === 32 && png.readUInt32BE(20) === 32 && png[25] === 6;
+};
+const cursorCss = readFileSync(join(root, "assets", "custom-cursors.css"), "utf8");
+check("Every public page loads the shared custom cursors", publicHtml.every((file) => readFileSync(file, "utf8").includes("custom-cursors.css")));
+check("Custom cursor assets are transparent 32 px PNG files", cursorFiles.every(isRgbaCursor));
+check("Custom cursors cover default, text, and clickable states on pointer devices", ["cursor-default.png", "cursor-text.png", "cursor-pointer.png"].every((name) => cursorCss.includes(name)) && cursorCss.includes("(hover: hover) and (pointer: fine)") && cursorCss.includes("not-allowed"));
 
 const presentationPages = ["index.html", "apps.html", "legal.html", ...readdirSync(join(root, "apps")).filter((name) => name.endsWith(".html")).map((name) => `apps/${name}`)];
 check("All presentation pages load the shared bilingual runtime", presentationPages.every((name) => readFileSync(join(root, name), "utf8").includes("site-i18n.js")));
