@@ -56,6 +56,7 @@ const mediaInspectorKeys = [...mediaInspectorHtml.matchAll(/data-i18n(?:-[a-z-]+
 check("Every Media Inspector interface key exists in Portuguese and English", mediaInspectorKeys.every((key) => mediaInspectorTranslations.en[key] && mediaInspectorTranslations.pt[key]));
 check("Media Inspector is linked from both catalogues and its detail page", ["index.html", "apps.html"].every((name) => readFileSync(join(root, name), "utf8").includes("apps/media-inspector.html")) && existsSync(join(root, "apps", "media-inspector.html")));
 check("Media Inspector uses its dedicated icon throughout the site", ["index.html", "apps.html", "apps/media-inspector.html", "tools/media-inspector/index.html"].every((name) => readFileSync(join(root, name), "utf8").includes("media-inspector-icon.ico")) && existsSync(join(root, "assets", "media-inspector-icon.ico")));
+check("Media Inspector file details start collapsed", mediaInspectorHtml.includes('<details id="file-section" class="metadata-section">') && !mediaInspectorHtml.includes('<details id="file-section" class="metadata-section" open>'));
 
 const fairSharePages = ["index.html", "apps.html", "apps/partilha-justa.html", "tools/partilha-justa/index.html"];
 check("Fair Share is the displayed English brand name everywhere", fairSharePages.every((name) => readFileSync(join(root, name), "utf8").includes("Fair Share")) && !publicHtml.some((file) => readFileSync(file, "utf8").includes("Partilha Justa")));

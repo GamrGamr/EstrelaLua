@@ -63,6 +63,7 @@ function resetInspector() {
     fileInput.value = "";
     rawSearch.value = "";
     rawSource.replaceChildren();
+    element("#file-section").open = false;
     setVisible(landing, true);
     setVisible(analysisState, false);
     setVisible(errorState, false);
@@ -84,6 +85,7 @@ async function analyseFile(file) {
     destroyPrivacyMap();
     mapLoaded = false;
     recenterMap = undefined;
+    element("#file-section").open = false;
     setVisible(landing, false);
     setVisible(errorState, false);
     setVisible(report, false);
